@@ -1,6 +1,6 @@
 let userss = {
     "user0": {
-        "name": "Swen Breitung",
+        "name": "Groupe 698",
         "email": "1234",
         "password": "1234",
         "color": null,
@@ -119,6 +119,7 @@ function init() {
     loadText();
     searchFirstUrgantDate();
     loadSvgs();
+    markCategory();
     // highlightCurrentPageInHeader();
 }
 
