@@ -42,8 +42,6 @@ function openHeaderMenu() {
 function markCategory() {
     const currentPage = window.location.href.split('/').pop().trim() || 'index.html';
     const links = document.querySelectorAll(`.sidebar-text[href*="${currentPage}"]`);
-    console.log(currentPage);
-    console.log(`Selector: .sidebar-text[href*="${currentPage}"]`);
 
     links.forEach(link => {
         const categoryElement = link.querySelector('.sidebar-text-sub');
