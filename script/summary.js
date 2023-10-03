@@ -114,12 +114,12 @@ let userss = {
 
 
 function init() {
+    markCategory();
     includeHTML();
     loadTimeOfDay();
     loadText();
     searchFirstUrgantDate();
     loadSvgs();
-    markCategory();
     // highlightCurrentPageInHeader();
 }
 

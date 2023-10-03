@@ -50,6 +50,7 @@ function markCategory() {
         categoryElement.style.color = 'white';
 
         const categoryImage = link.querySelector('img');
+        console.log(categoryImage);
         if (categoryImage) {
             const categoryName = categoryElement.textContent.trim().toLowerCase();
             categoryImage.src = `img/${categoryName}ImageWhite.png`;
