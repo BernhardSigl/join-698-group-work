@@ -10,6 +10,15 @@ body {
     z-index: 0 !important;
 }
 
+.rotating {
+    transform: rotate(8deg);
+}
+
+.hidden {
+    display: none;
+}
+
+
 
 .text-line-through {
     text-decoration: line-through;
@@ -188,6 +197,7 @@ body {
     white-space: nowrap;
     margin-bottom: 10px;
     color: rgba(66, 82, 110, 1);
+    padding-left: 10px;
 }
 
 .statusheadline img {
@@ -231,6 +241,7 @@ h3 {
     flex-direction: column;
     overflow: auto;
     gap: 10px;
+    padding: 10px;
 }
 
 .drag-area-highlight {

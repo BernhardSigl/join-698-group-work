@@ -7,6 +7,18 @@ async function initBoard() {
     updateBoardHTML();
 }
 
+document.addEventListener('dragstart', function(e) {
+    if(e.target.classList.contains('task')) {
+        e.target.classList.add('rotating');
+    }
+});
+
+document.addEventListener('dragend', function(e) {
+    if(e.target.classList.contains('task')) {
+        e.target.classList.remove('rotating');
+    }
+});
+
 
 /**
  * This function is used to clear all values of the tasks array
