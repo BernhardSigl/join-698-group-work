@@ -40,17 +40,15 @@ function openHeaderMenu() {
  *
  */
 function markCategory() {
-    const currentPage = window.location.href.split('/').pop() || 'index.html';
-    console.log(currentPage);
+    const currentPage = window.location.href.split('/').pop().trim() || 'index.html';
     const links = document.querySelectorAll(`.sidebar-text[href*="${currentPage}"]`);
-    console.log(links);
+    console.log(currentPage);
+    console.log(`Selector: .sidebar-text[href*="${currentPage}"]`);
 
     links.forEach(link => {
         const categoryElement = link.querySelector('.sidebar-text-sub');
         categoryElement.classList.add('htmlActive');
-
         categoryElement.style.color = 'white';
-
         const categoryImage = link.querySelector('img');
         if (categoryImage) {
             const categoryName = categoryElement.textContent.trim().toLowerCase();

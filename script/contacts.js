@@ -24,6 +24,7 @@ let nextColorIndex = 0;
  * 
  */
 async function initContacts() {
+    await includeHTML();
     await loadContacts();
     renderContacts();
     desktopViewSmall();

@@ -113,14 +113,13 @@ let userss = {
 }
 
 
-function init() {
-    markCategory();
-    includeHTML();
+async function init() {
+    await includeHTML();
     loadTimeOfDay();
     loadText();
     searchFirstUrgantDate();
     loadSvgs();
-    // highlightCurrentPageInHeader();
+    markCategory();
 }
 
 function loadSvgs() {
@@ -136,11 +135,6 @@ function loadText() {
     loadNumersAwaitFeedback();
     loadNumersDone();
     loadNumbersBoard();
-}
-
-function highlightCurrentPageInHeader() {
-    let colorsummary = document.getElementById('summary');
-    colorsummary.classList.add('blue-background');
 }
 
 //----------------------search function------------------------------
