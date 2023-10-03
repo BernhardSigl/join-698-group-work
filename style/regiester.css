@@ -1,0 +1,154 @@
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    background-color: var(--main-color) !important;
+    color: var(--text-white) !important;
+}
+
+.button:hover {
+    background-color: var(--headline) !important;
+}
+
+.button-guest-login {
+    background-color: var(--text-white)!important;
+    color: var(--main-color) !important;
+    margin: 35px;
+    height: 51px !important;
+    min-width: 161 !important;
+    padding-top: 4px !important;
+    padding-right: 16px !important;
+    padding-bottom: 4px !important;
+    padding-left: 16px !important;
+}
+
+.button-log-in {
+    width: 145px !important;
+    height: 51px !important;
+    display: flex;
+}
+
+span {
+    padding-right: 35px;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+.input-fields {
+    margin: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field {
+    justify-content: space-between;
+    display: flex;
+    background-color: var(--text-white);
+    border: 1px solid var(--border-grey);
+    border-radius: 10px;
+    margin-bottom: 29px !important;
+    padding-right: 10px;
+    padding-left: 6px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.checkbox {
+    margin: 35px;
+}
+
+.checkbox a {
+    padding: 3px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    width: 100.034px;
+    height: 121.966px;
+    flex-shrink: 0;
+}
+
+.button-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-warning {
+    background-color: rgba(0, 0, 0, 0.761);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 997;
+}
+
+#dialog-window {
+    z-index: 999;
+    background-color: aliceblue;
+    padding: 10%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04)
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    padding-right: 77px;
+    padding-left: 77px;
+    padding-top: 40px;
+}
+
+.test1 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 61px !important;
+}
+
+.test2 {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+}
+
+@media(max-width: 375px) {
+    body {
+        height: 100vh;
+    }
+    header {
+        padding-top: 12px;
+        padding-right: 12px;
+        padding-left: 15px;
+    }
+    header img {
+        height: 80px;
+    }
+    .logo-container {
+        margin-bottom: 0px;
+    }
+    .dialog {
+        margin-top: 25px;
+    }
+}

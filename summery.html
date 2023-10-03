@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+
+    <link rel="stylesheet" href="templates/header_footer.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/summery.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/fonts.css">
+    <link rel="shortcut icon" href="img/Logo for Favicon construction.svg" type="image/x-icon">
+
+    <script defer src="./templates/templates.js"></script>
+    <script defer src="./script/script.js"></script>
+    <script defer src="./script/summary.js"></script>
+    <script defer src="./script/storge.js"></script>
+    <script defer src="./img/svg.js"></script>
+</head>
+
+<body onload=" init()">
+    <header>
+        <div w3-include-html="templates/sidebar.html"></div>
+        <div w3-include-html="templates/header.html"></div>
+    </header>
+
+    <div id="menu-header-container" class="menu-header-container d-none">
+        <div class="menu-header">
+            <a href="./legalNozice.html">Legal Notiz</a>
+            <a href="./privacy-police.html">Privacy Police</a>
+            <a href="./index.html">Log Out</a>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <div class="width-100P column">
+            <div class="width-100P main-containe">
+                <div class="justifyContent test3">
+                    <div id="header-summary">
+                        <h1>Summary</h1>
+                        <div class="headline">
+                            <div class="summary-line"></div>
+                            <div>Everything in a nutshell!</div>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex gap-32 width-100P p-90px">
+                        <div>
+                            <div class="d-flex  gap-32">
+
+                                <!-- <div class="d-flex data-panel w-50 "> -->
+                                <a href="board.html" class="d-flex data-panel w-50 ">
+                                    <div id="chop-container" class="img-chop"></div>
+
+                                    <div>
+                                        <div id="to-dos" class="fw-bold d-flex align-items-center justify-content-center ">1</div>
+                                        <div>Todo</div>
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+
+
+                                <a href="board.html" id="" class="d-flex data-panel w-50 ">
+                                    <div id="penContainer" class="img-pen"></div>
+                                    <div>
+                                        <div id="done" class="fw-bold d-flex align-items-center justify-content-center ">1</div>
+                                        <div>Done</div>
+                                    </div>
+
+                                </a>
+                            </div>
+
+                            <a href="board.html" class="data-panel">
+                                <div class="urgant">
+                                    <img src="./img/PrioUrgentWhite.svg" alt="">
+                                    <div class="urgant-container">
+                                        <div id="urgent">0</div>urgent
+                                    </div>
+                                </div>
+                                <div class="h-75 line-grey"></div>
+                                <div class="deadline-container">
+                                    <div id="date"> - </div>
+                                    <div class="upcoming-deadline"> Upcoming Deadline </div>
+                                </div>
+
+                            </a>
+
+                            <div class="" id="tasks">
+
+                                <a href="board.html" class="task-cards dialog" id="load-bord-task">
+                                    <div id="board" class="fw-bold d-flex align-items-center justify-content-center">5
+                                    </div>
+                                    <span>task in</span>
+                                    <span> bord</span>
+
+                                </a>
+
+                                <a href="board.html" class="task-cards dialog" id="load-progress-task">
+
+                                    <div id="in-progress" class="fw-bold d-flex align-items-center justify-content-center">5</div>
+                                    <span>task in</span>
+                                    <span> Progress</span>
+
+                                </a>
+
+
+                                <a href="board.html" class="task-cards dialog" id="load-feedback-task">
+                                    <div id="await-feedback" class="fw-bold d-flex align-items-center justify-content-center">5</div>
+                                    <span>Awaiting</span>
+                                    <span> Feedback</span>
+
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="fw-bold greeting-text ">
+                    <div class="d-flex fw-bold d-flex align-items-center justify-content-center  flex-column">
+                        <span id="time-of-day"> Good Morning,</span>
+                        <h1 id="name">Name</h1>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+</div>
