@@ -1,4 +1,4 @@
-isSummery = false;
+issummary = false;
 isAddTask = false;
 isBoard = false;
 isContacts = false;
@@ -13,7 +13,7 @@ function loadHeaderSidebar(boolian) {
 }
 
 function resetBoolians() {
-    isSummery = false;
+    issummary = false;
     isAddTask = false;
     isBoard = false;
     isContacts = false;
@@ -41,7 +41,9 @@ function openHeaderMenu() {
  */
 function markCategory() {
     const currentPage = window.location.href.split('/').pop() || 'index.html';
+    console.log(currentPage);
     const links = document.querySelectorAll(`.sidebar-text[href*="${currentPage}"]`);
+    console.log(links);
 
     links.forEach(link => {
         const categoryElement = link.querySelector('.sidebar-text-sub');
@@ -50,7 +52,6 @@ function markCategory() {
         categoryElement.style.color = 'white';
 
         const categoryImage = link.querySelector('img');
-        console.log(categoryImage);
         if (categoryImage) {
             const categoryName = categoryElement.textContent.trim().toLowerCase();
             categoryImage.src = `img/${categoryName}ImageWhite.png`;

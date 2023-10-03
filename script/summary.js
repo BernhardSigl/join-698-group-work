@@ -139,8 +139,8 @@ function loadText() {
 }
 
 function highlightCurrentPageInHeader() {
-    let colorSummery = document.getElementById('summary');
-    colorSummery.classList.add('blue-background');
+    let colorsummary = document.getElementById('summary');
+    colorsummary.classList.add('blue-background');
 }
 
 //----------------------search function------------------------------

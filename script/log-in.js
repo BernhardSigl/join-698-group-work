@@ -43,7 +43,7 @@ function login() {
     let passwort = document.getElementById('passwort');
     let user = users.find(u => u.email === email.value && u.password === passwort.value);
     if (user) {
-        window.location.href = "./summery.html";
+        window.location.href = "./summary.html";
     } else {
         loadRedBorderInput();
         loadWarningTextTamplate();
