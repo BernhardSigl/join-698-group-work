@@ -2,6 +2,33 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Inter' !important;
+}
+
+.dialogSignUp {
+    position: relative;
+    background-color: var(--text-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04) !important;
+    border-radius: 30px !important;
+    width: auto;
+    padding: 48px 88px;
+}
+
+.signUpUnderlineContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mobileBackArrowId {
+    position: absolute;
+    top: 60px !important;
+    left: 88px !important;
 }
 
 .button {
@@ -14,7 +41,7 @@ body {
 }
 
 .button-guest-login {
-    background-color: var(--text-white)!important;
+    background-color: var(--text-white) !important;
     color: var(--main-color) !important;
     margin: 35px;
     height: 51px !important;
@@ -40,31 +67,52 @@ input {
     outline: none;
 }
 
-.input-fields {
-    margin: 35px;
-    display: flex;
-    flex-direction: column;
-}
-
 .input-field {
     justify-content: space-between;
     display: flex;
+    width: 422px;
     background-color: var(--text-white);
     border: 1px solid var(--border-grey);
     border-radius: 10px;
-    margin-bottom: 29px !important;
-    padding-right: 10px;
-    padding-left: 6px;
-    padding-bottom: 4px;
-    padding-top: 4px;
+    margin-bottom: 24px !important;
+    padding: 12px 21px;
 }
 
-.checkbox {
-    margin: 35px;
+.input-field img {
+    width: 24px;
+    height: 24px;
 }
 
-.checkbox a {
+#myCheckbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+.checkboxSignUp a {
     padding: 3px;
+    text-decoration: none;
+    margin-left: 4px;
+    color: var(--headline);
+}
+
+.checkboxSignUp {
+    display: flex !important;
+    align-content: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: auto;
+    width: 100%;
+    padding: 0 39px;
+    margin: 8px 0 32px !important;
+}
+
+.signUpBtnRegister {
+    border-radius: 8px;
+    background: #2A3647;
+    color: white;
+    border: none;
+    padding: 15px 24px;
 }
 
 .logo-container {
@@ -115,39 +163,29 @@ header {
     padding-top: 40px;
 }
 
-.test1 {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    font-size: 61px !important;
-}
-
-.test2 {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    align-items: center;
-}
-
 @media(max-width: 375px) {
     body {
         height: 100vh;
     }
+
+    .input-field {
+        width: auto;
+    }
+
     header {
         padding-top: 12px;
         padding-right: 12px;
         padding-left: 15px;
     }
+
     header img {
         height: 80px;
     }
+
     .logo-container {
         margin-bottom: 0px;
     }
+
     .dialog {
         margin-top: 25px;
     }

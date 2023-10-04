@@ -85,14 +85,14 @@ function loadTemplateResetPasswort() {
     return /*html*/ `
     <img src="img/arror-left.svg" alt="" onclick="closeDialog()">
     <form action="">
-    <h1>I forgot my passwort</h1>
-    <span>Don´t worry! We send you an email with the instrctions to reset your passwort.</span>
+    <h1>I forgot my password</h1>
+    <span>Don´t worry! We send you an email with the instrctions to reset your password.</span>
 
     <div  class="input-field">
         <input type="text" placeholder="EMail">
             <img src="./img/letter.svg" alt="Bild hinten" class="input-suffix">   
     </div>  
-    <button type="button" class="btn btn-dark button" onsubmit>Send new Passwort</button>  
+    <button type="button" class="btn btn-dark button" onsubmit>Send new password</button>  
     </form>
     `
 }
@@ -100,40 +100,43 @@ function loadTemplateResetPasswort() {
 
 function loadTempleteLogIn() {
     return /*html*/ `
-         <div>
-                <div class="h1">
-                    <h1>Log in</h1>
+                <div class="logInTitle">
+                    <div class="fontSize61"><b>Log in</b></div>
                     <div class="underline"></div>
                 </div>
-                <div  class="input-fields">
+                <div  class="input-fields fontSize20">
                     <div id="input-email" class="input-field ">
-                        <input id="email" type="text" placeholder="EMail">
+                        <input id="email" type="text" placeholder="Email">
                         <img src="./img/letter.svg" alt="Bild hinten" class="input-suffix">
                     </div>
                     <div class="warning-field">
                     <span id="warning-text-email" class="d-none">
-                    Bitte gebe die passende E-Mailadresse ein.
+                    Please enter the appropriate email address.
                     </span>
                     </div>
                     <div id="input-passwort" class="input-field">
-                        <input id="passwort" type="text" placeholder="passwort">
+                        <input id="passwort" type="text" placeholder="Password">
                         <img src="./img/lock.svg" alt="Bild hinten" class="input-suffix">
                     </div>
                     <div class="warning-field">
                     <span id="warning-text-passwort" class="d-none">
-                    Bitte gebe das passende Passwort ein.
+                    Please enter the appropriate password.
                     </span>
                     </div>
                 </div>
 
-                <div class="checkbox">
-                    <input type="checkbox" name="myCheckbox" id="myCheckbox">
-                    <label for="myCheckbox">Remember me</label>
-                    <a onclick="resetPasswort()" class="checkbox-register" href="javascript:void(0);">Forget my Password</a>
+                <div class="rememberMeForgetMyPasswordContainer">
+                    <div class="checkboxRememberMeContainer">
+                        <input type="checkbox" name="myCheckbox" id="myCheckbox">
+                        <label for=" fontSize16">Remember me</label>
+                    </div>
+                    <div>
+                        <a onclick="resetPasswort()" class="checkbox-register" href="javascript:void(0);">Forget my Password</a>
+                    </div>
                 </div>
-                <div class="buttons">
-                    <button onclick="login()" type="button" class="btn btn-dark button button-log-in">Log in</button>
-                    <button onclick='guestLogin()' type="button" class="btn btn-dark button-guest-login">Guest Log in</button>
+                <div class="fontSize21 buttonsUnderLogin">
+                    <button onclick="login()" type="button" class="button-log-in">Log in</button>
+                    <button onclick='guestLogin()' type="button" class="button-guest-login">Guest log in</button>
                 </div>
             </div>
     `

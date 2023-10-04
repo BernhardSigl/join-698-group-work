@@ -447,6 +447,7 @@ function saveContact(i) {
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
     console.log("Fensterbreite: ", window.innerWidth);
+
     showNotOnMobileView('mobileVisibilityId');
 
     closePopup();

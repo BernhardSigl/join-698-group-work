@@ -1,12 +1,8 @@
-/* all colors in style.css */
-
-
-/* body in css */
-
 body {
     display: flex;
     flex-direction: column;
     background-color: var(--body-background-color) !important;
+    font-family: 'Inter' !important;
 }
 
 .button {
@@ -18,35 +14,37 @@ body {
     background-color: var(--headline) !important;
 }
 
+.button-log-in,
 .button-guest-login {
-    background-color: var(--text-white)!important;
+    height: auto;
+    width: auto;
+    padding: 15px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.button-guest-login {
+    background-color: var(--text-white) !important;
     color: var(--main-color) !important;
-    /* margin: 30px; */
-    height: 51px !important;
-    width: 145px !important;
-    min-width: 161 !important;
-    padding-top: 4px !important;
-    padding-right: 16px !important;
-    padding-bottom: 4px !important;
-    padding-left: 16px !important;
+    border: 1px solid var(--version-2-main-color, #2A3647);
+    margin-left: calc(35px / 2);
 }
 
 .button-guest-login:hover {
     border-color: var(--headline) !important;
     border-width: 2px;
     color: var(--headline) !important;
-    /* background-color: var(--text-white)!important; */
 }
 
 .button-log-in {
-    width: 145px !important;
-    height: 51px !important;
+    background-color: #2A3647;
+    color: white;
+    border: none;
+    margin-right: calc(35px / 2);
 }
 
 .button-log-in:hover {
     background-color: var(--headline) !important;
-    width: 145px !important;
-    height: 51px !important;
 }
 
 span {
@@ -56,6 +54,18 @@ span {
 input {
     border: none;
     outline: none;
+}
+
+.signInBtn {
+    padding: 15px 16px;
+    border-radius: 8px;
+    background: #2A3647;
+    color: white;
+    border: none;
+}
+
+.signInBtn:hover {
+    background-color: var(--headline)
 }
 
 .input-fields {
@@ -70,14 +80,47 @@ input {
     background-color: var(--text-white);
     border: 1px solid var(--border-grey);
     border-radius: 10px;
-    padding-right: 10px;
-    padding-left: 6px;
-    padding-bottom: 4px;
-    padding-top: 4px;
+    padding: 12px 21px;
+    width: 422px;
+    height: auto;
 }
 
-.checkbox {
-    margin: 35px;
+.input-field img {
+    width: 24px;
+    height: auto;
+}
+
+.rememberMeForgetMyPasswordContainer {
+    display: flex !important;
+    justify-content: space-between;
+    align-content: center !important;
+    align-items: center !important;
+    height: auto;
+    width: 100%;
+    padding: 0 39px;
+    margin: 8px 0 32px;
+}
+
+.logInTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rememberMeForgetMyPasswordContainer a {
+    text-decoration: none;
+    color: var(--headline);
+}
+
+.checkboxRememberMeContainer {
+    display: flex;
+    align-items: center;
+}
+
+#myCheckbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
 }
 
 .checkbox a {
@@ -89,6 +132,11 @@ input {
     align-items: center;
     justify-content: center;
     gap: 32px;
+}
+
+.buttonsUnderLogin {
+    display: flex;
+    justify-content: center;
 }
 
 header {
@@ -107,10 +155,13 @@ header {
 #warning-text-passwort,
 #warning-text-email {
     color: var(--color-red);
+    font-size: 16px;
 }
 
 .warning-field {
-    height: 29px;
+    height: 32px;
+    display: flex;
+    align-items: center;
 }
 
 .h1 {
@@ -136,10 +187,11 @@ header {
     font-weight: bold;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     body {
         padding: 12px;
     }
+
     header {
         display: flex;
         justify-content: space-between;
@@ -148,9 +200,11 @@ header {
         padding-right: 15px;
         padding-left: 15px;
     }
+
     span {
         font-weight: bold;
     }
+
     .sing-up-mobile {
         padding-top: 90px;
         display: flex;
@@ -159,6 +213,7 @@ header {
         z-index: 1;
         align-items: center;
     }
+
     .button-sing-up-mobile {
         height: 48px !important;
         width: 80px !important;
@@ -167,22 +222,28 @@ header {
         align-items: center !important;
         justify-content: center !important;
     }
+
     #sing-up {
         display: none;
     }
+
     span {
         padding-right: 0;
     }
+
     .dialog {
         margin-top: 30px;
     }
+
     .btn-dark {
         margin-right: 0;
         margin-left: 2%;
     }
+
     .checkbox a {
         padding: 10px;
     }
+
     .buttons {
         display: flex;
         flex-direction: column;
@@ -196,17 +257,21 @@ header {
         padding-top: 44px;
         height: 0;
     }
+
     .checkbox {
         margin: 10px;
     }
+
     body {
         height: 100vh;
     }
+
     header {
         padding-top: 12px;
         padding-right: 12px;
         padding-left: 15px;
     }
+
     header img {
         height: 80px;
     }
