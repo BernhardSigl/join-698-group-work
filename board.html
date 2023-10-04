@@ -60,7 +60,7 @@
                 <section>
                     <div class="statusheadline">
                         <h3>To do</h3>
-                        <img onclick="openCard()" src="img/Property 1=Default.svg" alt="Not found">
+                        <img onclick="addQuickTaskBoard('toDo')" src="img/Property 1=Default.svg" alt="Not found">
                     </div>
 
                     <div id="toDo" class="drag-area" ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDo')"
@@ -71,7 +71,7 @@
                 <section>
                     <div class="statusheadline">
                         <h3>In progress</h3>
-                        <img onclick="addTask()" src="img/Property 1=Default.svg" alt="Not found">
+                        <img onclick="addQuickTaskBoard('in-progress')" src="img/Property 1=Default.svg" alt="Not found">
                     </div>
 
                     <div id="in-progress" class="drag-area" ondrop="moveTo('in-progress')"
@@ -86,7 +86,7 @@
                         <div>
                             <h3>Await Feedback</h3>
                         </div>
-                        <img onclick="addTask()" src="img/Property 1=Default.svg" alt="Not found ">
+                        <img onclick="addQuickTaskBoard('awaiting-feedback')" src="img/Property 1=Default.svg" alt="Not found ">
                     </div>
 
 
@@ -99,7 +99,7 @@
                 <section>
                     <div class="statusheadline">
                         <h3>Done</h3>
-                        <img onclick="addTask()" src="img/Property 1=Default.svg" alt="Not found ">
+                        <img onclick="addQuickTaskBoard('done')" src="img/Property 1=Default.svg" alt="Not found ">
                     </div>
 
                     <div id="done" class="drag-area" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"

@@ -205,6 +205,10 @@ body {
     width: 20px;
 }
 
+.statusheadline img:hover {
+  cursor: pointer;
+}
+
 h3 {
     font-size: 18px !important;
     margin: 0 !important;

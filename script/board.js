@@ -20,6 +20,35 @@ document.addEventListener('dragend', function(e) {
 });
 
 
+
+async function addQuickTaskBoard(status) {
+    contactNames = contactCollection.map(contact => contact.name);
+    contactColors = contactCollection.map(contact => contact.color);
+    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
+    let task = {
+        'id': currentId,
+        'status': status,
+        'category': currentCategorySelected[0].name,
+        'categoryColor': currentCategorySelected[0].color,
+        'title': titleAddTask,
+        'description': descriptionAddTask,
+        'dueDate': dueDateAddTask,
+        'priority': currentPrioSelected,
+        'contactName': contactNames,
+        'contactColor': contactColors,
+        'contactAbbreviation': contactNamesAbbreviation,
+        'subtasksInProgress': subTaskCollection,
+        'subtasksFinish': subtasksFinish,
+    }
+    tasks.push(task);
+    currentId++;
+    await setItem('tasks', JSON.stringify(tasks));
+    await setItem('currentId', JSON.stringify(currentId));
+    resetAllAddTaskElements();
+}
+
+
+
 /**
  * This function is used to clear all values of the tasks array
  * 
