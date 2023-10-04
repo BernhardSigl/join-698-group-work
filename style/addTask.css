@@ -833,6 +833,41 @@ ul {
     padding: 0px 25px;
 }
 
+.successfullyBtn {
+    position: absolute;
+    bottom: 160px;
+    left: 711px;
+    background: #2A3647;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 326px;
+    height: 74px !important;
+}
+
+.horicontalAndVertical {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease;
+}
+
+.slide-out {
+    animation: slideOut 0.5s ease;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(400%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
 
 @media (max-width: 1080px) {
 
@@ -1314,9 +1349,19 @@ ul {
         border: 2px solid white;
         border-radius: 50%;
         padding: 0px 25px;
-
     }
 
+    .fontSize61 {
+        font-size: 47px !important;
+    }
+
+    .fontSize27 {
+        font-size: 20px !important;
+    }
+
+    .fontSize47 {
+        font-size: 36px !important;
+    }
 
 }
 

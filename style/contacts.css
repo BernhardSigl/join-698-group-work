@@ -644,7 +644,6 @@ section {
         flex-direction: column !important;
         align-items: center;
         height: calc(100vh - 20px) !important;
-        /* width: calc(100vw - 32px) !important; */
         width: 592px !important;
     }
 
@@ -652,7 +651,6 @@ section {
         border-top-right-radius: 30px !important;
         border-bottom-left-radius: 0 !important;
         height: calc(100vh * 0.4) !important;
-        /* width: calc(100vw - 32px) !important; */
         width: 592px !important;
         padding: 66px 24px !important;
     }

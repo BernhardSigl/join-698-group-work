@@ -120,7 +120,7 @@
                 <div class="addContactPopupBoxRightFormPosition">
                     <form onsubmit="createContactByPopup(); return false;">
                         <div class="custom-select">
-                            <input required id="inputNameId" placeholder="Name" type="text">
+                            <input required id="inputNameId" class="fontSize20" placeholder="Name" type="text">
                             <img class="inputAbsolut" src="img/person-white.svg" alt="">
                         </div>
                         <div class="custom-select">
@@ -190,6 +190,10 @@
             </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
+    <section class="successfullyBtn horicontalAndVertical fontSize20 d-none" id="successfullyCreatedId">
+        Contact succesfully created
+    </section>
 </body>
 
 </html>

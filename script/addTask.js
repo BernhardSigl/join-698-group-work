@@ -553,6 +553,7 @@ function deselectContact(mainElement, firstSecondary, secondSecondary) {
 }
 
 async function createContactByPopup() {
+    changesSaved();
     let name = document.getElementById('inputNameId').value
     let newContact = {
         "name": name,
