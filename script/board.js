@@ -333,7 +333,7 @@ function renderTaskdetailHTML(i) {
             <div class="task-detail-content-container">
                 <div class="task-detail-top">
                     <div class="task-detail-category"> ${tasks[i]['category']}</div>
-                    <img onclick="closeTask()" src="img/close.svg" alt="close">
+                    <img onclick="closeTask()" src="img/crossAddTask.svg" alt="close" class="close-hover">
                 </div>
                 <div class="task-detail-content">
                     <div class="task-detail-title">

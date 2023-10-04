@@ -203,6 +203,8 @@ body {
 
 .statusheadline img:hover {
   cursor: pointer;
+  background-color: #D1D1D1;
+  border-radius: 8px;
 }
 
 h3 {
@@ -265,6 +267,7 @@ h3 {
 
 .task:hover {
     cursor: pointer;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -311,8 +314,10 @@ h3 {
     /* overflow: auto; */
 }
 
-.task-detail img {
+.close-hover:hover {
     cursor: pointer;
+    background-color: #EEE;
+    border-radius: 50%;
 }
 
 .task-detail-font-color {
@@ -401,7 +406,7 @@ h3 {
 .delete-edit-buttons:hover{
     cursor: pointer;
     background-color: #EEE;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 
