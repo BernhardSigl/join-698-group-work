@@ -619,8 +619,8 @@ h3 {
         position: absolute;
         left: 0px;
         right: 0px;
-        top: 60px;
-        bottom: 80px;
+        top: 55px;
+        bottom: 85px;
         display: flex;
         flex-direction: column;
         max-width: calc(100vw);
