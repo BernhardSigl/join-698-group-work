@@ -241,6 +241,7 @@ h3 {
     flex-direction: column;
     overflow: auto;
     gap: 10px;
+    border-radius: 10px;
     padding: 20px 15px 20px 15px;
 }
 
