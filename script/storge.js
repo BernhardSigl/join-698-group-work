@@ -3,6 +3,10 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 let tasks = [];
 let user = [];
+let activUser = {
+    'name': '',
+    'color': '',
+}
 
 async function loadTasks() {
     try {
@@ -12,6 +16,14 @@ async function loadTasks() {
         console.info('Could not load tasks');
     }
 }
+
+
+
+
+
+
+
+
 
 
 async function setItem(key, value) {

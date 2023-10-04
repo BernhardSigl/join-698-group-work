@@ -1,40 +1,13 @@
 let registerBtn = document.getElementById('registerBtn');
 let checkbox = document.getElementById("myCheckbox");
 
-async function init() {
-    loadUsers();
+async function initRegister() {
+    await loadUserGroup698()
 }
 
 
 function signUp() {
     dialog.innerHTML = loadTemplateSignUp();
-}
-
-
-
-async function loadUsers() {
-    try {
-        users = JSON.parse(await getItem('users'));
-    } catch (e) {
-        console.error('Loading error:', e);
-    }
-}
-
-
-
-async function register() {
-    if (checkbox.checked) {
-        registerBtn.disabled = true;
-
-        users.push({
-            name: userName.value,
-            email: email.value,
-            password: password.value,
-        });
-        await setItem('users', JSON.stringify(users));
-        resetForm();
-        window.location = 'index.html';
-    }
 }
 
 
@@ -57,9 +30,10 @@ async function registUser() {
     }
 }
 
+
 async function loadUserGroup698() {
     try {
-        users = JSON.parse(await getItem('userGroup698'));
+        user = JSON.parse(await getItem('userGroup698'));
     } catch (e) {
         console.error('Loading error:', e);
     }

@@ -1,11 +1,15 @@
 let dialog = document.getElementById('dialog');
 
 
-function init() {
+async function initLogin() {
+    activUser = {
+        'name': '',
+        'color': '',
+    };
+    saveActivUser();
     startAnimation();
     loadLogIn();
-    loadUsers();
-
+    await loadUserGroup698();
 }
 
 
@@ -41,14 +45,37 @@ function closeDialog() {
 function login() {
     let email = document.getElementById('email');
     let passwort = document.getElementById('passwort');
-    let user = users.find(u => u.email === email.value && u.password === passwort.value);
-    if (user) {
+    let users = user.find(u => u.email === email.value && u.password === passwort.value);
+    let currentUser = user.findIndex(u => u.email === email.value);
+    if (users) {
+        activUser['name'] = user[currentUser].name;
+        activUser['color'] = user[currentUser].color;
+        saveActivUser();
         window.location.href = "./summary.html";
     } else {
         loadRedBorderInput();
         loadWarningTextTamplate();
     }
 }
+
+function guestLogin() {
+    activUser.name = 'Guest';
+    activUser.color = '#29ABE2';
+    saveActivUser();
+    window.location.href = "./summary.html";
+}
+
+function saveActivUser() {
+    localStorage.setItem('activUserAsText', JSON.stringify(activUser));
+}
+
+function loadActivUser() {
+    let activUserLoad = localStorage.getItem('activUserAsText');
+    if (activUserLoad) {
+        activUser = JSON.parse(activUserLoad);
+    }
+}
+
 
 function loadRedBorderInput() {
     let inputIds = ["input-email", "input-passwort"];
@@ -116,7 +143,7 @@ function loadTempleteLogIn() {
                 </div>
                 <div class="buttons">
                     <button onclick="login()" type="button" class="btn btn-dark button button-log-in">Log in</button>
-                    <button type="button" class="btn btn-dark button-guest-login">Guest Log in</button>
+                    <button onclick='guestLogin()' type="button" class="btn btn-dark button-guest-login">Guest Log in</button>
                 </div>
             </div>
     `
