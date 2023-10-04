@@ -124,12 +124,6 @@ async function init() {
     animationAdded = false;
 }
 
-function loadSvgs() {
-    loadSvgPen();
-    loadSvgChop();
-}
-
-
 function loadText() {
     loadUserName();
     loadNumersToDo();
@@ -242,11 +236,26 @@ function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) 
     document.getElementById('urgent').innerHTML = urgent;
 }
 
-// function loadSvgs() {
-//     loadSvgPen();
-//     loadSvgChop();
-// }
+//----------------- load Time of Day------------------
+function loadTimeOfDay() {
+    let HoursOfTheDay = document.getElementById('time-of-day');
+    HoursOfTheDay.innerHTML = getTimeOfDay();
+}
 
+function getTimeOfDay() {
+    const currentHour = new Date().getHours();
+
+    if (currentHour >= 0 && currentHour < 6) {
+        return '<span class="time-of-day">Schöne </span><span class="time-of-day">Nacht</span>';
+    } else if (currentHour >= 6 && currentHour < 12) {
+        return '<span class="time-of-day">Guten </span> <span class="time-of-day"> Morgen</span>';
+
+    } else if (currentHour >= 12 && currentHour < 18) {
+        return '<span class="time-of-day">Guten</span> <span class="time-of-day">Nachmittag</span>';
+    } else {
+        return '<span class="time-of-day">Guten  </span class="time-of-day"><span>Abend</span>';
+    }
+}
 
 // function loadText() {
 //     loadUserName();
@@ -257,15 +266,15 @@ function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) 
 //     loadNumbersBoard();
 // }
 
-// //----------------------search function------------------------------
-// //---Search User name----------------------------
+// ----------------------search function------------------------------
+// ---Search User name----------------------------
 // function loadUserName() {
 //     userName = document.getElementById('name')
 //     userName.innerText = userss['user0']['name'];
 // }
 
 
-// //----------------------search function cards------------------------------
+// ----------------------search function cards------------------------------
 // function loadNumbersBoard() {
 //     let toDos = searchNumbers(userss['user0']['cards']['toDo']);
 //     let inProgress = searchNumbers(userss['user0']['cards']['inProgress']);
@@ -324,32 +333,9 @@ function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) 
 //     urgentDate.innerHTML = findLatestDate(userss['user0']['cards']);
 // }
 
-// //======================== search function cards END==============================
+// ======================== search function cards END==============================
 
-
-
-// //----------------- load Time of Day------------------
-// function loadTimeOfDay() {
-//     let HoursOfTheDay = document.getElementById('time-of-day');
-//     HoursOfTheDay.innerHTML = getTimeOfDay();
-// }
-
-// function getTimeOfDay() {
-//     const currentHour = new Date().getHours();
-
-//     if (currentHour >= 0 && currentHour < 6) {
-//         return '<span class="time-of-day">Schöne </span><span class="time-of-day">Nacht</span>';
-//     } else if (currentHour >= 6 && currentHour < 12) {
-//         return '<span class="time-of-day">Guten </span> <span class="time-of-day"> Morgen</span>';
-
-//     } else if (currentHour >= 12 && currentHour < 18) {
-//         return '<span class="time-of-day">Guten</span> <span class="time-of-day">Nachmittag</span>';
-//     } else {
-//         return '<span class="time-of-day">Guten  </span class="time-of-day"><span>Abend</span>';
-//     }
-// }
-
-// //===================load Time of Day END============================
+// ===================load Time of Day END============================
 
 // function countUrgentTasks(obj) {
 //     let urgentCount = 0;
@@ -380,7 +366,7 @@ function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) 
 // }
 
 
-// // Diese Funktion vergleicht zwei Daten im Format "TT.MM.JJ"
+// Diese Funktion vergleicht zwei Daten im Format "TT.MM.JJ"
 // function compareDates(date1, date2) {
 //     const [day1, month1, year1] = date1.split('.').map(Number);
 //     const [day2, month2, year2] = date2.split('.').map(Number);
@@ -405,43 +391,3 @@ function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) 
 //     if (month1 !== month2) return month1 - month2;
 //     return day1 - day2;
 // }
-
-// //------------------load SVGs------------------------------------
-
-// /**
-//  * Loads the Chop-SVG into the designated container.
-//  *
-//  * This function sets the content of the element with the ID 'chop-container'
-//  * to the returned SVG from the `loadChopSvg` function.
-//  */
-// function loadSvgChop() {
-//     /** @type {HTMLElement|null} The element where the SVG will be loaded into */
-//     const chopSVGContainer = document.getElementById('chop-container');
-
-//     /** @type {string} The SVG content to be loaded */
-//     const chopSVGContent = loadChopSvg();
-
-//     if (chopSVGContainer) {
-//         chopSVGContainer.innerHTML = chopSVGContent;
-//     }
-// }
-
-
-// /**
-//  * Loads the Pen-SVG into the designated container.
-//  *
-//  * This function sets the content of the element with the ID 'penContainer'
-//  * to the returned SVG from the `loadPenSvg` function.
-//  */
-// function loadSvgPen() {
-//     /** @type {HTMLElement|null} The element where the SVG will be loaded into */
-//     const penSVGContainer = document.getElementById('penContainer');
-
-//     /** @type {string} The SVG content to be loaded */
-//     const penSVGContent = loadPenSvg();
-
-//     if (penSVGContainer) {
-//         penSVGContainer.innerHTML = penSVGContent;
-//     }
-// }
-// //====================load SVGs END============================
