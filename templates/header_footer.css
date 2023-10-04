@@ -262,7 +262,7 @@
     }
 
     .quickLinksSidebar {
-        display: none;
+        display: none !important;
     }
 
     .sideBarCategory:hover {

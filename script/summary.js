@@ -120,6 +120,8 @@ async function init() {
     searchFirstUrgantDate();
     loadSvgs();
     markCategory();
+    addAnimationOnResize();
+    animationAdded = false;
 }
 
 function loadSvgs() {
@@ -144,7 +146,35 @@ function loadUserName() {
     userName.innerText = userss['user0']['name'];
 }
 
+/**
+ * This function is used to load a function if someone resize the page
+ * 
+ */
+function addAnimationOnResize() {
+    if (window.innerWidth <= 1070) {
+        addAnimation();
+        animationAdded = true;
+    } else if (window.innerWidth > 1070) {
+        const greetingText = document.querySelector('.greeting-text');
+        greetingText.classList.remove('fade-out');
+        greetingText.classList.remove('hidden');
+        animationAdded = false;
+    }
+}
 
+/**
+ * This function is used to create an animation to fade out the greeting message
+ * 
+ */
+function addAnimation() {
+    const greetingText = document.querySelector('.greeting-text');
+    greetingText.classList.add('fade-out');
+
+    setTimeout(function () {
+        greetingText.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }, 3000);
+}
 //----------------------search function cards------------------------------
 function loadNumbersBoard() {
     let toDos = searchNumbers(userss['user0']['cards']['toDo']);
