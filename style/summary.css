@@ -48,6 +48,8 @@ body {
     text-align: center;
     margin-top: 225px;
     align-items: flex-start;
+    margin-right: 96px;
+    margin-left: 16px;
 }
 
 .data-panel {
@@ -172,7 +174,11 @@ body {
     text-align: start;
 }
 
-@media (max-width: 1070px) {
+.leftContainer {
+    margin-left: 96px;
+}
+
+@media (max-width: 1100px) {
     .greeting-text {
         background-color: white;
         position: fixed;
