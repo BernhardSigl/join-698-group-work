@@ -42,14 +42,19 @@
 
 .headBoxRightUserCircle {
     border-radius: 50%;
-    font-size: 15px;
-    width: 38px;
-    height: 38px;
-    padding: 5.5px;
+    width: 56px;
+    height: 56px;
     color: #29ABE2;
-    border: 2px solid black;
+    border: 3px solid black;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
+.headBoxRightUserCircle:hover {
+    background: #E1E5EC;
+    cursor: pointer;
+}
 
 /*------------------------------------------------*/
 

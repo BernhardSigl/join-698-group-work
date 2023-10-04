@@ -60,6 +60,6 @@ function userCircle() {
     let nameParts = activUser.name.split(' ');
     let firstName = nameParts[0];
     let lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
-    let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+    let nameAbbreviation = `<b>${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}</b>`;
     container.innerHTML = nameAbbreviation
 }
