@@ -5,7 +5,18 @@ async function initBoard() {
     includeHTML();
     await loadTasks();
     updateBoardHTML();
+    countTasks();
 }
+
+function countTasks(){
+    console.log(tasks)
+    let todo = tasks.filter(t => t['status'] == 'toDo').length;
+    let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
+    let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
+    let done = tasks.filter(t => t['status'] == 'done').length;
+    console.log(todo, inProgress, awaitingFeedback, done)
+}
+
 
 document.addEventListener('dragstart', function(e) {
     if(e.target.classList.contains('task')) {
@@ -221,8 +232,9 @@ function updateBoardHTML() {
 }
 
 
+
 function generateTaskHTML(element) {
-    console.log(element);
+    console.log(tasks)
     let i = element['id']
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
