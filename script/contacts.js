@@ -112,7 +112,7 @@ function loadContactInfos(contact, nameAbbreviation, i) {
             ${nameAbbreviation}
         </spline>
     </div>
-    <div class="column">
+    <div class="column gap5">
         <spline class="fontSize20">${maxLetters(contact['name'], 19)}</spline>
             <spline class="fontSize16 emailScrollMenu">${maxLetters(contact['email'], 25)}</spline>
     </div>

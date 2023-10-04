@@ -462,7 +462,10 @@ input {
     white-space: nowrap;
 }
 
-/* Basics */
+.gap5 {
+    gap: 5px;
+}
+
 a {
     text-decoration: none !important;
 }
