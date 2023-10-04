@@ -52,8 +52,9 @@
                         <div>
                             <div class="d-flex gap-32">
                                 <a href="board.html" class="d-flex data-panel w-50 ">
-                                    <img src="./img/stiftblau.png">
-
+                                    <div class="penHover">
+                                        <img class="data-panel-small-img" src="./img/stiftblau.png">
+                                    </div>
                                     <div class="columnCenter">
                                         <div id="to-dos" class="fontSize64">0
                                         </div>
@@ -62,13 +63,8 @@
                                 </a>
 
                                 <a href="board.html" id="" class="d-flex data-panel w-50 ">
-                                    <div class="svgHover">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70"
-                                            viewBox="0 0 70 70" fill="none">
-                                            <circle cx="35" cy="35" r="34.5" fill="#2A3647" />
-                                            <path d="M20.0283 35.0001L31.2571 46.0662L49.9717 23.9341" stroke="white"
-                                                stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
+                                    <div class="doneHover">
+                                        <img class="data-panel-small-img" src="./img/hackenblau.png">
                                     </div>
                                     <div>
                                         <div id="done"
@@ -83,7 +79,9 @@
 
                             <a href="board.html" class="data-panel-big">
                                 <div class="urgent">
-                                    <img src="./img/PrioUrgentWhite.svg" alt="">
+                                    <div class="data-panel-big-background">
+                                        <img class="data-panel-big-img" src="./img/PrioUrgentWhite.svg">
+                                    </div>
                                     <div class="urgent-container">
                                         <div id="urgent" class="fontSize64">0</div><span
                                             class="fontSize20">Urgent</span>

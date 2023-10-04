@@ -88,13 +88,12 @@ body {
     color: var(--main-background-color) !important;
 }
 
-
-.svgHover:hover path {
-    fill: #2A3647;
+.data-panel:hover .penHover img {
+    content: url('/img/stiftweiss.png');
 }
 
-.svgHover circle:hover {
-    fill: white;
+.data-panel:hover .doneHover img {
+    content: url('/img/hackenweiss.png');
 }
 
 .data-panel-big:hover,
@@ -127,14 +126,26 @@ body {
     color: var(--headline);
 }
 
-.data-panel-big img,
-.data-panel img {
+.data-panel-big-background {
     background-color: var(--color-red);
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: 10px solid var(--color-red);
     object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.data-panel-big-img {
+    width: 34.186px;
+    height: 25.116px;
+}
+
+.data-panel-small-img {
+    width: 69px !important;
+    height: 69px !important;
 }
 
 .data-panel-big,
