@@ -110,7 +110,7 @@ function loadContactInfos(contact, nameAbbreviation, i) {
     <div class="horicontal contactsInfo pointer"
     onclick="openContactBigInfo(contactsArray[${i}], ${i}, '${nameAbbreviation}')">
     <div class="profilePicture horicontalAndVertical" style="background-color: ${contact.color}">
-        <spline class="fontSize12">
+        <spline class="fontSize12 nameAbbreviation">
             ${nameAbbreviation}
         </spline>
     </div>
@@ -446,7 +446,7 @@ function saveContact(i) {
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
-    toggleVisibility('mobileVisibilityId', false);
+    showNotOnMobileView('mobileVisibilityId');
 
     closePopup();
     highlightContact(i);

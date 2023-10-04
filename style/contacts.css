@@ -465,6 +465,10 @@ input {
     margin-top: 4px;
 }
 
+.nameAbbreviation {
+    margin-top: 2px !important;
+}
+
 /* Basics */
 .nowrap {
     white-space: nowrap;
