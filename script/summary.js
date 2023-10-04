@@ -124,27 +124,22 @@ function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) 
 
 //----------------- load Time of Day------------------
 function loadTimeOfDay() {
-    let Username = activUser.name;
     let HoursOfTheDay = document.getElementById('time-of-day');
-    HoursOfTheDay.innerHTML = getTimeOfDay(Username);
+    HoursOfTheDay.innerHTML = getTimeOfDay();
 }
 
-function getTimeOfDay(Username) {
+function getTimeOfDay() {
     const currentHour = new Date().getHours();
 
     if (currentHour >= 0 && currentHour < 6) {
-        return `<div><div><span class="time-of-day">Schöne </span><span class="time-of-day">Nacht</span></div>
-        <span>${Username}</span></div>`;
+        return `<span class="time-of-day">Schöne </span><span class="time-of-day">Nacht</span>`;
     } else if (currentHour >= 6 && currentHour < 12) {
-        return `<div><div><span class="time-of-day">Guten </span> <span class="time-of-day"> Morgen</span></div>
-        <span>${Username}</span></div>`;
+        return `<span class="time-of-day">Guten </span> <span class="time-of-day"> Morgen</span>`;
 
     } else if (currentHour >= 12 && currentHour < 18) {
-        return `<div><div><span class="time-of-day">Guten</span> <span class="time-of-day">Nachmittag</span></div>
-        <span>${Username}</span></div>`;
+        return `<span class="time-of-day">Guten</span> <span class="time-of-day">Nachmittag</span>`;
     } else {
-        return `<div><div><span class="time-of-day">Guten  </span class="time-of-day"><span>Abend</span></div>
-        <span>${Username}</span></div>`;
+        return `<span class="time-of-day">Guten  </span class="time-of-day"><span>Abend</span>`;
     }
 }
 
