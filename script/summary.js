@@ -1,8 +1,8 @@
 
 async function init() {
+    loadActivUser();
     await includeHTML();
     await loadTasks();
-    loadActivUser();
     loadTimeOfDay();
     loadText();
     markCategory();
