@@ -39,8 +39,8 @@
 
     <div class="content">
         <div class="width-100P column">
-            <div class="width-100P main-containe">
-                <div class="justifyContent test3">
+            <div class="width-100P main-container">
+                <div>
                     <div id="header-summary">
                         <span class="fontSize61"><b>Join 698</b></span>
                         <div class="headline">
@@ -48,7 +48,6 @@
                             <div class="fontSize27">The Three Musketeers</div>
                         </div>
                     </div>
-
 
                     <div class="d-flex gap-32 width-100P p-90px">
                         <div>
@@ -71,7 +70,7 @@
                                     <div id="penContainer" class="img-pen"></div>
                                     <div>
                                         <div id="done"
-                                            class="fw-bold d-flex align-items-center justify-content-center fontSize64">
+                                            class="d-flex align-items-center justify-content-center fontSize64">
                                             0
                                         </div>
                                         <div class="fontSize20">Done</div>
@@ -98,28 +97,31 @@
                             <div id="tasks">
 
                                 <a href="board.html" class="task-cards dialog" id="load-bord-task">
-                                    <div id="board" class="fw-bold d-flex align-items-center justify-content-center">5
+                                    <div id="board" class="d-flex align-items-center justify-content-center fontSize64">
+                                        0
                                     </div>
-                                    <span>task in</span>
-                                    <span> bord</span>
+                                    <span class="fontSize20">task in</span>
+                                    <span class="fontSize20">bord</span>
 
                                 </a>
 
                                 <a href="board.html" class="task-cards dialog" id="load-progress-task">
 
                                     <div id="in-progress"
-                                        class="fw-bold d-flex align-items-center justify-content-center">5</div>
-                                    <span>task in</span>
-                                    <span> Progress</span>
+                                        class="d-flex align-items-center justify-content-center fontSize64">0
+                                    </div>
+                                    <span class="fontSize20">task in</span>
+                                    <span class="fontSize20">Progress</span>
 
                                 </a>
 
 
                                 <a href="board.html" class="task-cards dialog" id="load-feedback-task">
                                     <div id="await-feedback"
-                                        class="fw-bold d-flex align-items-center justify-content-center">5</div>
-                                    <span>Awaiting</span>
-                                    <span> Feedback</span>
+                                        class="d-flex align-items-center justify-content-center fontSize64">0
+                                    </div>
+                                    <span class="fontSize20">Awaiting</span>
+                                    <span class="fontSize20">Feedback</span>
 
                                 </a>
                             </div>
@@ -127,11 +129,9 @@
 
                     </div>
                 </div>
-                <div class="fw-bold greeting-text ">
-                    <div class="d-flex fw-bold d-flex align-items-center justify-content-center  flex-column">
-                        <span id="time-of-day"> Good Morning,</span>
-                        <h1 id="name">Name</h1>
-                    </div>
+                <div class="greeting-text column">
+                    <span id="time-of-day" class="fontSize47"></span>
+                    <b><span class="fontSize64" id="name"></span></b>
                 </div>
 
             </div>
