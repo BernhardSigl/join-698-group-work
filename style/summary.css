@@ -141,10 +141,6 @@ body {
     color: black !important;
 }
 
-.greeting {
-    /* margin-top: 110px; */
-}
-
 #name,
 #time-of-day {
     text-align: start;

@@ -115,7 +115,6 @@
 
 async function init() {
     await includeHTML();
-<<<<<<< HEAD
     loadTimeOfDay();
     loadText();
     searchFirstUrgantDate();
@@ -223,27 +222,6 @@ function searchNumbers(collection) {
         for (let i = 0; i < Object.keys(collectionAsJson).length; i++) {
             currentNumber++;
         }
-=======
-    await loadTasks();
-    // loadTimeOfDay();
-    // loadText();
-    // searchFirstUrgantDate();
-    // loadSvgs();
-    // markCategory();
-    console.log(tasks);
-    countTasks();
-}
-
-
-function countTasks(){
-    console.log(tasks)
-    let date = tasks.filter(t => t['dueDate']);
-    console.log(date)
-    for (let i = 0; i < date.length; i++) {
-        const singleDate = date[i];
-        console.log(singleDate)
-        console.log(singleDate['dueDate'])
->>>>>>> 0e5ce77fa3e166b7a970cc044ba8e7ed54a2ad19
     }
     console.log(date[0]['dueDate'])
     let todo = tasks.filter(t => t['status'] == 'toDo').length;
@@ -252,16 +230,16 @@ function countTasks(){
     let done = tasks.filter(t => t['status'] == 'done').length;
     let allTasks = tasks.length
     let urgent = tasks.filter(t => t['priority'] == './img/prioUrgent.svg').length;
-    myFunction(todo,inProgress,awaitingFeedback,done,allTasks,urgent)
+    myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent)
 }
 
-function myFunction(todo,inProgress,awaitingFeedback,done,allTasks,urgent){
+function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) {
     document.getElementById('to-dos').innerHTML = todo;
     document.getElementById('done').innerHTML = done;
     document.getElementById('await-feedback').innerHTML = awaitingFeedback;
     document.getElementById('in-progress').innerHTML = inProgress;
-    document.getElementById('board').innerHTML= allTasks;
-    document.getElementById('urgent').innerHTML= urgent;
+    document.getElementById('board').innerHTML = allTasks;
+    document.getElementById('urgent').innerHTML = urgent;
 }
 
 // function loadSvgs() {
@@ -432,7 +410,7 @@ function myFunction(todo,inProgress,awaitingFeedback,done,allTasks,urgent){
 
 // /**
 //  * Loads the Chop-SVG into the designated container.
-//  * 
+//  *
 //  * This function sets the content of the element with the ID 'chop-container'
 //  * to the returned SVG from the `loadChopSvg` function.
 //  */
@@ -451,7 +429,7 @@ function myFunction(todo,inProgress,awaitingFeedback,done,allTasks,urgent){
 
 // /**
 //  * Loads the Pen-SVG into the designated container.
-//  * 
+//  *
 //  * This function sets the content of the element with the ID 'penContainer'
 //  * to the returned SVG from the `loadPenSvg` function.
 //  */
