@@ -1,124 +1,8 @@
-// let userss = {
-//     "user0": {
-//         "name": "Groupe 698",
-//         "email": "1234",
-//         "password": "1234",
-//         "color": null,
-//         "cards": {
-//             "toDo": {
-//                 "ToDo0": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "medium",
-//                 },
-//                 "ToDo1": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.11.23",
-//                     "priority": "medium",
-//                 },
-//                 "ToDo2": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "medium",
-//                 },
-//                 "ToDo3": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "urgent",
-//                 }
-//             },
-//             "inProgress": {
-//                 "inProgress0": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "medium",
-//                 },
-//                 "inProgress1": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "medium",
-//                 },
-//                 "inProgress2": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "urgent",
-//                 },
-//             },
-//             "awaitFeedback": {
-//                 "awaitFeedback0": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "medium",
-//                 },
-//                 "awaitFeedback1": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "medium",
-//                 },
-//             },
-//             "done": {
-//                 "done0": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "urgent",
-//                 },
-//                 "done1": {
-//                     "category": "Technical Task",
-//                     "title": "sad",
-//                     "text": "sadsad",
-//                     "time": "sadd",
-//                     "date": "October.13.23",
-//                     "priority": "urgent",
-//                 },
-//             },
-//         },
-//         "contacts": {
-//             "contact0": [{
-//                 "name": "sadsad",
-//                 "email": "adsj@asd",
-//                 "phone": "021513",
-//             }]
-//         }
-//     },
-// }
-
 
 async function init() {
     await includeHTML();
     loadTimeOfDay();
     loadText();
-    searchFirstUrgantDate();
-    loadSvgs();
     markCategory();
     addAnimationOnResize();
     animationAdded = false;
@@ -137,7 +21,7 @@ function loadText() {
 //---Search User name----------------------------
 function loadUserName() {
     userName = document.getElementById('name')
-    userName.innerText = userss['user0']['name'];
+    userName.innerText = activUser.name;
 }
 
 /**
@@ -171,10 +55,10 @@ function addAnimation() {
 }
 //----------------------search function cards------------------------------
 function loadNumbersBoard() {
-    let toDos = searchNumbers(userss['user0']['cards']['toDo']);
-    let inProgress = searchNumbers(userss['user0']['cards']['inProgress']);
-    let awaitFeedback = searchNumbers(userss['user0']['cards']['awaitFeedback']);
-    let done = searchNumbers(userss['user0']['cards']['done']);
+    let toDos = tasks.filter(t => t['status'] == 'toDo').length;
+    let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
+    let awaitFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
+    let done = tasks.filter(t => t['status'] == 'done').length;
     let board = document.getElementById('board');
     board.innerText = (toDos + inProgress + awaitFeedback + done);
 }
@@ -182,25 +66,25 @@ function loadNumbersBoard() {
 
 function loadNumersToDo() {
     let toDos = document.getElementById('to-dos');
-    toDos.innerText = searchNumbers(userss['user0']['cards']['toDo']);
+    toDos.innerText = tasks.filter(t => t['status'] == 'toDo').length;
 }
 
 
 function loadNumersInProgress() {
     let inProgress = document.getElementById('in-progress');
-    inProgress.innerText = searchNumbers(userss['user0']['cards']['inProgress']);
+    inProgress.innerText = tasks.filter(t => t['status'] == 'in-progress').length;
 }
 
 
 function loadNumersAwaitFeedback() {
     let awaitFeedback = document.getElementById('await-feedback');
-    awaitFeedback.innerText = searchNumbers(userss['user0']['cards']['awaitFeedback']);
+    awaitFeedback.innerText = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
 }
 
 
 function loadNumersDone() {
     let done = document.getElementById('done');
-    done.innerText = searchNumbers(userss['user0']['cards']['done']);
+    done.innerText = tasks.filter(t => t['status'] == 'done').length;
 }
 
 
