@@ -56,10 +56,8 @@ async function addQuickTaskBoard(status) {
     currentId++;
     await setItem('tasks', JSON.stringify(tasks));
     await setItem('currentId', JSON.stringify(currentId));
-    resetAllAddTaskElements();
+    resetAllAddTaskElementsBoard();
 }
-
-
 
 /**
  * This function is used to clear all values of the tasks array
@@ -451,9 +449,30 @@ async function addEditTask() {
 
     tasks[index] = taskEdit;
     await setItem('tasks', JSON.stringify(tasks));
-    resetAllAddTaskElements();
+    resetAllAddTaskElementsBoard();
 }
 
+function resetAllAddTaskElementsBoard() {
+    titleAddTask = '';
+    descriptionAddTask = '';
+    dueDateAddTask = '';
+    currentCategorySelected = [{
+        'name': '',
+        'color': '',
+    }];
+    subtasksFinish = [];
+    subTaskCollection = [];
+    selectedIndex = null;
+    selectedColorIndex = [];
+    currentPrioSelected = "";
+    contactCollection = [];
+    taskIdForEdit = '';
+    statusEdit = '';
+    clearAddTaskInputs();
+    resetInputs();
+    save();
+    document.getElementById('addTaskPop').classList.add('d-none');
+}
 
 
 async function switchSubtaskStatusToFinished(i, k) {

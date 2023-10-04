@@ -386,7 +386,6 @@ function statusSelected(status) {
 function clearButton() {
     resetAllAddTaskElements();
     window.location.reload();
-
 }
 
 
