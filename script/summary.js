@@ -7,6 +7,7 @@ async function init() {
     loadText();
     markCategory();
     addAnimationOnResize();
+    userCircle();
     animationAdded = false;
 }
 

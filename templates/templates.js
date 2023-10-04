@@ -54,3 +54,12 @@ function markCategory() {
         }
     });
 }
+
+function userCircle() {
+    let container = document.getElementById('header-user-img');
+    let nameParts = activUser.name.split(' ');
+    let firstName = nameParts[0];
+    let lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
+    let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+    container.innerHTML = nameAbbreviation
+}
