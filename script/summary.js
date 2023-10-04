@@ -128,20 +128,30 @@ async function init() {
 
 function countTasks(){
     console.log(tasks)
+    let date = tasks.filter(t => t['dueDate']);
+    console.log(date)
+    for (let i = 0; i < date.length; i++) {
+        const singleDate = date[i];
+        console.log(singleDate)
+        console.log(singleDate['dueDate'])
+    }
+    console.log(date[0]['dueDate'])
     let todo = tasks.filter(t => t['status'] == 'toDo').length;
     let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
     let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
     let done = tasks.filter(t => t['status'] == 'done').length;
     let allTasks = tasks.length
-    myFunction(todo,inProgress,awaitingFeedback,done,allTasks)
+    let urgent = tasks.filter(t => t['priority'] == './img/prioUrgent.svg').length;
+    myFunction(todo,inProgress,awaitingFeedback,done,allTasks,urgent)
 }
 
-function myFunction(todo,inProgress,awaitingFeedback,done,allTasks){
+function myFunction(todo,inProgress,awaitingFeedback,done,allTasks,urgent){
     document.getElementById('to-dos').innerHTML = todo;
     document.getElementById('done').innerHTML = done;
     document.getElementById('await-feedback').innerHTML = awaitingFeedback;
     document.getElementById('in-progress').innerHTML = inProgress;
     document.getElementById('board').innerHTML= allTasks;
+    document.getElementById('urgent').innerHTML= urgent;
 }
 
 // function loadSvgs() {
