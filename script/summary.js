@@ -1,6 +1,7 @@
 
 async function init() {
     await includeHTML();
+    await loadTasks();
     loadTimeOfDay();
     loadText();
     markCategory();
@@ -84,7 +85,7 @@ function loadNumersAwaitFeedback() {
 
 function loadNumersDone() {
     let done = document.getElementById('done');
-    done.innerText = tasks.filter(t => t['status'] == 'done').length;
+    done.innerHTML = tasks.filter(t => t['status'] == 'done').length;
 }
 
 
