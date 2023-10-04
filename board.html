@@ -60,7 +60,8 @@
                 <section>
                     <div class="statusheadline">
                         <h3>To do</h3>
-                        <img onclick="addQuickTaskBoard('toDo')" src="img/Property 1=Default.svg" alt="Not found">
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('toDo')"
+                            src="img/Property 1=Default.svg" alt="Not found">
                     </div>
 
                     <div id="toDo" class="drag-area" ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDo')"
@@ -71,7 +72,8 @@
                 <section>
                     <div class="statusheadline">
                         <h3>In progress</h3>
-                        <img onclick="addQuickTaskBoard('in-progress')" src="img/Property 1=Default.svg" alt="Not found">
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('in-progress')"
+                            src="img/Property 1=Default.svg" alt="Not found">
                     </div>
 
                     <div id="in-progress" class="drag-area" ondrop="moveTo('in-progress')"
@@ -86,7 +88,8 @@
                         <div>
                             <h3>Await Feedback</h3>
                         </div>
-                        <img onclick="addQuickTaskBoard('awaiting-feedback')" src="img/Property 1=Default.svg" alt="Not found ">
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('awaiting-feedback')"
+                            src="img/Property 1=Default.svg" alt="Not found ">
                     </div>
 
 
@@ -99,7 +102,8 @@
                 <section>
                     <div class="statusheadline">
                         <h3>Done</h3>
-                        <img onclick="addQuickTaskBoard('done')" src="img/Property 1=Default.svg" alt="Not found ">
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('done')"
+                            src="img/Property 1=Default.svg" alt="Not found ">
                     </div>
 
                     <div id="done" class="drag-area" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"
@@ -115,7 +119,8 @@
             <div class="contentPositionAddTaskPopup show-scrollbarTaskWindow">
                 <div class="addTaskPopupHeadlineContainer">
                     <spline class="fw-bold fontSize61">Add Task</spline>
-                    <img onclick="resetAllAddTaskElements()" class="click close-hover" src="img/crossAddTask.svg" alt="">
+                    <img onclick="resetAllAddTaskElements()" class="click close-hover" src="img/crossAddTask.svg"
+                        alt="">
                 </div>
 
                 <form onsubmit="return false" id="myForm">

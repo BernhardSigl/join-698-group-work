@@ -49,6 +49,8 @@ let statusEdit = '';
 
 let editTask = '';
 
+let statusGroup = '';
+
 load();
 //---------------------------------------------------------------------------------//
 
@@ -106,9 +108,10 @@ function editTaskWindow() {
 
 
 async function initAddTask() {
-    await includeHTML(),
-        loadActivUser();
+    await includeHTML();
+    loadActivUser();
     userCircle();
+    statusSelected('toDo')
     await initializeStorage('allCategorys', allCategorys);
     await loadTasks();
     await loadAddTaskCurrentId();
@@ -350,13 +353,13 @@ function createTask() {
 /**
  * Retrieves data from form elements and adds a new task.
  */
-async function addTask() {
+async function addTask(status) {
     contactNames = contactCollection.map(contact => contact.name);
     contactColors = contactCollection.map(contact => contact.color);
     contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
     let task = {
         'id': currentId,
-        'status': 'toDo',
+        'status': statusGroup,
         'category': currentCategorySelected[0].name,
         'categoryColor': currentCategorySelected[0].color,
         'title': titleAddTask,
@@ -376,6 +379,9 @@ async function addTask() {
     resetAllAddTaskElements();
 }
 
+function statusSelected(status) {
+    statusGroup = status;
+}
 
 function clearButton() {
     resetAllAddTaskElements();

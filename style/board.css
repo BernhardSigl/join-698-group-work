@@ -202,9 +202,9 @@ body {
 }
 
 .statusheadline img:hover {
-  cursor: pointer;
-  background-color: #D1D1D1;
-  border-radius: 8px;
+    cursor: pointer;
+    background-color: #D1D1D1;
+    border-radius: 8px;
 }
 
 h3 {
@@ -400,10 +400,12 @@ h3 {
     justify-content: flex-end;
     gap: 8px;
 }
-.delete-edit-buttons{
+
+.delete-edit-buttons {
     padding: 4px;
 }
-.delete-edit-buttons:hover{
+
+.delete-edit-buttons:hover {
     cursor: pointer;
     background-color: #EEE;
     border-radius: 10px;
@@ -447,11 +449,11 @@ h3 {
 
 .contentPositionAddTaskPopup {
     position: absolute;
-    top: 120px;
+    top: 180px;
     left: 0;
     right: 0;
     bottom: 120px;
-    max-height: calc(100vh - 240px);
+    max-height: calc(100vh - 300px);
     padding-left: 96px;
     padding-right: 96px;
     display: flex;
@@ -467,10 +469,10 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    top: 80px;
+    top: 100px;
     left: 196px;
     right: 196px;
-    max-width: calc(100vw - 392px);
+    max-width: calc(100vw - 312px);
     padding-bottom: 10px;
     width: 100%;
     background-color: white;
