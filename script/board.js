@@ -450,6 +450,7 @@ async function addEditTask() {
     tasks[index] = taskEdit;
     await setItem('tasks', JSON.stringify(tasks));
     resetAllAddTaskElementsBoard();
+    updateBoardHTML();
 }
 
 function resetAllAddTaskElementsBoard() {
