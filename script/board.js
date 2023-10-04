@@ -8,7 +8,7 @@ async function initBoard() {
     countTasks();
 }
 
-function countTasks(){
+function countTasks() {
     console.log(tasks)
     let todo = tasks.filter(t => t['status'] == 'toDo').length;
     let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
@@ -18,14 +18,14 @@ function countTasks(){
 }
 
 
-document.addEventListener('dragstart', function(e) {
-    if(e.target.classList.contains('task')) {
+document.addEventListener('dragstart', function (e) {
+    if (e.target.classList.contains('task')) {
         e.target.classList.add('rotating');
     }
 });
 
-document.addEventListener('dragend', function(e) {
-    if(e.target.classList.contains('task')) {
+document.addEventListener('dragend', function (e) {
+    if (e.target.classList.contains('task')) {
         e.target.classList.remove('rotating');
     }
 });
@@ -481,7 +481,8 @@ async function deleteTask(i) {
     tasks.splice(i, 1);
     await setItem('tasks', JSON.stringify(tasks));
     closeTask();
-    window.location.reload();
+    updateBoardHTML();
+    // window.location.reload();
 }
 
 
