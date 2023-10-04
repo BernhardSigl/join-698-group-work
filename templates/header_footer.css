@@ -230,6 +230,10 @@
         display: unset;
     }
 
+    .fontAtMobile {
+        font-size: 14px !important;
+    }
+
     /*------------------------------------------------*/
     #header-summary {
         margin-bottom: 0px;

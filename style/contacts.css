@@ -457,6 +457,14 @@ input {
     height: 36.901px;
 }
 
+#nameId {
+    margin-bottom: 4px;
+}
+
+#deleteEditId {
+    margin-top: 4px;
+}
+
 /* Basics */
 .nowrap {
     white-space: nowrap;
