@@ -28,8 +28,8 @@ td h3 {
     left: 243px;
     bottom: 0;
     max-width: calc(100vw - 243px) !important;
-    max-height: calc(100vh -100px);
-    top: 100px;
+    max-height: calc(100vh -96px);
+    top: 96px;
     padding-right: 96px;
     padding-left: 96px;
     padding-top: 50px;
