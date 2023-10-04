@@ -1,13 +1,13 @@
 
 async function init() {
-    loadActivUser();
     await includeHTML();
+    loadActivUser();
+    userCircle();
     await loadTasks();
     loadTimeOfDay();
     loadText();
     markCategory();
     addAnimationOnResize();
-    userCircle();
     animationAdded = false;
 }
 

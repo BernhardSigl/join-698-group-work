@@ -106,7 +106,8 @@ function editTaskWindow() {
 
 
 async function initAddTask() {
-    loadActivUser();
+    await includeHTML(),
+        loadActivUser();
     userCircle();
     await initializeStorage('allCategorys', allCategorys);
     await loadTasks();
