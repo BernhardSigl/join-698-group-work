@@ -119,8 +119,9 @@
 .menu-header-container {
     width: 127px;
     right: 11px;
-    top: 59px;
+    top: 96px;
     position: absolute;
+    z-index: 3;
 }
 
 .menu-header-container a {

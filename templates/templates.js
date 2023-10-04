@@ -63,3 +63,7 @@ function userCircle() {
     let nameAbbreviation = `<b>${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}</b>`;
     container.innerHTML = nameAbbreviation
 }
+
+function goBack() {
+    window.history.back();
+}
