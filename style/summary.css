@@ -88,10 +88,13 @@ body {
     color: var(--main-background-color) !important;
 }
 
-.data-panel-big:hover,
-.data-panel:hover {
-    background-color: var(--main-color);
-    color: var(--main-background-color);
+
+.svgHover:hover path {
+    fill: #2A3647;
+}
+
+.svgHover circle:hover {
+    fill: white;
 }
 
 .data-panel-big:hover,
