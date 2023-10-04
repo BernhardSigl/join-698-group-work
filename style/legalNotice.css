@@ -1,0 +1,32 @@
+.quicklinksContainer {
+    position: relative;
+    left: 243px;
+    bottom: 0;
+    max-width: calc(100vw - 243px) !important;
+    max-height: calc(100vh -100px);
+    top: 96px;
+    padding-right: 98px;
+    padding-left: 96px;
+    padding-top: 50px;
+    overflow-y: auto;
+}
+
+#mobileBackArrowId {
+    position: absolute;
+    top: 50px;
+    right: 98px;
+    transition: transform 0.4s ease;
+}
+
+#mobileBackArrowId img:hover {
+    transform: scale(1.05);
+}
+
+#mobileBackArrowId:hover {
+    width: 32px;
+    height: 32px;
+    background-color: #F7F7F7;
+    border-radius: 100%;
+    transform: scale(1.05);
+    cursor: pointer;
+}

@@ -10,6 +10,7 @@
     <script defer src="templates/templates.js"></script>
     <link rel="stylesheet" href="templates/header_footer.css">
     <link rel="shortcut icon" href="img/Logo for Favicon construction.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style/legalNotice.css">
     <link rel="stylesheet" href="./style/style.css">
 
     <link rel="stylesheet" href="style/help.css">
@@ -21,7 +22,7 @@
 <body onload="includeHTML()">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
-    <div class="main-container">
+    <div class="quicklinksContainer">
         <div class='impressum'>
             <h1>Impressum</h1>
             <p>Angaben gemäß § 5 TMG</p>
@@ -64,9 +65,11 @@
             der
             <a href="https://www.kanzlei-hasselbach.de/" rel="nofollow">Kanzlei Hasselbach</a>
         </div>
+
+        <div class="pointer" id="mobileBackArrowId">
+            <img src="./img/arror-left.svg">
+        </div>
     </div>
-
-
 
 </body>
 
