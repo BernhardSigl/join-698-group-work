@@ -426,6 +426,7 @@ async function editContact(i) {
  * 
  */
 function saveContact(i) {
+
     contactsArray[i].name = document.getElementById('inputNameId').value;
     contactsArray[i].email = document.getElementById('inputEmailId').value;
     contactsArray[i].phone = document.getElementById('inputPhoneId').value;
@@ -438,7 +439,6 @@ function saveContact(i) {
     document.getElementById('emailId').innerHTML = contactsArray[i].email;
     document.getElementById('phoneId').innerHTML = contactsArray[i].phone;
 
-    toggleVisibility('contactInfoBigId', false);
     changesSaved();
 
     resetFunctionImageText();
@@ -446,6 +446,7 @@ function saveContact(i) {
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
+    console.log("Fensterbreite: ", window.innerWidth);
     showNotOnMobileView('mobileVisibilityId');
 
     closePopup();
@@ -602,7 +603,7 @@ function openMobileEditMenu() {
  * 
  */
 function showNotOnMobileView(id) {
-    if (window.innerWidth <= 700) {
+    if (window.innerWidth <= 768) {
         toggleVisibility(id, false);
     } else {
         toggleVisibility(id, true);
@@ -614,7 +615,7 @@ function showNotOnMobileView(id) {
  * 
  */
 function showOnMobileView(id) {
-    if (window.innerWidth <= 700) {
+    if (window.innerWidth <= 768) {
         toggleVisibility(id, true);
     } else {
         toggleVisibility(id, false);
