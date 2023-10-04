@@ -18,8 +18,6 @@ body {
     display: none;
 }
 
-
-
 .text-line-through {
     text-decoration: line-through;
 }
@@ -288,8 +286,12 @@ h3 {
 }
 
 .task-description {
+    word-wrap: break-word;
+    overflow-x: hidden;
+    hyphens: auto;
     max-height: 150px;
-    overflow-y: auto;
+    overflow: auto;
+    color: var(--icon, #A8A8A8);
 }
 
 .task-users-prio {
