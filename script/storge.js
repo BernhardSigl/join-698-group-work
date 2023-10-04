@@ -20,6 +20,16 @@ async function loadTasks() {
 
 
 
+function saveActivUser() {
+    localStorage.setItem('activUserAsText', JSON.stringify(activUser));
+}
+
+function loadActivUser() {
+    let activUserLoad = localStorage.getItem('activUserAsText');
+    if (activUserLoad) {
+        activUser = JSON.parse(activUserLoad);
+    }
+}
 
 
 
