@@ -449,11 +449,11 @@ h3 {
 
 .contentPositionAddTaskPopup {
     position: absolute;
-    top: 180px;
+    top: 220px;
     left: 0;
     right: 0;
     bottom: 120px;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 340px);
     padding-left: 96px;
     padding-right: 96px;
     display: flex;
@@ -469,10 +469,10 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    top: 100px;
+    top: 130px;
     left: 196px;
     right: 196px;
-    max-width: calc(100vw - 312px);
+    max-width: calc(100vw - 392px);
     padding-bottom: 10px;
     width: 100%;
     background-color: white;
