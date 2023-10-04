@@ -1363,6 +1363,10 @@ ul {
         font-size: 36px !important;
     }
 
+    .clearBtn {
+        display: none !important;
+    }
+
 }
 
 @media (max-width: 400px) {
