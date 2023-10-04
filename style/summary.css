@@ -88,6 +88,18 @@ body {
     color: var(--main-background-color) !important;
 }
 
+.task-cards,
+.data-panel-big,
+.data-panel {
+    transition: transform 0.4s ease;
+}
+
+.task-cards:hover,
+.data-panel-big:hover,
+.data-panel:hover {
+    transform: scale(1.05);
+}
+
 .data-panel:hover .penHover img {
     content: url('/img/stiftweiss.png');
 }
