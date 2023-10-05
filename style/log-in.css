@@ -3,6 +3,7 @@ body {
     flex-direction: column;
     background-color: var(--body-background-color) !important;
     font-family: 'Inter' !important;
+    margin: 0;
 }
 
 .button {
@@ -21,6 +22,7 @@ body {
     padding: 15px 24px;
     border-radius: 8px;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .button-guest-login {
@@ -59,6 +61,7 @@ input {
     color: white;
     border: none;
     margin-left: 35px !important;
+    cursor: pointer;
 }
 
 .signInBtn:hover {
@@ -106,7 +109,6 @@ input {
     align-items: center !important;
     height: auto;
     width: 100%;
-    padding: 0 39px;
     margin: 8px 0 32px;
 }
 
@@ -124,12 +126,14 @@ input {
 .checkboxRememberMeContainer {
     display: flex;
     align-items: center;
+    padding: 0 39px;
 }
 
 #myCheckbox {
     width: 16px;
     height: 16px;
     margin-right: 8px;
+    cursor: pointer;
 }
 
 .checkbox a {
@@ -173,10 +177,6 @@ header {
     align-items: center;
 }
 
-.h1 {
-    font-size: 61px !important;
-}
-
 .police {
     flex-grow: 1;
     display: flex;
@@ -196,11 +196,15 @@ header {
     font-weight: bold;
 }
 
-@media (max-width: 768px) {
-    body {
-        padding: 12px;
-    }
+#password,
+#userName,
+#passwort,
+#email {
+    width: 100%;
+    font-size: 20px;
+}
 
+@media (max-width: 768px) {
     header {
         display: flex;
         justify-content: space-between;
@@ -219,13 +223,20 @@ header {
         align-items: center;
     }
 
-    .button-sing-up-mobile {
-        height: 48px !important;
-        width: 80px !important;
-        display: flex !important;
-        align-content: center !important;
-        align-items: center !important;
-        justify-content: center !important;
+    #warning-text-passwort,
+    #warning-text-email {
+        font-size: 12px !important;
+    }
+
+    .warning-field {
+        display: flex;
+        justify-content: center;
+    }
+
+    .checkboxRememberMeContainer {
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
     }
 
     #sing-up {
@@ -233,7 +244,9 @@ header {
     }
 
     .dialog {
-        margin-top: 30px;
+        margin: 30px 16px 0;
+        padding: 32px 16px;
+        width: calc(100vw * 0.9);
     }
 
     .btn-dark {
@@ -248,6 +261,38 @@ header {
     .buttons {
         display: flex;
         flex-direction: column;
+    }
+
+    .underline {
+        width: 88px;
+    }
+
+    .fontSize61 {
+        font-size: 47px;
+    }
+
+    .fontSize21 {
+        font-size: 16px !important;
+    }
+
+    .buttonsUnderLogin {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 21px;
+    }
+
+    .button-log-in,
+    .button-guest-login {
+        margin: 0;
+    }
+
+    .input-field {
+        margin: 0 16px;
+        width: auto;
+    }
+
+    .input-fields {
+        width: 100%;
     }
 }
 
@@ -287,5 +332,42 @@ header {
 @media (max-width: 375px) and (max-height: 812px) {
     .sing-up-mobile {
         padding-top: 66px;
+    }
+}
+
+@media (max-height: 900px) {
+    .dialog {
+        margin-top: 5px !important;
+        padding: 32px 16px;
+        width: calc(100vw * 0.9);
+    }
+
+    header img {
+        height: 20px;
+    }
+}
+
+@media (max-height: 700px) {
+    .fontSize61 {
+        font-size: 22px !important;
+    }
+
+    #password,
+    #userName,
+    #passwort,
+    #email {
+        font-size: 14px !important;
+    }
+
+    .dialog {
+        padding: 16px 8px;
+    }
+
+    .sing-up-mobile {
+        padding-top: 40px;
+    }
+
+    .rememberMeForgetMyPasswordContainer {
+        margin: 8px 0 8px;
     }
 }

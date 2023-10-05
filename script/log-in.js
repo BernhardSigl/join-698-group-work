@@ -81,23 +81,23 @@ function loadWarningTextTamplate() {
     }
 }
 
-function loadTemplateResetPasswort() {
-    return /*html*/ `
-    <a href="index.html" id="mobileBackArrowId" onclick="closeDialog()">
-        <img src="img/arror-left.svg" alt="">
-    </a>
-    <form action="" class="columnVertical gap-32">
-        <span class="fontSize61">I forgot my password</span>
-        <span>Don't worry! We will send you an email with instructions to reset your password.</span>
+// function loadTemplateResetPasswort() {
+//     return /*html*/ `
+//     <a href="index.html" id="mobileBackArrowId" onclick="closeDialog()">
+//         <img src="img/arror-left.svg" alt="">
+//     </a>
+//     <form action="" class="columnVertical gap-32">
+//         <span class="fontSize61">I forgot my password</span>
+//         <span>Don't worry! We will send you an email with instructions to reset your password.</span>
 
-        <div  class="input-field">
-            <input type="text" placeholder="Email">
-            <img src="./img/letter.svg" class="input-suffix">   
-        </div>  
-        <button type="button" class="sendNewPasswordBtn" onsubmit>Send new password</button>  
-    </form>
-    `
-}
+//         <div  class="input-field">
+//             <input type="text" placeholder="Email">
+//             <img src="./img/letter.svg" class="input-suffix">   
+//         </div>  
+//         <button type="button" class="sendNewPasswordBtn" onsubmit>Send new password</button>  
+//     </form>
+//     `
+// }
 
 
 function loadTempleteLogIn() {
@@ -132,9 +132,7 @@ function loadTempleteLogIn() {
                         <input type="checkbox" name="myCheckbox" id="myCheckbox">
                         <label for=" fontSize16">Remember me</label>
                     </div>
-                    <div>
-                        <a onclick="resetPasswort()" class="checkbox-register" href="javascript:void(0);">Forget my Password</a>
-                    </div>
+
                 </div>
                 <div class="fontSize21 buttonsUnderLogin">
                     <button onclick="login()" type="button" class="button-log-in">Log in</button>

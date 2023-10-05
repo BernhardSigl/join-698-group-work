@@ -441,8 +441,8 @@ input {
 
 #mobileBackArrowId {
     position: absolute;
-    top: 124.97px;
-    right: 14.13px;
+    top: 124.97px !important;
+    left: calc(100vw - 63.13px) !important;
 }
 
 #mobileBackArrowId:hover {
