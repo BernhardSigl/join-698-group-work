@@ -305,16 +305,6 @@
         border-radius: 16px;
     }
 
-    #header-summary {
-        margin-bottom: 0px;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-content: space-between;
-        align-items: flex-start;
-        margin-left: 9px;
-        margin-top: 0;
-    }
-
     .header-mobile-container {
         flex: 1;
         flex-direction: column-reverse;
