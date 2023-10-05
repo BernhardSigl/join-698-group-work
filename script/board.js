@@ -272,30 +272,24 @@ async function openTask(i) {
     renderTaskdetailHTML(index)
 }
 
+let assignedUser;
+let subtaskHeadline;
+
+let inProgress;
+let finished;
+
+function renderSubtaskHeadline() {
+    return subtaskHeadline = /*html*/ `
+ <div class="task-detail-font-color margin-bottom10">
+     Subtasks
+ </div>`
+}
+
 
 function renderTaskdetailHTML(i) {
 
     console.log('tasks in open Task', tasks[i])
-
-    let userNames = tasks[i]['contactName'];
-    let users = tasks[i]['contactAbbreviation'];
-    let colors = tasks[i]['contactColor'];
-    let assignedUser = '';
-    for (let j = 0; j < users.length; j++) {
-        let user = users[j];
-        let userName = userNames[j]
-        let color = colors[j]
-        assignedUser += /*html*/ ` 
-        <div class="user-details">
-            <div class="profile-picture horicontal-and-vertical" style="background-color:${color}">
-                ${user}
-            </div>
-            <div class="user-name">
-                ${userName}
-            </div>   
-        </div>
-        `;
-    }
+    findAssignedUnser(i)
 
     let inProgress = '';
     let subtasksProgress = tasks[i]['subtasksInProgress'];
@@ -303,12 +297,12 @@ function renderTaskdetailHTML(i) {
 
     for (let k = 0; k < subtasksProgress.length; k++) {
         let subtaskProgress = subtasksProgress[k];
-
-        subtaskHeadline = /*html*/ `
-        <div class="task-detail-font-color margin-bottom10">
-            Subtasks
-        </div>`
-
+        renderSubtaskHeadline()
+        // subtaskHeadline = /*html*/ `
+        // <div class="task-detail-font-color margin-bottom10">
+        //     Subtasks
+        // </div>`
+       
         inProgress += /*html*/ ` 
         <div class="task-detail-flex margin-bottom10">
             <img onclick="switchSubtaskStatusToFinished(${i}, ${k})" class="task-box" src="img/addTaskBox.svg" alt="">
@@ -323,11 +317,12 @@ function renderTaskdetailHTML(i) {
     for (let l = 0; l < subtasksDone.length; l++) {
         let subtaskDone = subtasksDone[l];
 
-        // let subtaskHeadline ='';
-        subtaskHeadline = /*html*/ `
-        <div class="task-detail-font-color margin-bottom10 text-decoration-none">
-            Subtasks
-        </div>`
+
+        renderSubtaskHeadline()
+        // subtaskHeadline = /*html*/ `
+        // <div class="task-detail-font-color margin-bottom10 text-decoration-none">
+        //     Subtasks
+        // </div>`
 
         finished += /*html*/ ` 
        <div class="task-detail-flex margin-bottom10 text-line-through">
@@ -390,6 +385,29 @@ function renderTaskdetailHTML(i) {
             </div>
         </div>
     `;
+}
+
+
+function findAssignedUnser(i) {
+    let userNames = tasks[i]['contactName'];
+    let users = tasks[i]['contactAbbreviation'];
+    let colors = tasks[i]['contactColor'];
+    assignedUser = '';
+    for (let j = 0; j < users.length; j++) {
+        let user = users[j];
+        let userName = userNames[j]
+        let color = colors[j]
+        return assignedUser += /*html*/ ` 
+        <div class="user-details">
+            <div class="profile-picture horicontal-and-vertical" style="background-color:${color}">
+                ${user}
+            </div>
+            <div class="user-name">
+                ${userName}
+            </div>   
+        </div>
+        `;
+    }
 }
 
 
