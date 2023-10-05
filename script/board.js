@@ -1,5 +1,6 @@
 let currentDraggedElement;
 let assignedUser;
+let taskPriority;
 let subtaskHeadline;
 let inProgress;
 let finished;
@@ -8,17 +9,6 @@ let finished;
 async function initBoard() {
     await loadTasks();
     updateBoardHTML();
-    countTasks();
-}
-
-
-function countTasks() {
-    console.log(tasks)
-    let todo = tasks.filter(t => t['status'] == 'toDo').length;
-    let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
-    let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
-    let done = tasks.filter(t => t['status'] == 'done').length;
-    console.log(todo, inProgress, awaitingFeedback, done)
 }
 
 
@@ -35,33 +25,6 @@ document.addEventListener('dragend', function (e) {
     }
 });
 
-
-async function addQuickTaskBoard(status) {
-    contactNames = contactCollection.map(contact => contact.name);
-    contactColors = contactCollection.map(contact => contact.color);
-    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
-    let task = {
-        'id': currentId,
-        'status': status,
-        'category': currentCategorySelected[0].name,
-        'categoryColor': currentCategorySelected[0].color,
-        // 'title': titleAddTask,
-        'title': 'new task',
-        'description': descriptionAddTask,
-        'dueDate': dueDateAddTask,
-        'priority': currentPrioSelected,
-        'contactName': contactNames,
-        'contactColor': contactColors,
-        'contactAbbreviation': contactNamesAbbreviation,
-        'subtasksInProgress': subTaskCollection,
-        'subtasksFinish': subtasksFinish,
-    }
-    tasks.push(task);
-    currentId++;
-    await setItem('tasks', JSON.stringify(tasks));
-    await setItem('currentId', JSON.stringify(currentId));
-    resetAllAddTaskElementsBoard();
-}
 
 /**
  * This function is used to clear all values of the tasks array
@@ -237,14 +200,21 @@ function updateBoardHTML() {
 
 
 function generateTaskHTML(element) {
-    console.log(tasks)
+
 
     let i = element['id']
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
     let assignedUser = '';
+    console.log("element",element)
+    // console.log(element['subtasksInProgress'].length)
+    // console.log(element['subtasksFinish'].length)
+   
 
-    console.log(element)
+    let openSubasks = element['subtasksInProgress'].length
+    let finishedSubasks = element['subtasksFinish'].length
+
+
     for (let j = 0; j < users.length; j++) {
         let user = users[j];
         let color = colors[j]
@@ -258,6 +228,9 @@ function generateTaskHTML(element) {
                 <div class="task-title">${element['title']}</div>
                 <div class="task-description show-scrollbar"> ${element['description']}</div>
             </div>
+            <div>
+                ${openSubasks}/${finishedSubasks}
+            </div>
             <div class="task-users-prio">
                 <div class="task-users">
                    ${assignedUser}
@@ -270,7 +243,6 @@ function generateTaskHTML(element) {
 
 
 function startDragging(id) {
-    console.log("Dragging element with ID:", id);
     let index = tasks.findIndex(task => task.id === id);
     currentDraggedElement = index;
 }
@@ -284,14 +256,63 @@ async function openTask(i) {
 
 
 function renderTaskdetailHTML(i) {
+    console.log(tasks[i])
     findAssignedUnser(i);
     showSubtasksInProgress(i);
     showSubtasksFinished(i);
+    renderPriorityText(i)
+    createHTML(i)
+}
 
+
+function renderSubtaskHeadline() {
+    return subtaskHeadline = /*html*/ `
+    <div class="task-detail-font-color margin-bottom10">
+     Subtasks
+    </div>`
+}
+
+
+function showSubtasksInProgress(i) {
+    inProgress = '';
+    let subtasksProgress = tasks[i]['subtasksInProgress'];
+
+    subtaskHeadline = '';
+    for (let k = 0; k < subtasksProgress.length; k++) {
+        let subtaskProgress = subtasksProgress[k];
+        renderSubtaskHeadline()
+        inProgress += /*html*/ ` 
+        <div class="task-detail-flex margin-bottom10">
+            <img onclick="switchSubtaskStatusToFinished(${i}, ${k})" class="task-box" src="img/addTaskBox.svg" alt="">
+            ${subtaskProgress}
+        </div>
+        `;
+    }
+    updateBoardHTML();
+}
+
+
+function showSubtasksFinished(i) {
+    finished = '';
+    let subtasksDone = tasks[i]['subtasksFinish']
+    for (let l = 0; l < subtasksDone.length; l++) {
+        let subtaskDone = subtasksDone[l];
+        renderSubtaskHeadline()
+        finished += /*html*/ ` 
+       <div class="task-detail-flex margin-bottom10 text-line-through">
+           <img onclick="switchSubtaskStatusToUndone(${i},${l})" class="task-box" src="img/done.svg" alt="">
+           ${subtaskDone}
+       </div>`
+    }
+    updateBoardHTML();
+}
+
+
+function renderPriorityText(i) {
     let prioLow = "./img/prioLow.svg"
     let prioMedium = "./img/prioMedium.svg"
     let prioUrgent = "./img/prioUrgent.svg"
-    let taskPriority = ''
+    taskPriority = "";
     if (prioLow === tasks[i]['priority']) {
         taskPriority = "Low"
     }
@@ -301,9 +322,13 @@ function renderTaskdetailHTML(i) {
     if (prioUrgent === tasks[i]['priority']) {
         taskPriority = "Urgent"
     }
-    
+}
+
+
+function createHTML(i) {
     document.getElementById('popup-container').classList.remove('d-none');
     document.getElementById('popup-container').innerHTML = /*html*/ `
+    
     <div class="task-detail">
             <div class="task-detail-content-container">
                 <div class="task-detail-top">
@@ -356,47 +381,6 @@ function renderTaskdetailHTML(i) {
             </div>
         </div>
     `;
-}
-
-
-function renderSubtaskHeadline() {
-    return subtaskHeadline = /*html*/ `
- <div class="task-detail-font-color margin-bottom10">
-     Subtasks
- </div>`
-}
-
-
-function showSubtasksInProgress(i) {
-    inProgress = '';
-    let subtasksProgress = tasks[i]['subtasksInProgress'];
-
-    subtaskHeadline = '';
-    for (let k = 0; k < subtasksProgress.length; k++) {
-        let subtaskProgress = subtasksProgress[k];
-        renderSubtaskHeadline()
-        inProgress += /*html*/ ` 
-        <div class="task-detail-flex margin-bottom10">
-            <img onclick="switchSubtaskStatusToFinished(${i}, ${k})" class="task-box" src="img/addTaskBox.svg" alt="">
-            ${subtaskProgress}
-        </div>
-        `;
-    }
-}
-
-
-function showSubtasksFinished(i) {
-    finished = '';
-    let subtasksDone = tasks[i]['subtasksFinish']
-    for (let l = 0; l < subtasksDone.length; l++) {
-        let subtaskDone = subtasksDone[l];
-        renderSubtaskHeadline()
-        finished += /*html*/ ` 
-       <div class="task-detail-flex margin-bottom10 text-line-through">
-           <img onclick="switchSubtaskStatusToUndone(${i},${l})" class="task-box" src="img/done.svg" alt="">
-           ${subtaskDone}
-       </div>`
-    }
 }
 
 
