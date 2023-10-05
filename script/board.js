@@ -272,11 +272,12 @@ async function openTask(i) {
     renderTaskdetailHTML(index)
 }
 
+
 let assignedUser;
 let subtaskHeadline;
-
 let inProgress;
 let finished;
+
 
 function renderSubtaskHeadline() {
     return subtaskHeadline = /*html*/ `
@@ -287,50 +288,10 @@ function renderSubtaskHeadline() {
 
 
 function renderTaskdetailHTML(i) {
-
-    console.log('tasks in open Task', tasks[i])
-    findAssignedUnser(i)
-
-    let inProgress = '';
-    let subtasksProgress = tasks[i]['subtasksInProgress'];
-    let subtaskHeadline = '';
-
-    for (let k = 0; k < subtasksProgress.length; k++) {
-        let subtaskProgress = subtasksProgress[k];
-        renderSubtaskHeadline()
-        // subtaskHeadline = /*html*/ `
-        // <div class="task-detail-font-color margin-bottom10">
-        //     Subtasks
-        // </div>`
-       
-        inProgress += /*html*/ ` 
-        <div class="task-detail-flex margin-bottom10">
-            <img onclick="switchSubtaskStatusToFinished(${i}, ${k})" class="task-box" src="img/addTaskBox.svg" alt="">
-            ${subtaskProgress}
-        </div>
-        `;
-    }
-
-    let finished = '';
-    let subtasksDone = tasks[i]['subtasksFinish']
-
-    for (let l = 0; l < subtasksDone.length; l++) {
-        let subtaskDone = subtasksDone[l];
-
-
-        renderSubtaskHeadline()
-        // subtaskHeadline = /*html*/ `
-        // <div class="task-detail-font-color margin-bottom10 text-decoration-none">
-        //     Subtasks
-        // </div>`
-
-        finished += /*html*/ ` 
-       <div class="task-detail-flex margin-bottom10 text-line-through">
-           <img onclick="switchSubtaskStatusToUndone(${i},${l})" class="task-box" src="img/done.svg" alt="">
-           ${subtaskDone}
-       </div>`
-    }
-
+    findAssignedUnser(i);
+    showSubtasksInProgress(i);
+    showSubtasksFinished(i);
+   
     document.getElementById('popup-container').classList.remove('d-none');
     document.getElementById('popup-container').innerHTML = /*html*/ `
     <div class="task-detail">
@@ -381,10 +342,41 @@ function renderTaskdetailHTML(i) {
                 <div onclick="editTaskNew(${i})" class="delete-edit-buttons">
                     <img  src="img/PenAddTask 1=edit.svg" alt="">Edit
                 </div>
-               
             </div>
         </div>
     `;
+}
+
+
+function showSubtasksInProgress(i) {
+    inProgress = '';
+    let subtasksProgress = tasks[i]['subtasksInProgress'];
+    subtaskHeadline = '';
+    for (let k = 0; k < subtasksProgress.length; k++) {
+        let subtaskProgress = subtasksProgress[k];
+        renderSubtaskHeadline()
+        inProgress += /*html*/ ` 
+        <div class="task-detail-flex margin-bottom10">
+            <img onclick="switchSubtaskStatusToFinished(${i}, ${k})" class="task-box" src="img/addTaskBox.svg" alt="">
+            ${subtaskProgress}
+        </div>
+        `;
+    }
+}
+
+
+function showSubtasksFinished(i) {
+    finished = '';
+    let subtasksDone = tasks[i]['subtasksFinish']
+    for (let l = 0; l < subtasksDone.length; l++) {
+        let subtaskDone = subtasksDone[l];
+        renderSubtaskHeadline()
+        finished += /*html*/ ` 
+       <div class="task-detail-flex margin-bottom10 text-line-through">
+           <img onclick="switchSubtaskStatusToUndone(${i},${l})" class="task-box" src="img/done.svg" alt="">
+           ${subtaskDone}
+       </div>`
+    }
 }
 
 
