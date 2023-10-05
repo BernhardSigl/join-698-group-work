@@ -41,6 +41,12 @@
     right: 0;
 }
 
+@media(max-width: 1000px) {
+    .quicklinksContainer {
+        max-width: calc(100vw - 243px - 83px) !important;
+    }
+}
+
 @media(max-width: 768px) {
     .quicklinksContainer {
         top: 80px;

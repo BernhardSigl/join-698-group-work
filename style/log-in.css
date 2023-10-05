@@ -47,24 +47,33 @@ body {
     background-color: var(--headline) !important;
 }
 
-span {
-    padding-right: 35px;
-}
-
 input {
     border: none;
     outline: none;
 }
 
 .signInBtn {
-    padding: 15px 16px;
+    padding: 15px 16px !important;
+    border-radius: 8px;
+    background: #2A3647;
+    color: white;
+    border: none;
+    margin-left: 35px !important;
+}
+
+.signInBtn:hover {
+    background-color: var(--headline)
+}
+
+.sendNewPasswordBtn {
+    padding: 15px 16px !important;
     border-radius: 8px;
     background: #2A3647;
     color: white;
     border: none;
 }
 
-.signInBtn:hover {
+.sendNewPasswordBtn:hover {
     background-color: var(--headline)
 }
 
@@ -201,10 +210,6 @@ header {
         padding-left: 15px;
     }
 
-    span {
-        font-weight: bold;
-    }
-
     .sing-up-mobile {
         padding-top: 90px;
         display: flex;
@@ -225,10 +230,6 @@ header {
 
     #sing-up {
         display: none;
-    }
-
-    span {
-        padding-right: 0;
     }
 
     .dialog {

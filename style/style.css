@@ -43,6 +43,7 @@
     border-radius: 30px !important;
     width: auto;
     padding: 48px 115px;
+    position: relative;
 }
 
 .h1 {
@@ -72,6 +73,22 @@
     background-color: var(--text-color) !important;
 }
 
+#mobileBackArrowId {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    width: 36.901px;
+    height: 36.901px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mobileBackArrowId:hover {
+    background-color: #F7F7F7;
+    border-radius: 100%;
+}
+
 .gap-32 {
     gap: 32px;
 }
@@ -97,6 +114,12 @@
 .column {
     display: flex;
     flex-direction: column;
+}
+
+.columnVertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .d-none {
