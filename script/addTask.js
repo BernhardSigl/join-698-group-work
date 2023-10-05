@@ -56,8 +56,6 @@ load();
 
 
 //edit task//
-
-
 function loadEditTask(i) {
     toggleVisibilityAddTask('', 'addTaskPop');
     editTask.push(tasks[i]);
@@ -100,13 +98,11 @@ function editTaskWindow() {
     renderSubTaskCollection();
     createCategoryWindow();
     initializePrioButtons();
-
 }
+//---------------------------------------------------------------------------------//
 
 
 //Init functions//
-
-
 async function initAddTask() {
     await includeHTML();
     loadActivUser();
@@ -120,7 +116,6 @@ async function initAddTask() {
     renderAddTaskContent();
 }
 
-
 async function initializeStorage(key, initialValue) {
     try {
         await getItem(key);
@@ -129,7 +124,6 @@ async function initializeStorage(key, initialValue) {
         await setItem(key, JSON.stringify(initialValue));
     }
 }
-
 
 function renderAddTaskContent() {
     load();
@@ -154,8 +148,6 @@ function renderAddTaskContent() {
 
 
 //Load & Save//
-
-
 function save() {
     localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));
     localStorage.setItem('currentPrioAsText', JSON.stringify(currentPrioSelected));
@@ -170,7 +162,6 @@ function save() {
     localStorage.setItem('taskIdAsText', JSON.stringify(taskIdForEdit));
     localStorage.setItem('statusAsText', JSON.stringify(statusEdit));
 }
-
 
 function load() {
     let currentCategoryLoad = localStorage.getItem('categoryCollectionAsText');
@@ -187,7 +178,6 @@ function load() {
     let statusLoad = localStorage.getItem('statusAsText');
     returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, titelLoad, descriptionLoad, dueDateLoad, subTaskFinishLoad, taskIdLoad, statusLoad);
 }
-
 
 function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, titelLoad, descriptionLoad, dueDateLoad, subTaskFinishLoad, taskIdLoad, statusLoad) {
     if (currentCategoryLoad && currentPrioLoad && subTaskCollectionLoad && contactCollectionLoad && selectedIndexLoad && selectedColorLoad && titelLoad && descriptionLoad && dueDateLoad && subTaskFinishLoad && taskIdLoad && statusLoad) {
@@ -206,7 +196,6 @@ function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad,
     }
 }
 
-
 async function loadAddTaskCurrentId() {
     try {
         currentId = JSON.parse(await getItem('currentId'));
@@ -214,7 +203,6 @@ async function loadAddTaskCurrentId() {
         console.info('Could not load currentId');
     }
 }
-
 
 async function loadAddTaskAllCategorys() {
     try {
@@ -227,8 +215,6 @@ async function loadAddTaskAllCategorys() {
 
 
 //SubTaskFunctions//
-
-
 /**
  * Adds a sub-task to the collection.
  */
@@ -244,7 +230,6 @@ function addSubTaskToCollection() {
     }
 }
 
-
 /**
  * Renders the sub-task collection to the DOM.
  */
@@ -258,7 +243,6 @@ function renderSubTaskCollection() {
     }
 }
 
-
 /**
  * Deletes a sub-task from the collection.
  * @param {number} i - Index of the sub-task.
@@ -268,7 +252,6 @@ function deleteSubtaskCollection(i) {
     save()
     renderSubTaskCollection();
 }
-
 
 /**
  * Edits a sub-task.
@@ -283,7 +266,6 @@ function editSubtask(i) {
     let input = document.getElementById('editInput');
     input.value = editSub;
 }
-
 
 /**
  * Confirms the editing of a sub-task.
@@ -300,7 +282,6 @@ function confirmSubEdit(i) {
     renderSubTaskCollection();
 }
 
-
 /**
  * cancel the editing of a sub-task.
  */
@@ -310,7 +291,6 @@ function stopSubEdit() {
     hideEditContainer();
 }
 
-
 /**
  * show edit window.
  */
@@ -318,7 +298,6 @@ function showEditContainer() {
     let inputContainer = document.getElementById('editContainer');
     inputContainer.classList.remove('d-none');
 }
-
 
 /**
  * hide edit window.
@@ -331,8 +310,6 @@ function hideEditContainer() {
 
 
 //AddTask//
-
-
 /**
  * Validates the form and adds a task if the form is valid.
  */
@@ -348,7 +325,6 @@ function createTask() {
         document.getElementById('editTaskButton').classList.add('d-none');
     }
 }
-
 
 /**
  * Retrieves data from form elements and adds a new task.
@@ -388,7 +364,6 @@ function clearButton() {
     window.location.reload();
 }
 
-
 function resetAllAddTaskElements() {
     titleAddTask = '';
     descriptionAddTask = '';
@@ -411,7 +386,6 @@ function resetAllAddTaskElements() {
     window.location.href = './board.html';
 }
 
-
 function clearAddTaskInputs() {
     titleAddTask = document.getElementById('addTitel').value;
     descriptionAddTask = document.getElementById('addDescription').value;
@@ -424,8 +398,6 @@ function clearAddTaskInputs() {
 
 
 //Hide and Show functions//
-
-
 /**
  * Toggles the visibility of two DOM elements.
  * @param {string} id - ID of the first DOM element.
@@ -454,8 +426,6 @@ function toggleVisibilityAddTask(id, id2) {
 
 
 //Contact functions//
-
-
 /**
  * Renders all selected contacts to the DOM.
  */
@@ -468,7 +438,6 @@ function renderAllSelectedContacts() {
         contactZone.innerHTML += returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation);
     }
 }
-
 
 async function renderAllContactsForSearch(filterText = '') {
     await loadContacts();
@@ -485,7 +454,6 @@ async function renderAllContactsForSearch(filterText = '') {
         contactZone.innerHTML += returnRenderAllContactsForSearch(contactColors, contactNamesAbbreviation, contactNames, index);
     }
 }
-
 
 /**
  * Selects or deselects a contact based on its current state.
@@ -511,7 +479,6 @@ async function toggleContactSelection(i) {
     save();
 }
 
-
 /**
  * Checks if a contact is in the `contactCollection`.
  * @param {Object} contact - The contact object to check.
@@ -520,7 +487,6 @@ async function toggleContactSelection(i) {
 function isContactInCollection(contact) {
     return contactCollection.includes(contact);
 }
-
 
 /**
  * Sets styles to visually select a contact.
@@ -535,7 +501,6 @@ function selectContact(mainElement, firstSecondary, secondSecondary) {
     secondSecondary.classList.remove('d-none');
     return;
 }
-
 
 /**
  * Sets styles to visually deselect a contact.
@@ -578,7 +543,6 @@ function makeNameAbbreviation(name) {
     return nameAbbreviation;
 }
 
-
 function clearContactPopup() {
     document.getElementById('inputNameId').value = '';
     document.getElementById('inputEmailId').value = '';
@@ -589,8 +553,6 @@ function clearContactPopup() {
 
 
 //Category functions//
-
-
 function renderCategorys() {
     let container = document.getElementById('categoryRenderContainer');
     container.innerHTML = ''; // Leert den Container bevor er neu gerendert wird
@@ -608,7 +570,6 @@ function renderCategorys() {
     }
 }
 
-
 async function deleteCategory(i) {
     let allCategory = allCategorys[0];
     allCategory.name.splice(i, 1);
@@ -616,7 +577,6 @@ async function deleteCategory(i) {
     await setItem('allCategorys', JSON.stringify(allCategorys));
     save()
 }
-
 
 function selectCategory(type, index) {
     let mainCategory = mainCategorys[0];
@@ -634,7 +594,6 @@ function selectCategory(type, index) {
     borderColorCheck();
 }
 
-
 function borderColorCheck() {
     load();
     if (currentCategorySelected[0].name) {
@@ -644,7 +603,6 @@ function borderColorCheck() {
     }
 }
 
-
 function updateInputs() {
     let inputV1 = document.getElementById('categoryInputV1');
     let inputV2 = document.getElementById('categoryInputV2');
@@ -652,11 +610,9 @@ function updateInputs() {
     setInputValueAndColor(inputV2);
 }
 
-
 function setInputValueAndColor(inputElem) {
     inputElem.value = currentCategorySelected[0].name;
 }
-
 
 function resetInputs() {
     let inputV1 = document.getElementById('categoryInputV1');
@@ -664,7 +620,6 @@ function resetInputs() {
     resetInputValueAndColor(inputV1);
     resetInputValueAndColor(inputV2);
 }
-
 
 function resetInputValueAndColor(inputElem) {
     inputElem.value = 'Select task category';
@@ -674,29 +629,23 @@ function resetInputValueAndColor(inputElem) {
 
 
 //create category//
-
-
 function createCategoryWindow() {
     createCategoryColors();
 }
 
-
 function createCategoryColors() {
     let colorContainer = document.getElementById('colorSettingBox');
     colorContainer.innerHTML = '';
-
     for (let index = 0; index < colorCollection.length; index++) {
         const color = colorCollection[index];
         colorContainer.innerHTML += returnCreateCategoryColors(color, index);
     }
 }
 
-
 function selectColor(color) {
     updateSelectedColorIndex(color);
     createCategoryColors();
 }
-
 
 async function addCategory() {
     let inputElem = document.getElementById('createCategoryInput');
@@ -706,12 +655,10 @@ async function addCategory() {
     toggleVisibilityAddTask('createCategoryPopupByAddTask', '')
 }
 
-
 function updateSelectedColorIndex(index) {
     selectedColorIndex = selectedColorIndex === index ? null : index;
     save();
 }
-
 
 function confirmCreateCategory() {
     if (isValidCategoryInput()) {
@@ -723,24 +670,20 @@ function confirmCreateCategory() {
     clearCreateWindow();
 }
 
-
 function clearCreateWindow() {
     let input = document.getElementById('createCategoryInput');
     input.value = '';
     selectedColorIndex = null;
 }
 
-
 function alertInvalidInput() {
     alert("Bitte geben Sie einen Kategorienamen mit mindestens 2 Buchstaben ein und wählen Sie eine Farbe aus.");
 }
-
 
 function isValidCategoryInput() {
     let inputElem = document.getElementById('createCategoryInput');
     return inputElem.value.length >= 2 && selectedColorIndex !== null;
 }
-
 
 function stopCreateCategory() {
     clearCreateWindow();
@@ -750,8 +693,6 @@ function stopCreateCategory() {
 
 
 //Prio Buttons class-change//
-
-
 /**
  * Updates visual representation of priority buttons.
  * @param {string} btnId - ID of the priority button.
@@ -768,7 +709,6 @@ function activateButton(btnId, iconId, activeIconId, activeClass, iconSrc) {
     save();
 }
 
-
 function deactivateButton(btnId, iconId, activeIconId, activeClass) {
     document.getElementById(btnId).classList.remove(activeClass);
     document.getElementById(iconId).classList.remove('d-none');
@@ -776,7 +716,6 @@ function deactivateButton(btnId, iconId, activeIconId, activeClass) {
     currentPrioSelected = "";
     save();
 }
-
 
 function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, resetOther) {
     if (currentPrioSelected === iconSrc) {
@@ -787,12 +726,9 @@ function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, r
     }
 }
 
-
 function initializePrioButtons() {
     if (!currentPrioSelected) return; // Wenn nichts ausgewählt ist, tue nichts.
-
     let btnId, iconId, activeIconId, activeClass;
-
     switch (currentPrioSelected) {
         case './img/prioUrgent.svg':
             btnId = 'prioUrgentBtn';
@@ -816,12 +752,8 @@ function initializePrioButtons() {
             console.error('Unbekanntes Icon in currentPrioSelected:', currentPrioSelected);
             return;
     }
-
     activateButton(btnId, iconId, activeIconId, activeClass, currentPrioSelected);
 }
-
-// Diese Funktion aufrufen, wenn die Seite geladen ist.
-
 
 /**
  * Resets all priority buttons to their default states.
@@ -840,17 +772,12 @@ function resetAll() {
     currentPrioSelected = "";
     save();
 }
-
-
 //---------------------------------------------------------------------------------//
 
 
 //only for date-input by addTask.html/ Due date//
-
-
 document.addEventListener('DOMContentLoaded', function () {
     var dateInput = document.getElementById('datepicker');
-
     var picker = new Pikaday({
         field: dateInput,
         position: 'top right',
@@ -865,7 +792,6 @@ document.addEventListener('DOMContentLoaded', function () {
             dateInput.value = formattedDate;
         }
     });
-
 
     dateInput.addEventListener('focus', function () {
         if (!this.value) {
@@ -884,8 +810,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //category container add d-none by body-click//
-
-
 document.body.addEventListener('click', function () {
     toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1')
 });
@@ -896,8 +820,6 @@ document.getElementById('categorySection').addEventListener('click', function (e
 
 
 //contact container add d-none by body-click//
-
-
 document.body.addEventListener('click', function () {
     toggleVisibilityAddTask('assignedToContactsInputContainer', 'assignedToInputContainer')
 });
@@ -908,8 +830,6 @@ document.getElementById('assignTo').addEventListener('click', function (event) {
 
 
 //categoryReturn//
-
-
 function returnCreateCategoryColors(color, index) {
     if (color === selectedColorIndex) {
         return /*html*/ `
@@ -921,7 +841,6 @@ function returnCreateCategoryColors(color, index) {
         `;
     }
 }
-
 
 function returnRenderMainCategorys(name, color, i) {
     if (currentCategorySelected[0].name === name &&
@@ -941,7 +860,6 @@ function returnRenderMainCategorys(name, color, i) {
         `;
     }
 }
-
 
 function returnRenderAllCategorys(name, color, i) {
     if (currentCategorySelected[0].name === name &&
@@ -970,8 +888,6 @@ function returnRenderAllCategorys(name, color, i) {
 
 
 //return render Contacts(all and selected)//
-
-
 /**
  * Returns an HTML string representing a selected contact.
  * @param {Object} contacts - The contact object to render.
@@ -982,7 +898,6 @@ function returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation
     <div style="background-color:${contactColors}" class="assignedToContactImg">${contactNamesAbbreviation}</div>
     `;
 }
-
 
 /**
  * Returns an HTML string for the contact search functionality.
@@ -1015,7 +930,6 @@ function returnRenderAllContactsForSearch(contactColor, contactNamesAbbreviation
     `;
 }
 
-
 /**
  * Toggles classes for the main settings element.
  * @param {HTMLElement} mainElement - Main settings DOM element.
@@ -1031,7 +945,6 @@ function returnSettingsMain(mainElement) {
     return
 }
 
-
 /**
  * Toggles visibility for the first settings element.
  * @param {HTMLElement} firstSecondary - First settings DOM element.
@@ -1044,7 +957,6 @@ function returnSettingsFirst(firstSecondary) {
     }
     return
 }
-
 
 /**
  * Toggles visibility for the second settings element.
@@ -1062,8 +974,6 @@ function returnSettingsSecond(secondSecondary) {
 
 
 //return Subtask//
-
-
 /**
  * Returns an HTML string representing the subtask editing container.
  * @param {number} i - Index of the subtask.
@@ -1076,7 +986,6 @@ function returnEditContainer(i) {
     <img onclick="confirmSubEdit(${i})" class="editAbsolutCheck" src="img/SubtasksCheck.svg">
     `;
 }
-
 
 /**
  * Returns an HTML string representing a collection of subtasks.
@@ -1099,8 +1008,6 @@ function returnSubTaskCollection(subCollection, i) {
 
 
 //return render functions//
-
-
 function returnButtonAreaAddTask() {
     return /*html*/ `
 <div class="addTaskBottomArea">
@@ -1123,14 +1030,12 @@ function returnButtonAreaAddTask() {
     `;
 }
 
-
 function returnButtonAreaEditTask() {
     return /*html*/`
     <button onclick="addEditTask()" class="createBtn blueBtn">Edit task<img class="createImg"
             src="./img/check.svg"></button>
     `;
 }
-
 
 function returnCategoryBox1() {
     return /*html*/ `
@@ -1141,7 +1046,6 @@ function returnCategoryBox1() {
         class="inputAbsolut" src="img/arrow_drop_downaa.svg">
     `;
 }
-
 
 function returnCategoryBox2() {
     return /*html*/ `
@@ -1164,7 +1068,6 @@ function returnCategoryBox2() {
     </div>
     `;
 }
-
 
 function returnPrioBox() {
     return /*html*/ `
@@ -1189,7 +1092,6 @@ function returnPrioBox() {
     `;
 }
 
-
 function returnAssignToBox1() {
     return /*html*/ `
         <input class="click" id="assignedToInputCover"
@@ -1201,7 +1103,6 @@ function returnAssignToBox1() {
         </div>
         `;
 }
-
 
 function returnAssignToBox2() {
     return /*html*/ `
