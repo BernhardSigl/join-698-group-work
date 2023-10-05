@@ -89,7 +89,7 @@ function loadTemplateResetPasswort() {
     <span>Don´t worry! We send you an email with the instrctions to reset your password.</span>
 
     <div  class="input-field">
-        <input type="text" placeholder="EMail">
+        <input type="text" placeholder="Email">
             <img src="./img/letter.svg" alt="Bild hinten" class="input-suffix">   
     </div>  
     <button type="button" class="btn btn-dark button" onsubmit>Send new password</button>  
