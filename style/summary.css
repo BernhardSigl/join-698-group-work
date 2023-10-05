@@ -169,6 +169,10 @@ body {
     color: black !important;
 }
 
+.dialog {
+    padding: 24px 0 !important;
+}
+
 #name,
 #time-of-day {
     text-align: start;
