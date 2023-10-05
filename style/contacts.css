@@ -126,7 +126,7 @@ body {
 
 .firstLetterOverContact {
     width: 352px;
-    padding: 17px 36px;
+    padding: 17px 36px !important;
     height: 58px;
 }
 
@@ -916,6 +916,30 @@ section {
     }
 }
 
+@media (max-height: 700px) {
+    .contactInfoBig {
+        overflow-y: scroll !important;
+        height: calc(100vh - 319.5px) !important;
+    }
+
+    #phoneId {
+        padding-bottom: 8px;
+    }
+
+    .contactsTitle {
+        margin: 32px 16px 32px !important;
+    }
+
+    .fontSize47 {
+        font-size: 24px !important;
+    }
+
+    .profilePictureBig {
+        width: 60px !important;
+        height: 60px !important
+    }
+}
+
 @media (max-width: 374px) {
     .circle {
         width: 70px;
@@ -949,30 +973,6 @@ section {
     }
 
     .firstLetterOverContact {
-        padding: 17px 36px 17px 4px !important;
-    }
-}
-
-@media (max-height: 700px) {
-    .contactInfoBig {
-        overflow-y: scroll !important;
-        height: calc(100vh - 319.5px) !important;
-    }
-
-    #phoneId {
-        padding-bottom: 8px;
-    }
-
-    .contactsTitle {
-        margin: 32px 16px 32px !important;
-    }
-
-    .fontSize47 {
-        font-size: 24px !important;
-    }
-
-    .profilePictureBig {
-        width: 60px !important;
-        height: 60px !important
+        padding: 17px 36px 17px 24px !important;
     }
 }
