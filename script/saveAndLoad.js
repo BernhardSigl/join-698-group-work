@@ -1,0 +1,170 @@
+//Load & Save//
+function save() {
+    localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));
+    localStorage.setItem('currentPrioAsText', JSON.stringify(currentPrioSelected));
+    localStorage.setItem('subTaskCollectionAsText', JSON.stringify(subTaskCollection));
+    localStorage.setItem('contactCollectionAsText', JSON.stringify(contactCollection));
+    localStorage.setItem('selectedIndexAsText', JSON.stringify(selectedIndex));
+    localStorage.setItem('selectedColorIndexAsText', JSON.stringify(selectedColorIndex));
+    localStorage.setItem('subTaskFinishAsText', JSON.stringify(subtasksFinish));
+    localStorage.setItem('taskIdAsText', JSON.stringify(taskIdForEdit));
+    localStorage.setItem('statusAsText', JSON.stringify(statusEdit));
+}
+
+function load() {
+    let currentCategoryLoad = localStorage.getItem('categoryCollectionAsText');
+    let currentPrioLoad = localStorage.getItem('currentPrioAsText');
+    let subTaskCollectionLoad = localStorage.getItem('subTaskCollectionAsText');
+    let contactCollectionLoad = localStorage.getItem('contactCollectionAsText');
+    let selectedIndexLoad = localStorage.getItem('selectedIndexAsText');
+    let selectedColorLoad = localStorage.getItem('selectedColorIndexAsText');
+    let subTaskFinishLoad = localStorage.getItem('subTaskFinishAsText');
+    let taskIdLoad = localStorage.getItem('taskIdAsText');
+    let statusLoad = localStorage.getItem('statusAsText');
+    returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, subTaskFinishLoad, taskIdLoad, statusLoad);
+}
+
+function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, subTaskFinishLoad, taskIdLoad, statusLoad) {
+    if (currentCategoryLoad && currentPrioLoad && subTaskCollectionLoad && contactCollectionLoad && selectedIndexLoad && selectedColorLoad && subTaskFinishLoad && taskIdLoad && statusLoad) {
+        currentCategorySelected = JSON.parse(currentCategoryLoad);
+        currentPrioSelected = JSON.parse(currentPrioLoad);
+        subTaskCollection = JSON.parse(subTaskCollectionLoad);
+        contactCollection = JSON.parse(contactCollectionLoad);
+        selectedIndex = JSON.parse(selectedIndexLoad);
+        selectedColorIndex = JSON.parse(selectedColorLoad);
+        subtasksFinish = JSON.parse(subTaskFinishLoad);
+        taskIdForEdit = JSON.parse(taskIdLoad);
+        statusEdit = JSON.parse(statusLoad);
+    }
+}
+//------------tasks----------------------
+//remote
+async function loadTasks() {
+    try {
+        tasks = JSON.parse(await getItem('tasks'));
+
+    } catch (e) {
+        console.info('Could not load tasks');
+    }
+}
+
+await setItem('tasks', JSON.stringify(tasks));
+
+//local
+function saveTasksLocal() {
+    localStorage.setItem('tasksAsText', JSON.stringify(tasks));
+}
+
+function loadTasksLocal() {
+    let tasksLoad = localStorage.getItem('tasksAsText');
+    if (tasksLoad) {
+        tasks = JSON.parse(tasksLoad);
+    }
+}
+
+//current id
+
+//remote
+await setItem('currentId', JSON.stringify(currentId));
+
+async function loadAddTaskCurrentId() {
+    try {
+        currentId = JSON.parse(await getItem('currentId'));
+    } catch (e) {
+        console.info('Could not load currentId');
+    }
+}
+
+//local
+function saveCurrentIdLocal() {
+    localStorage.setItem('currentIdAsText', JSON.stringify(currentId));
+}
+
+function loadCurrentIdLocal() {
+    let currentIdLoad = localStorage.getItem('currentIdAsText');
+    if (currentIdLoad) {
+        currentId = JSON.parse(currentIdLoad);
+    }
+}
+
+
+//Categorys
+
+//remote
+await setItem('allCategorys', JSON.stringify(allCategorys));
+
+async function loadAddTaskAllCategorys() {
+    try {
+        allCategorys = JSON.parse(await getItem('allCategorys'));
+    } catch (e) {
+        console.info('Could not load categorys');
+    }
+}
+
+//local
+function saveCategorysLocal() {
+    localStorage.setItem('categorysAsText', JSON.stringify(allCategorys));
+}
+
+function loadCategorysLocal() {
+    let categorysLoad = localStorage.getItem('categorysAsText');
+    if (categorysLoad) {
+        allCategorys = JSON.parse(categorysLoad);
+    }
+}
+
+//Contacts
+
+//remote
+await setItem('contactsArray', JSON.stringify(contactsArray));
+
+async function loadContacts() {
+    try {
+        contactsArray = JSON.parse(await getItem('contactsArray'));
+        nextColorIndex = JSON.parse(await getItem('nextColorIndex'));
+    } catch (e) {
+        console.info('Could not load contacts');
+    }
+}
+
+//local
+function saveContactsLocal() {
+    localStorage.setItem('contactsAsText', JSON.stringify(contactsArray));
+}
+
+function loadCategorysLocal() {
+    let contactsLoad = localStorage.getItem('contactsAsText');
+    if (contactsLoad) {
+        contactsArray = JSON.parse(contactsLoad);
+    }
+}
+
+
+
+function saveActivUser() {
+    localStorage.setItem('activUserAsText', JSON.stringify(activUser));
+}
+
+function loadActivUser() {
+    let activUserLoad = localStorage.getItem('activUserAsText');
+    if (activUserLoad) {
+        activUser = JSON.parse(activUserLoad);
+    }
+}
+
+
+async function setItem(key, value) {
+    const payload = { key, value, token: STORAGE_TOKEN };
+    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
+        .then(res => res.json());
+}
+
+async function getItem(key) {
+    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+    return fetch(url).then(res => res.json()).then(res => {
+        if (res.data) {
+            return res.data.value;
+        }
+        throw `Could not find data with key "${key}".`;
+    });
+}

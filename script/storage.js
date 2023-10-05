@@ -18,8 +18,6 @@ async function loadTasks() {
 }
 
 
-
-
 function saveActivUser() {
     localStorage.setItem('activUserAsText', JSON.stringify(activUser));
 }
@@ -30,10 +28,6 @@ function loadActivUser() {
         activUser = JSON.parse(activUserLoad);
     }
 }
-
-
-
-
 
 
 async function setItem(key, value) {

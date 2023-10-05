@@ -309,7 +309,7 @@ function createTask() {
 /**
  * Retrieves data from form elements and adds a new task.
  */
-async function addTask(status) {
+async function addTask() {
     contactNames = contactCollection.map(contact => contact.name);
     contactColors = contactCollection.map(contact => contact.color);
     contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
@@ -318,9 +318,9 @@ async function addTask(status) {
         'status': statusGroup,
         'category': currentCategorySelected[0].name,
         'categoryColor': currentCategorySelected[0].color,
-        'title': titleAddTask,
-        'description': descriptionAddTask,
-        'dueDate': dueDateAddTask,
+        'title': document.getElementById("addTitel").value,
+        'description': document.getElementById("addDescription").value,
+        'dueDate': document.getElementById("datepicker").value,
         'priority': currentPrioSelected,
         'contactName': contactNames,
         'contactColor': contactColors,
