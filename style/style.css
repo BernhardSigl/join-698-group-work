@@ -108,18 +108,20 @@
 }
 
 .menu-header {
-    border-radius: 23px 3px 19px 2px;
+    border-radius: 20px 0px 20px 20px;
     background-color: var(--main-color);
-    padding: 5px;
-    margin: 5px;
-    width: 100%;
+    padding: 10px;
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-items: flex-start;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
 }
 
 .menu-header-container {
-    width: 127px;
+    width: auto;
+    height: auto;
     right: 11px;
     top: 96px;
     position: absolute;
@@ -127,11 +129,13 @@
 }
 
 .menu-header-container a {
-    width: 110px;
-    display: inline-block;
+    width: 140px;
+    height: 46px;
+    padding: 8px 16px;
     color: var(--text-color);
     text-decoration: none;
-    padding: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .menu-header-container a:hover {
