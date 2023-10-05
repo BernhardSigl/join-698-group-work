@@ -362,6 +362,11 @@ h3 {
     display: flex;
 }
 
+.priority-container{
+    display: flex;
+    gap: 8px;
+}
+
 .task-detail-users {
     display: flex;
     flex-direction: column;

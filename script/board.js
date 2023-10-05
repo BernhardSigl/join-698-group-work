@@ -1,4 +1,8 @@
 let currentDraggedElement;
+let assignedUser;
+let subtaskHeadline;
+let inProgress;
+let finished;
 
 
 async function initBoard() {
@@ -6,6 +10,7 @@ async function initBoard() {
     updateBoardHTML();
     countTasks();
 }
+
 
 function countTasks() {
     console.log(tasks)
@@ -23,12 +28,12 @@ document.addEventListener('dragstart', function (e) {
     }
 });
 
+
 document.addEventListener('dragend', function (e) {
     if (e.target.classList.contains('task')) {
         e.target.classList.remove('rotating');
     }
 });
-
 
 
 async function addQuickTaskBoard(status) {
@@ -70,9 +75,6 @@ async function clearArray() {
 }
 
 
-/* ---------------------------------------------------------------------------------------------------------------------------------------------- */
-
-
 /**
  * This function filters the tasks array for title and description  
  * @returns new arrays for every element of the content who matches with the value of the searchInput 
@@ -86,6 +88,7 @@ function searchTasks() {
         task.description.toLowerCase().includes(searchValue)
     );
 }
+
 
 /**
  * This function displays the results of the search
@@ -105,6 +108,7 @@ function renderSearchResults() {
     })
 }
 
+
 /**
  * This functions clears the searchinput and switchs the x symbol of it back to searchsymbol
  * 
@@ -116,7 +120,7 @@ function clearInput() {
     document.getElementById('searchClose').classList.add('d-none')
     document.getElementById('contentposition').classList.remove('d-none');
 }
-/* ---------------------------------------------------------------------------------------------------------------------------------------------- */
+
 
 /** 
  * This eventlistener is fired when the textbox is focused
@@ -150,8 +154,6 @@ function revertDivColor() {
 }
 
 
-/* ---------------------------------------------------------------------------------------------------------------------------------------------- */
-
 /**
  * It prevents the default behavior of the browser (which blocks dragging by default)
  * 
@@ -174,6 +176,7 @@ async function moveTo(status) {
     removeHighlight(status);
 }
 
+
 /**
  * This function highlights the area which the selected element is dragged at or over
  * 
@@ -185,12 +188,15 @@ function highlight(id) {
 }
 
 
+/**
+ * This function removes highlight from selected element
+ * 
+ * @param {string} id 
+ */
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
 
-
-/* ---------------------------------------------------------------------------------------------------------------------------------------------- */
 
 
 function updateBoardHTML() {
@@ -232,10 +238,13 @@ function updateBoardHTML() {
 
 function generateTaskHTML(element) {
     console.log(tasks)
+
     let i = element['id']
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
     let assignedUser = '';
+
+    console.log(element)
     for (let j = 0; j < users.length; j++) {
         let user = users[j];
         let color = colors[j]
@@ -273,25 +282,26 @@ async function openTask(i) {
 }
 
 
-let assignedUser;
-let subtaskHeadline;
-let inProgress;
-let finished;
-
-
-function renderSubtaskHeadline() {
-    return subtaskHeadline = /*html*/ `
- <div class="task-detail-font-color margin-bottom10">
-     Subtasks
- </div>`
-}
-
 
 function renderTaskdetailHTML(i) {
     findAssignedUnser(i);
     showSubtasksInProgress(i);
     showSubtasksFinished(i);
-   
+
+    let prioLow = "./img/prioLow.svg"
+    let prioMedium = "./img/prioMedium.svg"
+    let prioUrgent = "./img/prioUrgent.svg"
+    let taskPriority = ''
+    if (prioLow === tasks[i]['priority']) {
+        taskPriority = "Low"
+    }
+    if (prioMedium === tasks[i]['priority']) {
+        taskPriority = "Medium"
+    }
+    if (prioUrgent === tasks[i]['priority']) {
+        taskPriority = "Urgent"
+    }
+    
     document.getElementById('popup-container').classList.remove('d-none');
     document.getElementById('popup-container').innerHTML = /*html*/ `
     <div class="task-detail">
@@ -313,7 +323,8 @@ function renderTaskdetailHTML(i) {
                     </div>
                     <div class="task-detail-flex">
                         <div class="task-detail-font-color">Priority:</div>
-                        <div>
+                        <div class="priority-container">
+                            <div>${taskPriority}</div>
                             <img src="${tasks[i]['priority']}">
                         </div>
                     </div>
@@ -348,9 +359,18 @@ function renderTaskdetailHTML(i) {
 }
 
 
+function renderSubtaskHeadline() {
+    return subtaskHeadline = /*html*/ `
+ <div class="task-detail-font-color margin-bottom10">
+     Subtasks
+ </div>`
+}
+
+
 function showSubtasksInProgress(i) {
     inProgress = '';
     let subtasksProgress = tasks[i]['subtasksInProgress'];
+
     subtaskHeadline = '';
     for (let k = 0; k < subtasksProgress.length; k++) {
         let subtaskProgress = subtasksProgress[k];
