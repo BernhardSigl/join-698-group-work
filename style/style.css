@@ -142,6 +142,16 @@
     background-color: var(--sidebarHoverElements);
 }
 
+@media (max-width: 1000px) {
+    .content {
+        max-width: calc(100vw - 243px - 83px) !important;
+
+        .leftContainer {
+            margin-left: 0;
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .content {
         position: absolute;
