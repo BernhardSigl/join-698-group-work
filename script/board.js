@@ -2,7 +2,6 @@ let currentDraggedElement;
 
 
 async function initBoard() {
-    includeHTML();
     await loadTasks();
     updateBoardHTML();
     countTasks();

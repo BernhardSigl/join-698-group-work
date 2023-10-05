@@ -24,11 +24,9 @@
 </head>
 
 
-<body onload="initContacts()" onresize="mobileView(), desktopViewSmall()">
-    <div w3-include-html="templates/sidebar.html">
-    </div>
-    <div w3-include-html="templates/header.html"></div>
-    <div w3-include-html="summary.html"></div>
+<body onload="renderSidebarHeader(), initContacts()" onresize="mobileView(), desktopViewSmall()">
+    <div id="sidebarArea"></div>
+    <div id="headerArea"></div>
     <div class="contentContact">
 
         <div class="d-flex contactPage">

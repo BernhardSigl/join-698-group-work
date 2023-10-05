@@ -1,6 +1,5 @@
 
 async function init() {
-    await includeHTML();
     loadActivUser();
     userCircle();
     await loadTasks();

@@ -56,25 +56,6 @@ load();
 
 
 //edit task//
-function loadEditTask(i) {
-    toggleVisibilityAddTask('', 'addTaskPop');
-    editTask.push(tasks[i]);
-    titleAddTask.push(editTask.title);
-    descriptionAddTask.push(editTask.description);
-    dueDateAddTask.push(editTask.dueDate);
-    currentPrioSelected.push(editTask.priority);
-    subTaskCollection.push(editTask.subtasksInProgress);
-    subtasksFinish.push(editTask.subtaskFinish);
-    taskIdForEdit.push(editTask.id);
-    contactCollection.nameAbbreviation.push(editTask.contactAbbreviation);
-    contactCollection.color.push(editTask.contactColor);
-    contactCollection.name.push(editTask.contactName);
-    currentCategorySelected[0].color.push(editTask.categoryColor);
-    currentCategorySelected[0].name.push(editTask.category);
-    statusEdit.push(editTask.status);
-    save()
-    editTaskWindow();
-}
 
 
 function editTaskWindow() {
@@ -104,7 +85,6 @@ function editTaskWindow() {
 
 //Init functions//
 async function initAddTask() {
-    await includeHTML();
     loadActivUser();
     userCircle();
     statusSelected('toDo')

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
+    <link rel="stylesheet" href="style/fonts.css">
     <link rel="stylesheet" href="style/addTask.css">
     <link rel="stylesheet" href="templates/header_footer.css">
     <link rel="stylesheet" href="./style/style.css">
@@ -23,14 +24,14 @@
 </head>
 
 
-<body onload="initBoard(), initAddTask()">
+<body onload="renderSidebarHeader(), initBoard(), initAddTask()">
     <!-- aria-label="Search" -->
 
     <!-- <div w3-include-html="summary.html"></div>  -->
 
 
-    <div w3-include-html="templates/sidebar.html"></div>
-    <div w3-include-html="templates/header.html"></div>
+    <div id="sidebarArea"></div>
+    <div id="headerArea"></div>
 
     <div id="popup-container" class="dialog-bg d-none"></div>
     <div class="content-board show-scrollbarTaskWindow bg-main-color">
