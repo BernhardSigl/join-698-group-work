@@ -198,22 +198,27 @@ function updateBoardHTML() {
 }
 
 
+function updateProgressbar(element){
+   let openSubasks = element['subtasksInProgress'].length
+   let finishedSubasks = element['subtasksFinish'].length
+   let allSubtasks = openSubasks + finishedSubasks
+   let percent = finishedSubasks / allSubtasks;
+       percent = Math.round(percent * 100);
+    
+    return /*html*/ `  
+    <div class="task-progress">
+    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
+        <div class="progress-bar" style="background-color: #4589FF; width:${percent}%"></div> 
+    </div>
+        ${finishedSubasks}/${allSubtasks} Subtasks
+    </div> `
+}
 
 function generateTaskHTML(element) {
-
-
     let i = element['id']
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
     let assignedUser = '';
-    console.log("element", element)
-    // console.log(element['subtasksInProgress'].length)
-    // console.log(element['subtasksFinish'].length)
-
-
-    let openSubasks = element['subtasksInProgress'].length
-    let finishedSubasks = element['subtasksFinish'].length
-
 
     for (let j = 0; j < users.length; j++) {
         let user = users[j];
@@ -228,13 +233,7 @@ function generateTaskHTML(element) {
                 <div class="task-title">${element['title']}</div>
                 <div class="task-description show-scrollbar"> ${element['description']}</div>
             </div>
-            <div class="task-progress">
-            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
-                <div class="progress-bar w-75" style="background-color: #4589FF"></div> 
-            </div>
-            
-                ${openSubasks}/${finishedSubasks} Subtasks
-            </div> 
+            ${updateProgressbar(element)}
             <div class="task-users-prio">
                 <div class="task-users">
                    ${assignedUser}
