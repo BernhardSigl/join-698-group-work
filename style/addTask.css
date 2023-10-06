@@ -132,6 +132,7 @@ textarea {
     padding: 18px 16px;
     min-height: 120px;
     margin-top: 8px !important;
+    margin-bottom: 24px !important;
     outline: none;
 }
 
@@ -187,6 +188,7 @@ textarea:focus {
     outline: none;
 }
 
+
 #datepicker {
     background-image: url('../img/kalenderJoin.svg') !important;
     background-repeat: no-repeat !important;
@@ -222,6 +224,7 @@ textarea:focus {
     justify-content: center;
     width: 100%;
     height: auto;
+    padding-top: 15px;
 }
 
 
@@ -654,7 +657,7 @@ ul {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-top: 55px;
+    margin-top: 150px;
     margin-bottom: 30px;
     z-index: 2;
     align-items: flex-end;
