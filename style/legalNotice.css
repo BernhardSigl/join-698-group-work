@@ -19,7 +19,7 @@ body {
 
 #mobileBackArrowId {
     position: absolute;
-    top: 50px;
+    top: 20px;
     right: 98px;
     width: 32px;
     height: 32px;
@@ -77,6 +77,22 @@ body {
     border-radius: 10px;
 }
 
+.mb32 {
+    margin-bottom: 32px !important;
+}
+
+.mb24 {
+    margin-bottom: 32px !important;
+}
+
+.mt24 {
+    margin-top: 32px !important;
+}
+
+.mb16 {
+    margin-bottom: 32px !important;
+}
+
 @media(max-width: 1000px) {
     .quicklinksContainer {
         max-width: calc(100vw - 160px) !important;
@@ -86,7 +102,7 @@ body {
 
 @media(max-width: 768px) {
     .quicklinksContainer {
-        top: 80px;
+        top: 128px;
         left: 0px;
         max-width: 100vw !important;
         padding-right: 16px;
@@ -95,8 +111,12 @@ body {
 
     #mobileBackArrowId {
         position: absolute;
-        top: 50px;
-        right: 16px;
+        top: 8px;
+        right: 6px;
         transition: transform 0.4s ease;
+    }
+
+    .fontSize61 {
+        font-size: 47px !important;
     }
 }
