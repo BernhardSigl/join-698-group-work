@@ -3,6 +3,18 @@ body {
     height: 100vh;
     width: 100vw;
 }
+.task-progress{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+}
+
+.task-top{
+    margin-bottom: 10px;
+    min-height: 100px;
+}
 
 /* added from summary.html */
 .content {
@@ -300,7 +312,7 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .task-detail {

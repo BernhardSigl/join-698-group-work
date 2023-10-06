@@ -206,10 +206,10 @@ function generateTaskHTML(element) {
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
     let assignedUser = '';
-    console.log("element",element)
+    console.log("element", element)
     // console.log(element['subtasksInProgress'].length)
     // console.log(element['subtasksFinish'].length)
-   
+
 
     let openSubasks = element['subtasksInProgress'].length
     let finishedSubasks = element['subtasksFinish'].length
@@ -223,14 +223,18 @@ function generateTaskHTML(element) {
     }
 
     return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTask(${i})" class="task">
-            <div>
+            <div class="task-top">
                 <div class="task-category"> ${element['category']}</div>
                 <div class="task-title">${element['title']}</div>
                 <div class="task-description show-scrollbar"> ${element['description']}</div>
             </div>
-            <div>
-                ${openSubasks}/${finishedSubasks}
+            <div class="task-progress">
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
+                <div class="progress-bar w-75" style="background-color: #4589FF"></div> 
             </div>
+            
+                ${openSubasks}/${finishedSubasks} Subtasks
+            </div> 
             <div class="task-users-prio">
                 <div class="task-users">
                    ${assignedUser}
