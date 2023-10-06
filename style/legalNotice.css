@@ -20,6 +20,8 @@ body {
     position: absolute;
     top: 50px;
     right: 98px;
+    width: 32px;
+    height: 32px;
     transition: transform 0.4s ease;
 }
 
@@ -28,8 +30,7 @@ body {
 }
 
 #mobileBackArrowId:hover {
-    width: 32px;
-    height: 32px;
+
     background-color: #F7F7F7;
     border-radius: 100%;
     transform: scale(1.05);

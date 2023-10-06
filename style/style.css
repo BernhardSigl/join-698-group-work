@@ -69,8 +69,8 @@
 #mobileBackArrowId {
     position: absolute;
     top: 60px;
-    width: 36.901px;
-    height: 36.901px;
+    width: 32px;
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
