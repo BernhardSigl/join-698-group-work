@@ -1,6 +1,5 @@
 let dialog = document.getElementById('dialog');
 
-
 async function initLogin() {
     activUser = {
         'name': '',
@@ -17,7 +16,6 @@ function loadLogIn() {
     dialog.innerHTML = loadTempleteLogIn();
 }
 
-
 function startAnimation() {
     if (!document.referrer) { // Wenn referrer leer ist
         document.querySelector('.join-logo-contain').classList.add('animated');
@@ -26,21 +24,17 @@ function startAnimation() {
     }
 };
 
-
 function loadRegister() {
     window.location.href = "./register.html";
 }
-
 
 function resetPasswort() {
     dialog.innerHTML = loadTemplateResetPasswort();
 }
 
-
 function closeDialog() {
     loadLogIn();
 }
-
 
 function login() {
     let email = document.getElementById('email');
@@ -64,8 +58,6 @@ function guestLogin() {
     saveActivUser();
     window.location.href = "./summary.html";
 }
-
-
 
 function loadRedBorderInput() {
     let inputIds = ["input-email", "input-passwort"];
@@ -99,7 +91,6 @@ function loadWarningTextTamplate() {
 //     `
 // }
 
-
 function loadTempleteLogIn() {
     return /*html*/ `
                 <div class="logInTitle">
@@ -117,7 +108,7 @@ function loadTempleteLogIn() {
                     </span>
                     </div>
                     <div id="input-passwort" class="input-field">
-                        <input id="passwort" type="text" placeholder="Password">
+                        <input id="passwort" type="password" placeholder="Password">
                         <img src="./img/lock.svg" alt="Bild hinten" class="input-suffix">
                     </div>
                     <div class="warning-field">
@@ -134,9 +125,9 @@ function loadTempleteLogIn() {
                     </div>
 
                 </div>
-                <div class="fontSize21 buttonsUnderLogin">
-                    <button onclick="login()" type="button" class="button-log-in">Log in</button>
-                    <button onclick='guestLogin()' type="button" class="button-guest-login">Guest log in</button>
+                <div class="buttonsUnderLogin">
+                    <button onclick="login()" type="button" class="button-log-in fontSize21">Log in</button>
+                    <button onclick='guestLogin()' type="button" class="button-guest-login fontSize21">Guest log in</button>
                 </div>
             </div>
     `

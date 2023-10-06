@@ -17,32 +17,33 @@ body {
 
 .button-log-in,
 .button-guest-login {
-    height: auto;
-    width: auto;
-    padding: 15px 24px;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
+    height: auto !important;
+    width: auto !important;
+    padding: 15px 24px !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    font-family: 'Inter' !important;
 }
 
 .button-guest-login {
     background-color: var(--text-white) !important;
     color: var(--main-color) !important;
-    border: 1px solid var(--version-2-main-color, #2A3647);
-    margin-left: calc(35px / 2);
+    border: 1px solid var(--version-2-main-color, #2A3647) !important;
+    margin-left: calc(35px / 2) !important;
 }
 
 .button-guest-login:hover {
     border-color: var(--headline) !important;
-    border-width: 2px;
+    /* border-width: 2px; */
     color: var(--headline) !important;
 }
 
 .button-log-in {
-    background-color: #2A3647;
-    color: white;
-    border: none;
-    margin-right: calc(35px / 2);
+    background-color: #2A3647 !important;
+    color: white !important;
+    border: none !important;
+    margin-right: calc(35px / 2) !important;
 }
 
 .button-log-in:hover {
@@ -62,6 +63,7 @@ input {
     border: none;
     margin-left: 35px !important;
     cursor: pointer;
+    font-family: 'Inter' !important;
 }
 
 .signInBtn:hover {
@@ -283,7 +285,7 @@ header {
 
     .button-log-in,
     .button-guest-login {
-        margin: 0;
+        margin: 0 !important;
     }
 
     .input-field {
