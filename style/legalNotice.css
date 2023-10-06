@@ -77,7 +77,8 @@ body {
 
 @media(max-width: 1000px) {
     .quicklinksContainer {
-        max-width: calc(100vw - 243px - 83px) !important;
+        max-width: calc(100vw - 160px) !important;
+        left: 160px;
     }
 }
 
