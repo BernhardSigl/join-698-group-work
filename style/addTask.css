@@ -35,6 +35,14 @@ section {
     margin-bottom: 16px;
 }
 
+.marginTop24 {
+    margin-top: 24px;
+}
+
+.marginBottom8 {
+    margin-bottom: 8px;
+}
+
 .dFlex {
     display: flex;
 }
@@ -65,8 +73,8 @@ input {
     border: 1px solid #D1D1D1;
     background: #FFF !important;
     width: 100%;
-    padding: 10px;
-    margin-top: 5px !important;
+    padding: 12px 21px;
+    margin-top: 8px !important;
     outline: none;
 }
 

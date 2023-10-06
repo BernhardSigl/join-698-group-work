@@ -1,4 +1,4 @@
-//Load & Save//
+//save and load local
 function save() {
     localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));
     localStorage.setItem('currentPrioAsText', JSON.stringify(currentPrioSelected));
@@ -140,6 +140,8 @@ function loadCategorysLocal() {
 }
 
 
+//Activ user
+
 
 function saveActivUser() {
     localStorage.setItem('activUserAsText', JSON.stringify(activUser));
@@ -152,7 +154,7 @@ function loadActivUser() {
     }
 }
 
-
+//save and load remote
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN };
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
