@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let currentDraggedElement;
+let assignedUser;
+let taskPriority;
+let subtaskHeadline;
+let inProgress;
+let finished;
+
+
+async function initBoard() {
+    await loadTasks();
+    updateBoardHTML();
+}
+
+
+document.addEventListener('dragstart', function (e) {
+    if (e.target.classList.contains('task')) {
+        e.target.classList.add('rotating');
+    }
+});
+
+
+document.addEventListener('dragend', function (e) {
+    if (e.target.classList.contains('task')) {
+        e.target.classList.remove('rotating');
+    }
+});
+
+
+/**
+ * This function is used to clear all values of the tasks array
+ * 
+ */
+async function clearArray() {
+    tasks.splice(0, tasks.length);
+    currentId = ""
+    await setItem('tasks', JSON.stringify(tasks));
+    await setItem('currentId', JSON.stringify(currentId));
+}
+
+
+/**
+ * This function filters the tasks array for title and description  
+ * @returns new arrays for every element of the content who matches with the value of the searchInput 
+ */
+function searchTasks() {
+    document.getElementById('contentposition').classList.add('d-none');
+    const searchValue = document.getElementById('searchInput').value.toLowerCase();
+    console.log("searching")
+    return tasks.filter(task =>
+        task.title.toLowerCase().includes(searchValue) ||
+        task.description.toLowerCase().includes(searchValue)
+    );
+}
+
+
+/**
+ * This function displays the results of the search
+ * 
+ */
+function renderSearchResults() {
+    document.getElementById('searchLogo').classList.add('d-none');
+    document.getElementById('searchClose').classList.remove('d-none')
+    // x d-none weg lupe d-none hin x onclick = reset function to normal board view
+    let results = searchTasks();
+    console.log(results)
+    let resultsContainer = document.getElementById('searchResults');
+    resultsContainer.innerHTML = '';
+
+    results.forEach(task => {
+        resultsContainer.innerHTML += generateTaskHTML(task)
+    })
+}
+
+
+/**
+ * This functions clears the searchinput and switchs the x symbol of it back to searchsymbol
+ * 
+ */
+function clearInput() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchResults').innerHTML = '';
+    document.getElementById('searchLogo').classList.remove('d-none');
+    document.getElementById('searchClose').classList.add('d-none')
+    document.getElementById('contentposition').classList.remove('d-none');
+}
+
+
+/** 
+ * This eventlistener is fired when the textbox is focused
+ *  
+ */
+document.getElementById('searchInput').addEventListener("focus", changeDivColor);
+
+
+/**
+ * This function changes the bordercolor of the searchbar
+ * 
+ */
+function changeDivColor() {
+    document.getElementById('fake-searchbar').style.borderColor = "#29ABE2";
+}
+
+
+/**
+ * This eventlistener removes the focus of the searchbar
+ * 
+ */
+document.getElementById('searchInput').addEventListener("blur", revertDivColor);
+
+
+/**
+ * This function changes the bordercolor of the searchbar back to default
+ * 
+ */
+function revertDivColor() {
+    document.getElementById('fake-searchbar').style.borderColor = "#A8A8A8";
+}
+
+
+/**
+ * It prevents the default behavior of the browser (which blocks dragging by default)
+ * 
+ * @param {DragEvent} ev - the drag event object
+ */
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+
+/**
+ * This function sets the new status of the element when it's dropped and updates the BoardHtml
+ * 
+ * @param {string} status - the status of the selected element
+ */
+async function moveTo(status) {
+    tasks[currentDraggedElement]['status'] = status;
+    await setItem('tasks', JSON.stringify(tasks));
+    updateBoardHTML();
+    removeHighlight(status);
+}
+
+
+/**
+ * This function highlights the area which the selected element is dragged at or over
+ * 
+ * 
+ * @param {string} id - the id of the element to be highlighted
+ */
+function highlight(id) {
+    document.getElementById(id).classList.add('drag-area-highlight');
+}
+
+
+/**
+ * This function removes highlight from selected element
+ * 
+ * @param {string} id 
+ */
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+
+
+function updateBoardHTML() {
+
+    let todo = tasks.filter(t => t['status'] == 'toDo');
+    document.getElementById('toDo').innerHTML = '';
+    for (let index = 0; index &lt; todo.length; index++) {
+        const element = todo[index];
+        document.getElementById('toDo').innerHTML += generateTaskHTML(element);
+        // searchUsers(element);
+    }
+
+    let inProgress = tasks.filter(t => t['status'] == 'in-progress');
+    document.getElementById('in-progress').innerHTML = '';
+    for (let index = 0; index &lt; inProgress.length; index++) {
+        const element = inProgress[index];
+        document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
+        // searchUsers(element);
+    }
+
+    let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
+    document.getElementById('awaiting-feedback').innerHTML = '';
+    for (let index = 0; index &lt; awaitingFeedback.length; index++) {
+        const element = awaitingFeedback[index];
+        document.getElementById('awaiting-feedback').innerHTML += generateTaskHTML(element);
+        // searchUsers(element);
+    }
+
+    let done = tasks.filter(t => t['status'] == 'done');
+    document.getElementById('done').innerHTML = '';
+    for (let index = 0; index &lt; done.length; index++) {
+        const element = done[index];
+        document.getElementById('done').innerHTML += generateTaskHTML(element);
+        // searchUsers(element);
+    }
+}
+
+
+function updateProgressbar(element){
+   let openSubasks = element['subtasksInProgress'].length
+   let finishedSubasks = element['subtasksFinish'].length
+   let allSubtasks = openSubasks + finishedSubasks
+   let percent = finishedSubasks / allSubtasks;
+       percent = Math.round(percent * 100);
+    
+    return /*html*/ `  
+    &lt;div class="task-progress">
+    &lt;div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
+        &lt;div class="progress-bar" style="background-color: #4589FF; width:${percent}%">&lt;/div> 
+    &lt;/div>
+        ${finishedSubasks}/${allSubtasks} Subtasks
+    &lt;/div> `
+}
+
+function generateTaskHTML(element) {
+    let i = element['id']
+    let users = element['contactAbbreviation']
+    let colors = element['contactColor']
+    let assignedUser = '';
+
+    for (let j = 0; j &lt; users.length; j++) {
+        let user = users[j];
+        let color = colors[j]
+        assignedUser += /*html*/ ` 
+       &lt;div class="profile-picture horicontal-and-vertical" style="background-color:${color} ">${user}&lt;/div>`;
+    }
+
+    return /*html*/ `&lt;div draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTask(${i})" class="task">
+            &lt;div class="task-top">
+                &lt;div class="task-category"> ${element['category']}&lt;/div>
+                &lt;div class="task-title">${element['title']}&lt;/div>
+                &lt;div class="task-description show-scrollbar"> ${element['description']}&lt;/div>
+            &lt;/div>
+            ${updateProgressbar(element)}
+            &lt;div class="task-users-prio">
+                &lt;div class="task-users">
+                   ${assignedUser}
+                &lt;/div>
+                &lt;img src="${element['priority']}">
+            &lt;/div>
+        &lt;/div>
+    `;
+}
+
+
+function startDragging(id) {
+    let index = tasks.findIndex(task => task.id === id);
+    currentDraggedElement = index;
+}
+
+
+async function openTask(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    renderTaskdetailHTML(index)
+}
+
+
+
+function renderTaskdetailHTML(i) {
+    console.log(tasks[i])
+    findAssignedUnser(i);
+    showSubtasksInProgress(i);
+    showSubtasksFinished(i);
+    renderPriorityText(i)
+    createHTML(i)
+}
+
+
+function renderSubtaskHeadline() {
+    return subtaskHeadline = /*html*/ `
+    &lt;div class="task-detail-font-color margin-bottom10">
+     Subtasks
+    &lt;/div>`
+}
+
+
+function showSubtasksInProgress(i) {
+    inProgress = '';
+    let subtasksProgress = tasks[i]['subtasksInProgress'];
+
+    subtaskHeadline = '';
+    for (let k = 0; k &lt; subtasksProgress.length; k++) {
+        let subtaskProgress = subtasksProgress[k];
+        renderSubtaskHeadline()
+        inProgress += /*html*/ ` 
+        &lt;div class="task-detail-flex margin-bottom10">
+            &lt;img onclick="switchSubtaskStatusToFinished(${i}, ${k})" class="task-box" src="img/addTaskBox.svg" alt="">
+            ${subtaskProgress}
+        &lt;/div>
+        `;
+    }
+    updateBoardHTML();
+}
+
+
+function showSubtasksFinished(i) {
+    finished = '';
+    let subtasksDone = tasks[i]['subtasksFinish']
+    for (let l = 0; l &lt; subtasksDone.length; l++) {
+        let subtaskDone = subtasksDone[l];
+        renderSubtaskHeadline()
+        finished += /*html*/ ` 
+       &lt;div class="task-detail-flex margin-bottom10 text-line-through">
+           &lt;img onclick="switchSubtaskStatusToUndone(${i},${l})" class="task-box" src="img/done.svg" alt="">
+           ${subtaskDone}
+       &lt;/div>`
+    }
+    updateBoardHTML();
+}
+
+
+function renderPriorityText(i) {
+    let prioLow = "./img/prioLow.svg"
+    let prioMedium = "./img/prioMedium.svg"
+    let prioUrgent = "./img/prioUrgent.svg"
+    taskPriority = "";
+    if (prioLow === tasks[i]['priority']) {
+        taskPriority = "Low"
+    }
+    if (prioMedium === tasks[i]['priority']) {
+        taskPriority = "Medium"
+    }
+    if (prioUrgent === tasks[i]['priority']) {
+        taskPriority = "Urgent"
+    }
+}
+
+
+function createHTML(i) {
+    document.getElementById('popup-container').classList.remove('d-none');
+    document.getElementById('popup-container').innerHTML = /*html*/ `
+    
+    &lt;div class="task-detail">
+            &lt;div class="task-detail-content-container">
+                &lt;div class="task-detail-top">
+                    &lt;div class="task-detail-category"> ${tasks[i]['category']}&lt;/div>
+                    &lt;img onclick="closeTask()" src="img/crossAddTask.svg" alt="close" class="close-hover">
+                &lt;/div>
+                &lt;div class="task-detail-content">
+                    &lt;div class="task-detail-title">
+                        &lt;h2>${tasks[i]['title']}&lt;/h2>
+                    &lt;/div>
+                    &lt;div class="task-description show-scrollbar">
+                        ${tasks[i]['description']}
+                    &lt;/div>
+                    &lt;div class="task-detail-flex">
+                        &lt;div class="task-detail-font-color">Due date:&lt;/div>
+                        &lt;div> ${tasks[i]['dueDate']}&lt;/div>
+                    &lt;/div>
+                    &lt;div class="task-detail-flex">
+                        &lt;div class="task-detail-font-color">Priority:&lt;/div>
+                        &lt;div class="priority-container">
+                            &lt;div>${taskPriority}&lt;/div>
+                            &lt;img src="${tasks[i]['priority']}">
+                        &lt;/div>
+                    &lt;/div>
+                    &lt;div>
+                        &lt;div class="margin-bottom10 task-detail-font-color">Assigned To:&lt;/div>
+                        &lt;div class="task-detail-users">
+                            
+                        ${assignedUser}
+
+                        &lt;/div>
+                    &lt;/div>
+                    &lt;div class="task-detail-subtasks">
+                        
+                        ${subtaskHeadline}
+                        ${inProgress}
+                        ${finished}
+
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="task-detail-bottom">
+                &lt;div onclick="deleteTask(${i})" class="delete-edit-buttons">
+                    &lt;img  src="img/subTaskDelete.svg" alt="">Delete
+                &lt;/div>
+                &lt;img src="img/vector_detail_card.svg" alt="">
+                &lt;div onclick="editTaskNew(${i})" class="delete-edit-buttons">
+                    &lt;img  src="img/PenAddTask 1=edit.svg" alt="">Edit
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    `;
+}
+
+
+function findAssignedUnser(i) {
+    let userNames = tasks[i]['contactName'];
+    let users = tasks[i]['contactAbbreviation'];
+    let colors = tasks[i]['contactColor'];
+    assignedUser = '';
+    for (let j = 0; j &lt; users.length; j++) {
+        let user = users[j];
+        let userName = userNames[j]
+        let color = colors[j]
+        return assignedUser += /*html*/ ` 
+        &lt;div class="user-details">
+            &lt;div class="profile-picture horicontal-and-vertical" style="background-color:${color}">
+                ${user}
+            &lt;/div>
+            &lt;div class="user-name">
+                ${userName}
+            &lt;/div>   
+        &lt;/div>
+        `;
+    }
+}
+
+
+async function editTaskNew(i) {
+    document.getElementById('addTaskPop').classList.remove('d-none');
+    closeTask();
+    let taskToEdit = tasks[i];
+    console.log(taskToEdit)
+    editTaskWindow();
+    document.getElementById("addTitel").value = taskToEdit.title;
+    document.getElementById("addDescription").value = taskToEdit.description;
+    document.getElementById("datepicker").value = taskToEdit.dueDate;
+    for (let contactNumber = 0; contactNumber &lt; taskToEdit.contactName.length; contactNumber++) {
+        const cName = taskToEdit.contactName[contactNumber];
+        const cColor = taskToEdit.contactColor[contactNumber];
+        const cAbbreviation = taskToEdit.contactAbbreviation[contactNumber];
+
+        contactCollection[contactNumber] = {
+            'nameAbbreviation': cAbbreviation,
+            'color': cColor,
+            'name': cName,
+        }
+    }
+    currentCategorySelected[0].color = taskToEdit.categoryColor;
+    currentCategorySelected[0].name = taskToEdit.category;
+    statusEdit = taskToEdit.status;
+    currentPrioSelected = taskToEdit.priority;
+    subTaskCollection = taskToEdit.subtasksInProgress;
+    subtasksFinish = taskToEdit.subtasksFinish;
+    taskIdForEdit = taskToEdit.id;
+    save();
+    editTaskWindow();
+}
+
+
+async function addEditTask() {
+    contactNames = contactCollection.map(contact => contact.name);
+    contactColors = contactCollection.map(contact => contact.color);
+    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
+    let taskEdit = {
+        'id': taskIdForEdit,
+        'status': statusEdit,
+        'category': currentCategorySelected[0].name,
+        'categoryColor': currentCategorySelected[0].color,
+        'title': document.getElementById("addTitel").value,
+        'description': document.getElementById("addDescription").value,
+        'dueDate': document.getElementById("datepicker").value,
+        'priority': currentPrioSelected,
+        'contactName': contactNames,
+        'contactColor': contactColors,
+        'contactAbbreviation': contactNamesAbbreviation,
+        'subtasksInProgress': subTaskCollection,
+        'subtasksFinish': subtasksFinish,
+    }
+    let index = tasks.findIndex(task => task.id === taskIdForEdit);
+
+    tasks[index] = taskEdit;
+    await setItem('tasks', JSON.stringify(tasks));
+    resetAllAddTaskElementsBoard();
+    updateBoardHTML();
+}
+
+function resetAllAddTaskElementsBoard() {
+    titleAddTask = '';
+    descriptionAddTask = '';
+    dueDateAddTask = '';
+    currentCategorySelected = [{
+        'name': '',
+        'color': '',
+    }];
+    subtasksFinish = [];
+    subTaskCollection = [];
+    selectedIndex = null;
+    selectedColorIndex = [];
+    currentPrioSelected = "";
+    contactCollection = [];
+    taskIdForEdit = '';
+    statusEdit = '';
+    clearAddTaskInputs();
+    resetInputs();
+    save();
+    document.getElementById('addTaskPop').classList.add('d-none');
+}
+
+
+async function switchSubtaskStatusToFinished(i, k) {
+    let splicedSubtask = tasks[i]['subtasksInProgress'].splice(k, 1)
+    tasks[i]['subtasksFinish'].push(splicedSubtask)
+    await setItem('tasks', JSON.stringify(tasks));
+    renderTaskdetailHTML(i);
+}
+
+
+async function switchSubtaskStatusToUndone(i, l) {
+    let splicedSubtask = tasks[i]['subtasksFinish'].splice(l, 1)
+    tasks[i]['subtasksInProgress'].push(splicedSubtask)
+    await setItem('tasks', JSON.stringify(tasks));
+    renderTaskdetailHTML(i);
+}
+
+
+function closeTask() {
+    document.getElementById('popup-container').classList.add('d-none');
+}
+
+
+async function deleteTask(i) {
+    tasks.splice(i, 1);
+    await setItem('tasks', JSON.stringify(tasks));
+    closeTask();
+    updateBoardHTML();
+    // window.location.reload();
+}
+
+
+
+
+// Textfeld aus dem JSON-Objekt extrahieren
+// let text = data.text.trim();
+
+// Leerzeichen finden und den ersten Buchstaben sowie den Buchstaben danach extrahieren
+//     let index = text.indexOf(' ');
+//     if (index !== -1 &amp;&amp; index &lt; text.length - 1) {
+//         let firstLetter = text.charAt(0).toUpperCase();
+//         let letterAfterSpace = text.charAt(index + 1).toUpperCase();
+
+//         console.log(firstLetter + letterAfterSpace);
+//         return (firstLetter, letterAfterSpace)
+//     } else {
+//         console.log('Kein Leerzeichen gefunden oder kein Buchstabe danach.');
+//     }
+// }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeImage">changeImage</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#changesSaved">changesSaved</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closePopup">closePopup</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openMobileEditMenu">openMobileEditMenu</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#slide">slide</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibility">toggleVisibility</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Oct 06 2023 23:43:47 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

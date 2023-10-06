@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: summary.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: summary.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+async function init() {
+    loadActivUser();
+    userCircle();
+    await loadTasks();
+    loadTimeOfDay();
+    loadText();
+    markCategory();
+    addAnimationOnResize();
+    animationAdded = false;
+}
+
+function loadText() {
+    loadUserName();
+    loadNumersToDo();
+    loadNumersInProgress();
+    loadNumersAwaitFeedback();
+    loadNumersDone();
+    loadNumbersBoard();
+}
+
+//----------------------search function------------------------------
+//---Search User name----------------------------
+function loadUserName() {
+    userName = document.getElementById('name')
+    userName.innerText = activUser.name;
+}
+
+/**
+ * This function is used to load a function if someone resize the page
+ * 
+ */
+function addAnimationOnResize() {
+    if (window.innerWidth &lt;= 1070) {
+        addAnimation();
+        animationAdded = true;
+    } else if (window.innerWidth > 1070) {
+        const greetingText = document.querySelector('.greeting-text');
+        greetingText.classList.remove('fade-out');
+        greetingText.classList.remove('hidden');
+        animationAdded = false;
+    }
+}
+
+/**
+ * This function is used to create an animation to fade out the greeting message
+ * 
+ */
+function addAnimation() {
+    const greetingText = document.querySelector('.greeting-text');
+    greetingText.classList.add('fade-out');
+
+    setTimeout(function () {
+        greetingText.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }, 3000);
+}
+//----------------------search function cards------------------------------
+function loadNumbersBoard() {
+    let toDos = tasks.filter(t => t['status'] == 'toDo').length;
+    let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
+    let awaitFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
+    let done = tasks.filter(t => t['status'] == 'done').length;
+    let board = document.getElementById('board');
+    board.innerText = (toDos + inProgress + awaitFeedback + done);
+}
+
+
+function loadNumersToDo() {
+    let toDos = document.getElementById('to-dos');
+    toDos.innerText = tasks.filter(t => t['status'] == 'toDo').length;
+}
+
+
+function loadNumersInProgress() {
+    let inProgress = document.getElementById('in-progress');
+    inProgress.innerText = tasks.filter(t => t['status'] == 'in-progress').length;
+}
+
+
+function loadNumersAwaitFeedback() {
+    let awaitFeedback = document.getElementById('await-feedback');
+    awaitFeedback.innerText = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
+}
+
+
+function loadNumersDone() {
+    let done = document.getElementById('done');
+    done.innerHTML = tasks.filter(t => t['status'] == 'done').length;
+}
+
+
+function searchNumbers(collection) {
+    let collectionAsJson = collection;
+    let currentNumber = 0;
+
+    if (Array.isArray(collectionAsJson)) {
+        for (let i = 0; i &lt; collectionAsJson.length; i++) {
+            currentNumber++;
+        }
+    } else {
+        for (let i = 0; i &lt; Object.keys(collectionAsJson).length; i++) {
+            currentNumber++;
+        }
+    }
+    console.log(date[0]['dueDate'])
+    let todo = tasks.filter(t => t['status'] == 'toDo').length;
+    let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
+    let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
+    let done = tasks.filter(t => t['status'] == 'done').length;
+    let allTasks = tasks.length
+    let urgent = tasks.filter(t => t['priority'] == './img/prioUrgent.svg').length;
+    myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent)
+}
+
+function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) {
+    document.getElementById('to-dos').innerHTML = todo;
+    document.getElementById('done').innerHTML = done;
+    document.getElementById('await-feedback').innerHTML = awaitingFeedback;
+    document.getElementById('in-progress').innerHTML = inProgress;
+    document.getElementById('board').innerHTML = allTasks;
+    document.getElementById('urgent').innerHTML = urgent;
+}
+
+//----------------- load Time of Day------------------
+function loadTimeOfDay() {
+    let HoursOfTheDay = document.getElementById('time-of-day');
+    HoursOfTheDay.innerHTML = getTimeOfDay();
+}
+
+function getTimeOfDay() {
+    const currentHour = new Date().getHours();
+
+    if (currentHour >= 0 &amp;&amp; currentHour &lt; 6) {
+        return `&lt;span class="time-of-day">Schöne &lt;/span>&lt;span class="time-of-day">Nacht&lt;/span>`;
+    } else if (currentHour >= 6 &amp;&amp; currentHour &lt; 12) {
+        return `&lt;span class="time-of-day">Guten &lt;/span> &lt;span class="time-of-day"> Morgen&lt;/span>`;
+
+    } else if (currentHour >= 12 &amp;&amp; currentHour &lt; 18) {
+        return `&lt;span class="time-of-day">Guten&lt;/span> &lt;span class="time-of-day">Nachmittag&lt;/span>`;
+    } else {
+        return `&lt;span class="time-of-day">Guten  &lt;/span class="time-of-day">&lt;span>Abend&lt;/span>`;
+    }
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeImage">changeImage</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#changesSaved">changesSaved</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closePopup">closePopup</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openMobileEditMenu">openMobileEditMenu</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#slide">slide</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibility">toggleVisibility</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Oct 06 2023 23:43:47 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
