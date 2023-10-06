@@ -3,7 +3,8 @@ body {
     height: 100vh;
     width: 100vw;
 }
-.task-progress{
+
+.task-progress {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,7 +12,7 @@ body {
     font-size: 12px;
 }
 
-.task-top{
+.task-top {
     margin-bottom: 10px;
     min-height: 100px;
 }
@@ -374,7 +375,7 @@ h3 {
     display: flex;
 }
 
-.priority-container{
+.priority-container {
     display: flex;
     gap: 8px;
 }
@@ -470,11 +471,11 @@ h3 {
 
 .contentPositionAddTaskPopup {
     position: absolute;
-    top: 220px;
+    top: 180px;
     left: 0;
     right: 0;
     bottom: 120px;
-    max-height: calc(100vh - 340px);
+    max-height: calc(100vh - 300px);
     padding-left: 96px;
     padding-right: 96px;
     display: flex;
@@ -548,6 +549,18 @@ h3 {
     .task-detail {
         width: 50vw;
     }
+
+    .contentPositionAddTaskPopup {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .addTaskPopupHeadlineContainer {
+        left: 124px;
+        right: 124px;
+        max-width: calc(100vw - 248px);
+    }
+
 }
 
 @media(max-width:1000px) {

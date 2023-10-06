@@ -39,8 +39,8 @@ section {
     margin-top: 24px;
 }
 
-.marginBottom8 {
-    margin-bottom: 8px;
+.marginTop32 {
+    margin-top: 32px;
 }
 
 .dFlex {
@@ -1123,16 +1123,17 @@ ul {
 
     .contentAddTask {
         position: absolute;
-        top: 235px;
-        bottom: 150px;
+        top: 215px;
+        bottom: 175px;
         display: flex;
         flex-direction: column;
         left: 0px;
         right: 0;
         padding-left: 12px;
+        padding-top: 10px;
         max-width: unset;
         width: 100%;
-        max-height: calc(100vh - 285px);
+        max-height: calc(100vh - 290px);
         overflow-y: auto;
     }
 
@@ -1215,6 +1216,7 @@ ul {
         padding-right: 18px;
         padding-left: 18px;
         display: flex;
+        align-items: center;
         width: 100%;
         z-index: 2;
     }
@@ -1225,6 +1227,7 @@ ul {
         flex-direction: column;
         overflow-y: auto;
         max-height: 90px;
+        padding-bottom: 20px;
     }
 
 
