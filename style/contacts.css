@@ -1,3 +1,6 @@
+@import url('zusatzstile.css');
+
+
 body {
     background-color: var(--main-background-color) !important;
     height: 100vh;
