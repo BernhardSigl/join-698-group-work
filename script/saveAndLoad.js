@@ -49,6 +49,7 @@ function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad,
     }
 }
 
+
 //------------tasks----------------------
 
 async function currentUserTaskSave() {
