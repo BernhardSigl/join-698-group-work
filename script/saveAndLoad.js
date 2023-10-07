@@ -1,5 +1,16 @@
+const STORAGE_TOKEN = 'GQ72CY9S0MUL857S6X46MRMYNF6M3D8WG3CS1YQT';
+const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+
+let tasks = [];
+let user = [];
+let activUser = {
+    'name': '',
+}
+
+
 //save and load local
-function save() {
+
+function saveTaskElements() {
     localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));
     localStorage.setItem('currentPrioAsText', JSON.stringify(currentPrioSelected));
     localStorage.setItem('subTaskCollectionAsText', JSON.stringify(subTaskCollection));
@@ -11,7 +22,7 @@ function save() {
     localStorage.setItem('statusAsText', JSON.stringify(statusEdit));
 }
 
-function load() {
+function loadTaskElements() {
     let currentCategoryLoad = localStorage.getItem('categoryCollectionAsText');
     let currentPrioLoad = localStorage.getItem('currentPrioAsText');
     let subTaskCollectionLoad = localStorage.getItem('subTaskCollectionAsText');
@@ -37,111 +48,114 @@ function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad,
         statusEdit = JSON.parse(statusLoad);
     }
 }
+
 //------------tasks----------------------
-//remote
-async function loadTasks() {
-    try {
-        tasks = JSON.parse(await getItem('tasks'));
 
-    } catch (e) {
-        console.info('Could not load tasks');
+async function currentUserTaskSave() {
+    if (activUser.name === 'Guest698') {
+        localStorage.setItem('tasksAsText', JSON.stringify(tasks));
+    } else {
+        await setItem('tasks', JSON.stringify(tasks));
     }
 }
 
-await setItem('tasks', JSON.stringify(tasks));
+async function currentUserTaskLoad() {
+    if (activUser.name === 'Guest698') {
+        let tasksLoad = localStorage.getItem('tasksAsText');
+        if (tasksLoad) {
+            tasks = JSON.parse(tasksLoad);
+        }
+    } else {
+        try {
+            tasks = JSON.parse(await getItem('tasks'));
 
-//local
-function saveTasksLocal() {
-    localStorage.setItem('tasksAsText', JSON.stringify(tasks));
-}
-
-function loadTasksLocal() {
-    let tasksLoad = localStorage.getItem('tasksAsText');
-    if (tasksLoad) {
-        tasks = JSON.parse(tasksLoad);
+        } catch (e) {
+            console.info('Could not load tasks');
+        }
     }
 }
+
 
 //current id
 
-//remote
-await setItem('currentId', JSON.stringify(currentId));
-
-async function loadAddTaskCurrentId() {
-    try {
-        currentId = JSON.parse(await getItem('currentId'));
-    } catch (e) {
-        console.info('Could not load currentId');
+async function currentUserIdSave() {
+    if (activUser.name === 'Guest698') {
+        localStorage.setItem('currentIdAsText', JSON.stringify(currentId));
+    } else {
+        await setItem('currentId', JSON.stringify(currentId));
     }
 }
 
-//local
-function saveCurrentIdLocal() {
-    localStorage.setItem('currentIdAsText', JSON.stringify(currentId));
-}
-
-function loadCurrentIdLocal() {
-    let currentIdLoad = localStorage.getItem('currentIdAsText');
-    if (currentIdLoad) {
-        currentId = JSON.parse(currentIdLoad);
+async function currentUserIdLoad() {
+    if (activUser.name === 'Guest698') {
+        let currentIdLoad = localStorage.getItem('currentIdAsText');
+        if (currentIdLoad) {
+            currentId = JSON.parse(currentIdLoad);
+        }
+    } else {
+        try {
+            currentId = JSON.parse(await getItem('currentId'));
+        } catch (e) {
+            console.info('Could not load currentId');
+        }
     }
 }
 
 
 //Categorys
 
-//remote
-await setItem('allCategorys', JSON.stringify(allCategorys));
-
-async function loadAddTaskAllCategorys() {
-    try {
-        allCategorys = JSON.parse(await getItem('allCategorys'));
-    } catch (e) {
-        console.info('Could not load categorys');
+async function currentUserCategorysSave() {
+    if (activUser.name === 'Guest698') {
+        localStorage.setItem('categorysAsText', JSON.stringify(allCategorys));
+    } else {
+        await setItem('allCategorys', JSON.stringify(allCategorys));
     }
 }
 
-//local
-function saveCategorysLocal() {
-    localStorage.setItem('categorysAsText', JSON.stringify(allCategorys));
-}
-
-function loadCategorysLocal() {
-    let categorysLoad = localStorage.getItem('categorysAsText');
-    if (categorysLoad) {
-        allCategorys = JSON.parse(categorysLoad);
+async function currentUserCategorysLoad() {
+    if (activUser.name === 'Guest698') {
+        let categorysLoad = localStorage.getItem('categorysAsText');
+        if (categorysLoad) {
+            allCategorys = JSON.parse(categorysLoad);
+        }
+    } else {
+        try {
+            allCategorys = JSON.parse(await getItem('allCategorys'));
+        } catch (e) {
+            console.info('Could not load categorys');
+        }
     }
 }
+
 
 //Contacts
 
-//remote
-await setItem('contactsArray', JSON.stringify(contactsArray));
-
-async function loadContacts() {
-    try {
-        contactsArray = JSON.parse(await getItem('contactsArray'));
-        nextColorIndex = JSON.parse(await getItem('nextColorIndex'));
-    } catch (e) {
-        console.info('Could not load contacts');
+async function currentUserContactsSave() {
+    if (activUser.name === 'Guest698') {
+        localStorage.setItem('contactsAsText', JSON.stringify(contactsArray));
+    } else {
+        await setItem('contactsArray', JSON.stringify(contactsArray));
     }
 }
 
-//local
-function saveContactsLocal() {
-    localStorage.setItem('contactsAsText', JSON.stringify(contactsArray));
-}
-
-function loadCategorysLocal() {
-    let contactsLoad = localStorage.getItem('contactsAsText');
-    if (contactsLoad) {
-        contactsArray = JSON.parse(contactsLoad);
+async function currentUserContactsLoad() {
+    if (activUser.name === 'Guest698') {
+        let contactsLoad = localStorage.getItem('contactsAsText');
+        if (contactsLoad) {
+            contactsArray = JSON.parse(contactsLoad);
+        }
+    } else {
+        try {
+            contactsArray = JSON.parse(await getItem('contactsArray'));
+            nextColorIndex = JSON.parse(await getItem('nextColorIndex'));
+        } catch (e) {
+            console.info('Could not load contacts');
+        }
     }
 }
 
 
 //Activ user
-
 
 function saveActivUser() {
     localStorage.setItem('activUserAsText', JSON.stringify(activUser));

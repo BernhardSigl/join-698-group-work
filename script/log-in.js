@@ -3,7 +3,6 @@ let dialog = document.getElementById('dialog');
 async function initLogin() {
     activUser = {
         'name': '',
-        'color': '',
     };
     saveActivUser();
     startAnimation();
@@ -43,7 +42,6 @@ function login() {
     let currentUser = user.findIndex(u => u.email === email.value);
     if (users) {
         activUser['name'] = user[currentUser].name;
-        activUser['color'] = user[currentUser].color;
         saveActivUser();
         window.location.href = "./summary.html";
     } else {
@@ -53,8 +51,7 @@ function login() {
 }
 
 function guestLogin() {
-    activUser.name = 'Guest';
-    activUser.color = '#29ABE2';
+    activUser.name = 'Guest698';
     saveActivUser();
     window.location.href = "./summary.html";
 }

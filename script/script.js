@@ -1,8 +1,9 @@
+
+
 function renderSidebarHeader() {
     renderHeader();
     renderSidebar();
 }
-
 
 function renderSidebar() {
     let container = document.getElementById('sidebarArea');

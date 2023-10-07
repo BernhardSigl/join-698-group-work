@@ -5,7 +5,6 @@ let tasks = [];
 let user = [];
 let activUser = {
     'name': '',
-    'color': '',
 }
 
 async function loadTasks() {
