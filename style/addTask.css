@@ -5,7 +5,6 @@ body {
     font-family: 'Inter' !important;
 }
 
-
 section {
     display: flex;
     flex-direction: column;
@@ -97,12 +96,10 @@ input:-moz-autofill:active {
     color: inherit !important;
 }
 
-
 .custom-select {
     position: relative;
     width: 100%;
 }
-
 
 .inputAbsolut {
     position: absolute;
@@ -111,18 +108,15 @@ input:-moz-autofill:active {
     padding: 1px;
 }
 
-
 .inputAbsolut:hover {
     cursor: pointer;
     background-color: #EEE;
     border-radius: 50%;
 }
 
-
 input:focus {
     border: 1px solid #29ABE2;
 }
-
 
 textarea {
     border-radius: 10px;
@@ -136,11 +130,9 @@ textarea {
     outline: none;
 }
 
-
 textarea:focus {
     border: 1px solid #29ABE2;
 }
-
 
 .addTaskHeadlineContainer {
     position: fixed;
@@ -159,7 +151,6 @@ textarea:focus {
     z-index: 1.7;
 }
 
-
 .contentAddTask {
     position: absolute;
     top: 260px;
@@ -172,7 +163,6 @@ textarea:focus {
     max-height: calc(100vh - 260px);
     overflow-y: auto;
 }
-
 
 .mySelect {
     appearance: none;
@@ -188,7 +178,6 @@ textarea:focus {
     outline: none;
 }
 
-
 #datepicker {
     background-image: url('../img/kalenderJoin.svg') !important;
     background-repeat: no-repeat !important;
@@ -200,14 +189,11 @@ textarea:focus {
     z-index: 1000;
 }
 
-
 .prioButtonContainer {
     display: flex;
     justify-content: space-between;
     gap: 8px;
 }
-
-
 
 .contentPosition {
     position: relative;
@@ -227,7 +213,6 @@ textarea:focus {
     padding-top: 15px;
 }
 
-
 .boxLeft {
     padding-right: 48.2px;
     display: flex;
@@ -236,7 +221,6 @@ textarea:focus {
     min-width: 285px;
     box-sizing: border-box;
 }
-
 
 #selectedContactsContainer {
     display: flex;
@@ -247,7 +231,6 @@ textarea:focus {
     flex-wrap: wrap;
     margin-top: 5px;
 }
-
 
 .assignedToContactImg {
     width: 32px;
@@ -262,7 +245,6 @@ textarea:focus {
     color: white;
     line-height: 120%;
 }
-
 
 .selectContactsPositionContainer {
     display: flex;
@@ -329,7 +311,6 @@ textarea:focus {
 }
 
 /*--------------------SCROLLBAR-Outside----------------------------*/
-
 
 .show-scrollbarTaskWindow::-webkit-scrollbar {
     display: block !important;
@@ -420,13 +401,11 @@ textarea:focus {
     border-radius: 10px;
 }
 
-
 .assignedContactsBoxSelected:hover {
     cursor: pointer;
     background: #091931;
     border-radius: 10px;
 }
-
 
 .addNewContactBtn {
     display: flex;
@@ -506,7 +485,6 @@ textarea:focus {
     color: white;
 }
 
-
 .categoryRenderContainer {
     display: flex;
     flex-direction: column;
@@ -519,7 +497,6 @@ textarea:focus {
     margin-bottom: 5px;
     overflow-y: auto;
 }
-
 
 .categoryRow {
     display: flex;
@@ -535,7 +512,6 @@ textarea:focus {
     border-radius: 10px !important;
 
 }
-
 
 .categoryRow:hover {
     cursor: pointer;
@@ -556,7 +532,6 @@ textarea:focus {
     cursor: pointer;
     box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.30);
 }
-
 
 .categoryRowLeft {
     display: flex;
@@ -609,7 +584,6 @@ ul {
     margin-bottom: 0px !important;
 }
 
-
 #editInput {
     border-radius: 0;
     padding: 0px;
@@ -619,7 +593,6 @@ ul {
 
 }
 
-
 .editAbsolutCross {
     position: absolute;
     right: 44px;
@@ -628,7 +601,6 @@ ul {
     width: 29px;
     border-right: 1px solid #eee;
 }
-
 
 .editAbsolutCheck {
     position: absolute;
@@ -644,7 +616,6 @@ ul {
     cursor: pointer;
     background-color: #EEE;
 }
-
 
 .editAbsolutCheck:hover {
     border-radius: 50%;
@@ -665,6 +636,7 @@ ul {
 
 .requiredText {
     color: black;
+    text-align: center;
 }
 
 .addTaskBottomArea {
@@ -708,7 +680,6 @@ ul {
     border: 1px solid var(--version-2-main-color, #2A3647);
     border-radius: 10px;
 }
-
 
 .clearBtn:hover {
     border: 1px solid #29ABE2;
@@ -785,7 +756,6 @@ ul {
     font-size: 20px;
     color: white;
 }
-
 
 .blueUnderline {
     width: 60px;
@@ -883,45 +853,17 @@ ul {
 @media (max-width: 1280px) {
 
     .addTaskHeadlineContainer {
-        top: 0px;
         left: 302px;
         max-width: calc(100vw - 302px);
     }
 
-
     .contentPosition {
         padding-left: 59px;
         padding-right: 59px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
     }
-
-
-    .selectBtnArea {
-        display: flex;
-        width: 100%;
-        z-index: 2;
-    }
-
 
     .boxLeft {
-        padding-right: 48.2px;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
         min-width: 310px;
-        box-sizing: border-box;
-    }
-
-    .boxRight {
-        padding-left: 48px;
-        display: flex;
-        flex-direction: column;
-        border-left: 1px solid var(--border-grey);
-        flex: 1;
-        box-sizing: border-box;
     }
 
     .addContactPopupBox {
@@ -933,23 +875,15 @@ ul {
     }
 
     .addContactPopupBoxLeft {
-        display: flex;
         justify-content: center;
-        align-items: center;
-        padding: 30px 22px;
         width: 100%;
         height: 450px;
-        background-color: #2A3647;
-        border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         border-bottom-left-radius: 0px;
     }
 
     .addContactPopupBoxLeftPosition {
-        display: flex;
-        align-items: flex-start;
         justify-content: center;
-        flex-direction: column;
         text-align: center;
         width: 100%;
         padding-left: 60px;
@@ -958,87 +892,33 @@ ul {
     }
 
     .logoContactPopup {
-        width: 40px;
         display: none;
     }
 
-    .addContactPopupBoxLeftHeadline {
-        font-size: 42px;
-        font-stretch: normal;
-        color: white;
-    }
-
-    .addContactPopupBoxLeftText {
-        font-size: 20px;
-        color: white;
-    }
-
-
-    .blueUnderline {
-        width: 60px;
-        height: 3px;
-        margin-top: 3px;
-        background-color: #29ABE2;
-    }
-
     .addContactPopupBoxRight {
-        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        height: 100%;
-        background-color: #FFF;
         border-top-right-radius: 0px;
-        border-bottom-right-radius: 20px;
         border-bottom-left-radius: 20px;
     }
 
     .addContactPopupBoxRightImgPosition {
-        width: 300px;
         margin-top: -130px;
         height: 190px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .addContactPopupBoxRightImg {
-        width: 110px;
-        background-color: gray;
-        border: 2px solid white;
-        border-radius: 50%;
-        padding: 15px 15px;
-    }
-
-    .addContactPopupBoxRightFormPosition {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-right: 40px;
-        padding-left: 20px;
     }
 
     .addContactPopupBoxRightBtnPosition {
-        display: flex;
         justify-content: center;
         margin-top: 50px;
-        gap: 15px;
     }
 
     .addCategoryPopupBoxRightImg {
         width: 120px;
         height: 120px;
         margin-top: -30px;
-        background-color: gray;
-        border: 2px solid white;
-        border-radius: 50%;
-        padding: 0px 25px;
-
     }
 }
-
 
 @media (max-width: 1000px) {
     .addTaskHeadlineContainer {
@@ -1048,22 +928,13 @@ ul {
     }
 
     .contentAddTask {
-        position: absolute;
         top: 250px;
-        bottom: 0px;
-        display: flex;
-        flex-direction: column;
         left: 160px;
         max-width: calc(100vw - 160px);
-        padding: 10px;
-        width: 100%;
         max-height: calc(100vh - 250px);
-        overflow-y: auto;
     }
 
 }
-
-
 
 @media (max-width: 1130px) {
     .contentPosition {
@@ -1075,47 +946,27 @@ ul {
         width: 100%;
     }
 
-
     .taskArea {
-        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: unset;
-        width: 100%;
-        height: auto;
-        max-height: none;
     }
-
-
 
     .selectBtnArea {
-        position: unset;
-        display: flex;
-        width: 100%;
         padding-right: 0px;
         margin-top: 40px;
-        margin-bottom: 30px;
     }
-
 
     .boxLeft {
         padding-right: 0px;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
         min-width: 280px;
         width: 100%;
-        box-sizing: border-box;
     }
 
     .boxRight {
         padding-left: 0px;
-        display: flex;
-        flex-direction: column;
         border-left: none;
-        flex: 1;
         width: 100%;
-        box-sizing: border-box;
     }
 
 }
@@ -1123,21 +974,15 @@ ul {
 @media (max-width: 768px) {
 
     .contentAddTask {
-        position: absolute;
         top: 215px;
         bottom: 175px;
-        display: flex;
-        flex-direction: column;
         left: 0px;
         right: 0;
         padding-left: 12px;
-        padding-top: 10px;
+        padding-top: 12px;
         max-width: unset;
-        width: 100%;
         max-height: calc(100vh - 290px);
-        overflow-y: auto;
     }
-
 
     ::-webkit-scrollbar {
         display: none;
@@ -1178,33 +1023,23 @@ ul {
 
     .addTaskHeadlineContainer {
         top: 20px;
-        left: 12px;
+        left: 20px;
         height: 87px;
         padding-bottom: 10px;
-        max-width: calc(100vw - 12px);
+        max-width: calc(100vw - 20px);
         margin-top: 80px;
     }
 
     .contentPosition {
         padding-left: 12px;
         padding-right: 12px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
     }
 
-
     .taskArea {
-        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: unset;
-        width: 100%;
-        height: auto;
-        max-height: none;
     }
-
 
     .selectBtnArea {
         position: fixed;
@@ -1216,40 +1051,24 @@ ul {
         left: 0;
         padding-right: 18px;
         padding-left: 18px;
-        display: flex;
         align-items: center;
-        width: 100%;
-        z-index: 2;
     }
 
-
     .selectedSubTask {
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-        max-height: 90px;
         padding-bottom: 20px;
     }
 
 
     .boxLeft {
         padding-right: 0px;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
         min-width: 0px;
         width: 100%;
-        box-sizing: border-box;
     }
 
     .boxRight {
         padding-left: 0px;
-        display: flex;
-        flex-direction: column;
         border-left: none;
-        flex: 1;
         width: 100%;
-        box-sizing: border-box;
     }
 
     .addContactPopupBox {
@@ -1300,14 +1119,6 @@ ul {
     .addContactPopupBoxLeftText {
         font-size: 20px;
         color: white;
-    }
-
-
-    .blueUnderline {
-        width: 60px;
-        height: 3px;
-        margin-top: 3px;
-        background-color: #29ABE2;
     }
 
     .addContactPopupBoxRight {
@@ -1382,6 +1193,10 @@ ul {
         display: none !important;
     }
 
+    #assignedToInputCover {
+        font-size: 17px;
+        padding: 14px 21px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -1395,7 +1210,6 @@ ul {
         gap: 16px;
 
     }
-
 
     .prioBtn {
         display: flex;
