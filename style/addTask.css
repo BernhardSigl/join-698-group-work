@@ -1043,20 +1043,21 @@ ul {
 @media (max-width: 1000px) {
     .addTaskHeadlineContainer {
         top: 0px;
-        left: 219px;
-        max-width: calc(100vw - 219px);
+        left: 220px;
+        max-width: calc(100vw - 220px);
     }
 
     .contentAddTask {
         position: absolute;
-        top: 280px;
+        top: 250px;
         bottom: 0px;
         display: flex;
         flex-direction: column;
         left: 160px;
         max-width: calc(100vw - 160px);
+        padding: 10px;
         width: 100%;
-        max-height: calc(100vh - 280px);
+        max-height: calc(100vh - 250px);
         overflow-y: auto;
     }
 
