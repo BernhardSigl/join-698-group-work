@@ -198,13 +198,13 @@ function updateBoardHTML() {
 }
 
 
-function updateProgressbar(element){
-   let openSubasks = element['subtasksInProgress'].length
-   let finishedSubasks = element['subtasksFinish'].length
-   let allSubtasks = openSubasks + finishedSubasks
-   let percent = finishedSubasks / allSubtasks;
-       percent = Math.round(percent * 100);
-    
+function updateProgressbar(element) {
+    let openSubasks = element['subtasksInProgress'].length
+    let finishedSubasks = element['subtasksFinish'].length
+    let allSubtasks = openSubasks + finishedSubasks
+    let percent = finishedSubasks / allSubtasks;
+    percent = Math.round(percent * 100);
+
     return /*html*/ `  
     <div class="task-progress">
     <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
@@ -414,8 +414,8 @@ async function editTaskNew(i) {
     document.getElementById('addTaskPop').classList.remove('d-none');
     closeTask();
     let taskToEdit = tasks[i];
-    console.log(taskToEdit)
     editTaskWindow();
+    document.getElementById("addTaskHeadline").innerHTML = 'Edit Task';
     document.getElementById("addTitel").value = taskToEdit.title;
     document.getElementById("addDescription").value = taskToEdit.description;
     document.getElementById("datepicker").value = taskToEdit.dueDate;
@@ -470,9 +470,6 @@ async function addEditTask() {
 }
 
 function resetAllAddTaskElementsBoard() {
-    titleAddTask = '';
-    descriptionAddTask = '';
-    dueDateAddTask = '';
     currentCategorySelected = [{
         'name': '',
         'color': '',

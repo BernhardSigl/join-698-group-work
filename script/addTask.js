@@ -107,6 +107,7 @@ async function initializeStorage(key, initialValue) {
 
 function renderAddTaskContent() {
     load();
+    document.getElementById("addTaskHeadline").innerHTML = 'Add Task';
     let assignTo1 = document.getElementById('assignedToInputContainer');
     let assignTo2 = document.getElementById('assignedToContactsInputContainer');
     let categoryBox1 = document.getElementById('categoryAreaV1');
@@ -296,9 +297,6 @@ function hideEditContainer() {
 function createTask() {
     var form = document.getElementById('myForm');
     if (form.checkValidity()) {
-        titleAddTask = document.getElementById('addTitel').value;
-        descriptionAddTask = document.getElementById('addDescription').value;
-        dueDateAddTask = document.getElementById('datepicker').value;
         save();
         addTask();
         document.getElementById('createTaskButton').classList.remove('d-none');
@@ -333,6 +331,7 @@ async function addTask() {
     await setItem('tasks', JSON.stringify(tasks));
     await setItem('currentId', JSON.stringify(currentId));
     resetAllAddTaskElements();
+    window.location.href = './board.html';
 }
 
 function statusSelected(status) {
@@ -341,13 +340,9 @@ function statusSelected(status) {
 
 function clearButton() {
     resetAllAddTaskElements();
-    window.location.reload();
 }
 
 function resetAllAddTaskElements() {
-    titleAddTask = '';
-    descriptionAddTask = '';
-    dueDateAddTask = '';
     currentCategorySelected = [{
         'name': '',
         'color': '',
@@ -363,16 +358,16 @@ function resetAllAddTaskElements() {
     clearAddTaskInputs();
     resetInputs();
     save();
-    window.location.href = './board.html';
+    renderAddTaskContent()
 }
 
 function clearAddTaskInputs() {
-    titleAddTask = document.getElementById('addTitel').value;
-    descriptionAddTask = document.getElementById('addDescription').value;
-    dueDateAddTask = document.getElementById('datepicker').value;
-    titleAddTask = '';
-    descriptionAddTask = '';
-    dueDateAddTask = '';
+    let titleAddTask = document.getElementById('addTitel');
+    let descriptionAddTask = document.getElementById('addDescription');
+    let dueDateAddTask = document.getElementById('datepicker');
+    titleAddTask.value = '';
+    descriptionAddTask.value = '';
+    dueDateAddTask.value = '';
 }
 //---------------------------------------------------------------------------------//
 
@@ -992,19 +987,17 @@ function returnButtonAreaAddTask() {
     return /*html*/ `
 <div class="addTaskBottomArea">
     <div class="fontSize20 requiredText">
-    <spline class="requiredStar">*<spline class="requiredText">This field is required</spline></spline>
+    <span class="requiredStar">*<span class="requiredText">This field is required</span></span>
     </div>
 </div>
 <div class="addTaskBottomBtnArea">
-    <button onclick="clearButton()" class="clearBtn fontSize20">
-        <spline class="fontSize20">Clear</spline>
+    <button type="reset" onclick="clearButton()" class="clearBtn fontSize20">
+        <span class="fontSize20">Clear</span>
         <svg class="clearSvg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </button>
-    <button id="createTaskButton" onclick="createTask()" class="createBtn blueBtn">Create Task<img class="createImg"
-            src="./img/check.svg"></button>
-    <button id="editTaskButton" onclick="createTask()" class="createBtn blueBtn d-none">Edit Task<img class="createImg"
+    <button type="submit" id="createTaskButton" onclick="createTask()" class="createBtn blueBtn">Create Task<img class="createImg"
             src="./img/check.svg"></button>
 </div>
     `;
@@ -1012,8 +1005,15 @@ function returnButtonAreaAddTask() {
 
 function returnButtonAreaEditTask() {
     return /*html*/`
-    <button onclick="addEditTask()" class="createBtn blueBtn">Edit task<img class="createImg"
+    <div class="addTaskBottomArea">
+        <div class="fontSize20 requiredText">
+        <span class="requiredStar">*<span class="requiredText">This field is required</span></span>
+        </div>
+    </div>
+    <div class="addTaskBottomBtnArea">
+        <button onclick="addEditTask()" class="createBtn blueBtn"><b>Ok</b><img class="createImg"
             src="./img/check.svg"></button>
+    </div>
     `;
 }
 
