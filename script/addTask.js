@@ -1,9 +1,3 @@
-let titleAddTask = '';
-
-let descriptionAddTask = '';
-
-let dueDateAddTask = '';
-
 let selectedIndex = null;
 
 let selectedColorIndex = [];
