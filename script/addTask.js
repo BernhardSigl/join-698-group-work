@@ -1,7 +1,7 @@
 
 let selectedIndex = null;
 
-let selectedColorIndex = [];
+let selectedColorIndex = null;
 
 let colorCollection = [
     'background: #006400', 'background: #00008B', 'background: #8B0000',
@@ -354,7 +354,7 @@ function resetAllAddTaskElements() {
     subtasksFinish = [];
     subTaskCollection = [];
     selectedIndex = null;
-    selectedColorIndex = [];
+    selectedColorIndex = null;
     currentPrioSelected = "";
     contactCollection = [];
     taskIdForEdit = '';
