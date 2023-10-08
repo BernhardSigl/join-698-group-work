@@ -295,13 +295,23 @@ function hideEditContainer() {
  * Validates the form and adds a task if the form is valid.
  */
 function createTask() {
+    input1 = document.getElementById('categoryInputV1');
+    input2 = document.getElementById('categoryInputV2');
     var form = document.getElementById('myForm');
     if (form.checkValidity()) {
-        save();
-        addTask();
-        document.getElementById('createTaskButton').classList.remove('d-none');
-        document.getElementById('editTaskButton').classList.add('d-none');
+        if (currentCategorySelected[0].name === '') {
+            input1.classList.add('inputRed');
+            input2.classList.add('inputRed');
+            setTimeout(function () {
+                input1.classList.remove('inputRed');
+                input2.classList.remove('inputRed');
+            }, 10000);
+        } else {
+            save();
+            addTask();
+        }
     }
+
 }
 
 /**
@@ -605,6 +615,7 @@ function resetInputValueAndColor(inputElem) {
 
 //create category//
 function createCategoryWindow() {
+    load();
     createCategoryColors();
 }
 
@@ -627,7 +638,9 @@ async function addCategory() {
     allCategorys[0].name.push(inputElem.value);
     allCategorys[0].color.push(selectedColorIndex);
     await setItem('allCategorys', JSON.stringify(allCategorys));
-    toggleVisibilityAddTask('createCategoryPopupByAddTask', '')
+    toggleVisibilityAddTask('createCategoryPopupByAddTask', '');
+    selectedColorIndex = null;
+    save();
 }
 
 function updateSelectedColorIndex(index) {
@@ -649,6 +662,7 @@ function clearCreateWindow() {
     let input = document.getElementById('createCategoryInput');
     input.value = '';
     selectedColorIndex = null;
+    save();
 }
 
 function alertInvalidInput() {

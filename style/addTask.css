@@ -77,6 +77,10 @@ input {
     outline: none;
 }
 
+.inputRed {
+    border: 1.5px solid red !important;
+}
+
 /* Autofill verändert den hintergrund von inputFeldern */
 /* Lösung für Chrome */
 input:-webkit-autofill,
@@ -549,7 +553,7 @@ textarea:focus {
     padding: 5px 5px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    border: 2px solid #2A3647;
+    border: 1px solid #D1D1D1;
 }
 
 .selectedColor {
