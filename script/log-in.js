@@ -13,6 +13,11 @@ async function initLogin() {
 
 function loadLogIn() {
     dialog.innerHTML = loadTempleteLogIn();
+    let rememberedEmail = localStorage.getItem('rememberMe');
+    if (rememberedEmail) {
+        document.getElementById('email').value = rememberedEmail;
+        document.getElementById('myCheckbox').checked = true; // Setzen Sie das "Remember me" Kästchen als angekreuzt
+    }
 }
 
 function startAnimation() {
@@ -41,6 +46,11 @@ function login() {
     let users = user.find(u => u.email === email.value && u.password === passwort.value);
     let currentUser = user.findIndex(u => u.email === email.value);
     if (users) {
+        if (document.getElementById('myCheckbox').checked) {
+            localStorage.setItem('rememberMe', email.value);
+        } else {
+            localStorage.removeItem('rememberMe');
+        }
         activUser['name'] = user[currentUser].name;
         saveActivUser();
         window.location.href = "./summary.html";

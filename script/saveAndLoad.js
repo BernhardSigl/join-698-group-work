@@ -8,7 +8,7 @@ let activUser = {
 }
 
 
-//save and load local
+//save and load task elements
 
 function saveTaskElements() {
     localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));

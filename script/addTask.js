@@ -1,3 +1,4 @@
+
 let selectedIndex = null;
 
 let selectedColorIndex = [];
@@ -50,7 +51,6 @@ load();
 
 
 //edit task//
-
 
 function editTaskWindow() {
     load();

@@ -12,6 +12,11 @@ function signUp() {
 
 
 async function registUser() {
+    if (!arePasswordsMatching()) {
+        alert('Passwords do not match.');
+        return;
+    }
+
     if (checkbox.checked) {
         registerBtn.disabled = true;
 
@@ -24,6 +29,13 @@ async function registUser() {
         resetForm();
         window.location = 'index.html';
     }
+}
+
+function arePasswordsMatching() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    return password === confirmPassword;
 }
 
 
