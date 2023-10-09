@@ -163,11 +163,11 @@ function getColor() {
 
 /** * This function is used to display the contact info in a big container */
 function openContactBigInfo(contact, i, nameAbbreviation) {
-    slide('contactInfoBigId', 'emptySlideId');
+    slideOneObject('contactInfoBigId');
     showOnMobileView('mobileDotsSymbol');
     toggleVisibility('mobileAddContactId', false);
     document.getElementById('mobileDotsSymbol').innerHTML = /*html*/`
-    <div class="mobileAddContact horicontalAndVertical pointer" onclick="slide      ('mobileEditDeleteBoxId', 'emptySlideMobileBoxId'), openMobileEditMenu(i)">
+    <div class="mobileAddContact horicontalAndVertical pointer" onclick="slideOneObject('mobileEditDeleteBoxId'), openMobileEditMenu(${i})">
     <img src="./img/more_vert.svg">
     </div>
     `
@@ -257,29 +257,6 @@ function highlightContact(i) {
     });
     highlightContact[i].style.backgroundColor = '#2A3647';
     highlightContact[i].style.color = 'white';
-}
-
-/** * This function is used to create a slide in animation */
-function slide(frontId, backgroundId) {
-    toggleVisibility(frontId, true);
-    toggleVisibility(backgroundId, true);
-    slideInAnimation = document.getElementById(frontId);
-    slideInAnimation.classList.remove('slide-out', 'slide-in');
-    slideInAnimation.offsetHeight;
-    slideInAnimation.classList.add('slide-in');
-}
-
-/** * This function is used to create a slide out animation */
-function slideOut(frontId, backgroundId, time) {
-    toggleVisibility(frontId, true);
-    toggleVisibility(backgroundId, true);
-    setTimeout(function () {
-        toggleVisibility(backgroundId, false);
-    }, time);
-    slideInAnimation = document.getElementById(frontId);
-    slideInAnimation.classList.remove('slide-out', 'slide-in');
-    slideInAnimation.offsetHeight;
-    slideInAnimation.classList.add('slide-out');
 }
 
 /** * This function is used to close the popup window */
@@ -436,18 +413,7 @@ function changeFunction(id) {
     editCancelButton.onclick = function () {
         deleteContact(id);
     };
-    // const editAddContactButton = document.getElementById('mobileAddContactId');
-    // editAddContactButton.onclick = function () {
-    //     openMobileEditMenu(id);
-    // };
 }
-
-/** * This function is to change the image on mobile view */
-// function changeImage() {
-//     let newImage = './img/more_vert.svg';
-//     let switchImage = document.querySelector('#mobileAddContactId img');
-//     switchImage.src = newImage;
-// }
 
 /** * This function is to reset the changeText() */
 function originalText() {
@@ -483,12 +449,15 @@ function originalImage() {
 
 /** * This function is used to the edit and delete menu on the mobile view */
 function changesSaved() {
-    let changesSaved = document.getElementById('successfullyCreatedId');
-    changesSaved.classList.remove('d-none');
-    // slide('successfullyCreatedId');
-    // setTimeout(function () {
-    //     changesSaved.classList.add('d-none');
-    // }, 2500);
+    document.getElementById('successfullyCreatedId');
+    toggleVisibility('successfullyCreatedId', true);
+    slideOneObject('successfullyCreatedId');
+    setTimeout(function () {
+        slideOutOneObject('successfullyCreatedId');
+    }, 2500);
+    setTimeout(function () {
+        toggleVisibility('successfullyCreatedId', false);
+    }, 2900);
 }
 
 /** * This function is switch multiply objects to the original function */
@@ -515,11 +484,6 @@ function mobileView() {
 function desktopViewSmall() {
     const is1345px = window.innerWidth <= 1345;
     toggleVisibility('blueLineId', is1345px);
-}
-
-/** * This function is used to show an animation on the menu on the mobile view */
-function openMobileEditMenu() {
-    slide('mobileEditDeleteBoxId', 'emptySlideMobileBoxId');
 }
 
 /** * This function is to toggle the visibility (mobile view = yes) */

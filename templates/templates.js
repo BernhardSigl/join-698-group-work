@@ -148,3 +148,44 @@ function returnRenderHeader() {
 function closeDialog() {
     document.getElementById('dialog-full').classList.add('d-none');
 }
+
+/** * This function is used to create a slide in animation */
+function slide(frontId, backgroundId) {
+    toggleVisibility(frontId, true);
+    toggleVisibility(backgroundId, true);
+    slideInAnimation = document.getElementById(frontId);
+    slideInAnimation.classList.remove('slide-out', 'slide-in');
+    slideInAnimation.offsetHeight;
+    slideInAnimation.classList.add('slide-in');
+}
+
+/** * This function is used to create a slide out animation */
+function slideOut(frontId, backgroundId, time) {
+    toggleVisibility(frontId, true);
+    toggleVisibility(backgroundId, true);
+    setTimeout(function () {
+        toggleVisibility(backgroundId, false);
+    }, time);
+    slideInAnimation = document.getElementById(frontId);
+    slideInAnimation.classList.remove('slide-out', 'slide-in');
+    slideInAnimation.offsetHeight;
+    slideInAnimation.classList.add('slide-out');
+}
+
+/** * This function is used to create a slide in animation */
+function slideOneObject(frontId) {
+    toggleVisibility(frontId, true);
+    slideInAnimation = document.getElementById(frontId);
+    slideInAnimation.classList.remove('slide-out', 'slide-in');
+    slideInAnimation.offsetHeight;
+    slideInAnimation.classList.add('slide-in');
+}
+
+/** * This function is used to create a slide out animation */
+function slideOutOneObject(frontId) {
+    toggleVisibility(frontId, true);
+    slideInAnimation = document.getElementById(frontId);
+    slideInAnimation.classList.remove('slide-out', 'slide-in');
+    slideInAnimation.offsetHeight;
+    slideInAnimation.classList.add('slide-out');
+}
