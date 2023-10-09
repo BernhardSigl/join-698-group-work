@@ -1,4 +1,5 @@
 
+
 async function initSummary() {
     loadActivUser();
     userCircle();
@@ -17,6 +18,8 @@ function loadText() {
     loadNumersAwaitFeedback();
     loadNumersDone();
     loadNumbersBoard();
+    loadUrgentLength()
+    loadUrgentPrioDate()
 }
 
 //----------------------search function------------------------------
@@ -122,6 +125,18 @@ function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) 
     document.getElementById('urgent').innerHTML = urgent;
 }
 
+function loadUrgentPrioDate() {
+    let container = document.getElementById('date');
+    container.innerHTML = getNextUrgentDueDate(tasks);
+    ;
+}
+
+function loadUrgentLength() {
+    let container = document.getElementById('urgent');
+    container.innerHTML = getUrgentLength(tasks);
+    ;
+}
+
 //----------------- load Time of Day------------------
 function loadTimeOfDay() {
     let HoursOfTheDay = document.getElementById('time-of-day');
@@ -157,5 +172,7 @@ function getNextUrgentDueDate(tasks) {
     return urgentTasks[0].dueDate;
 }
 
-const nextDueDate = getNextUrgentDueDate(tasks);
-console.log(nextDueDate);  // Gibt das nächstgelegene Datum aus, wenn eine dringende Aufgabe vorhanden ist
+function getUrgentLength(tasks) {
+    const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
+    return urgentTasks.length;
+}

@@ -671,7 +671,7 @@ ul {
 
 .clearBtn {
     background-color: #F6F7F8;
-    display: flex;
+    display: flex !important;
     font-size: 17px;
     justify-content: center;
     align-items: center;
