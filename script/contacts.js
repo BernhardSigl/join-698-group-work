@@ -259,11 +259,6 @@ function highlightContact(i) {
     highlightContact[i].style.color = 'white';
 }
 
-/** * This function is used to close the popup window */
-function closePopup() {
-    toggleVisibilityAfterXseconds('addContactId', false, 200);
-}
-
 function closePopupMobile() {
     toggleVisibility('mobileEditDeleteBoxId', false);
     toggleVisibility('mobileBackArrowId', false);
@@ -276,11 +271,6 @@ function closePopupMobile() {
         highlightContactElement.style.backgroundColor = '';
         highlightContactElement.style.color = '';
     });
-}
-
-/** * This function is used to prevent the popup from closing when clicked. */
-function doNotClose(event) {
-    event.stopPropagation();
 }
 
 /** * This function is used to make div-container unvisible or visible */

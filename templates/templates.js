@@ -189,3 +189,8 @@ function slideOutOneObject(frontId) {
     slideInAnimation.offsetHeight;
     slideInAnimation.classList.add('slide-out');
 }
+
+/** * This function is used to prevent the popup from closing when clicked. */
+function doNotClose(event) {
+    event.stopPropagation();
+}

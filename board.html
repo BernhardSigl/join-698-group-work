@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <button
-                    onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), slide('addTaskPopupPositionFront')"
+                    onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), slide('addTaskPopupPositionFront', 'addTaskPop')"
                     id="button-ad-task" type="button" class="button fontSize21">Add task<img
                         src="img/plusAddTaskWhite.svg">
                 </button>
@@ -128,13 +128,14 @@
         </div>
         <!-- </div> -->
     </div>
-    <section id="addTaskPop" class="popupContainer d-none">
-        <div class="addTaskPopupPosition" id="addTaskPopupPositionFront">
+    <section id="addTaskPop" class="popupContainer d-none"
+        onclick="slideOut('addTaskPopupPositionFront', 'addTaskPop', 200)">
+        <div class="addTaskPopupPosition" id="addTaskPopupPositionFront" onclick="doNotClose(event)">
             <div class="contentPositionAddTaskPopup show-scrollbarTaskWindow">
                 <div class="addTaskPopupHeadlineContainer">
                     <span id="addTaskHeadline" class="fw-bold fontSize61">Add Task</span>
-                    <img onclick="slideOut('addTaskPopupPositionFront'), toggleVisibilityAfterXseconds('addTaskPop', false, 200)"
-                        class="click close-hover" src="img/crossAddTask.svg" alt="">
+                    <img onclick="slideOut('addTaskPopupPositionFront', 'addTaskPop', 200)" class="click close-hover"
+                        src="img/crossAddTask.svg" alt="">
                 </div>
 
                 <form onsubmit="return false" id="myForm">
