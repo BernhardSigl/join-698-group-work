@@ -45,18 +45,20 @@
     <div class="content-board show-scrollbarTaskWindow bg-main-color">
 
         <div class="search-board-container">
-            <h1>Board</h1>
+            <span class="fontSize61"><b>Board</b></span>
             <form class="searchbox" role="search">
                 <div id="fake-searchbar">
                     <input id="searchInput" onkeydown="renderSearchResults()" aria-label="Search"
-                        placeholder="Find Task">
-                    <img class="search-vector" src="img/VectorSearchbar.svg">
-                    <img class="searchbar-symbol" id="searchLogo" src="img/search.svg">
-                    <img onclick="clearInput()" src="img/close.svg" class="searchbar-symbol d-none" id="searchClose">
+                        placeholder="Find Task" class="fontSize20">
+                    <div>
+                        <img class="search-vector" src="img/VectorSearchbar.svg">
+                        <img class="searchbar-symbol" id="searchLogo" src="img/search.svg">
+                        <img onclick="clearInput()" src="img/close.svg" class="searchbar-symbol d-none"
+                            id="searchClose">
+                    </div>
                 </div>
-                <button
-                    onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), slide('addTaskPopFront')"
-                    id="button-ad-task" type="button" class="button">Add task<img src="img/plusAddTaskWhite.svg" alt="">
+                <button onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent()" id="button-ad-task"
+                    type="button" class="button fontSize21">Add task<img src="img/plusAddTaskWhite.svg">
                 </button>
             </form>
         </div>
@@ -69,7 +71,7 @@
 
                 <section>
                     <div class="statusheadline">
-                        <h3>To do</h3>
+                        <span class="fontSize20"><b>To do</b></span>
                         <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('toDo')"
                             src="img/Property 1=Default.svg" alt="Not found">
                     </div>
@@ -81,7 +83,7 @@
 
                 <section>
                     <div class="statusheadline">
-                        <h3>In progress</h3>
+                        <span class="fontSize20"><b>In progress</b></span>
                         <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('in-progress')"
                             src="img/Property 1=Default.svg" alt="Not found">
                     </div>
@@ -96,7 +98,7 @@
                 <section>
                     <div class="statusheadline">
                         <div>
-                            <h3>Await Feedback</h3>
+                            <span class="fontSize20"><b>Await Feedback</b></span>
                         </div>
                         <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('awaiting-feedback')"
                             src="img/Property 1=Default.svg" alt="Not found ">
@@ -111,7 +113,7 @@
 
                 <section>
                     <div class="statusheadline">
-                        <h3>Done</h3>
+                        <span class="fontSize20"><b>Done</b></span>
                         <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), statusSelected('done')"
                             src="img/Property 1=Default.svg" alt="Not found ">
                     </div>
@@ -125,7 +127,7 @@
         <!-- </div> -->
     </div>
     <section id="addTaskPop" class="popupContainer d-none">
-        <div class="addTaskPopupPosition" id="addTaskPopFront">
+        <div class="addTaskPopupPosition">
             <div class="contentPositionAddTaskPopup show-scrollbarTaskWindow">
                 <div class="addTaskPopupHeadlineContainer">
                     <span id="addTaskHeadline" class="fw-bold fontSize61">Add Task</span>

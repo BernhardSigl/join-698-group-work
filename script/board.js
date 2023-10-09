@@ -207,10 +207,12 @@ function updateProgressbar(element) {
 
     return /*html*/ `  
     <div class="task-progress">
-    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
-        <div class="progress-bar" style="background-color: #4589FF; width:${percent}%"></div> 
-    </div>
-        ${finishedSubasks}/${allSubtasks} Subtasks
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
+            <div class="progress-bar" style="background-color: #4589FF; width:${percent}%">
+            </div> 
+        </div>
+        <span class="fontSize12">${finishedSubasks}/${allSubtasks} Subtasks
+        </span>
     </div> `
 }
 
@@ -230,7 +232,7 @@ function generateTaskHTML(element) {
     return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTask(${i})" class="task">
             <div class="task-top">
                 <div class="task-category"> ${element['category']}</div>
-                <div class="task-title">${element['title']}</div>
+                <span class="task-title fontSize16">${element['title']}</span>
                 <div class="task-description show-scrollbar"> ${element['description']}</div>
             </div>
             ${updateProgressbar(element)}

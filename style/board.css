@@ -90,30 +90,29 @@ body {
 #fake-searchbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: white;
     border-radius: 10px;
     border: 1px solid #A8A8A8;
-    gap: 8px;
+    padding: 8px 16px;
+    width: 312px;
+    height: calc(auto - 16px);
 }
 
 #fake-searchbar input {
     border: none !important;
     outline: none !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    padding-right: 0 !important;
-    margin-bottom: 5px;
+    padding: 0 !important;
+    margin: 0 !important;
     width: 200px !important;
 }
 
-
-
 .search-vector {
     height: 32px;
+    margin-right: 16px;
 }
 
 .searchbar-symbol {
-    padding-right: 10px;
     height: 32px;
     width: 32px;
 }

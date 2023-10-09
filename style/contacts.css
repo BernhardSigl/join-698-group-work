@@ -529,14 +529,14 @@ section {
 }
 
 .slide-in {
-    animation: slideIn 0.5s ease;
+    animation: slide-in 1s ease;
 }
 
 .slide-out {
-    animation: slideOut 0.5s ease;
+    animation: slide-out 1s ease;
 }
 
-@keyframes slideIn {
+@keyframes slide-in {
     0% {
         transform: translateX(400%);
     }
@@ -544,6 +544,26 @@ section {
     100% {
         transform: translateX(0);
     }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(400%);
+    }
+}
+
+.slide-container {
+    transition: right 0.5s ease;
+    /* animate the right property */
+}
+
+.slide-container.open {
+    right: 0;
+    /* move to the visible area */
 }
 
 .colorOnHover:hover path {

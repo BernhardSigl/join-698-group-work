@@ -240,6 +240,17 @@ function slide(id) {
     document.getElementById(id).classList.add('slide-in');
 }
 
+function slideOut(id) {
+    document.getElementById(id).classList.remove('slide-in');
+    document.getElementById(id).classList.add('slide-out');
+    toggleVisibility(id, true);
+}
+
+function slideContainer(id) {
+    let container = document.getElementById(id);
+    container.classList.toggle('open');
+}
+
 /** * This function is used to close the popup window */
 function closePopup() {
     toggleVisibility('addContactId', false);
