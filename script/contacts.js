@@ -234,6 +234,7 @@ function highlightContact(i) {
 
 /** * This function is used to create a slide in animation */
 function slide(id) {
+    document.getElementById(id).classList.remove('slide-out');
     toggleVisibility(id, true);
     document.getElementById(id).classList.remove('slide-in');
     document.getElementById(id).offsetHeight;
@@ -242,13 +243,9 @@ function slide(id) {
 
 function slideOut(id) {
     document.getElementById(id).classList.remove('slide-in');
+    document.getElementById(id).classList.remove('slide-out');
+    document.getElementById(id).offsetHeight;
     document.getElementById(id).classList.add('slide-out');
-    toggleVisibility(id, true);
-}
-
-function slideContainer(id) {
-    let container = document.getElementById(id);
-    container.classList.toggle('open');
 }
 
 /** * This function is used to close the popup window */
@@ -278,6 +275,13 @@ function doNotClose(event) {
 function toggleVisibility(id, show) {
     const showHide = document.getElementById(id);
     showHide.classList.toggle('d-none', !show);
+}
+
+function toggleVisibilityAfterXseconds(id, show, time) {
+    setTimeout(function () {
+        const showHide = document.getElementById(id);
+        showHide.classList.toggle('d-none', !show);
+    }, time);
 }
 
 /** * This function is used to pull the index from the contact and give it to the onclicked person */

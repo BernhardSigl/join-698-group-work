@@ -57,8 +57,10 @@
                             id="searchClose">
                     </div>
                 </div>
-                <button onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent()" id="button-ad-task"
-                    type="button" class="button fontSize21">Add task<img src="img/plusAddTaskWhite.svg">
+                <button
+                    onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), slide('addTaskPopupPositionFront')"
+                    id="button-ad-task" type="button" class="button fontSize21">Add task<img
+                        src="img/plusAddTaskWhite.svg">
                 </button>
             </form>
         </div>
@@ -127,12 +129,12 @@
         <!-- </div> -->
     </div>
     <section id="addTaskPop" class="popupContainer d-none">
-        <div class="addTaskPopupPosition">
+        <div class="addTaskPopupPosition" id="addTaskPopupPositionFront">
             <div class="contentPositionAddTaskPopup show-scrollbarTaskWindow">
                 <div class="addTaskPopupHeadlineContainer">
                     <span id="addTaskHeadline" class="fw-bold fontSize61">Add Task</span>
-                    <img onclick="resetAllAddTaskElementsBoard()" class="click close-hover" src="img/crossAddTask.svg"
-                        alt="">
+                    <img onclick="slideOut('addTaskPopupPositionFront'), toggleVisibilityAfterXseconds('addTaskPop', false, 200)"
+                        class="click close-hover" src="img/crossAddTask.svg" alt="">
                 </div>
 
                 <form onsubmit="return false" id="myForm">

@@ -529,11 +529,11 @@ section {
 }
 
 .slide-in {
-    animation: slide-in 1s ease;
+    animation: slide-in 0.5s ease;
 }
 
 .slide-out {
-    animation: slide-out 1s ease;
+    animation: slide-out 0.5s ease;
 }
 
 @keyframes slide-in {
@@ -554,16 +554,6 @@ section {
     100% {
         transform: translateX(400%);
     }
-}
-
-.slide-container {
-    transition: right 0.5s ease;
-    /* animate the right property */
-}
-
-.slide-container.open {
-    right: 0;
-    /* move to the visible area */
 }
 
 .colorOnHover:hover path {
