@@ -143,3 +143,19 @@ function getTimeOfDay() {
     }
 }
 
+function getNextUrgentDueDate(tasks) {
+    const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
+
+    if (urgentTasks.length === 0) return null;
+
+    urgentTasks.sort((a, b) => {
+        const dateA = new Date(a.dueDate.split("/").reverse().join("-"));
+        const dateB = new Date(b.dueDate.split("/").reverse().join("-"));
+        return dateA - dateB;
+    });
+
+    return urgentTasks[0].dueDate;
+}
+
+const nextDueDate = getNextUrgentDueDate(tasks);
+console.log(nextDueDate);  // Gibt das nächstgelegene Datum aus, wenn eine dringende Aufgabe vorhanden ist
