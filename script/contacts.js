@@ -234,16 +234,16 @@ function highlightContact(i) {
 
 /** * This function is used to create a slide in animation */
 function slide(id) {
-    document.getElementById(id).classList.remove('slide-out');
     toggleVisibility(id, true);
-    document.getElementById(id).classList.remove('slide-in');
-    document.getElementById(id).offsetHeight;
-    document.getElementById(id).classList.add('slide-in');
+    slideInAnimation = document.getElementById(id);
+    slideInAnimation.classList.remove('slide-out', 'slide-in');
+    slideInAnimation.offsetHeight;
+    slideInAnimation.classList.add('slide-in');
 }
 
+/** * This function is used to create a slide out animation */
 function slideOut(id) {
-    document.getElementById(id).classList.remove('slide-in');
-    document.getElementById(id).classList.remove('slide-out');
+    document.getElementById(id).classList.remove('slide-out', 'slide-in');
     document.getElementById(id).offsetHeight;
     document.getElementById(id).classList.add('slide-out');
 }
@@ -277,6 +277,7 @@ function toggleVisibility(id, show) {
     showHide.classList.toggle('d-none', !show);
 }
 
+/** * This function is used to make div-container unvisible or visible after a specific time*/
 function toggleVisibilityAfterXseconds(id, show, time) {
     setTimeout(function () {
         const showHide = document.getElementById(id);
