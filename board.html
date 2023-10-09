@@ -54,8 +54,9 @@
                     <img class="searchbar-symbol" id="searchLogo" src="img/search.svg">
                     <img onclick="clearInput()" src="img/close.svg" class="searchbar-symbol d-none" id="searchClose">
                 </div>
-                <button onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent()" id="button-ad-task"
-                    type="button" class="button">Add task<img src="img/plusAddTaskWhite.svg" alt="">
+                <button
+                    onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), slide('addTaskPopFront')"
+                    id="button-ad-task" type="button" class="button">Add task<img src="img/plusAddTaskWhite.svg" alt="">
                 </button>
             </form>
         </div>
@@ -124,7 +125,7 @@
         <!-- </div> -->
     </div>
     <section id="addTaskPop" class="popupContainer d-none">
-        <div class="addTaskPopupPosition">
+        <div class="addTaskPopupPosition" id="addTaskPopFront">
             <div class="contentPositionAddTaskPopup show-scrollbarTaskWindow">
                 <div class="addTaskPopupHeadlineContainer">
                     <span id="addTaskHeadline" class="fw-bold fontSize61">Add Task</span>
