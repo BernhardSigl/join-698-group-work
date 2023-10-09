@@ -138,9 +138,8 @@ async function createContact() {
 
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('mobileVisibilityId', true);
-    closePopup();
     renderContacts();
-    changesSaved();
+    changesSaved('Contact successfully created');
     hoverNewContact(newContact);
 }
 
@@ -322,8 +321,7 @@ function deleteEditContactAtIndex(i) {
 
 /** * This function is used to delete a contact */
 async function deleteContact(i) {
-    changesSaved();
-    closePopup();
+    changesSaved('Contact successfully deleted');
     resetFunctionImageText();
     toggleVisibility('mobileEditDeleteBoxId', false);
     contactsArray.splice(i, 1);
@@ -368,7 +366,7 @@ function saveContact(i) {
     document.getElementById('emailId').innerHTML = contactsArray[i].email;
     document.getElementById('phoneId').innerHTML = contactsArray[i].phone;
 
-    changesSaved();
+    changesSaved('Contact successfully saved');
     resetFunctionImageText();
     changeText();
     toggleVisibility('mobileBackArrowId', false);
@@ -384,7 +382,6 @@ function changeText() {
     document.querySelector('#editCancelButtonId').textContent = "Delete";
     document.querySelector('#textChangeToEditContactId').textContent = "Edit contact";
     document.querySelector('#textChangeToSaveId').textContent = "Save";
-    document.querySelector('#successfullyCreatedId').textContent = "Contact successfully saved";
 }
 
 /** * This function is to change the text in a button */
@@ -410,7 +407,6 @@ function originalText() {
     document.querySelector('#editCancelButtonId').textContent = "Cancel";
     document.querySelector('#textChangeToEditContactId').textContent = "Add contact";
     document.querySelector('#textChangeToSaveId').textContent = "Add contact";
-    document.querySelector('#successfullyCreatedId').textContent = "Contact successfully created";
 }
 
 /** * This function is to reset the changeFunction(i) */
@@ -435,19 +431,6 @@ function originalImage() {
     let newImage = './img/person_add.svg';
     let switchImage = document.querySelector('#mobileAddContactId img');
     switchImage.src = newImage;
-}
-
-/** * This function is used to the edit and delete menu on the mobile view */
-function changesSaved() {
-    document.getElementById('successfullyCreatedId');
-    toggleVisibility('successfullyCreatedId', true);
-    slideOneObject('successfullyCreatedId');
-    setTimeout(function () {
-        slideOutOneObject('successfullyCreatedId');
-    }, 2500);
-    setTimeout(function () {
-        toggleVisibility('successfullyCreatedId', false);
-    }, 2900);
 }
 
 /** * This function is switch multiply objects to the original function */

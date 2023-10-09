@@ -157,6 +157,19 @@
     background-color: var(--sidebarHoverElements);
 }
 
+.successfullyBtn {
+    position: absolute;
+    bottom: 160px;
+    left: 711px;
+    background: #2A3647;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 326px;
+    height: 74px !important;
+}
+
+
 @media (max-width: 1000px) {
     .content {
         max-width: calc(100vw - 243px - 83px) !important;

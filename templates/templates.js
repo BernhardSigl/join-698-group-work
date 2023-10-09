@@ -194,3 +194,18 @@ function slideOutOneObject(frontId) {
 function doNotClose(event) {
     event.stopPropagation();
 }
+
+/** * This function is used to the edit and delete menu on the mobile view */
+function changesSaved(inputText) {
+    document.getElementById('successfullyCreatedId').innerHTML = /* html */ `
+    ${inputText}
+    `
+    toggleVisibility('successfullyCreatedId', true);
+    slideOneObject('successfullyCreatedId');
+    setTimeout(function () {
+        slideOutOneObject('successfullyCreatedId');
+    }, 2500);
+    setTimeout(function () {
+        toggleVisibility('successfullyCreatedId', false);
+    }, 2900);
+}
