@@ -421,6 +421,7 @@ input {
     border-top-right-radius: 10px;
 }
 
+.mobileDeleteText:hover,
 .mobileEditText:hover,
 .mobileEdit:hover,
 .mobileDelete:hover {
