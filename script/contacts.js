@@ -118,7 +118,6 @@ function addContact() {
     document.getElementById('inputPhoneId').value = '';
 
     toggleVisibility('addContactId', true);
-    slide('swipeContactPopupId');
 }
 
 /** * This function is to save the input in the contact array */
@@ -267,9 +266,9 @@ function closePopupMobile() {
 
 
 /** * This function is used to prevent the popup from closing when clicked. */
-function doNotClose(event) {
-    event.stopPropagation();
-}
+// function doNotClose(event) {
+//     event.stopPropagation();
+// }
 
 /** * This function is used to make div-container unvisible or visible */
 function toggleVisibility(id, show) {
@@ -374,7 +373,6 @@ function saveContact(i) {
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
     showNotOnMobileView('mobileVisibilityId');
-    closePopup();
     highlightContact(i);
     renderContacts();
 }

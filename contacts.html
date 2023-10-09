@@ -40,7 +40,7 @@
             <section class="contacts-container">
                 <div class="btnBackground horicontalAndVertical" id="btnBackgroundId">
                     <button type="button" class="addNewContactButton horicontalAndVertical fontSize21"
-                        onclick="addContact()">
+                        onclick="addContact(), slide('swipeContactPopupId')">
                         Add new Contact
                         <img src="./img/person_add.svg">
                     </button>
@@ -51,8 +51,9 @@
                 </div>
             </section>
 
-            <section class="addContactBackground horicontalAndVertical d-none" id="addContactId" onclick="closePopup()">
-                <div class="addContactPopup d-flex" onclick="doNotClose(event)" id="swipeContactPopupId">
+            <section class="addContactBackground horicontalAndVertical d-none" id="addContactId"
+                onclick="slideOut('swipeContactPopupId'), toggleVisibilityAfterXseconds('addContactId', false, 200)">
+                <div class="addContactPopup d-flex" id="swipeContactPopupId">
                     <div class="leftSideAddContactPopup horicontal">
                         <img src="./img/join.logo-white.svg" id="joinLogoAddContactId">
                         <div class="addContactLeftText">
@@ -103,7 +104,8 @@
                                     <img src="./img/check.svg">
                                 </button>
                             </div>
-                            <div class="closePopupCross pointer horicontalAndVertical" onclick="closePopup()">
+                            <div class="closePopupCross pointer horicontalAndVertical"
+                                onclick="slideOut('swipeContactPopupId'), toggleVisibilityAfterXseconds('swipeContactPopupId', false, 400)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none">
                                     <mask id="mask0_88894_4110" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
