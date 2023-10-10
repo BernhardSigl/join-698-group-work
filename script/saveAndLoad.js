@@ -7,7 +7,6 @@ let activUser = {
     'name': '',
 }
 
-
 //save and load task elements
 
 function saveTaskElements() {
@@ -51,6 +50,16 @@ function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad,
 
 
 //------------tasks----------------------
+async function initializeStorage(key, initialValue) {
+    try {
+        await getItem(key);
+    } catch (e) {
+        console.info(`Key "${key}" not found in storage. Initializing with default value.`);
+        await setItem(key, JSON.stringify(initialValue));
+    }
+}
+
+
 
 async function currentUserTaskSave() {
     if (activUser.name === 'Guest698') {
@@ -134,16 +143,21 @@ async function currentUserCategorysLoad() {
 async function currentUserContactsSave() {
     if (activUser.name === 'Guest698') {
         localStorage.setItem('contactsAsText', JSON.stringify(contactsArray));
+        localStorage.setItem('nextColorAsText', JSON.stringify(nextColorIndex));
     } else {
         await setItem('contactsArray', JSON.stringify(contactsArray));
+        await setItem('nextColorIndex', JSON.stringify(nextColorIndex));
     }
 }
 
+/** * This function is to load contacts or display a error message */
 async function currentUserContactsLoad() {
     if (activUser.name === 'Guest698') {
         let contactsLoad = localStorage.getItem('contactsAsText');
-        if (contactsLoad) {
+        let nextColorLoad = localStorage.getItem('nextColorAsText');
+        if (contactsLoad && nextColorLoad) {
             contactsArray = JSON.parse(contactsLoad);
+            nextColorIndex = JSON.parse(nextColorLoad);
         }
     } else {
         try {

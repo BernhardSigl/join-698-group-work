@@ -43,14 +43,14 @@ let editTask = '';
 
 let statusGroup = '';
 
-load();
+loadTaskElements();
 //---------------------------------------------------------------------------------//
 
 
 //edit task//
 
 function editTaskWindow() {
-    load();
+    loadTaskElements();
     let assignTo1 = document.getElementById('assignedToInputContainer');
     let assignTo2 = document.getElementById('assignedToContactsInputContainer');
     let categoryBox1 = document.getElementById('categoryAreaV1');
@@ -79,25 +79,16 @@ async function initAddTask() {
     loadActivUser();
     userCircle();
     statusSelected('toDo')
-    await initializeStorage('allCategorys', allCategorys);
-    await loadTasks();
-    await loadAddTaskCurrentId();
-    await loadAddTaskAllCategorys();
+    await currentUserTaskLoad();
+    await currentUserIdLoad();
+    await currentUserCategorysLoad();
     markCategory();
     renderAddTaskContent();
 }
 
-async function initializeStorage(key, initialValue) {
-    try {
-        await getItem(key);
-    } catch (e) {
-        console.info(`Key "${key}" not found in storage. Initializing with default value.`);
-        await setItem(key, JSON.stringify(initialValue));
-    }
-}
 
 function renderAddTaskContent() {
-    load();
+    loadTaskElements();
     document.getElementById("addTaskHeadline").innerHTML = 'Add Task';
     let assignTo1 = document.getElementById('assignedToInputContainer');
     let assignTo2 = document.getElementById('assignedToContactsInputContainer');
@@ -119,73 +110,6 @@ function renderAddTaskContent() {
 //---------------------------------------------------------------------------------//
 
 
-//Load & Save//
-function save() {
-    localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));
-    localStorage.setItem('currentPrioAsText', JSON.stringify(currentPrioSelected));
-    localStorage.setItem('subTaskCollectionAsText', JSON.stringify(subTaskCollection));
-    localStorage.setItem('contactCollectionAsText', JSON.stringify(contactCollection));
-    localStorage.setItem('selectedIndexAsText', JSON.stringify(selectedIndex));
-    localStorage.setItem('selectedColorIndexAsText', JSON.stringify(selectedColorIndex));
-    localStorage.setItem('titelAsText', JSON.stringify(titleAddTask));
-    localStorage.setItem('descriptionAsText', JSON.stringify(descriptionAddTask));
-    localStorage.setItem('dueDateAsText', JSON.stringify(dueDateAddTask));
-    localStorage.setItem('subTaskFinishAsText', JSON.stringify(subtasksFinish));
-    localStorage.setItem('taskIdAsText', JSON.stringify(taskIdForEdit));
-    localStorage.setItem('statusAsText', JSON.stringify(statusEdit));
-}
-
-function load() {
-    let currentCategoryLoad = localStorage.getItem('categoryCollectionAsText');
-    let currentPrioLoad = localStorage.getItem('currentPrioAsText');
-    let subTaskCollectionLoad = localStorage.getItem('subTaskCollectionAsText');
-    let contactCollectionLoad = localStorage.getItem('contactCollectionAsText');
-    let selectedIndexLoad = localStorage.getItem('selectedIndexAsText');
-    let selectedColorLoad = localStorage.getItem('selectedColorIndexAsText');
-    let titelLoad = localStorage.getItem('titelAsText');
-    let descriptionLoad = localStorage.getItem('descriptionAsText');
-    let dueDateLoad = localStorage.getItem('dueDateAsText');
-    let subTaskFinishLoad = localStorage.getItem('subTaskFinishAsText');
-    let taskIdLoad = localStorage.getItem('taskIdAsText');
-    let statusLoad = localStorage.getItem('statusAsText');
-    returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, titelLoad, descriptionLoad, dueDateLoad, subTaskFinishLoad, taskIdLoad, statusLoad);
-}
-
-function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, titelLoad, descriptionLoad, dueDateLoad, subTaskFinishLoad, taskIdLoad, statusLoad) {
-    if (currentCategoryLoad && currentPrioLoad && subTaskCollectionLoad && contactCollectionLoad && selectedIndexLoad && selectedColorLoad && titelLoad && descriptionLoad && dueDateLoad && subTaskFinishLoad && taskIdLoad && statusLoad) {
-        currentCategorySelected = JSON.parse(currentCategoryLoad);
-        currentPrioSelected = JSON.parse(currentPrioLoad);
-        subTaskCollection = JSON.parse(subTaskCollectionLoad);
-        contactCollection = JSON.parse(contactCollectionLoad);
-        selectedIndex = JSON.parse(selectedIndexLoad);
-        selectedColorIndex = JSON.parse(selectedColorLoad);
-        titleAddTask = JSON.parse(titelLoad);
-        descriptionAddTask = JSON.parse(descriptionLoad);
-        dueDateAddTask = JSON.parse(dueDateLoad);
-        subtasksFinish = JSON.parse(subTaskFinishLoad);
-        taskIdForEdit = JSON.parse(taskIdLoad);
-        statusEdit = JSON.parse(statusLoad);
-    }
-}
-
-async function loadAddTaskCurrentId() {
-    try {
-        currentId = JSON.parse(await getItem('currentId'));
-    } catch (e) {
-        console.info('Could not load currentId');
-    }
-}
-
-async function loadAddTaskAllCategorys() {
-    try {
-        allCategorys = JSON.parse(await getItem('allCategorys'));
-    } catch (e) {
-        console.info('Could not load categorys');
-    }
-}
-//---------------------------------------------------------------------------------//
-
-
 //SubTaskFunctions//
 /**
  * Adds a sub-task to the collection.
@@ -196,7 +120,7 @@ function addSubTaskToCollection() {
         return;
     } else {
         subTaskCollection.push(input.value);
-        save();
+        saveTaskElements();
         renderSubTaskCollection();
         input.value = '';
     }
@@ -221,7 +145,7 @@ function renderSubTaskCollection() {
  */
 function deleteSubtaskCollection(i) {
     subTaskCollection.splice(i, 1);
-    save()
+    saveTaskElements();
     renderSubTaskCollection();
 }
 
@@ -250,7 +174,7 @@ function confirmSubEdit(i) {
     } else {
         subTaskCollection[i] = editedInput.value;
     }
-    save();
+    saveTaskElements();
     renderSubTaskCollection();
 }
 
@@ -298,7 +222,7 @@ function createTask() {
                 input2.classList.remove('inputRed');
             }, 10000);
         } else {
-            save();
+            saveTaskElements();
             addTask();
         }
     }
@@ -329,8 +253,8 @@ async function addTask() {
     }
     tasks.push(task);
     currentId++;
-    await setItem('tasks', JSON.stringify(tasks));
-    await setItem('currentId', JSON.stringify(currentId));
+    await currentUserTaskSave();
+    await currentUserIdSave();
     resetAllAddTaskElements();
     window.location.href = './board.html';
 }
@@ -358,8 +282,8 @@ function resetAllAddTaskElements() {
     statusEdit = '';
     clearAddTaskInputs();
     resetInputs();
-    save();
-    renderAddTaskContent()
+    saveTaskElements();
+    renderAddTaskContent();
 }
 
 function clearAddTaskInputs() {
@@ -416,7 +340,7 @@ function renderAllSelectedContacts() {
 }
 
 async function renderAllContactsForSearch(filterText = '') {
-    await loadContacts();
+    await currentUserContactsLoad();
     let contactZone = document.getElementById('contactsRenderContainer');
     contactZone.innerHTML = '';
     for (let index = 0; index < contactsArray.length; index++) {
@@ -437,7 +361,7 @@ async function renderAllContactsForSearch(filterText = '') {
  * @param {string} key - Key of the contact in the `allContacts` collection.
  */
 async function toggleContactSelection(i) {
-    await loadContacts();
+    await currentUserContactsLoad();
     const contact = contactsArray[i];
     const el = (suffix) => document.getElementById(`${suffix}${i}`);
     const mainElement = el('assignedContactsBox'),
@@ -452,7 +376,7 @@ async function toggleContactSelection(i) {
         const index = contactCollection.findIndex(c => c.name === contact.name && c.color === contact.color);
         if (index > -1) contactCollection.splice(index, 1);
     }
-    save();
+    saveTaskElements();
 }
 
 /**
@@ -503,7 +427,7 @@ async function createContactByPopup() {
         "color": getColor()
     }
     contactsArray.push(newContact);
-    await setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
     clearContactPopup();
     toggleVisibilityAddTask('contactPopupByAddTask', '');
     renderAllContactsForSearch();
@@ -550,8 +474,8 @@ async function deleteCategory(i) {
     let allCategory = allCategorys[0];
     allCategory.name.splice(i, 1);
     allCategory.color.splice(i, 1);
-    await setItem('allCategorys', JSON.stringify(allCategorys));
-    save()
+    await currentUserCategorysSave();
+    saveTaskElements();
 }
 
 function selectCategory(type, index) {
@@ -566,12 +490,12 @@ function selectCategory(type, index) {
         currentCategorySelected[0].color = allCategory.color[index];
     }
     renderCategorys();
-    save();
+    saveTaskElements();
     borderColorCheck();
 }
 
 function borderColorCheck() {
-    load();
+    loadTaskElements();
     if (currentCategorySelected[0].name) {
         updateInputs();
     } else {
@@ -606,7 +530,7 @@ function resetInputValueAndColor(inputElem) {
 
 //create category//
 function createCategoryWindow() {
-    load();
+    loadTaskElements();
     createCategoryColors();
 }
 
@@ -628,15 +552,15 @@ async function addCategory() {
     let inputElem = document.getElementById('createCategoryInput');
     allCategorys[0].name.push(inputElem.value);
     allCategorys[0].color.push(selectedColorIndex);
-    await setItem('allCategorys', JSON.stringify(allCategorys));
+    await currentUserCategorysSave();
     toggleVisibilityAddTask('createCategoryPopupByAddTask', '');
     selectedColorIndex = null;
-    save();
+    saveTaskElements();
 }
 
 function updateSelectedColorIndex(index) {
     selectedColorIndex = selectedColorIndex === index ? null : index;
-    save();
+    saveTaskElements();
 }
 
 function confirmCreateCategory() {
@@ -653,7 +577,7 @@ function clearCreateWindow() {
     let input = document.getElementById('createCategoryInput');
     input.value = '';
     selectedColorIndex = null;
-    save();
+    saveTaskElements();
 }
 
 function alertInvalidInput() {
@@ -686,7 +610,7 @@ function activateButton(btnId, iconId, activeIconId, activeClass, iconSrc) {
     document.getElementById(iconId).classList.add('d-none');
     document.getElementById(activeIconId).classList.remove('d-none');
     currentPrioSelected = iconSrc;
-    save();
+    saveTaskElements();
 }
 
 function deactivateButton(btnId, iconId, activeIconId, activeClass) {
@@ -694,7 +618,7 @@ function deactivateButton(btnId, iconId, activeIconId, activeClass) {
     document.getElementById(iconId).classList.remove('d-none');
     document.getElementById(activeIconId).classList.add('d-none');
     currentPrioSelected = "";
-    save();
+    saveTaskElements();
 }
 
 function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, resetOther) {
@@ -750,7 +674,7 @@ function resetAll() {
         document.getElementById(activeIcons[i]).classList.add('d-none');
     }
     currentPrioSelected = "";
-    save();
+    saveTaskElements();
 }
 //---------------------------------------------------------------------------------//
 

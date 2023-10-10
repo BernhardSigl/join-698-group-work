@@ -80,24 +80,6 @@ function loadWarningTextTamplate() {
     }
 }
 
-// function loadTemplateResetPasswort() {
-//     return /*html*/ `
-//     <a href="index.html" id="mobileBackArrowId" onclick="closeDialog()">
-//         <img src="img/arror-left.svg" alt="">
-//     </a>
-//     <form action="" class="columnVertical gap-32">
-//         <span class="fontSize61">I forgot my password</span>
-//         <span>Don't worry! We will send you an email with instructions to reset your password.</span>
-
-//         <div  class="input-field">
-//             <input type="text" placeholder="Email">
-//             <img src="./img/letter.svg" class="input-suffix">   
-//         </div>  
-//         <button type="button" class="sendNewPasswordBtn" onsubmit>Send new password</button>  
-//     </form>
-//     `
-// }
-
 function loadTempleteLogIn() {
     return /*html*/ `
                 <div class="logInTitle">

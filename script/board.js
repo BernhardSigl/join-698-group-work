@@ -7,7 +7,8 @@ let finished;
 
 
 async function initBoard() {
-    await loadTasks();
+    loadActivUser();
+    await currentUserTaskLoad();
     updateBoardHTML();
 }
 
@@ -33,8 +34,8 @@ document.addEventListener('dragend', function (e) {
 async function clearArray() {
     tasks.splice(0, tasks.length);
     currentId = ""
-    await setItem('tasks', JSON.stringify(tasks));
-    await setItem('currentId', JSON.stringify(currentId));
+    await currentUserTaskSave();
+    await currentUserIdSave();
 }
 
 
@@ -134,7 +135,7 @@ function allowDrop(ev) {
  */
 async function moveTo(status) {
     tasks[currentDraggedElement]['status'] = status;
-    await setItem('tasks', JSON.stringify(tasks));
+    await currentUserTaskSave();
     updateBoardHTML();
     removeHighlight(status);
 }
@@ -460,62 +461,62 @@ async function editTaskNew(i) {
     subTaskCollection = taskToEdit.subtasksInProgress;
     subtasksFinish = taskToEdit.subtasksFinish;
     taskIdForEdit = taskToEdit.id;
-    save();
+    saveTaskElements();
     editTaskWindow();
 }
 
 
-// async function addEditTask() {
-//     contactNames = contactCollection.map(contact => contact.name);
-//     contactColors = contactCollection.map(contact => contact.color);
-//     contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
-//     let taskEdit = {
-//         'id': taskIdForEdit,
-//         'status': statusEdit,
-//         'category': currentCategorySelected[0].name,
-//         'categoryColor': currentCategorySelected[0].color,
-//         'title': document.getElementById("addTitel").value,
-//         'description': document.getElementById("addDescription").value,
-//         'dueDate': document.getElementById("datepicker").value,
-//         'priority': currentPrioSelected,
-//         'contactName': contactNames,
-//         'contactColor': contactColors,
-//         'contactAbbreviation': contactNamesAbbreviation,
-//         'subtasksInProgress': subTaskCollection,
-//         'subtasksFinish': subtasksFinish,
-//     }
-//     let index = tasks.findIndex(task => task.id === taskIdForEdit);
+async function addEditTask() {
+    contactNames = contactCollection.map(contact => contact.name);
+    contactColors = contactCollection.map(contact => contact.color);
+    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
+    let taskEdit = {
+        'id': taskIdForEdit,
+        'status': statusEdit,
+        'category': currentCategorySelected[0].name,
+        'categoryColor': currentCategorySelected[0].color,
+        'title': document.getElementById("addTitel").value,
+        'description': document.getElementById("addDescription").value,
+        'dueDate': document.getElementById("datepicker").value,
+        'priority': currentPrioSelected,
+        'contactName': contactNames,
+        'contactColor': contactColors,
+        'contactAbbreviation': contactNamesAbbreviation,
+        'subtasksInProgress': subTaskCollection,
+        'subtasksFinish': subtasksFinish,
+    }
+    let index = tasks.findIndex(task => task.id === taskIdForEdit);
 
-//     tasks[index] = taskEdit;
-//     await setItem('tasks', JSON.stringify(tasks));
-//     resetAllAddTaskElementsBoard();
-//     updateBoardHTML();
-// }
+    tasks[index] = taskEdit;
+    await currentUserTaskSave();
+    resetAllAddTaskElementsBoard();
+    updateBoardHTML();
+}
 
-// function resetAllAddTaskElementsBoard() {
-//     currentCategorySelected = [{
-//         'name': '',
-//         'color': '',
-//     }];
-//     subtasksFinish = [];
-//     subTaskCollection = [];
-//     selectedIndex = null;
-//     selectedColorIndex = [];
-//     currentPrioSelected = "";
-//     contactCollection = [];
-//     taskIdForEdit = '';
-//     statusEdit = '';
-//     clearAddTaskInputs();
-//     resetInputs();
-//     save();
-//     document.getElementById('addTaskPop').classList.add('d-none');
-// }
+function resetAllAddTaskElementsBoard() {
+    currentCategorySelected = [{
+        'name': '',
+        'color': '',
+    }];
+    subtasksFinish = [];
+    subTaskCollection = [];
+    selectedIndex = null;
+    selectedColorIndex = [];
+    currentPrioSelected = "";
+    contactCollection = [];
+    taskIdForEdit = '';
+    statusEdit = '';
+    clearAddTaskInputs();
+    resetInputs();
+    saveTaskElements();
+    document.getElementById('addTaskPop').classList.add('d-none');
+}
 
 
 async function switchSubtaskStatusToFinished(i, k) {
     let splicedSubtask = tasks[i]['subtasksInProgress'].splice(k, 1)
     tasks[i]['subtasksFinish'].push(splicedSubtask)
-    await setItem('tasks', JSON.stringify(tasks));
+    await currentUserTaskSave();
     renderTaskdetailHTML(i);
 }
 
@@ -523,7 +524,7 @@ async function switchSubtaskStatusToFinished(i, k) {
 async function switchSubtaskStatusToUndone(i, l) {
     let splicedSubtask = tasks[i]['subtasksFinish'].splice(l, 1)
     tasks[i]['subtasksInProgress'].push(splicedSubtask)
-    await setItem('tasks', JSON.stringify(tasks));
+    await currentUserTaskSave();
     renderTaskdetailHTML(i);
 }
 
@@ -535,7 +536,7 @@ function closeTask() {
 
 async function deleteTask(i) {
     tasks.splice(i, 1);
-    await setItem('tasks', JSON.stringify(tasks));
+    await currentUserTaskSave();
     closeTask();
     updateBoardHTML();
 }

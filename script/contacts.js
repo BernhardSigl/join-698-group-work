@@ -17,22 +17,13 @@ let nextColorIndex = 0;
 async function initContacts() {
     loadActivUser();
     userCircle();
-    await loadContacts();
+    await currentUserContactsLoad();
     renderContacts();
     desktopViewSmall();
     mobileView();
     markCategory();
 }
 
-/** * This function is to load contacts or display a error message */
-async function loadContacts() {
-    try {
-        contactsArray = JSON.parse(await getItem('contactsArray'));
-        nextColorIndex = JSON.parse(await getItem('nextColorIndex'));
-    } catch (e) {
-        console.info('Could not load contacts');
-    }
-}
 
 /** * This function us used to render the contact informations and sort it */
 function renderContacts() {
@@ -130,7 +121,7 @@ async function createContact() {
         "color": getColor()
     }
     contactsArray.push(newContact);
-    await setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
 
     document.getElementById('inputNameId').value = '';
     document.getElementById('inputEmailId').value = '';
@@ -325,7 +316,7 @@ async function deleteContact(i) {
     resetFunctionImageText();
     toggleVisibility('mobileEditDeleteBoxId', false);
     contactsArray.splice(i, 1);
-    await setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false); //
     toggleVisibility('contactsTitleId', true); //
@@ -348,19 +339,19 @@ async function editContact(i) {
     changeText();
     changeFunction(i);
 
-    await setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
     renderContacts();
     highlightContact(i);
 }
 
 /** * This function is used to save the changes by editing a contact */
-function saveContact(i) {
+async function saveContact(i) {
     contactsArray[i].name = document.getElementById('inputNameId').value;
     contactsArray[i].email = document.getElementById('inputEmailId').value;
     contactsArray[i].phone = document.getElementById('inputPhoneId').value;
     contactsArray[i].nameAbbreviation = document.getElementById('nameAbbreviationId').innerHTML;
 
-    setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
 
     document.getElementById('nameId').innerHTML = contactsArray[i].name;
     document.getElementById('emailId').innerHTML = contactsArray[i].email;

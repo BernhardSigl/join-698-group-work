@@ -3,7 +3,7 @@
 async function initSummary() {
     loadActivUser();
     userCircle();
-    await loadTasks();
+    await currentUserTaskLoad();
     loadTimeOfDay();
     loadText();
     markCategory();
