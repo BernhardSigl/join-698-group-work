@@ -117,7 +117,6 @@
 .quickLinksSidebar {
     display: flex !important;
     flex-direction: column;
-    margin-top: 243px !important;
     gap: 4px;
     padding-left: 52px !important;
 }

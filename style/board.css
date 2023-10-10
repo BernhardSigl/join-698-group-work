@@ -623,7 +623,7 @@ h3 {
         max-width: calc(100vw);
         margin-top: 76px;
         width: 100%;
-        max-height: calc(100vh - 149px);
+        max-height: calc(100vh - 234px);
         overflow-y: auto;
     }
 
