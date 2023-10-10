@@ -109,7 +109,7 @@ document.getElementById('searchInput').addEventListener("blur", revertDivColor);
 
 
 /**
- * This function changes the bordercolor of the searchbar back to default
+ * This function changes the border color of the searchbar back to default
  * 
  */
 function revertDivColor() {
@@ -120,7 +120,7 @@ function revertDivColor() {
 /**
  * It prevents the default behavior of the browser (which blocks dragging by default)
  * 
- * @param {DragEvent} ev - the drag event object
+ * @param {DragEvent} ev - The drag event object
  */
 function allowDrop(ev) {
     ev.preventDefault();
@@ -130,7 +130,7 @@ function allowDrop(ev) {
 /**
  * This function sets the new status of the element when it's dropped and updates the BoardHtml
  * 
- * @param {string} status - the status of the selected element
+ * @param {string} status - The status of the selected element
  */
 async function moveTo(status) {
     tasks[currentDraggedElement]['status'] = status;
@@ -143,8 +143,7 @@ async function moveTo(status) {
 /**
  * This function highlights the area which the selected element is dragged at or over
  * 
- * 
- * @param {string} id - the id of the element to be highlighted
+ * @param {string} id - The id of the element to be highlighted
  */
 function highlight(id) {
     document.getElementById(id).classList.add('drag-area-highlight');
@@ -154,7 +153,7 @@ function highlight(id) {
 /**
  * This function removes highlight from selected element
  * 
- * @param {string} id 
+ * @param {string} id - The id of the element to be highlighted 
  */
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
@@ -197,7 +196,12 @@ function updateBoardHTML() {
     }
 }
 
-
+/**
+ *This function updates the progress bar based on the finished subtasks 
+ *  
+ * @param {Object} - The task element 
+ * @returns {string} The generated HTML string representing the progress bar.
+ */
 function updateProgressbar(element) {
     let openSubasks = element['subtasksInProgress'].length
     let finishedSubasks = element['subtasksFinish'].length
@@ -216,6 +220,12 @@ function updateProgressbar(element) {
     </div> `
 }
 
+/**
+ * This function generates a small task card based on the given element
+ * 
+ * @param {Object} - The task element 
+ * @returns {string} - The generated HTML string representing the task
+ */
 function generateTaskHTML(element) {
     let i = element['id']
     let users = element['contactAbbreviation']
@@ -246,22 +256,33 @@ function generateTaskHTML(element) {
     `;
 }
 
-
+/**
+ * This function sets the global variable 'currentDraggedElement' with the index of the task having the specified ID
+ * 
+ * @param {number} id - The id of the task to find
+ */
 function startDragging(id) {
     let index = tasks.findIndex(task => task.id === id);
     currentDraggedElement = index;
 }
 
-
+/**
+ * This function finds the task by its ID and triggers rendering its detailed view
+ * 
+ * @param {number} i - The id of the task to open
+ */
 async function openTask(i) {
     let index = tasks.findIndex(task => task.id === i);
     renderTaskdetailHTML(index)
 }
 
 
-
+/**
+ * This function renders the detail view of the task
+ * 
+ * @param {number} i - The id of the task to render
+ */
 function renderTaskdetailHTML(i) {
-    console.log(tasks[i])
     findAssignedUnser(i);
     showSubtasksInProgress(i);
     showSubtasksFinished(i);
@@ -444,51 +465,51 @@ async function editTaskNew(i) {
 }
 
 
-async function addEditTask() {
-    contactNames = contactCollection.map(contact => contact.name);
-    contactColors = contactCollection.map(contact => contact.color);
-    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
-    let taskEdit = {
-        'id': taskIdForEdit,
-        'status': statusEdit,
-        'category': currentCategorySelected[0].name,
-        'categoryColor': currentCategorySelected[0].color,
-        'title': document.getElementById("addTitel").value,
-        'description': document.getElementById("addDescription").value,
-        'dueDate': document.getElementById("datepicker").value,
-        'priority': currentPrioSelected,
-        'contactName': contactNames,
-        'contactColor': contactColors,
-        'contactAbbreviation': contactNamesAbbreviation,
-        'subtasksInProgress': subTaskCollection,
-        'subtasksFinish': subtasksFinish,
-    }
-    let index = tasks.findIndex(task => task.id === taskIdForEdit);
+// async function addEditTask() {
+//     contactNames = contactCollection.map(contact => contact.name);
+//     contactColors = contactCollection.map(contact => contact.color);
+//     contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
+//     let taskEdit = {
+//         'id': taskIdForEdit,
+//         'status': statusEdit,
+//         'category': currentCategorySelected[0].name,
+//         'categoryColor': currentCategorySelected[0].color,
+//         'title': document.getElementById("addTitel").value,
+//         'description': document.getElementById("addDescription").value,
+//         'dueDate': document.getElementById("datepicker").value,
+//         'priority': currentPrioSelected,
+//         'contactName': contactNames,
+//         'contactColor': contactColors,
+//         'contactAbbreviation': contactNamesAbbreviation,
+//         'subtasksInProgress': subTaskCollection,
+//         'subtasksFinish': subtasksFinish,
+//     }
+//     let index = tasks.findIndex(task => task.id === taskIdForEdit);
 
-    tasks[index] = taskEdit;
-    await setItem('tasks', JSON.stringify(tasks));
-    resetAllAddTaskElementsBoard();
-    updateBoardHTML();
-}
+//     tasks[index] = taskEdit;
+//     await setItem('tasks', JSON.stringify(tasks));
+//     resetAllAddTaskElementsBoard();
+//     updateBoardHTML();
+// }
 
-function resetAllAddTaskElementsBoard() {
-    currentCategorySelected = [{
-        'name': '',
-        'color': '',
-    }];
-    subtasksFinish = [];
-    subTaskCollection = [];
-    selectedIndex = null;
-    selectedColorIndex = [];
-    currentPrioSelected = "";
-    contactCollection = [];
-    taskIdForEdit = '';
-    statusEdit = '';
-    clearAddTaskInputs();
-    resetInputs();
-    save();
-    document.getElementById('addTaskPop').classList.add('d-none');
-}
+// function resetAllAddTaskElementsBoard() {
+//     currentCategorySelected = [{
+//         'name': '',
+//         'color': '',
+//     }];
+//     subtasksFinish = [];
+//     subTaskCollection = [];
+//     selectedIndex = null;
+//     selectedColorIndex = [];
+//     currentPrioSelected = "";
+//     contactCollection = [];
+//     taskIdForEdit = '';
+//     statusEdit = '';
+//     clearAddTaskInputs();
+//     resetInputs();
+//     save();
+//     document.getElementById('addTaskPop').classList.add('d-none');
+// }
 
 
 async function switchSubtaskStatusToFinished(i, k) {
@@ -517,24 +538,4 @@ async function deleteTask(i) {
     await setItem('tasks', JSON.stringify(tasks));
     closeTask();
     updateBoardHTML();
-    // window.location.reload();
 }
-
-
-
-
-// Textfeld aus dem JSON-Objekt extrahieren
-// let text = data.text.trim();
-
-// Leerzeichen finden und den ersten Buchstaben sowie den Buchstaben danach extrahieren
-//     let index = text.indexOf(' ');
-//     if (index !== -1 && index < text.length - 1) {
-//         let firstLetter = text.charAt(0).toUpperCase();
-//         let letterAfterSpace = text.charAt(index + 1).toUpperCase();
-
-//         console.log(firstLetter + letterAfterSpace);
-//         return (firstLetter, letterAfterSpace)
-//     } else {
-//         console.log('Kein Leerzeichen gefunden oder kein Buchstabe danach.');
-//     }
-// }
