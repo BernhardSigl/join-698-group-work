@@ -13,12 +13,6 @@ async function initSummary() {
 
 function loadText() {
     loadUserName();
-    // loadNumersToDo();
-    // loadNumersInProgress();
-    // loadNumersAwaitFeedback();
-    // loadNumersDone();
-    // loadNumbersBoard();
-    // loadUrgentLength()
     searchNumbers();
     loadUrgentPrioDate();
 }
@@ -146,47 +140,3 @@ function getNextUrgentDueDate(tasks) {
     return urgentTasks[0].dueDate;
 }
 
-// function getUrgentLength(tasks) {
-//     const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
-//     return urgentTasks.length;
-// }
-
-// function loadUrgentLength() {
-//     let container = document.getElementById('urgent');
-//     container.innerHTML = getUrgentLength(tasks);
-//     ;
-// }
-
-//----------------------search function cards------------------------------
-// function loadNumbersBoard() {
-//     let toDos = tasks.filter(t => t['status'] == 'toDo').length;
-//     let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
-//     let awaitFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
-//     let done = tasks.filter(t => t['status'] == 'done').length;
-//     let board = document.getElementById('board');
-//     board.innerText = (toDos + inProgress + awaitFeedback + done);
-// }
-
-
-// function loadNumersToDo() {
-//     let toDos = document.getElementById('to-dos');
-//     toDos.innerText = tasks.filter(t => t['status'] == 'toDo').length;
-// }
-
-
-// function loadNumersInProgress() {
-//     let inProgress = document.getElementById('in-progress');
-//     inProgress.innerText = tasks.filter(t => t['status'] == 'in-progress').length;
-// }
-
-
-// function loadNumersAwaitFeedback() {
-//     let awaitFeedback = document.getElementById('await-feedback');
-//     awaitFeedback.innerText = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
-// }
-
-
-// function loadNumersDone() {
-//     let done = document.getElementById('done');
-//     done.innerHTML = tasks.filter(t => t['status'] == 'done').length;
-// }
