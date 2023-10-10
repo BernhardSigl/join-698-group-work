@@ -60,7 +60,10 @@ function addAnimation() {
     }, 3000);
 }
 
-
+/**
+ * This function searches the number of tasks in the respective category
+ * 
+ */
 function searchNumbers() {
     let todo = tasks.filter(t => t['status'] == 'toDo').length;
     let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
@@ -71,6 +74,10 @@ function searchNumbers() {
     displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urgent)
 }
 
+/**
+ * This function shows the number of tasks in the respective category
+ * 
+ */
 function displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urgent) {
     document.getElementById('to-dos').innerHTML = todo;
     document.getElementById('done').innerHTML = done;
@@ -79,7 +86,10 @@ function displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urge
     document.getElementById('board').innerHTML = allTasks;
     document.getElementById('urgent').innerHTML = urgent;
 }
-
+/**
+ * This function loads the next urgent due date
+ * 
+ */
 function loadUrgentPrioDate() {
     let container = document.getElementById('date');
     container.innerHTML = getNextUrgentDueDate(tasks);
@@ -89,11 +99,20 @@ function loadUrgentPrioDate() {
 
 
 //----------------- load Time of Day------------------
+/**
+ * This function shows the greeting for the user
+ * 
+ */
 function loadTimeOfDay() {
     let HoursOfTheDay = document.getElementById('time-of-day');
     HoursOfTheDay.innerHTML = getTimeOfDay();
 }
 
+/**
+ * This function returns greeting based on the current time of day
+ * 
+ * @returns {string} the greeting string in HTML format
+ */
 function getTimeOfDay() {
     const currentHour = new Date().getHours();
 
@@ -109,6 +128,10 @@ function getTimeOfDay() {
     }
 }
 
+/**
+ * This function searches the next urgent due date
+ * 
+ */
 function getNextUrgentDueDate(tasks) {
     const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
 
