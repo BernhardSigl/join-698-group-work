@@ -16,9 +16,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
 
     <script src="./script/saveAndLoad.js"></script>
+    <script src="script/contacts.js"></script>
     <script defer src="templates/templates.js"></script>
     <script defer src="script/addTask.js"></script>
-    <script src="script/contacts.js"></script>
+    <script defer src="script/addTask_templates.js"></script>
+    <script defer src="script/board_addTask_teamfunctions.js"></script>
     <script defer src="./script/board.js"></script>
 
 </head>
@@ -134,8 +136,8 @@
             <div class="contentPositionAddTaskPopup show-scrollbarTaskWindow">
                 <div class="addTaskPopupHeadlineContainer">
                     <span id="addTaskHeadline" class="fw-bold fontSize61">Add Task</span>
-                    <img onclick="slideOut('addTaskPopupPositionFront', 'addTaskPop', 200)" class="click close-hover"
-                        src="img/crossAddTask.svg" alt="">
+                    <img onclick="slideOut('addTaskPopupPositionFront', 'addTaskPop', 200), resetAllAddTaskElementsBoard()"
+                        class="click close-hover" src="img/crossAddTask.svg" alt="">
                 </div>
 
                 <form onsubmit="return false" id="myForm">

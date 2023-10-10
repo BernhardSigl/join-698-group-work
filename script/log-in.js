@@ -82,13 +82,14 @@ function loadWarningTextTamplate() {
 
 function loadTempleteLogIn() {
     return /*html*/ `
+            <form onsubmit="login(); return false;">
                 <div class="logInTitle">
                     <div class="fontSize61"><b>Log in</b></div>
                     <div class="underline"></div>
                 </div>
                 <div  class="input-fields fontSize20">
                     <div id="input-email" class="input-field ">
-                        <input id="email" type="text" placeholder="Email">
+                        <input required id="email" type="text" placeholder="Email">
                         <img src="./img/letter.svg" alt="Bild hinten" class="input-suffix">
                     </div>
                     <div class="warning-field">
@@ -97,7 +98,7 @@ function loadTempleteLogIn() {
                     </span>
                     </div>
                     <div id="input-passwort" class="input-field">
-                        <input id="passwort" type="password" placeholder="Password">
+                        <input required id="passwort" type="password" placeholder="Password">
                         <img src="./img/lock.svg" alt="Bild hinten" class="input-suffix">
                     </div>
                     <div class="warning-field">
@@ -115,9 +116,9 @@ function loadTempleteLogIn() {
 
                 </div>
                 <div class="buttonsUnderLogin">
-                    <button onclick="login()" type="button" class="button-log-in fontSize21">Log in</button>
+                    <button type="submit" class="button-log-in fontSize21">Log in</button>
                     <button onclick='guestLogin()' type="button" class="button-guest-login fontSize21">Guest log in</button>
                 </div>
-            </div>
+</form>
     `
 }

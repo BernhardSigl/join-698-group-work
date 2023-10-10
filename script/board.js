@@ -5,13 +5,11 @@ let subtaskHeadline;
 let inProgress;
 let finished;
 
-
 async function initBoard() {
     loadActivUser();
     await currentUserTaskLoad();
     updateBoardHTML();
 }
-
 
 document.addEventListener('dragstart', function (e) {
     if (e.target.classList.contains('task')) {
@@ -19,13 +17,11 @@ document.addEventListener('dragstart', function (e) {
     }
 });
 
-
 document.addEventListener('dragend', function (e) {
     if (e.target.classList.contains('task')) {
         e.target.classList.remove('rotating');
     }
 });
-
 
 /**
  * This function is used to clear all values of the tasks array
@@ -37,7 +33,6 @@ async function clearArray() {
     await currentUserTaskSave();
     await currentUserIdSave();
 }
-
 
 /**
  * This function filters the tasks array for title and description  
@@ -52,7 +47,6 @@ function searchTasks() {
         task.description.toLowerCase().includes(searchValue)
     );
 }
-
 
 /**
  * This function displays the results of the search
@@ -72,7 +66,6 @@ function renderSearchResults() {
     })
 }
 
-
 /**
  * This functions clears the searchinput and switchs the x symbol of it back to searchsymbol
  * 
@@ -85,13 +78,11 @@ function clearInput() {
     document.getElementById('contentposition').classList.remove('d-none');
 }
 
-
 /** 
  * This eventlistener is fired when the textbox is focused
  *  
  */
 document.getElementById('searchInput').addEventListener("focus", changeDivColor);
-
 
 /**
  * This function changes the bordercolor of the searchbar
@@ -101,13 +92,11 @@ function changeDivColor() {
     document.getElementById('fake-searchbar').style.borderColor = "#29ABE2";
 }
 
-
 /**
  * This eventlistener removes the focus of the searchbar
  * 
  */
 document.getElementById('searchInput').addEventListener("blur", revertDivColor);
-
 
 /**
  * This function changes the border color of the searchbar back to default
@@ -117,7 +106,6 @@ function revertDivColor() {
     document.getElementById('fake-searchbar').style.borderColor = "#A8A8A8";
 }
 
-
 /**
  * It prevents the default behavior of the browser (which blocks dragging by default)
  * 
@@ -126,7 +114,6 @@ function revertDivColor() {
 function allowDrop(ev) {
     ev.preventDefault();
 }
-
 
 /**
  * This function sets the new status of the element when it's dropped and updates the BoardHtml
@@ -140,7 +127,6 @@ async function moveTo(status) {
     removeHighlight(status);
 }
 
-
 /**
  * This function highlights the area which the selected element is dragged at or over
  * 
@@ -150,7 +136,6 @@ function highlight(id) {
     document.getElementById(id).classList.add('drag-area-highlight');
 }
 
-
 /**
  * This function removes highlight from selected element
  * 
@@ -159,8 +144,6 @@ function highlight(id) {
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
-
-
 
 function updateBoardHTML() {
 
@@ -277,7 +260,6 @@ async function openTask(i) {
     renderTaskdetailHTML(index)
 }
 
-
 /**
  * This function renders the detail view of the task
  * 
@@ -291,14 +273,12 @@ function renderTaskdetailHTML(i) {
     createHTML(i)
 }
 
-
 function renderSubtaskHeadline() {
     return subtaskHeadline = /*html*/ `
     <div class="task-detail-font-color margin-bottom10">
      Subtasks
     </div>`
 }
-
 
 function showSubtasksInProgress(i) {
     inProgress = '';
@@ -318,7 +298,6 @@ function showSubtasksInProgress(i) {
     updateBoardHTML();
 }
 
-
 function showSubtasksFinished(i) {
     finished = '';
     let subtasksDone = tasks[i]['subtasksFinish']
@@ -333,7 +312,6 @@ function showSubtasksFinished(i) {
     }
     updateBoardHTML();
 }
-
 
 function renderPriorityText(i) {
     let prioLow = "./img/prioLow.svg"
@@ -350,7 +328,6 @@ function renderPriorityText(i) {
         taskPriority = "Urgent"
     }
 }
-
 
 function createHTML(i) {
     document.getElementById('popup-container').classList.remove('d-none');
@@ -410,7 +387,6 @@ function createHTML(i) {
     `;
 }
 
-
 function findAssignedUnser(i) {
     let userNames = tasks[i]['contactName'];
     let users = tasks[i]['contactAbbreviation'];
@@ -433,93 +409,12 @@ function findAssignedUnser(i) {
     }
 }
 
-
-async function editTaskNew(i) {
-    document.getElementById('addTaskPop').classList.remove('d-none');
-    closeTask();
-    let taskToEdit = tasks[i];
-    editTaskWindow();
-    document.getElementById("addTaskHeadline").innerHTML = 'Edit Task';
-    document.getElementById("addTitel").value = taskToEdit.title;
-    document.getElementById("addDescription").value = taskToEdit.description;
-    document.getElementById("datepicker").value = taskToEdit.dueDate;
-    for (let contactNumber = 0; contactNumber < taskToEdit.contactName.length; contactNumber++) {
-        const cName = taskToEdit.contactName[contactNumber];
-        const cColor = taskToEdit.contactColor[contactNumber];
-        const cAbbreviation = taskToEdit.contactAbbreviation[contactNumber];
-
-        contactCollection[contactNumber] = {
-            'nameAbbreviation': cAbbreviation,
-            'color': cColor,
-            'name': cName,
-        }
-    }
-    currentCategorySelected[0].color = taskToEdit.categoryColor;
-    currentCategorySelected[0].name = taskToEdit.category;
-    statusEdit = taskToEdit.status;
-    currentPrioSelected = taskToEdit.priority;
-    subTaskCollection = taskToEdit.subtasksInProgress;
-    subtasksFinish = taskToEdit.subtasksFinish;
-    taskIdForEdit = taskToEdit.id;
-    saveTaskElements();
-    editTaskWindow();
-}
-
-
-async function addEditTask() {
-    contactNames = contactCollection.map(contact => contact.name);
-    contactColors = contactCollection.map(contact => contact.color);
-    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
-    let taskEdit = {
-        'id': taskIdForEdit,
-        'status': statusEdit,
-        'category': currentCategorySelected[0].name,
-        'categoryColor': currentCategorySelected[0].color,
-        'title': document.getElementById("addTitel").value,
-        'description': document.getElementById("addDescription").value,
-        'dueDate': document.getElementById("datepicker").value,
-        'priority': currentPrioSelected,
-        'contactName': contactNames,
-        'contactColor': contactColors,
-        'contactAbbreviation': contactNamesAbbreviation,
-        'subtasksInProgress': subTaskCollection,
-        'subtasksFinish': subtasksFinish,
-    }
-    let index = tasks.findIndex(task => task.id === taskIdForEdit);
-
-    tasks[index] = taskEdit;
-    await currentUserTaskSave();
-    resetAllAddTaskElementsBoard();
-    updateBoardHTML();
-}
-
-function resetAllAddTaskElementsBoard() {
-    currentCategorySelected = [{
-        'name': '',
-        'color': '',
-    }];
-    subtasksFinish = [];
-    subTaskCollection = [];
-    selectedIndex = null;
-    selectedColorIndex = [];
-    currentPrioSelected = "";
-    contactCollection = [];
-    taskIdForEdit = '';
-    statusEdit = '';
-    clearAddTaskInputs();
-    resetInputs();
-    saveTaskElements();
-    document.getElementById('addTaskPop').classList.add('d-none');
-}
-
-
 async function switchSubtaskStatusToFinished(i, k) {
     let splicedSubtask = tasks[i]['subtasksInProgress'].splice(k, 1)
     tasks[i]['subtasksFinish'].push(splicedSubtask)
     await currentUserTaskSave();
     renderTaskdetailHTML(i);
 }
-
 
 async function switchSubtaskStatusToUndone(i, l) {
     let splicedSubtask = tasks[i]['subtasksFinish'].splice(l, 1)
@@ -528,11 +423,9 @@ async function switchSubtaskStatusToUndone(i, l) {
     renderTaskdetailHTML(i);
 }
 
-
 function closeTask() {
     document.getElementById('popup-container').classList.add('d-none');
 }
-
 
 async function deleteTask(i) {
     tasks.splice(i, 1);

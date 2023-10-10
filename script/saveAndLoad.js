@@ -59,8 +59,6 @@ async function initializeStorage(key, initialValue) {
     }
 }
 
-
-
 async function currentUserTaskSave() {
     if (activUser.name === 'Guest698') {
         localStorage.setItem('tasksAsText', JSON.stringify(tasks));
