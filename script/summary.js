@@ -13,13 +13,14 @@ async function initSummary() {
 
 function loadText() {
     loadUserName();
-    loadNumersToDo();
-    loadNumersInProgress();
-    loadNumersAwaitFeedback();
-    loadNumersDone();
-    loadNumbersBoard();
-    loadUrgentLength()
-    loadUrgentPrioDate()
+    // loadNumersToDo();
+    // loadNumersInProgress();
+    // loadNumersAwaitFeedback();
+    // loadNumersDone();
+    // loadNumbersBoard();
+    // loadUrgentLength()
+    searchNumbers();
+    loadUrgentPrioDate();
 }
 
 //----------------------search function------------------------------
@@ -58,65 +59,19 @@ function addAnimation() {
         document.body.style.overflow = 'auto';
     }, 3000);
 }
-//----------------------search function cards------------------------------
-function loadNumbersBoard() {
-    let toDos = tasks.filter(t => t['status'] == 'toDo').length;
-    let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
-    let awaitFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
-    let done = tasks.filter(t => t['status'] == 'done').length;
-    let board = document.getElementById('board');
-    board.innerText = (toDos + inProgress + awaitFeedback + done);
-}
 
 
-function loadNumersToDo() {
-    let toDos = document.getElementById('to-dos');
-    toDos.innerText = tasks.filter(t => t['status'] == 'toDo').length;
-}
-
-
-function loadNumersInProgress() {
-    let inProgress = document.getElementById('in-progress');
-    inProgress.innerText = tasks.filter(t => t['status'] == 'in-progress').length;
-}
-
-
-function loadNumersAwaitFeedback() {
-    let awaitFeedback = document.getElementById('await-feedback');
-    awaitFeedback.innerText = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
-}
-
-
-function loadNumersDone() {
-    let done = document.getElementById('done');
-    done.innerHTML = tasks.filter(t => t['status'] == 'done').length;
-}
-
-
-function searchNumbers(collection) {
-    let collectionAsJson = collection;
-    let currentNumber = 0;
-
-    if (Array.isArray(collectionAsJson)) {
-        for (let i = 0; i < collectionAsJson.length; i++) {
-            currentNumber++;
-        }
-    } else {
-        for (let i = 0; i < Object.keys(collectionAsJson).length; i++) {
-            currentNumber++;
-        }
-    }
-    console.log(date[0]['dueDate'])
+function searchNumbers() {
     let todo = tasks.filter(t => t['status'] == 'toDo').length;
     let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
     let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
     let done = tasks.filter(t => t['status'] == 'done').length;
     let allTasks = tasks.length
     let urgent = tasks.filter(t => t['priority'] == './img/prioUrgent.svg').length;
-    myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent)
+    displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urgent)
 }
 
-function myFunction(todo, inProgress, awaitingFeedback, done, allTasks, urgent) {
+function displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urgent) {
     document.getElementById('to-dos').innerHTML = todo;
     document.getElementById('done').innerHTML = done;
     document.getElementById('await-feedback').innerHTML = awaitingFeedback;
@@ -131,11 +86,7 @@ function loadUrgentPrioDate() {
     ;
 }
 
-function loadUrgentLength() {
-    let container = document.getElementById('urgent');
-    container.innerHTML = getUrgentLength(tasks);
-    ;
-}
+
 
 //----------------- load Time of Day------------------
 function loadTimeOfDay() {
@@ -172,7 +123,47 @@ function getNextUrgentDueDate(tasks) {
     return urgentTasks[0].dueDate;
 }
 
-function getUrgentLength(tasks) {
-    const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
-    return urgentTasks.length;
-}
+// function getUrgentLength(tasks) {
+//     const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
+//     return urgentTasks.length;
+// }
+
+// function loadUrgentLength() {
+//     let container = document.getElementById('urgent');
+//     container.innerHTML = getUrgentLength(tasks);
+//     ;
+// }
+
+//----------------------search function cards------------------------------
+// function loadNumbersBoard() {
+//     let toDos = tasks.filter(t => t['status'] == 'toDo').length;
+//     let inProgress = tasks.filter(t => t['status'] == 'in-progress').length;
+//     let awaitFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
+//     let done = tasks.filter(t => t['status'] == 'done').length;
+//     let board = document.getElementById('board');
+//     board.innerText = (toDos + inProgress + awaitFeedback + done);
+// }
+
+
+// function loadNumersToDo() {
+//     let toDos = document.getElementById('to-dos');
+//     toDos.innerText = tasks.filter(t => t['status'] == 'toDo').length;
+// }
+
+
+// function loadNumersInProgress() {
+//     let inProgress = document.getElementById('in-progress');
+//     inProgress.innerText = tasks.filter(t => t['status'] == 'in-progress').length;
+// }
+
+
+// function loadNumersAwaitFeedback() {
+//     let awaitFeedback = document.getElementById('await-feedback');
+//     awaitFeedback.innerText = tasks.filter(t => t['status'] == 'awaiting-feedback').length;
+// }
+
+
+// function loadNumersDone() {
+//     let done = document.getElementById('done');
+//     done.innerHTML = tasks.filter(t => t['status'] == 'done').length;
+// }
