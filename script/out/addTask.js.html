@@ -26,23 +26,15 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let titleAddTask = '';
-
-let descriptionAddTask = '';
-
-let dueDateAddTask = '';
-
+            <pre class="prettyprint source linenums"><code>
 let selectedIndex = null;
 
-let selectedColorIndex = [];
+let selectedColorIndex = null;
 
 let colorCollection = [
-    'background: #006400', 'background: #00008B', 'background: #8B0000',
-    'background: #800080', 'background: #808080', 'background: #0000CD',
-    'background: #008000', 'background: #FF0000', 'background: #8A2BE2',
-    'background: #FFA500', 'background: #2E8B57', 'background: #9932CC',
-    'background: #DC143C', 'background: #228B22', 'background: #20B2AA',
-    'background: #FF1493', 'background: #D2691E', 'background: #00CED1',
+    'background: #006400', 'background: #00008B', 'background: #8B0000', 'background: #800080', 'background: #808080', 'background: #0000CD',
+    'background: #008000', 'background: #FF0000', 'background: #8A2BE2', 'background: #FFA500', 'background: #2E8B57', 'background: #9932CC',
+    'background: #DC143C', 'background: #228B22', 'background: #20B2AA', 'background: #FF1493', 'background: #D2691E', 'background: #00CED1',
     'background: #008080', 'background: #FF6347'
 ];
 
@@ -79,62 +71,24 @@ let editTask = '';
 
 let statusGroup = '';
 
-load();
+loadTaskElements();
 //---------------------------------------------------------------------------------//
-
-
-//edit task//
-
-
-function editTaskWindow() {
-    load();
-    let assignTo1 = document.getElementById('assignedToInputContainer');
-    let assignTo2 = document.getElementById('assignedToContactsInputContainer');
-    let categoryBox1 = document.getElementById('categoryAreaV1');
-    let categoryBox2 = document.getElementById('categoryAreaV2');
-    let prioBox = document.getElementById('prioBox');
-    let buttonArea = document.getElementById('buttonAreaAddTask');
-    buttonArea.innerHTML = returnButtonAreaEditTask();
-    assignTo1.innerHTML = returnAssignToBox1();
-    assignTo2.innerHTML = returnAssignToBox2();
-    categoryBox1.innerHTML = returnCategoryBox1();
-    categoryBox2.innerHTML = returnCategoryBox2();
-    prioBox.innerHTML = returnPrioBox();
-    borderColorCheck();
-    renderCategorys();
-    renderAllSelectedContacts();
-    renderAllContactsForSearch();
-    renderSubTaskCollection();
-    createCategoryWindow();
-    initializePrioButtons();
-}
-//---------------------------------------------------------------------------------//
-
 
 //Init functions//
 async function initAddTask() {
     loadActivUser();
     userCircle();
     statusSelected('toDo')
-    await initializeStorage('allCategorys', allCategorys);
-    await loadTasks();
-    await loadAddTaskCurrentId();
-    await loadAddTaskAllCategorys();
+    await currentUserTaskLoad();
+    await currentUserIdLoad();
+    await currentUserCategorysLoad();
     markCategory();
     renderAddTaskContent();
 }
 
-async function initializeStorage(key, initialValue) {
-    try {
-        await getItem(key);
-    } catch (e) {
-        console.info(`Key "${key}" not found in storage. Initializing with default value.`);
-        await setItem(key, JSON.stringify(initialValue));
-    }
-}
-
 function renderAddTaskContent() {
-    load();
+    loadTaskElements();
+    document.getElementById("addTaskHeadline").innerHTML = 'Add Task';
     let assignTo1 = document.getElementById('assignedToInputContainer');
     let assignTo2 = document.getElementById('assignedToContactsInputContainer');
     let categoryBox1 = document.getElementById('categoryAreaV1');
@@ -154,74 +108,6 @@ function renderAddTaskContent() {
 }
 //---------------------------------------------------------------------------------//
 
-
-//Load &amp; Save//
-function save() {
-    localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));
-    localStorage.setItem('currentPrioAsText', JSON.stringify(currentPrioSelected));
-    localStorage.setItem('subTaskCollectionAsText', JSON.stringify(subTaskCollection));
-    localStorage.setItem('contactCollectionAsText', JSON.stringify(contactCollection));
-    localStorage.setItem('selectedIndexAsText', JSON.stringify(selectedIndex));
-    localStorage.setItem('selectedColorIndexAsText', JSON.stringify(selectedColorIndex));
-    localStorage.setItem('titelAsText', JSON.stringify(titleAddTask));
-    localStorage.setItem('descriptionAsText', JSON.stringify(descriptionAddTask));
-    localStorage.setItem('dueDateAsText', JSON.stringify(dueDateAddTask));
-    localStorage.setItem('subTaskFinishAsText', JSON.stringify(subtasksFinish));
-    localStorage.setItem('taskIdAsText', JSON.stringify(taskIdForEdit));
-    localStorage.setItem('statusAsText', JSON.stringify(statusEdit));
-}
-
-function load() {
-    let currentCategoryLoad = localStorage.getItem('categoryCollectionAsText');
-    let currentPrioLoad = localStorage.getItem('currentPrioAsText');
-    let subTaskCollectionLoad = localStorage.getItem('subTaskCollectionAsText');
-    let contactCollectionLoad = localStorage.getItem('contactCollectionAsText');
-    let selectedIndexLoad = localStorage.getItem('selectedIndexAsText');
-    let selectedColorLoad = localStorage.getItem('selectedColorIndexAsText');
-    let titelLoad = localStorage.getItem('titelAsText');
-    let descriptionLoad = localStorage.getItem('descriptionAsText');
-    let dueDateLoad = localStorage.getItem('dueDateAsText');
-    let subTaskFinishLoad = localStorage.getItem('subTaskFinishAsText');
-    let taskIdLoad = localStorage.getItem('taskIdAsText');
-    let statusLoad = localStorage.getItem('statusAsText');
-    returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, titelLoad, descriptionLoad, dueDateLoad, subTaskFinishLoad, taskIdLoad, statusLoad);
-}
-
-function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, titelLoad, descriptionLoad, dueDateLoad, subTaskFinishLoad, taskIdLoad, statusLoad) {
-    if (currentCategoryLoad &amp;&amp; currentPrioLoad &amp;&amp; subTaskCollectionLoad &amp;&amp; contactCollectionLoad &amp;&amp; selectedIndexLoad &amp;&amp; selectedColorLoad &amp;&amp; titelLoad &amp;&amp; descriptionLoad &amp;&amp; dueDateLoad &amp;&amp; subTaskFinishLoad &amp;&amp; taskIdLoad &amp;&amp; statusLoad) {
-        currentCategorySelected = JSON.parse(currentCategoryLoad);
-        currentPrioSelected = JSON.parse(currentPrioLoad);
-        subTaskCollection = JSON.parse(subTaskCollectionLoad);
-        contactCollection = JSON.parse(contactCollectionLoad);
-        selectedIndex = JSON.parse(selectedIndexLoad);
-        selectedColorIndex = JSON.parse(selectedColorLoad);
-        titleAddTask = JSON.parse(titelLoad);
-        descriptionAddTask = JSON.parse(descriptionLoad);
-        dueDateAddTask = JSON.parse(dueDateLoad);
-        subtasksFinish = JSON.parse(subTaskFinishLoad);
-        taskIdForEdit = JSON.parse(taskIdLoad);
-        statusEdit = JSON.parse(statusLoad);
-    }
-}
-
-async function loadAddTaskCurrentId() {
-    try {
-        currentId = JSON.parse(await getItem('currentId'));
-    } catch (e) {
-        console.info('Could not load currentId');
-    }
-}
-
-async function loadAddTaskAllCategorys() {
-    try {
-        allCategorys = JSON.parse(await getItem('allCategorys'));
-    } catch (e) {
-        console.info('Could not load categorys');
-    }
-}
-//---------------------------------------------------------------------------------//
-
-
 //SubTaskFunctions//
 /**
  * Adds a sub-task to the collection.
@@ -232,7 +118,7 @@ function addSubTaskToCollection() {
         return;
     } else {
         subTaskCollection.push(input.value);
-        save();
+        saveTaskElements();
         renderSubTaskCollection();
         input.value = '';
     }
@@ -257,7 +143,7 @@ function renderSubTaskCollection() {
  */
 function deleteSubtaskCollection(i) {
     subTaskCollection.splice(i, 1);
-    save()
+    saveTaskElements();
     renderSubTaskCollection();
 }
 
@@ -286,7 +172,7 @@ function confirmSubEdit(i) {
     } else {
         subTaskCollection[i] = editedInput.value;
     }
-    save();
+    saveTaskElements();
     renderSubTaskCollection();
 }
 
@@ -322,15 +208,21 @@ function hideEditContainer() {
  * Validates the form and adds a task if the form is valid.
  */
 function createTask() {
+    input1 = document.getElementById('categoryInputV1');
+    input2 = document.getElementById('categoryInputV2');
     var form = document.getElementById('myForm');
     if (form.checkValidity()) {
-        titleAddTask = document.getElementById('addTitel').value;
-        descriptionAddTask = document.getElementById('addDescription').value;
-        dueDateAddTask = document.getElementById('datepicker').value;
-        save();
-        addTask();
-        document.getElementById('createTaskButton').classList.remove('d-none');
-        document.getElementById('editTaskButton').classList.add('d-none');
+        if (currentCategorySelected[0].name === '') {
+            input1.classList.add('inputRed');
+            input2.classList.add('inputRed');
+            setTimeout(function () {
+                input1.classList.remove('inputRed');
+                input2.classList.remove('inputRed');
+            }, 10000);
+        } else {
+            saveTaskElements();
+            addTask();
+        }
     }
 }
 
@@ -358,9 +250,14 @@ async function addTask() {
     }
     tasks.push(task);
     currentId++;
-    await setItem('tasks', JSON.stringify(tasks));
-    await setItem('currentId', JSON.stringify(currentId));
+    await currentUserTaskSave();
+    await currentUserIdSave();
     resetAllAddTaskElements();
+    changesSaved('Task added to board');
+    setTimeout(function () {
+        window.location.href = './board.html';
+    }, 3000);
+
 }
 
 function statusSelected(status) {
@@ -369,13 +266,9 @@ function statusSelected(status) {
 
 function clearButton() {
     resetAllAddTaskElements();
-    window.location.reload();
 }
 
 function resetAllAddTaskElements() {
-    titleAddTask = '';
-    descriptionAddTask = '';
-    dueDateAddTask = '';
     currentCategorySelected = [{
         'name': '',
         'color': '',
@@ -383,28 +276,26 @@ function resetAllAddTaskElements() {
     subtasksFinish = [];
     subTaskCollection = [];
     selectedIndex = null;
-    selectedColorIndex = [];
+    selectedColorIndex = null;
     currentPrioSelected = "";
     contactCollection = [];
     taskIdForEdit = '';
     statusEdit = '';
     clearAddTaskInputs();
     resetInputs();
-    save();
-    window.location.href = './board.html';
+    saveTaskElements();
+    renderAddTaskContent();
 }
 
 function clearAddTaskInputs() {
-    titleAddTask = document.getElementById('addTitel').value;
-    descriptionAddTask = document.getElementById('addDescription').value;
-    dueDateAddTask = document.getElementById('datepicker').value;
-    titleAddTask = '';
-    descriptionAddTask = '';
-    dueDateAddTask = '';
+    let titleAddTask = document.getElementById('addTitel');
+    let descriptionAddTask = document.getElementById('addDescription');
+    let dueDateAddTask = document.getElementById('datepicker');
+    titleAddTask.value = '';
+    descriptionAddTask.value = '';
+    dueDateAddTask.value = '';
 }
 //---------------------------------------------------------------------------------//
-
-
 //Hide and Show functions//
 /**
  * Toggles the visibility of two DOM elements.
@@ -429,6 +320,8 @@ function toggleVisibilityAddTask(id, id2) {
     renderCategorys();
     createCategoryWindow();
     borderColorCheck();
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.add('d-none');
 }
 //---------------------------------------------------------------------------------//
 
@@ -443,12 +336,12 @@ function renderAllSelectedContacts() {
     for (let index = 0; index &lt; contactCollection.length; index++) {
         contactColors = contactCollection[index].color;
         contactNamesAbbreviation = contactCollection[index].nameAbbreviation;
-        contactZone.innerHTML += returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation);
+        contactZone.innerHTML += returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation, index);
     }
 }
 
 async function renderAllContactsForSearch(filterText = '') {
-    await loadContacts();
+    await currentUserContactsLoad();
     let contactZone = document.getElementById('contactsRenderContainer');
     contactZone.innerHTML = '';
     for (let index = 0; index &lt; contactsArray.length; index++) {
@@ -469,7 +362,7 @@ async function renderAllContactsForSearch(filterText = '') {
  * @param {string} key - Key of the contact in the `allContacts` collection.
  */
 async function toggleContactSelection(i) {
-    await loadContacts();
+    await currentUserContactsLoad();
     const contact = contactsArray[i];
     const el = (suffix) => document.getElementById(`${suffix}${i}`);
     const mainElement = el('assignedContactsBox'),
@@ -484,7 +377,7 @@ async function toggleContactSelection(i) {
         const index = contactCollection.findIndex(c => c.name === contact.name &amp;&amp; c.color === contact.color);
         if (index > -1) contactCollection.splice(index, 1);
     }
-    save();
+    saveTaskElements();
 }
 
 /**
@@ -524,38 +417,32 @@ function deselectContact(mainElement, firstSecondary, secondSecondary) {
     return;
 }
 
-async function createContactByPopup() {
-    changesSaved();
-    let name = document.getElementById('inputNameId').value
-    let newContact = {
-        "name": name,
-        "nameAbbreviation": makeNameAbbreviation(name),
-        "email": document.getElementById('inputEmailId').value,
-        "phone": document.getElementById('inputPhoneId').value,
-        "color": getColor()
-    }
-    contactsArray.push(newContact);
-    await setItem('contactsArray', JSON.stringify(contactsArray));
-    clearContactPopup();
-    toggleVisibilityAddTask('contactPopupByAddTask', '');
+function editSelectedContact(i) {
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.remove('d-none');
+    editWindow.innerHTML = returnEditContact(i)
+    let input = document.getElementById('editSelectedContact');
+    input.value = contactCollection[i].name;
+}
+
+function clearSelectedContact(index) {
+    contactCollection.splice(index, 1);
+    renderAllSelectedContacts();
     renderAllContactsForSearch();
+    saveTaskElements();
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.add('d-none');
+    let input = document.getElementById('editSelectedContact');
+    input.value = '';
 }
 
-function makeNameAbbreviation(name) {
-    // split first and last name
-    let nameParts = name.split(' ');
-    let firstName = nameParts[0];
-    let lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
-    // first letter of first and last name combined
-    let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
-    return nameAbbreviation;
-}
+function stopEditContact() {
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.add('d-none');
+    let input = document.getElementById('editSelectedContact');
+    input.value = '';
 
-function clearContactPopup() {
-    document.getElementById('inputNameId').value = '';
-    document.getElementById('inputEmailId').value = '';
-    document.getElementById('inputPhoneId').value = '';
-    toggleVisibilityAddTask('contactPopupByAddTask', '')
+
 }
 //---------------------------------------------------------------------------------//
 
@@ -582,8 +469,8 @@ async function deleteCategory(i) {
     let allCategory = allCategorys[0];
     allCategory.name.splice(i, 1);
     allCategory.color.splice(i, 1);
-    await setItem('allCategorys', JSON.stringify(allCategorys));
-    save()
+    await currentUserCategorysSave();
+    saveTaskElements();
 }
 
 function selectCategory(type, index) {
@@ -598,12 +485,12 @@ function selectCategory(type, index) {
         currentCategorySelected[0].color = allCategory.color[index];
     }
     renderCategorys();
-    save();
+    saveTaskElements();
     borderColorCheck();
 }
 
 function borderColorCheck() {
-    load();
+    loadTaskElements();
     if (currentCategorySelected[0].name) {
         updateInputs();
     } else {
@@ -635,71 +522,6 @@ function resetInputValueAndColor(inputElem) {
 }
 //---------------------------------------------------------------------------------//
 
-
-//create category//
-function createCategoryWindow() {
-    createCategoryColors();
-}
-
-function createCategoryColors() {
-    let colorContainer = document.getElementById('colorSettingBox');
-    colorContainer.innerHTML = '';
-    for (let index = 0; index &lt; colorCollection.length; index++) {
-        const color = colorCollection[index];
-        colorContainer.innerHTML += returnCreateCategoryColors(color, index);
-    }
-}
-
-function selectColor(color) {
-    updateSelectedColorIndex(color);
-    createCategoryColors();
-}
-
-async function addCategory() {
-    let inputElem = document.getElementById('createCategoryInput');
-    allCategorys[0].name.push(inputElem.value);
-    allCategorys[0].color.push(selectedColorIndex);
-    await setItem('allCategorys', JSON.stringify(allCategorys));
-    toggleVisibilityAddTask('createCategoryPopupByAddTask', '')
-}
-
-function updateSelectedColorIndex(index) {
-    selectedColorIndex = selectedColorIndex === index ? null : index;
-    save();
-}
-
-function confirmCreateCategory() {
-    if (isValidCategoryInput()) {
-        addCategory();
-        renderCategorys();
-    } else {
-        alertInvalidInput();
-    }
-    clearCreateWindow();
-}
-
-function clearCreateWindow() {
-    let input = document.getElementById('createCategoryInput');
-    input.value = '';
-    selectedColorIndex = null;
-}
-
-function alertInvalidInput() {
-    alert("Bitte geben Sie einen Kategorienamen mit mindestens 2 Buchstaben ein und wählen Sie eine Farbe aus.");
-}
-
-function isValidCategoryInput() {
-    let inputElem = document.getElementById('createCategoryInput');
-    return inputElem.value.length >= 2 &amp;&amp; selectedColorIndex !== null;
-}
-
-function stopCreateCategory() {
-    clearCreateWindow();
-    toggleVisibilityAddTask('createCategoryPopupByAddTask', '')
-}
-//---------------------------------------------------------------------------------//
-
-
 //Prio Buttons class-change//
 /**
  * Updates visual representation of priority buttons.
@@ -714,7 +536,7 @@ function activateButton(btnId, iconId, activeIconId, activeClass, iconSrc) {
     document.getElementById(iconId).classList.add('d-none');
     document.getElementById(activeIconId).classList.remove('d-none');
     currentPrioSelected = iconSrc;
-    save();
+    saveTaskElements();
 }
 
 function deactivateButton(btnId, iconId, activeIconId, activeClass) {
@@ -722,7 +544,7 @@ function deactivateButton(btnId, iconId, activeIconId, activeClass) {
     document.getElementById(iconId).classList.remove('d-none');
     document.getElementById(activeIconId).classList.add('d-none');
     currentPrioSelected = "";
-    save();
+    saveTaskElements();
 }
 
 function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, resetOther) {
@@ -778,358 +600,12 @@ function resetAll() {
         document.getElementById(activeIcons[i]).classList.add('d-none');
     }
     currentPrioSelected = "";
-    save();
+    saveTaskElements();
 }
 //---------------------------------------------------------------------------------//
 
 
-//only for date-input by addTask.html/ Due date//
-document.addEventListener('DOMContentLoaded', function () {
-    var dateInput = document.getElementById('datepicker');
-    var picker = new Pikaday({
-        field: dateInput,
-        position: 'top right',
-        format: 'DD/MM/YYYY',
-        minDate: new Date(), // Das stellt sicher, dass kein Datum vor dem heutigen Datum ausgewählt werden kann.
-        onSelect: function (date) {
-            const formattedDate = [
-                date.getDate().toString().padStart(2, '0'),
-                (date.getMonth() + 1).toString().padStart(2, '0'),
-                date.getFullYear()
-            ].join('/');
-            dateInput.value = formattedDate;
-        }
-    });
-
-    dateInput.addEventListener('focus', function () {
-        if (!this.value) {
-            const today = new Date();
-            const formattedDate = [
-                today.getDate().toString().padStart(2, '0'),
-                (today.getMonth() + 1).toString().padStart(2, '0'),
-                today.getFullYear()
-            ].join('/');
-            this.value = formattedDate;
-            picker.show();
-        }
-    });
-});
-//---------------------------------------------------------------------------------//
-
-
-//category container add d-none by body-click//
-document.body.addEventListener('click', function () {
-    toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1')
-});
-document.getElementById('categorySection').addEventListener('click', function (event) {
-    event.stopPropagation();
-});
-//---------------------------------------------------------------------------------//
-
-
-//contact container add d-none by body-click//
-document.body.addEventListener('click', function () {
-    toggleVisibilityAddTask('assignedToContactsInputContainer', 'assignedToInputContainer')
-});
-document.getElementById('assignTo').addEventListener('click', function (event) {
-    event.stopPropagation();
-});
-//---------------------------------------------------------------------------------//
-
-
-//categoryReturn//
-function returnCreateCategoryColors(color, index) {
-    if (color === selectedColorIndex) {
-        return /*html*/ `
-        &lt;div onclick='selectColor("${color}")' style="${color}" id='colorCircle${index}' class="colorCircle selectedColor">&lt;/div>
-        `;
-    } else {
-        return /*html*/ `
-        &lt;div onclick='selectColor("${color}")' style="${color}" id='colorCircle${index}' class="colorCircle">&lt;/div>
-        `;
-    }
-}
-
-function returnRenderMainCategorys(name, color, i) {
-    if (currentCategorySelected[0].name === name &amp;&amp;
-        currentCategorySelected[0].color === color) {
-        return /*html*/ `
-        &lt;div onclick='selectCategory("main", ${i})' id='categoryMainList${i}' class="categoryRow selected">
-            &lt;span>${name}&lt;/span>
-            &lt;div class="colorCircle" style="${color}">&lt;/div>
-        &lt;/div>
-        `;
-    } else {
-        return /*html*/ `
-        &lt;div onclick='selectCategory("main", ${i})' id='categoryMainList${i}' class="categoryRow">
-            &lt;span>${name}&lt;/span>
-            &lt;div class="colorCircle" style="${color}">&lt;/div>
-        &lt;/div>
-        `;
-    }
-}
-
-function returnRenderAllCategorys(name, color, i) {
-    if (currentCategorySelected[0].name === name &amp;&amp;
-        currentCategorySelected[0].color === color) {
-        return /*html*/ `
-        &lt;div onclick='selectCategory("all", ${i})' id='categoryAllList${i}' class="categoryRow selected">
-            &lt;span>${name}&lt;/span>
-            &lt;div class='categoryRowLeft'>
-                &lt;div class="colorCircle" style="${color}">&lt;/div>
-            &lt;/div>
-        &lt;/div>
-        `;
-    } else {
-        return /*html*/ `
-        &lt;div onclick='selectCategory("all", ${i})' id='categoryAllList${i}' class="categoryRow">
-            &lt;span>${name}&lt;/span>
-            &lt;div class='categoryRowLeft'>
-                &lt;img onclick='deleteCategory(${i})' src="img/subTaskDelete.svg">
-                &lt;div class="colorCircle" style="${color}">&lt;/div>
-            &lt;/div>
-        &lt;/div>
-        `;
-    }
-}
-//---------------------------------------------------------------------------------//
-
-
-//return render Contacts(all and selected)//
-/**
- * Returns an HTML string representing a selected contact.
- * @param {Object} contacts - The contact object to render.
- * @returns {string} - HTML string for the rendered contact.
- */
-function returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation) {
-    return /*html*/ `
-    &lt;div style="background-color:${contactColors}" class="assignedToContactImg">${contactNamesAbbreviation}&lt;/div>
-    `;
-}
-
-/**
- * Returns an HTML string for the contact search functionality.
- * @param {Object} contacts - The contact object to render.
- * @param {number} i - Index of the contact.
- * @param {string} key - Key of the contact in the `allContacts` collection.
- * @returns {string} - HTML string for the rendered contact.
- */
-function returnRenderAllContactsForSearch(contactColor, contactNamesAbbreviation, contactNames, index) {
-    let isSelected = '';
-    if (contactCollection.some(contact => contact.name === contactNames &amp;&amp; contact.color === contactColor)) {
-        isSelected = true;
-    } else {
-        isSelected = false;
-    }
-    let mainClass = isSelected ? 'assignedContactsBoxSelected' : 'assignedContactsBox';
-    let firstSecondaryClass = isSelected ? 'd-none' : '';
-    let secondSecondaryClass = isSelected ? '' : 'd-none';
-    return /*html*/ `
-    &lt;div class="${mainClass}" id="assignedContactsBox${index}" onclick="toggleContactSelection(${index}, '${contactNames}')">
-        &lt;div class="contactBoxLeft">
-            &lt;div style="background-color:${contactColor}" class="assignedToContactImg">
-                ${contactNamesAbbreviation}
-            &lt;/div>
-            &lt;span>${contactNames}&lt;/span>
-        &lt;/div>
-        &lt;img src="img/addTaskBox.svg" id="assignedBox${index}" class="${firstSecondaryClass}">
-        &lt;img src="img/addTaskCheckBox.svg" class="${secondSecondaryClass}" id="assignedBoxChecked${index}">
-    &lt;/div>
-    `;
-}
-
-/**
- * Toggles classes for the main settings element.
- * @param {HTMLElement} mainElement - Main settings DOM element.
- */
-function returnSettingsMain(mainElement) {
-    if (mainElement.classList.contains('assignedContactsBox')) {
-        mainElement.classList.remove('assignedContactsBox');
-        mainElement.classList.add('assignedContactsBoxSelected');
-    } else {
-        mainElement.classList.remove('assignedContactsBoxSelected');
-        mainElement.classList.add('assignedContactsBox');
-    }
-    return
-}
-
-/**
- * Toggles visibility for the first settings element.
- * @param {HTMLElement} firstSecondary - First settings DOM element.
- */
-function returnSettingsFirst(firstSecondary) {
-    if (firstSecondary.classList.contains('d-none')) {
-        firstSecondary.classList.remove('d-none');
-    } else {
-        firstSecondary.classList.add('d-none');
-    }
-    return
-}
-
-/**
- * Toggles visibility for the second settings element.
- * @param {HTMLElement} secondSecondary - Second settings DOM element.
- */
-function returnSettingsSecond(secondSecondary) {
-    if (secondSecondary.classList.contains('d-none')) {
-        secondSecondary.classList.remove('d-none');
-    } else {
-        secondSecondary.classList.add('d-none');
-    }
-    return
-}
-//---------------------------------------------------------------------------------//
-
-
-//return Subtask//
-/**
- * Returns an HTML string representing the subtask editing container.
- * @param {number} i - Index of the subtask.
- * @returns {string} - HTML string for the subtask edit container.
- */
-function returnEditContainer(i) {
-    return /*html*/ `
-    &lt;input id="editInput" type="text">
-    &lt;img onclick="stopSubEdit()" class="editAbsolutCross" src="img/close.svg">
-    &lt;img onclick="confirmSubEdit(${i})" class="editAbsolutCheck" src="img/SubtasksCheck.svg">
-    `;
-}
-
-/**
- * Returns an HTML string representing a collection of subtasks.
- * @param {Object} subCollection - The subtask collection to render.
- * @param {number} i - Index of the subtask in the collection.
- * @returns {string} - HTML string for the rendered subtask collection.
- */
-function returnSubTaskCollection(subCollection, i) {
-    return /*html*/ `
-    &lt;ul class="dFlex spaceBtw">
-        &lt;li>${subCollection}&lt;/li>
-        &lt;div>
-            &lt;img onclick="editSubtask(${i})" src="img/PenAddTask 1=edit.svg">
-            &lt;img onclick="deleteSubtaskCollection(${i})" src="img/subTaskDelete.svg">
-        &lt;/div>
-    &lt;/ul>
-    `;
-}
-//---------------------------------------------------------------------------------//
-
-
-//return render functions//
-function returnButtonAreaAddTask() {
-    return /*html*/ `
-&lt;div class="addTaskBottomArea">
-    &lt;div class="fontSize20 requiredText">
-    &lt;spline class="requiredStar">*&lt;spline class="requiredText">This field is required&lt;/spline>&lt;/spline>
-    &lt;/div>
-&lt;/div>
-&lt;div class="addTaskBottomBtnArea">
-    &lt;button onclick="clearButton()" class="clearBtn fontSize20">
-        &lt;spline class="fontSize20">Clear&lt;/spline>
-        &lt;svg class="clearSvg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            &lt;path d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        &lt;/svg>
-    &lt;/button>
-    &lt;button id="createTaskButton" onclick="createTask()" class="createBtn blueBtn">Create Task&lt;img class="createImg"
-            src="./img/check.svg">&lt;/button>
-    &lt;button id="editTaskButton" onclick="createTask()" class="createBtn blueBtn d-none">Edit Task&lt;img class="createImg"
-            src="./img/check.svg">&lt;/button>
-&lt;/div>
-    `;
-}
-
-function returnButtonAreaEditTask() {
-    return /*html*/`
-    &lt;button onclick="addEditTask()" class="createBtn blueBtn">Edit task&lt;img class="createImg"
-            src="./img/check.svg">&lt;/button>
-    `;
-}
-
-function returnCategoryBox1() {
-    return /*html*/ `
-    &lt;input onclick="toggleVisibilityAddTask('categoryAreaV1', 'categoryAreaV2')"
-        class="click" id="categoryInputV1" type="text" readonly
-        value="Select task category">
-    &lt;img onclick="toggleVisibilityAddTask('categoryAreaV1', 'categoryAreaV2')"
-        class="inputAbsolut" src="img/arrow_drop_downaa.svg">
-    `;
-}
-
-function returnCategoryBox2() {
-    return /*html*/ `
-    &lt;input onclick="toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1')"
-        class="click" id="categoryInputV2" type="text" readonly
-        value="Select task category">
-    &lt;img onclick="toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1')"
-        class="inputAbsolut" src="img/arrow_drop_up.svg">
-    &lt;div class="selectContactsPositionContainer" id="categoryContainer">
-        &lt;div class="categoryRenderContainer show-scrollbar"
-            id="categoryRenderContainer">
-        &lt;/div>
-        &lt;div id="createCategoryContainer" class="d-none custom-select">
-        &lt;/div>
-        &lt;div onclick="toggleVisibilityAddTask('', 'createCategoryPopupByAddTask')"
-            class="addNewContactBtn blueBtn">
-            &lt;span>Add new category&lt;/span>
-            &lt;img class="addNewContactBtnIcon" src="img/addTaskCategory.svg">
-        &lt;/div>
-    &lt;/div>
-    `;
-}
-
-function returnPrioBox() {
-    return /*html*/ `
-    &lt;div onclick="prioSelectedToggle('prioUrgentBtn', 'prioUrgentIcon', 'prioUrgentIconActiv', 'prioBtnActivUrgent', './img/prioUrgent.svg', true)"
-        id="prioUrgentBtn" class="prioBtn">Urgent
-        &lt;img id="prioUrgentIcon" class="prioBtnIcons" src="./img/prioUrgent.svg">
-        &lt;img id="prioUrgentIconActiv" class="prioBtnIcons d-none"
-            src="./img/PrioUrgentWhite.svg">
-    &lt;/div>
-    &lt;div onclick="prioSelectedToggle('prioMediumBtn', 'prioMediumIcon', 'prioMediumIconActiv', 'prioBtnActivMedium', './img/prioMedium.svg', true)"
-        id="prioMediumBtn" class="prioBtn">Medium
-        &lt;img id="prioMediumIcon" class="prioBtnIcons" src="./img/prioMedium.svg">
-        &lt;img id="prioMediumIconActiv" class="prioBtnIcons d-none"
-            src="./img/PrioMediumWhite.svg">
-    &lt;/div>
-    &lt;div onclick="prioSelectedToggle('prioLowBtn', 'prioLowIcon', 'prioLowIconActiv', 'prioBtnActivLow', './img/prioLow.svg', true)"
-        id="prioLowBtn" class="prioBtn">Low
-        &lt;img id="prioLowIcon" class="prioBtnIcons" src="./img/prioLow.svg">
-        &lt;img id="prioLowIconActiv" class="prioBtnIcons d-none"
-            src="./img/PrioLowWhite.svg">
-    &lt;/div>
-    `;
-}
-
-function returnAssignToBox1() {
-    return /*html*/ `
-        &lt;input class="click" id="assignedToInputCover"
-            onclick="toggleVisibilityAddTask('assignedToInputContainer', 'assignedToContactsInputContainer')"
-            type="text" readonly value="Select contacts to assign">
-        &lt;img onclick="toggleVisibilityAddTask('assignedToInputContainer', 'assignedToContactsInputContainer')"
-            class="inputAbsolut" src="img/arrow_drop_downaa.svg">
-        &lt;div id="selectedContactsContainer">
-        &lt;/div>
-        `;
-}
-
-function returnAssignToBox2() {
-    return /*html*/ `
-    &lt;input class="click" id="assignedToInput" type="text" placeholder="An:">
-    &lt;img class="inputAbsolut"
-    onclick="toggleVisibilityAddTask('assignedToContactsInputContainer', 'assignedToInputContainer')"
-    src="img/arrow_drop_up.svg">
-    &lt;div class="selectContactsPositionContainer">
-        &lt;div class="ContactsRenderContainer show-scrollbar"
-            id="contactsRenderContainer">
-        &lt;/div>
-        &lt;div onclick="toggleVisibilityAddTask('', 'contactPopupByAddTask')" class="addNewContactBtn blueBtn">
-            &lt;span>Add new contact&lt;/span>
-            &lt;img class="addNewContactBtnIcon" src="img/addTaskperson_add.svg">
-        &lt;/div>
-    &lt;/div>
-    `;
-}
-//---------------------------------------------------------------------------------//</code></pre>
+</code></pre>
         </article>
     </section>
 
@@ -1139,13 +615,13 @@ function returnAssignToBox2() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeButtonTextToDeleted">changeButtonTextToDeleted</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeImage">changeImage</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#changesSaved">changesSaved</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closePopup">closePopup</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openMobileEditMenu">openMobileEditMenu</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#resetFunctionImageText">resetFunctionImageText</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#slide">slide</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibility">toggleVisibility</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeButtonTextToDeleted">changeButtonTextToDeleted</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closeTask">closeTask</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#currentUserContactsLoad">currentUserContactsLoad</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#displayNumbers">displayNumbers</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#findAssignedUnser">findAssignedUnser</a></li><li><a href="global.html#generateTaskHTML">generateTaskHTML</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getNextUrgentDueDate">getNextUrgentDueDate</a></li><li><a href="global.html#getTimeOfDay">getTimeOfDay</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#loadTimeOfDay">loadTimeOfDay</a></li><li><a href="global.html#loadUrgentPrioDate">loadUrgentPrioDate</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderPriorityText">renderPriorityText</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#renderSubtaskHeadline">renderSubtaskHeadline</a></li><li><a href="global.html#renderTaskdetailHTML">renderTaskdetailHTML</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#resetFunctionImageText">resetFunctionImageText</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#searchNumbers">searchNumbers</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#showSubtasksFinished">showSubtasksFinished</a></li><li><a href="global.html#showSubtasksInProgress">showSubtasksInProgress</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#switchSubtaskStatusToFinished">switchSubtaskStatusToFinished</a></li><li><a href="global.html#switchSubtaskStatusToUndone">switchSubtaskStatusToUndone</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li><li><a href="global.html#toggleVisibilityAfterXseconds">toggleVisibilityAfterXseconds</a></li><li><a href="global.html#updateProgressbar">updateProgressbar</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Oct 06 2023 23:57:04 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Oct 11 2023 22:08:35 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

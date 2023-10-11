@@ -45,22 +45,13 @@ let nextColorIndex = 0;
 async function initContacts() {
     loadActivUser();
     userCircle();
-    await loadContacts();
+    await currentUserContactsLoad();
     renderContacts();
     desktopViewSmall();
     mobileView();
     markCategory();
 }
 
-/** * This function is to load contacts or display a error message */
-async function loadContacts() {
-    try {
-        contactsArray = JSON.parse(await getItem('contactsArray'));
-        nextColorIndex = JSON.parse(await getItem('nextColorIndex'));
-    } catch (e) {
-        console.info('Could not load contacts');
-    }
-}
 
 /** * This function us used to render the contact informations and sort it */
 function renderContacts() {
@@ -146,7 +137,6 @@ function addContact() {
     document.getElementById('inputPhoneId').value = '';
 
     toggleVisibility('addContactId', true);
-    slide('swipeContactPopupId');
 }
 
 /** * This function is to save the input in the contact array */
@@ -159,7 +149,7 @@ async function createContact() {
         "color": getColor()
     }
     contactsArray.push(newContact);
-    await setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
 
     document.getElementById('inputNameId').value = '';
     document.getElementById('inputEmailId').value = '';
@@ -167,9 +157,8 @@ async function createContact() {
 
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('mobileVisibilityId', true);
-    closePopup();
     renderContacts();
-    changesSaved();
+    changesSaved('Contact successfully created');
     hoverNewContact(newContact);
 }
 
@@ -192,7 +181,14 @@ function getColor() {
 
 /** * This function is used to display the contact info in a big container */
 function openContactBigInfo(contact, i, nameAbbreviation) {
-    slide('contactInfoBigId');
+    slideOneObject('contactInfoBigId');
+    showOnMobileView('mobileDotsSymbol');
+    toggleVisibility('mobileAddContactId', false);
+    document.getElementById('mobileDotsSymbol').innerHTML = /*html*/`
+    &lt;div class="mobileAddContact horicontalAndVertical pointer" onclick="slideOneObject('mobileEditDeleteBoxId'), openMobileEditMenu(${i})">
+    &lt;img src="./img/more_vert.svg">
+    &lt;/div>
+    `
     showArrowMobileView();
     changeFunction(i);
     highlightContact(i);
@@ -200,8 +196,9 @@ function openContactBigInfo(contact, i, nameAbbreviation) {
     document.getElementById('profilePictureBigId').innerHTML = contactImage(contact, nameAbbreviation);
     contactDescription(contact);
 
-    changeImage();
     document.getElementById('editMobileButtonId').innerHTML = editContactMobile(i);
+    deleteEditContactAtIndex(i);
+    document.getElementById('deleteMobileButtonId').innerHTML = deleteContactMobile(i);
     deleteEditContactAtIndex(i);
 }
 
@@ -249,6 +246,26 @@ function editContactMobile(i) {
 `
 }
 
+function deleteContactMobile(i) {
+    showOnMobileView('deleteMobileButtonId');
+    return /* html */ `
+    &lt;div class="mobileDelete gap8 d-flex padding8 pointer colorOnHover" onclick="deleteContact(${i}), closePopupMobile()">
+        &lt;svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+            &lt;mask id="mask0_89141_3997" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                width="25" height="24">
+                &lt;rect x="0.5" width="24" height="24" fill="#D9D9D9" />
+            &lt;/mask>
+            &lt;g mask="url(#mask0_89141_3997)">
+                &lt;path
+                    d="M7.5 21C6.95 21 6.47917 20.8042 6.0875 20.4125C5.69583 20.0208 5.5 19.55 5.5 19V6C5.21667 6 4.97917 5.90417 4.7875 5.7125C4.59583 5.52083 4.5 5.28333 4.5 5C4.5 4.71667 4.59583 4.47917 4.7875 4.2875C4.97917 4.09583 5.21667 4 5.5 4H9.5C9.5 3.71667 9.59583 3.47917 9.7875 3.2875C9.97917 3.09583 10.2167 3 10.5 3H14.5C14.7833 3 15.0208 3.09583 15.2125 3.2875C15.4042 3.47917 15.5 3.71667 15.5 4H19.5C19.7833 4 20.0208 4.09583 20.2125 4.2875C20.4042 4.47917 20.5 4.71667 20.5 5C20.5 5.28333 20.4042 5.52083 20.2125 5.7125C20.0208 5.90417 19.7833 6 19.5 6V19C19.5 19.55 19.3042 20.0208 18.9125 20.4125C18.5208 20.8042 18.05 21 17.5 21H7.5ZM7.5 6V19H17.5V6H7.5ZM9.5 16C9.5 16.2833 9.59583 16.5208 9.7875 16.7125C9.97917 16.9042 10.2167 17 10.5 17C10.7833 17 11.0208 16.9042 11.2125 16.7125C11.4042 16.5208 11.5 16.2833 11.5 16V9C11.5 8.71667 11.4042 8.47917 11.2125 8.2875C11.0208 8.09583 10.7833 8 10.5 8C10.2167 8 9.97917 8.09583 9.7875 8.2875C9.59583 8.47917 9.5 8.71667 9.5 9V16ZM13.5 16C13.5 16.2833 13.5958 16.5208 13.7875 16.7125C13.9792 16.9042 14.2167 17 14.5 17C14.7833 17 15.0208 16.9042 15.2125 16.7125C15.4042 16.5208 15.5 16.2833 15.5 16V9C15.5 8.71667 15.4042 8.47917 15.2125 8.2875C15.0208 8.09583 14.7833 8 14.5 8C14.2167 8 13.9792 8.09583 13.7875 8.2875C13.5958 8.47917 13.5 8.71667 13.5 9V16Z"
+                    fill="#2A3647" />
+            &lt;/g>
+        &lt;/svg>
+        &lt;span class="fontSize16 mobileDeleteText">Delete&lt;/span>
+    &lt;/div>
+    `
+}
+
 /** * This function is used to highlight the contact which is onclicked */
 function highlightContact(i) {
     let highlightContact = document.querySelectorAll('.contactsInfo');
@@ -260,23 +277,12 @@ function highlightContact(i) {
     highlightContact[i].style.color = 'white';
 }
 
-/** * This function is used to create a slide in animation */
-function slide(id) {
-    toggleVisibility(id, true);
-    document.getElementById(id).classList.remove('slide-in');
-    document.getElementById(id).offsetHeight;
-    document.getElementById(id).classList.add('slide-in');
-}
-
-/** * This function is used to close the popup window */
-function closePopup() {
-    toggleVisibility('addContactId', false);
-}
-
 function closePopupMobile() {
     toggleVisibility('mobileEditDeleteBoxId', false);
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('mobileVisibilityId', false);
+    toggleVisibility('mobileDotsSymbol', false);
+    toggleVisibility('mobileAddContactId', true);
     resetFunctionImageText();
     let highlightContact = document.querySelectorAll('.contactsInfo');
     highlightContact.forEach((highlightContactElement) => {
@@ -285,16 +291,12 @@ function closePopupMobile() {
     });
 }
 
-
-/** * This function is used to prevent the popup from closing when clicked. */
-function doNotClose(event) {
-    event.stopPropagation();
-}
-
-/** * This function is used to make div-container unvisible or visible */
-function toggleVisibility(id, show) {
-    const showHide = document.getElementById(id);
-    showHide.classList.toggle('d-none', !show);
+/** * This function is used to make div-container unvisible or visible after a specific time*/
+function toggleVisibilityAfterXseconds(id, show, time) {
+    setTimeout(function () {
+        const showHide = document.getElementById(id);
+        showHide.classList.toggle('d-none', !show);
+    }, time);
 }
 
 /** * This function is used to pull the index from the contact and give it to the onclicked person */
@@ -332,23 +334,22 @@ function deleteEditContactAtIndex(i) {
 
 /** * This function is used to delete a contact */
 async function deleteContact(i) {
-    changesSaved();
+    changesSaved('Contact successfully deleted');
     resetFunctionImageText();
     toggleVisibility('mobileEditDeleteBoxId', false);
     contactsArray.splice(i, 1);
-    await setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
     toggleVisibility('mobileBackArrowId', false);
-    toggleVisibility('contactInfoBigId', false);
-    toggleVisibility('contactsTitleId', true);
+    toggleVisibility('contactInfoBigId', false); //
+    toggleVisibility('contactsTitleId', true); //
     showNotOnMobileView('mobileVisibilityId');
-    toggleVisibility('mobileVisibilityId', false);
     changeButtonTextToDeleted();
     renderContacts();
 }
 
 /** * This function is used to edit a contact */
 async function editContact(i) {
-    slide('swipeContactPopupId');
+    slide('swipeContactPopupId', 'addContactId');
     toggleVisibility('cancelBtnMobileId', true);
     toggleVisibility('addContactId', true);
     toggleVisibility('mobileEditDeleteBoxId', false);
@@ -360,33 +361,31 @@ async function editContact(i) {
     changeText();
     changeFunction(i);
 
-    await setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
     renderContacts();
     highlightContact(i);
 }
 
 /** * This function is used to save the changes by editing a contact */
-function saveContact(i) {
-
+async function saveContact(i) {
     contactsArray[i].name = document.getElementById('inputNameId').value;
     contactsArray[i].email = document.getElementById('inputEmailId').value;
     contactsArray[i].phone = document.getElementById('inputPhoneId').value;
     contactsArray[i].nameAbbreviation = document.getElementById('nameAbbreviationId').innerHTML;
 
-    setItem('contactsArray', JSON.stringify(contactsArray));
+    await currentUserContactsSave();
 
     document.getElementById('nameId').innerHTML = contactsArray[i].name;
     document.getElementById('emailId').innerHTML = contactsArray[i].email;
     document.getElementById('phoneId').innerHTML = contactsArray[i].phone;
 
-    changesSaved();
+    changesSaved('Contact successfully saved');
     resetFunctionImageText();
     changeText();
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
     showNotOnMobileView('mobileVisibilityId');
-    closePopup();
     highlightContact(i);
     renderContacts();
 }
@@ -396,7 +395,6 @@ function changeText() {
     document.querySelector('#editCancelButtonId').textContent = "Delete";
     document.querySelector('#textChangeToEditContactId').textContent = "Edit contact";
     document.querySelector('#textChangeToSaveId').textContent = "Save";
-    document.querySelector('#successfullyCreatedId').textContent = "Contact successfully saved";
 }
 
 /** * This function is to change the text in a button */
@@ -415,17 +413,6 @@ function changeFunction(id) {
     editCancelButton.onclick = function () {
         deleteContact(id);
     };
-    const editAddContactButton = document.getElementById('mobileAddContactId');
-    editAddContactButton.onclick = function () {
-        openMobileEditMenu(id);
-    };
-}
-
-/** * This function is to change the image on mobile view */
-function changeImage() {
-    let newImage = './img/more_vert.svg';
-    let switchImage = document.querySelector('#mobileAddContactId img');
-    switchImage.src = newImage;
 }
 
 /** * This function is to reset the changeText() */
@@ -433,7 +420,6 @@ function originalText() {
     document.querySelector('#editCancelButtonId').textContent = "Cancel";
     document.querySelector('#textChangeToEditContactId').textContent = "Add contact";
     document.querySelector('#textChangeToSaveId').textContent = "Add contact";
-    document.querySelector('#successfullyCreatedId').textContent = "Contact successfully created";
 }
 
 /** * This function is to reset the changeFunction(i) */
@@ -458,16 +444,6 @@ function originalImage() {
     let newImage = './img/person_add.svg';
     let switchImage = document.querySelector('#mobileAddContactId img');
     switchImage.src = newImage;
-}
-
-/** * This function is used to the edit and delete menu on the mobile view */
-function changesSaved() {
-    let changesSaved = document.getElementById('successfullyCreatedId');
-    changesSaved.classList.remove('d-none');
-    slide('successfullyCreatedId');
-    setTimeout(function () {
-        changesSaved.classList.add('d-none');
-    }, 2500);
 }
 
 /** * This function is switch multiply objects to the original function */
@@ -496,11 +472,6 @@ function desktopViewSmall() {
     toggleVisibility('blueLineId', is1345px);
 }
 
-/** * This function is used to show an animation on the menu on the mobile view */
-function openMobileEditMenu() {
-    slide('mobileEditDeleteBoxId');
-}
-
 /** * This function is to toggle the visibility (mobile view = yes) */
 function showNotOnMobileView(id) {
     if (window.innerWidth &lt;= 768) {
@@ -527,13 +498,13 @@ function showOnMobileView(id) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeButtonTextToDeleted">changeButtonTextToDeleted</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeImage">changeImage</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#changesSaved">changesSaved</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closePopup">closePopup</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openMobileEditMenu">openMobileEditMenu</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#resetFunctionImageText">resetFunctionImageText</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#slide">slide</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibility">toggleVisibility</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeButtonTextToDeleted">changeButtonTextToDeleted</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closeTask">closeTask</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#currentUserContactsLoad">currentUserContactsLoad</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#displayNumbers">displayNumbers</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#findAssignedUnser">findAssignedUnser</a></li><li><a href="global.html#generateTaskHTML">generateTaskHTML</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getNextUrgentDueDate">getNextUrgentDueDate</a></li><li><a href="global.html#getTimeOfDay">getTimeOfDay</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#loadTimeOfDay">loadTimeOfDay</a></li><li><a href="global.html#loadUrgentPrioDate">loadUrgentPrioDate</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderPriorityText">renderPriorityText</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#renderSubtaskHeadline">renderSubtaskHeadline</a></li><li><a href="global.html#renderTaskdetailHTML">renderTaskdetailHTML</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#resetFunctionImageText">resetFunctionImageText</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#searchNumbers">searchNumbers</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#showSubtasksFinished">showSubtasksFinished</a></li><li><a href="global.html#showSubtasksInProgress">showSubtasksInProgress</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#switchSubtaskStatusToFinished">switchSubtaskStatusToFinished</a></li><li><a href="global.html#switchSubtaskStatusToUndone">switchSubtaskStatusToUndone</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li><li><a href="global.html#toggleVisibilityAfterXseconds">toggleVisibilityAfterXseconds</a></li><li><a href="global.html#updateProgressbar">updateProgressbar</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Oct 06 2023 23:57:05 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Oct 11 2023 22:08:35 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
