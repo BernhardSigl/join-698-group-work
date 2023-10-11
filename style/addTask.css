@@ -248,6 +248,12 @@ textarea:focus {
     align-items: center;
     color: white;
     line-height: 120%;
+    transition: transform 0.3s ease;
+}
+
+.assignedToContactImg:hover {
+    cursor: pointer;
+    transform: scale(1.2);
 }
 
 .selectContactsPositionContainer {
@@ -595,6 +601,40 @@ ul {
     border: none;
     border-bottom: 1px solid #29ABE2 !important;
 
+}
+
+#editSelectedContact {
+    background-color: transparent !important;
+}
+
+.editAbsolutCrossContact {
+    position: absolute;
+    right: 44px;
+    top: 15px;
+    padding: 1px;
+    width: 29px;
+    border-right: 1px solid #eee;
+}
+
+.editAbsolutDelete {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    padding: 1px;
+    width: 29px;
+    border-left: 1px solid #eee;
+}
+
+.editAbsolutCrossContact:hover {
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #EEE;
+}
+
+.editAbsolutDelete:hover {
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #EEE;
 }
 
 .editAbsolutCross {

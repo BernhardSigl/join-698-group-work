@@ -288,6 +288,7 @@ function toggleVisibilityAddTask(id, id2) {
     renderCategorys();
     createCategoryWindow();
     borderColorCheck();
+    stopEditContact();
 }
 //---------------------------------------------------------------------------------//
 
@@ -302,7 +303,7 @@ function renderAllSelectedContacts() {
     for (let index = 0; index < contactCollection.length; index++) {
         contactColors = contactCollection[index].color;
         contactNamesAbbreviation = contactCollection[index].nameAbbreviation;
-        contactZone.innerHTML += returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation);
+        contactZone.innerHTML += returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation, index);
     }
 }
 
@@ -383,6 +384,33 @@ function deselectContact(mainElement, firstSecondary, secondSecondary) {
     return;
 }
 
+function editSelectedContact(i) {
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.remove('d-none');
+    editWindow.innerHTML = returnEditContact(i)
+    let input = document.getElementById('editSelectedContact');
+    input.value = contactCollection[i].name;
+}
+
+function clearSelectedContact(index) {
+    contactCollection.splice(index, 1);
+    renderAllSelectedContacts();
+    renderAllContactsForSearch();
+    saveTaskElements();
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.add('d-none');
+    let input = document.getElementById('editSelectedContact');
+    input.value = '';
+}
+
+function stopEditContact() {
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.add('d-none');
+    let input = document.getElementById('editSelectedContact');
+    input.value = '';
+
+
+}
 //---------------------------------------------------------------------------------//
 
 

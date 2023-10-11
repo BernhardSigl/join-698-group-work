@@ -62,9 +62,9 @@ function returnRenderAllCategorys(name, color, i) {
  * @param {Object} contacts - The contact object to render.
  * @returns {string} - HTML string for the rendered contact.
  */
-function returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation) {
+function returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation, index) {
     return /*html*/ `
-    <div style="background-color:${contactColors}" class="assignedToContactImg">${contactNamesAbbreviation}</div>
+    <div onclick="editSelectedContact(${index})" style="background-color:${contactColors}" class="assignedToContactImg">${contactNamesAbbreviation}</div>
     `;
 }
 
@@ -138,6 +138,14 @@ function returnSettingsSecond(secondSecondary) {
         secondSecondary.classList.add('d-none');
     }
     return
+}
+
+function returnEditContact(i) {
+    return /*html*/`
+    <input id="editSelectedContact" readonly type="text">
+    <img onclick="stopEditContact()" class="editAbsolutCrossContact" src="img/close.svg">
+    <img onclick="clearSelectedContact(${i})" class="editAbsolutDelete" src="img/subTaskDelete.svg">
+    `;
 }
 //---------------------------------------------------------------------------------//
 
@@ -274,6 +282,8 @@ function returnAssignToBox1() {
         <img onclick="toggleVisibilityAddTask('assignedToInputContainer', 'assignedToContactsInputContainer')"
             class="inputAbsolut" src="img/arrow_drop_downaa.svg">
         <div id="selectedContactsContainer">
+        </div>
+        <div class="custom-select d-none" id="selectedContactsDeselect">
         </div>
         `;
 }
