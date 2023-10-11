@@ -225,6 +225,7 @@ async function addTask() {
     await currentUserTaskSave();
     await currentUserIdSave();
     resetAllAddTaskElements();
+    changesSaved('Task added to board');
     window.location.href = './board.html';
 }
 
