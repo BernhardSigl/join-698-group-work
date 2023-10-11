@@ -88,7 +88,7 @@ function resetAllAddTaskElementsBoard() {
     subtasksFinish = [];
     subTaskCollection = [];
     selectedIndex = null;
-    selectedColorIndex = [];
+    selectedColorIndex = null;
     currentPrioSelected = "";
     contactCollection = [];
     taskIdForEdit = '';
