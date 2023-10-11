@@ -185,7 +185,6 @@ body {
 .board-main-section {
     width: 100%;
     display: flex;
-    justify-content: space-between;
 }
 
 .statusheadline {
