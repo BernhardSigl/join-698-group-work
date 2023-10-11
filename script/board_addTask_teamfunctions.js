@@ -25,7 +25,6 @@ async function editTaskNew(i) {
     document.getElementById('addTaskPop').classList.remove('d-none');
     closeTask();
     let taskToEdit = tasks[i];
-    editTaskWindow();
     document.getElementById("addTaskHeadline").innerHTML = 'Edit Task';
     document.getElementById("addTitel").value = taskToEdit.title;
     document.getElementById("addDescription").value = taskToEdit.description;
