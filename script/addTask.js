@@ -288,7 +288,8 @@ function toggleVisibilityAddTask(id, id2) {
     renderCategorys();
     createCategoryWindow();
     borderColorCheck();
-    stopEditContact();
+    let editWindow = document.getElementById('selectedContactsDeselect');
+    editWindow.classList.add('d-none');
 }
 //---------------------------------------------------------------------------------//
 
