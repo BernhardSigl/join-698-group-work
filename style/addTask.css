@@ -294,30 +294,23 @@ textarea:focus {
 }
 
 .show-scrollbar:hover::-webkit-scrollbar-thumb {
-    background-color: #091931;
+    background-color: #A8A8A8;
 }
 
 .show-scrollbar::-webkit-scrollbar-button:start:decrement,
 .show-scrollbar::-webkit-scrollbar-button:end:increment {
     display: block;
     height: 10px;
-    background-color: #fff;
+    background-color: #A8A8A8;
     background-repeat: no-repeat;
 }
 
 .show-scrollbar::-webkit-scrollbar-button:start:decrement {
-    background-position: center;
-    background-image: url('../img/arrow_drop_up.svg');
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+    display: none;
 }
 
 .show-scrollbar::-webkit-scrollbar-button:end:increment {
-    background-position: center;
-    background-image: url('../img/arrow_drop_downaa.svg');
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-
+    display: none;
 }
 
 /*--------------------SCROLLBAR-Outside----------------------------*/
@@ -332,7 +325,7 @@ textarea:focus {
 }
 
 .show-scrollbarTaskWindow::-webkit-scrollbar-thumb {
-    background-color: #2A3647 !important;
+    background-color: #A8A8A8;
     border-radius: 10px;
 }
 
@@ -344,23 +337,16 @@ textarea:focus {
 .show-scrollbarTaskWindow::-webkit-scrollbar-button:end:increment {
     display: block;
     height: 10px;
-    background-color: #fff;
+    background-color: #A8A8A8;
     background-repeat: no-repeat;
 }
 
 .show-scrollbarTaskWindow::-webkit-scrollbar-button:start:decrement {
-    background-position: center;
-    background-image: url('../img/arrow_drop_up.svg');
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+    display: none;
 }
 
 .show-scrollbarTaskWindow::-webkit-scrollbar-button:end:increment {
-    background-position: center;
-    background-image: url('../img/arrow_drop_downaa.svg');
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-
+    display: none;
 }
 
 .assignedContactsBox {
@@ -605,12 +591,13 @@ ul {
 
 #editSelectedContact {
     background-color: transparent !important;
+    border: none;
 }
 
 .editAbsolutCrossContact {
     position: absolute;
     right: 44px;
-    top: 15px;
+    top: 17px;
     padding: 1px;
     width: 29px;
     border-right: 1px solid #eee;
@@ -619,7 +606,7 @@ ul {
 .editAbsolutDelete {
     position: absolute;
     right: 15px;
-    top: 15px;
+    top: 17px;
     padding: 1px;
     width: 29px;
     border-left: 1px solid #eee;
