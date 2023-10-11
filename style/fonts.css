@@ -59,7 +59,7 @@
 .fontSize14,
 .fontSize12 {
     margin: 0;
-    /*display: inline-block;*/
+    display: inline-block;
     min-width: auto;
     min-height: auto;
     line-height: 1.2;

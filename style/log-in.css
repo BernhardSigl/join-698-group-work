@@ -5,6 +5,7 @@ body {
     font-family: 'Inter' !important;
     margin: 0;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .button {

@@ -1,11 +1,11 @@
 body {
     margin: 0;
     overflow-y: hidden;
-    /* font-family: 'Inter' !important; */
+    font-family: 'Inter' !important;
 }
 
 .quicklinksContainer {
-    position: relative;
+    position: absolute;
     left: 243px;
     bottom: 0;
     max-width: calc(100vw - 243px) !important;
