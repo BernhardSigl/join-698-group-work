@@ -96,7 +96,6 @@ function resetAllAddTaskElementsBoard() {
     clearAddTaskInputs();
     resetInputs();
     saveTaskElements();
-    document.getElementById('addTaskPop').classList.add('d-none');
 }
 
 //---------------------------------------------------------------------------------//
