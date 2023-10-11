@@ -160,14 +160,13 @@ body {
 /* --------------------------------------- */
 .content-board {
     position: absolute;
-    top: 165px;
+    top: 246px;
     display: flex;
     flex-direction: column;
     left: 243px;
     max-width: calc(100vw - 243px);
-    margin-top: 56px;
     width: 100%;
-    max-height: calc(100vh - 165px);
+    max-height: calc(100vh - 246px);
     overflow-y: auto;
 }
 
@@ -563,15 +562,12 @@ body {
 
     .content-board {
         position: absolute;
-        top: 165px;
         bottom: 0;
         display: flex;
         flex-direction: column;
-        left: 180px;
-        max-width: calc(100vw - 180px);
-        margin-top: 56px;
+        left: 160px;
+        max-width: calc(100vw - 160px);
         width: 100%;
-        max-height: calc(100vh - 165px);
         overflow-y: auto;
     }
 
@@ -590,15 +586,16 @@ body {
 @media(max-width:768px) {
     .content-board {
         position: absolute;
-        top: 296px;
+        top: 300px;
+        bottom: 65px;
         display: flex;
         flex-direction: column;
         left: 0px;
-        max-width: calc(100vw - 0px);
+        max-width: calc(100vw);
+        max-height: calc(100vh - 365px);
         width: 100%;
         margin-top: 0;
         overflow-y: auto;
-        margin-bottom: calc(80px - 26px);
     }
 
     .task {
