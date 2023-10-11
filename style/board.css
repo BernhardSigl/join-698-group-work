@@ -277,7 +277,6 @@ body {
 
 
 .task-category {
-    background-color: #0038FF;
     border-radius: 8px;
     padding: 4px 12px;
     width: fit-content;
@@ -341,7 +340,6 @@ body {
 }
 
 .task-detail-category {
-    background-color: #0038FF;
     border-radius: 8px;
     padding: 4px 12px;
     width: fit-content;

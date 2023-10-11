@@ -225,7 +225,7 @@ function generateTaskHTML(element) {
 
     return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTask(${i})" class="task">
             <div class="task-top fontSize16">
-                <div class="task-category"> ${element['category']}</div>
+                <div class="task-category" style="${element['categoryColor']}">${element['category']}</div>
                 <span class="task-title fontSize16">${element['title']}</span>
                 <div class="task-description show-scrollbar"> ${element['description']}</div>
             </div>
@@ -336,7 +336,7 @@ function createHTML(i) {
     <div class="task-detail">
             <div class="task-detail-content-container">
                 <div class="task-detail-top">
-                    <div class="task-detail-category"> ${tasks[i]['category']}</div>
+                    <div class="task-detail-category" style="${tasks[i]['categoryColor']}"> ${tasks[i]['category']}</div>
                     <img onclick="closeTask()" src="img/crossAddTask.svg" alt="close" class="close-hover">
                 </div>
                 <div class="task-detail-content">
