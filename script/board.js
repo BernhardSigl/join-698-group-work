@@ -5,18 +5,30 @@ let subtaskHeadline;
 let inProgress;
 let finished;
 
+/**
+ * This function to initializes the active user on the board, the shown tasks for the user and the html for board 
+ * 
+ */
 async function initBoard() {
     loadActivUser();
     await currentUserTaskLoad();
     updateBoardHTML();
 }
 
+/**
+ * This eventlistener starts the rotation of a dragged card
+ * 
+ */
 document.addEventListener('dragstart', function (e) {
     if (e.target.classList.contains('task')) {
         e.target.classList.add('rotating');
     }
 });
 
+/**
+ * This eventlistener stops the rotation of a dragged card
+ * 
+ */
 document.addEventListener('dragend', function (e) {
     if (e.target.classList.contains('task')) {
         e.target.classList.remove('rotating');
@@ -184,7 +196,7 @@ function updateBoardHTML() {
  *This function updates the progress bar based on the finished subtasks 
  *  
  * @param {Object} - The task element 
- * @returns {string} The generated HTML string representing the progress bar.
+ * @returns {string} The generated HTML string representing the progress bar
  */
 function updateProgressbar(element) {
     let openSubasks = element['subtasksInProgress'].length
@@ -273,6 +285,11 @@ function renderTaskdetailHTML(i) {
     createHTML(i)
 }
 
+/**
+ * This function renders the subtask headline 
+ * 
+ * @returns - The generated HTML string representing the subtask headline
+ */
 function renderSubtaskHeadline() {
     return subtaskHeadline = /*html*/ `
     <div class="task-detail-font-color margin-bottom10">
@@ -280,6 +297,11 @@ function renderSubtaskHeadline() {
     </div>`
 }
 
+/**
+ * This function shows the subtasks in progress, if available
+ * 
+ * @param {number} i - The id of the task
+ */
 function showSubtasksInProgress(i) {
     inProgress = '';
     let subtasksProgress = tasks[i]['subtasksInProgress'];
@@ -298,6 +320,11 @@ function showSubtasksInProgress(i) {
     updateBoardHTML();
 }
 
+/**
+ * This function shows the finished subtasks, if available
+ * 
+ * @param {number} i - The id of the task 
+ */
 function showSubtasksFinished(i) {
     finished = '';
     let subtasksDone = tasks[i]['subtasksFinish']
@@ -313,6 +340,11 @@ function showSubtasksFinished(i) {
     updateBoardHTML();
 }
 
+/**
+ * This function renders the priority
+ * 
+ * @param {number} i - The id of the task 
+ */
 function renderPriorityText(i) {
     let prioLow = "./img/prioLow.svg"
     let prioMedium = "./img/prioMedium.svg"
@@ -329,10 +361,14 @@ function renderPriorityText(i) {
     }
 }
 
+/**
+ * This function renders the detailed task
+ * 
+ * @param {number} i - The id of the task
+ */
 function createHTML(i) {
     document.getElementById('popup-container').classList.remove('d-none');
     document.getElementById('popup-container').innerHTML = /*html*/ `
-    
     <div class="task-detail">
             <div class="task-detail-content-container">
                 <div class="task-detail-top">
@@ -359,18 +395,14 @@ function createHTML(i) {
                     </div>
                     <div>
                         <div class="margin-bottom10 task-detail-font-color">Assigned To:</div>
-                        <div class="task-detail-users">
-                            
+                        <div class="task-detail-users">                            
                         ${assignedUser}
-
                         </div>
                     </div>
-                    <div class="task-detail-subtasks">
-                        
+                    <div class="task-detail-subtasks">                        
                         ${subtaskHeadline}
                         ${inProgress}
                         ${finished}
-
                     </div>
                 </div>
             </div>
@@ -387,6 +419,12 @@ function createHTML(i) {
     `;
 }
 
+/**
+ * This function shows the assigned user on the detailed task
+ * 
+ * @param {number} i - The id of the task
+ * @returns - The generated HTML string representing the assigned User
+ */
 function findAssignedUnser(i) {
     let userNames = tasks[i]['contactName'];
     let users = tasks[i]['contactAbbreviation'];
@@ -409,6 +447,11 @@ function findAssignedUnser(i) {
     }
 }
 
+/**
+ * This function switches the status ob a subtask to finished
+ * @param {number} i - The id of the task
+ * @param {number} k - The id of the undone subtask
+ */
 async function switchSubtaskStatusToFinished(i, k) {
     let splicedSubtask = tasks[i]['subtasksInProgress'].splice(k, 1)
     tasks[i]['subtasksFinish'].push(splicedSubtask)
@@ -416,6 +459,11 @@ async function switchSubtaskStatusToFinished(i, k) {
     renderTaskdetailHTML(i);
 }
 
+/**
+ * This function switches the status ob a subtask to undone
+ * @param {number} i - The id of the task 
+ * @param {number} k - The id of the done subtask
+ */
 async function switchSubtaskStatusToUndone(i, l) {
     let splicedSubtask = tasks[i]['subtasksFinish'].splice(l, 1)
     tasks[i]['subtasksInProgress'].push(splicedSubtask)
@@ -423,10 +471,19 @@ async function switchSubtaskStatusToUndone(i, l) {
     renderTaskdetailHTML(i);
 }
 
+/**
+ * This function closes the detail view of a task
+ * 
+ */
 function closeTask() {
     document.getElementById('popup-container').classList.add('d-none');
 }
 
+/**
+ * This function deletes a task
+ * 
+ * @param {number} i - The id of the task
+ */
 async function deleteTask(i) {
     tasks.splice(i, 1);
     await currentUserTaskSave();
