@@ -224,7 +224,7 @@ function generateTaskHTML(element) {
     }
 
     return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTask(${i})" class="task">
-            <div class="task-top">
+            <div class="task-top fontSize16">
                 <div class="task-category"> ${element['category']}</div>
                 <span class="task-title fontSize16">${element['title']}</span>
                 <div class="task-description show-scrollbar"> ${element['description']}</div>
