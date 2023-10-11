@@ -502,7 +502,7 @@ body {
 
     .contentposition {
         padding-left: 30px;
-        padding-right: 30px;
+        padding-right: 0px;
     }
 
     .search-board-container {
