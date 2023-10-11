@@ -12,11 +12,6 @@ body {
     margin: 24px 0;
 }
 
-.task-top {
-    margin-bottom: 10px;
-    min-height: 100px;
-}
-
 /* added from summary.html */
 .content {
     display: none !important;
@@ -263,11 +258,11 @@ body {
     min-height: 200px;
     min-width: 200px;
     max-width: 200px;
-    max-height: 350px;
     background-color: white;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
     border: 1px solid #D1D1D1;
     padding: 16px;
+    cursor: pointer;
 }
 
 .task:hover {
@@ -290,6 +285,7 @@ body {
     word-wrap: break-word;
     overflow: hidden;
     margin-bottom: 8px;
+    height: auto;
 }
 
 .task-description {
@@ -298,6 +294,7 @@ body {
     hyphens: auto;
     max-height: 150px;
     overflow: auto;
+    height: auto;
     color: var(--icon, #A8A8A8);
 }
 
@@ -415,6 +412,7 @@ body {
 
 .delete-edit-buttons {
     padding: 4px;
+    cursor: pointer;
 }
 
 .delete-edit-buttons:hover {
@@ -522,7 +520,7 @@ body {
     }
 
     .drag-area {
-        height: 300px;
+        height: auto;
         width: 100%;
         flex-direction: row;
     }
