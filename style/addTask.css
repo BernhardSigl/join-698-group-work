@@ -330,7 +330,7 @@ textarea:focus {
 }
 
 .show-scrollbarTaskWindow:hover::-webkit-scrollbar-thumb {
-    background-color: #091931;
+    background-color: #A8A8A8;
 }
 
 .show-scrollbarTaskWindow::-webkit-scrollbar-button:start:decrement,
