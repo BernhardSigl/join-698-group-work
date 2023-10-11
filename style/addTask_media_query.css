@@ -132,14 +132,14 @@
 @media (max-width: 768px) {
 
     .contentAddTask {
-        top: 215px;
-        bottom: 175px;
+        top: 190px;
+        bottom: 165px;
         left: 0px;
         right: 0;
         padding-left: 12px;
         padding-top: 12px;
         max-width: unset;
-        max-height: calc(100vh - 290px);
+        max-height: calc(100vh - 255px);
     }
 
     ::-webkit-scrollbar {

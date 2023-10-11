@@ -356,6 +356,7 @@ header {
         font-size: 22px !important;
     }
 
+    #confirmPassword,
     #password,
     #userName,
     #passwort,
@@ -369,6 +370,7 @@ header {
 
     .sing-up-mobile {
         padding-top: 40px;
+        padding-bottom: 30px;
     }
 
     .rememberMeForgetMyPasswordContainer {
