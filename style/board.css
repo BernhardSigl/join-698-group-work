@@ -589,7 +589,6 @@ body {
 }
 
 @media(max-width:768px) {
-
     .content-board {
         position: absolute;
         top: 296px;
@@ -623,19 +622,15 @@ body {
         height: 120px;
         gap: 40px;
         padding: 0 16px;
+        max-width: 100vw;
     }
 
     #fake-searchbar {
         width: auto !important;
     }
 
-    #fake-searchbar input {
-        min-width: 199px !important;
-    }
-
-    #fake-searchbar {
-        width: calc(100vw - 45px);
-        /* margin-right: 16px; */
+    .vectorAndSearchIcon {
+        display: flex;
     }
 
     .addTaskPopupPosition {
@@ -711,10 +706,6 @@ body {
         padding-bottom: 10px;
         width: 100%;
         background-color: white;
-    }
-
-    .fontSize20 {
-        /* font-size: 27px; */
     }
 
 }
