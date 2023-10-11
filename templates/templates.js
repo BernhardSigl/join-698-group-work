@@ -209,3 +209,9 @@ function changesSaved(inputText) {
         toggleVisibility('successfullyCreatedId', false);
     }, 2900);
 }
+
+/** * This function is used to make div-container unvisible or visible */
+function toggleVisibility(id, show) {
+    const showHide = document.getElementById(id);
+    showHide.classList.toggle('d-none', !show);
+}

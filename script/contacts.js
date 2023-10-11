@@ -263,12 +263,6 @@ function closePopupMobile() {
     });
 }
 
-/** * This function is used to make div-container unvisible or visible */
-function toggleVisibility(id, show) {
-    const showHide = document.getElementById(id);
-    showHide.classList.toggle('d-none', !show);
-}
-
 /** * This function is used to make div-container unvisible or visible after a specific time*/
 function toggleVisibilityAfterXseconds(id, show, time) {
     setTimeout(function () {
