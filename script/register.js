@@ -28,7 +28,10 @@ async function registUser() {
         await setItem('userGroup698', JSON.stringify(user));
         resetForm();
         changesSaved('You Signed Up successfully');
-        window.location = 'index.html';
+        setTimeout(function () {
+            window.location = 'index.html';
+        }, 4000);
+
     }
 }
 
