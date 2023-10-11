@@ -63,7 +63,52 @@ function login() {
 function guestLogin() {
     activUser.name = 'Guest698';
     saveActivUser();
+    fillTestArray();
     window.location.href = "./summary.html";
+}
+
+function fillTestArray() {
+    contactsArray = [
+        { name: 'adfs243243', nameAbbreviation: 'A', email: 'asdf@rf', phone: '234', color: '#FFA500' },
+        { name: 'Gast', nameAbbreviation: 'G', email: 'test@web.de', phone: '123456', color: '#00008B' }
+    ];
+
+    tasks = [{
+        "id": 26,
+        "status": "toDo",
+        "category": "Technical Task",
+        "categoryColor": "background: #1FD7C1",
+        "title": "Guest",
+        "description": "test text",
+        "dueDate": "11/10/2023",
+        "priority": "./img/prioUrgent.svg",
+        "contactName": [
+            "Gast"
+        ],
+        "contactColor": [
+            "#00008B"
+        ],
+        "contactAbbreviation": [
+            "G"
+        ],
+        "subtasksInProgress": [
+            "test",
+            "test2"
+        ],
+        "subtasksFinish": []
+    }];
+
+    allCategorys[0] = {
+        "name": [
+            "New Category"
+        ],
+        "color": [
+            "background: #FF6347"
+        ]
+    }
+    currentUserTaskSave();
+    currentUserCategorysSave();
+    currentUserContactsSave();
 }
 
 function loadRedBorderInput() {

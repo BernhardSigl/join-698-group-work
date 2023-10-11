@@ -213,7 +213,7 @@ function returnButtonAreaEditTask() {
         </div>
     </div>
     <div class="addTaskBottomBtnArea">
-        <button onclick="addEditTask()" class="createBtn blueBtn"><b>Ok</b><img class="createImg"
+        <button onclick="addEditTask(), slideOut('addTaskPopupPositionFront', 'addTaskPop', 200)" class="createBtn blueBtn"><b>Ok</b><img class="createImg"
             src="./img/check.svg"></button>
     </div>
     `;
