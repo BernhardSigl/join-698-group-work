@@ -99,7 +99,7 @@ function resetAllAddTaskElementsBoard() {
 
 //---------------------------------------------------------------------------------//
 async function createContactByPopup() {
-    changesSaved();
+    changesSaved('Contact successfully created');
     let name = document.getElementById('inputNameId').value
     let newContact = {
         "name": name,

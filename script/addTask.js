@@ -226,7 +226,10 @@ async function addTask() {
     await currentUserIdSave();
     resetAllAddTaskElements();
     changesSaved('Task added to board');
-    window.location.href = './board.html';
+    setTimeout(function () {
+        window.location.href = './board.html';
+    }, 3000);
+
 }
 
 function statusSelected(status) {
