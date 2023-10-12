@@ -169,6 +169,8 @@ header {
     display: none;
 }
 
+#warning-password,
+#warning-confirmPasswort,
 #warning-text-passwort,
 #warning-text-email {
     color: var(--color-red);
@@ -176,7 +178,6 @@ header {
 }
 
 .warning-field {
-    height: 32px;
     display: flex;
     align-items: center;
 }

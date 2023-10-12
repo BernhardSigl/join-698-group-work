@@ -159,6 +159,9 @@
 
 .successfullyBtn {
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     top: 70%;
     left: 50%;
     background: #2A3647;
@@ -169,6 +172,34 @@
     height: 74px !important;
 }
 
+.slide-in {
+    animation: slide-in 0.5s ease;
+}
+
+.slide-out {
+    animation: slide-out 0.5s ease;
+}
+
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(400%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(400%);
+    }
+}
 
 @media (max-width: 1000px) {
     .content {
