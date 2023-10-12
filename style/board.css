@@ -129,7 +129,7 @@ body {
 .button {
     display: flex;
     width: fit-content;
-    padding: 8px;
+    padding: 8px 16px;
     color: white;
     font-weight: 500;
     justify-content: center;
