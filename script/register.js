@@ -13,7 +13,8 @@ function signUp() {
 
 async function registUser() {
     if (!arePasswordsMatching()) {
-        alert('Passwords do not match.');
+        loadRedBorderPassword();
+        loadWarningTextTamplate();
         return;
     }
 
@@ -34,6 +35,26 @@ async function registUser() {
 
     }
 }
+
+
+function loadRedBorderPassword() {
+    let inputIds = ["password", "confirmPassword"];
+    for (let id of inputIds) {
+        setTimeout(function () {
+            document.getElementById(id).classList.add("red-border");
+        }, 5000);
+    }
+}
+
+function loadWarningTextTamplate() {
+    let warningIds = ["warning-password", "warning-confirmPassword"];
+    for (let id of warningIds) {
+        setTimeout(function () {
+            document.getElementById(id).classList.remove("d-none");
+        }, 5000);
+    }
+}
+
 
 function arePasswordsMatching() {
     const password = document.getElementById('password').value;
