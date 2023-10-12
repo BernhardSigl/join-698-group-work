@@ -76,6 +76,18 @@
         height: 120px;
         margin-top: -30px;
     }
+
+    .closePopup {
+        position: absolute;
+        display: unset;
+        top: 15px;
+        right: 15px;
+    }
+
+    .closePopupBlue {
+        display: none;
+    }
+
 }
 
 @media (max-width: 1000px) {
@@ -252,7 +264,7 @@
 
     .addContactPopupBoxLeftPosition {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: center;
         flex-direction: column;
         text-align: center;

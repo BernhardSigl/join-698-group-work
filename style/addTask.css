@@ -748,6 +748,7 @@ ul {
 }
 
 .addContactPopupBox {
+    position: relative;
     display: flex;
     width: 1000px;
     height: 450px;
@@ -861,6 +862,39 @@ ul {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+}
+
+.closePopup {
+    display: none;
+}
+
+.closePopupBlue {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.closePopup {
+    display: none;
+}
+
+.closePopupBlue {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.closePopup:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #EEE;
+}
+
+.closePopupBlue:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #EEE;
 }
 
 .slide-in {
