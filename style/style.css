@@ -115,7 +115,7 @@
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .red-border {
@@ -159,8 +159,8 @@
 
 .successfullyBtn {
     position: absolute;
-    bottom: 160px;
-    left: 711px;
+    top: 70%;
+    left: 50%;
     background: #2A3647;
     color: white;
     border: none;
