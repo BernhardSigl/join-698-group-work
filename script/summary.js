@@ -29,10 +29,10 @@ function loadUserName() {
  * 
  */
 function addAnimationOnResize() {
-    if (window.innerWidth <= 1070) {
+    if (window.innerWidth <= 1200) {
         addAnimation();
         animationAdded = true;
-    } else if (window.innerWidth > 1070) {
+    } else if (window.innerWidth > 1200) {
         const greetingText = document.querySelector('.greeting-text');
         greetingText.classList.remove('fade-out');
         greetingText.classList.remove('hidden');
@@ -51,7 +51,7 @@ function addAnimation() {
     setTimeout(function () {
         greetingText.classList.add('hidden');
         document.body.style.overflow = 'auto';
-    }, 3000);
+    }, 2000);
 }
 
 /**
@@ -111,14 +111,17 @@ function getTimeOfDay() {
     const currentHour = new Date().getHours();
 
     if (currentHour >= 0 && currentHour < 6) {
-        return `<span class="time-of-day">Schöne </span><span class="time-of-day">Nacht</span>`;
+        return `<span class="time-of-day">Good&nbsp</span>
+        <span> </span>
+        <span class="time-of-day">night</span>`;
     } else if (currentHour >= 6 && currentHour < 12) {
-        return `<span class="time-of-day">Guten </span> <span class="time-of-day"> Morgen</span>`;
+        return `<span class="time-of-day">Good&nbsp</span> <span class="time-of-day">morning</span>`;
 
     } else if (currentHour >= 12 && currentHour < 18) {
-        return `<span class="time-of-day">Guten</span> <span class="time-of-day">Nachmittag</span>`;
+        return `<span class="time-of-day">Nice&nbsp</span>
+        <span class="time-of-day" >afternoon</span>`;
     } else {
-        return `<span class="time-of-day">Guten  </span class="time-of-day"><span>Abend</span>`;
+        return `<span class="time-of-day">Good&nbsp</span> <span class="time-of-day"> evening</span>`;
     }
 }
 

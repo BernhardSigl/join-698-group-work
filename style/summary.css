@@ -175,6 +175,7 @@ body {
 
 #name,
 #time-of-day {
+    display: flex;
     text-align: start;
 }
 
@@ -246,7 +247,21 @@ body {
     white-space: nowrap;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1450px) {
+    .gap-32 {
+        gap: 16px;
+    }
+
+    #name {
+        font-size: 47px !important;
+    }
+
+    #time-of-day {
+        font-size: 36px !important;
+    }
+}
+
+@media (max-width: 1200px) {
     .greeting-text {
         background-color: white;
         position: fixed;
@@ -256,6 +271,9 @@ body {
         padding: 100vh;
         z-index: 1000;
         margin: 0px;
+        display: flex;
+        align-items: center;
+
     }
 
     @keyframes fadeOut {
@@ -274,6 +292,16 @@ body {
 
     .greeting-text.fade-out.hidden {
         display: none;
+    }
+
+    #time-of-day {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    #name {
+        text-align: center !important;
     }
 }
 
@@ -307,13 +335,6 @@ body {
 
     .blueLineWithText {
         flex-direction: column-reverse;
-    }
-
-    #time-of-day {
-        font-size: 30px;
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
     }
 
     .headline {
