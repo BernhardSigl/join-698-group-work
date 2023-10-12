@@ -7,6 +7,7 @@ body {
 .quicklinksContainer {
     position: absolute;
     left: 243px;
+    width: 100%;
     bottom: 0;
     max-width: calc(100vw - 243px) !important;
     max-height: calc(100vh - 206px);
