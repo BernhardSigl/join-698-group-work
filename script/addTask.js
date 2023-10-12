@@ -202,6 +202,7 @@ function createTask() {
  * Retrieves data from form elements and adds a new task.
  */
 async function addTask() {
+    let currentPage = window.location.pathname;
     contactNames = contactCollection.map(contact => contact.name);
     contactColors = contactCollection.map(contact => contact.color);
     contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
@@ -226,10 +227,14 @@ async function addTask() {
     await currentUserIdSave();
     resetAllAddTaskElements();
     changesSaved('Task added to board');
-    setTimeout(function () {
-        window.location.href = './board.html';
-    }, 3000);
-
+    if (currentPage === '/board.html') {
+        document.getElementById('addTaskPop').classList.add('d-none');
+        updateBoardHTML();
+    } else {
+        setTimeout(function () {
+            window.location.href = './board.html';
+        }, 3000);
+    }
 }
 
 function statusSelected(status) {

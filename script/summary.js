@@ -86,8 +86,14 @@ function displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urge
  */
 function loadUrgentPrioDate() {
     let container = document.getElementById('date');
-    container.innerHTML = getNextUrgentDueDate(tasks);
-    ;
+    const nextUrgentDate = getNextUrgentDueDate(tasks);
+
+    if (nextUrgentDate) {
+        const convertedDate = convertDateFormat(nextUrgentDate);
+        container.innerHTML = convertedDate;
+    } else {
+        container.innerHTML = "No urgent due dates";
+    }
 }
 
 
@@ -143,3 +149,17 @@ function getNextUrgentDueDate(tasks) {
     return urgentTasks[0].dueDate;
 }
 
+function convertDateFormat(inputDate) {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    const parts = inputDate.split("/");
+    const day = parts[0];
+    const monthIndex = parseInt(parts[1], 10) - 1;  // Da Monate in JavaScript von 0 bis 11 indexiert sind
+    const year = parts[2];
+
+    return `${months[monthIndex]} ${day}, ${year}`;
+}
+
+const input = "16/10/2023";
+const convertedDate = convertDateFormat(input);
+console.log(convertedDate);  // Gibt "October 16, 2023" aus

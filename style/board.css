@@ -497,7 +497,7 @@ body {
 
 @media(max-width:1270px) {
     .statusheadline {
-        width: 200px;
+        width: 240px;
     }
 
     .contentposition {
@@ -596,6 +596,7 @@ body {
         width: 100%;
         margin-top: 0;
         overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .task {
@@ -663,12 +664,11 @@ body {
 
     .drag-area {
         gap: 16px;
-        padding: 0;
         margin-bottom: 26px;
     }
 
     .statusheadline {
-        width: 100%;
+        width: 240px;
         margin-bottom: 16px;
         padding-left: 0;
     }
