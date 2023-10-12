@@ -78,20 +78,41 @@ body {
     border-radius: 10px;
 }
 
+.mb35 {
+    margin-bottom: 35px !important;
+}
+
 .mb32 {
     margin-bottom: 32px !important;
 }
 
 .mb24 {
-    margin-bottom: 32px !important;
-}
-
-.mt24 {
-    margin-top: 32px !important;
+    margin-bottom: 24px !important;
 }
 
 .mb16 {
-    margin-bottom: 32px !important;
+    margin-bottom: 16px !important;
+}
+
+.mt16 {
+    margin-top: 16px !important;
+}
+
+.mb10 {
+    margin-top: 10px !important;
+}
+
+.mr35 {
+    margin-right: 35px !important;
+}
+
+td {
+    padding: 0 !important;
+}
+
+.mb16container {
+    height: 16px;
+    width: 100%;
 }
 
 @media(max-width: 1000px) {
@@ -116,7 +137,7 @@ body {
 
     #mobileBackArrowId {
         position: absolute;
-        top: 8px;
+        top: 46px;
         right: 6px;
         transition: transform 0.4s ease;
     }
