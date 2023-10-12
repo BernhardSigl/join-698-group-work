@@ -38,7 +38,7 @@ async function registUser() {
 
 
 function loadRedBorderPassword() {
-    let inputIds = ["password", "confirmPassword"];
+    let inputIds = ["inputPassword", "inputConfirmPassword"];
     for (let id of inputIds) {
         setTimeout(function () {
             document.getElementById(id).classList.add("red-border");

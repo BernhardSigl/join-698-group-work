@@ -76,7 +76,6 @@ async function currentUserTaskLoad() {
     } else {
         try {
             tasks = JSON.parse(await getItem('tasks'));
-
         } catch (e) {
             console.info('Could not load tasks');
         }

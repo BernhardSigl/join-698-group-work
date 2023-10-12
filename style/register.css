@@ -78,7 +78,7 @@ input {
     background-color: var(--text-white);
     border: 1px solid var(--border-grey);
     border-radius: 10px;
-    margin-bottom: 24px !important;
+    margin-top: 24px !important;
     padding: 12px 21px;
 }
 
@@ -108,12 +108,14 @@ input {
     height: auto;
     width: 100%;
     padding: 0 39px;
-    margin: 8px 0 32px !important;
+    margin: 34px 0 32px !important;
 }
 
 .signUpBtnRegister {
     border-radius: 8px;
     background: #2A3647;
+    font-weight: 700;
+    font-size: 21px;
     color: white;
     border: none;
     padding: 15px 24px;
@@ -197,7 +199,7 @@ header {
     }
 
     .checkboxSignUp {
-        margin: 22px 0 32px !important;
+        margin: 38px 0 32px !important;
     }
 
     #mobileBackArrowId {
@@ -253,7 +255,7 @@ header {
 
 @media (max-height: 700px) {
     .fontSize61 {
-        font-size: 22px !important;
+        font-size: 34px !important;
     }
 
     #mobileBackArrowId {

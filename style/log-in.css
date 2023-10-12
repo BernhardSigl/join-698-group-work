@@ -8,6 +8,12 @@ body {
     overflow-x: hidden;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .button {
     background-color: var(--main-color) !important;
     color: var(--text-white) !important;
@@ -106,6 +112,14 @@ input {
     height: auto;
 }
 
+#containerUserName {
+    margin-top: 0 !important;
+}
+
+#input-passwort {
+    margin-top: 32px;
+}
+
 .rememberMeForgetMyPasswordContainer {
     display: flex !important;
     justify-content: space-between;
@@ -170,7 +184,7 @@ header {
 }
 
 #warning-password,
-#warning-confirmPasswort,
+#warning-confirmPassword,
 #warning-text-passwort,
 #warning-text-email {
     color: var(--color-red);
@@ -355,7 +369,7 @@ header {
 
 @media (max-height: 700px) {
     .fontSize61 {
-        font-size: 22px !important;
+        font-size: 34px !important;
     }
 
     #confirmPassword,
