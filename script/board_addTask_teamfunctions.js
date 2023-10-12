@@ -115,15 +115,6 @@ async function createContactByPopup() {
     renderAllContactsForSearch();
 }
 
-function makeNameAbbreviation(name) {
-    // split first and last name
-    let nameParts = name.split(' ');
-    let firstName = nameParts[0];
-    let lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
-    // first letter of first and last name combined
-    let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
-    return nameAbbreviation;
-}
 
 function clearContactPopup() {
     document.getElementById('inputNameId').value = '';
@@ -158,9 +149,11 @@ async function addCategory() {
     allCategorys[0].name.push(inputElem.value);
     allCategorys[0].color.push(selectedColorIndex);
     await currentUserCategorysSave();
-    toggleVisibilityAddTask('createCategoryPopupByAddTask', '');
+    document.getElementById('createCategoryPopupByAddTask').classList.add('d-none');
     selectedColorIndex = null;
     saveTaskElements();
+    renderCategorys();
+    changesSaved('Category successfully created')
 }
 
 function updateSelectedColorIndex(index) {

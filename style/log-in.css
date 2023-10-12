@@ -367,6 +367,19 @@ header {
     }
 }
 
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    width: 100.034px;
+    height: 121.966px;
+    flex-shrink: 0;
+}
+
+
 @media (max-height: 700px) {
     .fontSize61 {
         font-size: 34px !important;

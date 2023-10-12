@@ -115,7 +115,7 @@ function addContact() {
 async function createContact() {
     let newContact = {
         "name": document.getElementById('inputNameId').value,
-        "nameAbbreviation": '',
+        "nameAbbreviation": makeNameAbbreviation(document.getElementById('inputNameId').value),
         "email": document.getElementById('inputEmailId').value,
         "phone": document.getElementById('inputPhoneId').value,
         "color": getColor()

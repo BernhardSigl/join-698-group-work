@@ -12,49 +12,52 @@ function signUp() {
 
 
 async function registUser() {
-    if (!arePasswordsMatching()) {
-        loadRedBorderPassword();
-        loadWarningTextTamplate();
-        return;
-    }
+    let emailControl = document.getElementById('email');
+    if (!arePasswordsMatching()) return handlePasswordMismatch();
+    if (user.some(u => u.email === emailControl.value)) return handleEmailExists();
+    if (checkbox.checked) await handleRegistration();
+}
 
-    if (checkbox.checked) {
-        registerBtn.disabled = true;
+function handlePasswordMismatch() {
+    loadRedBorderPassword();
+    loadWarningTextTamplate();
+}
 
-        user.push({
-            name: userName.value,
-            email: email.value,
-            password: password.value,
-        });
-        await setItem('userGroup698', JSON.stringify(user));
+function handleEmailExists() {
+    document.getElementById('inputEmail').classList.add("red-border");
+    document.getElementById('warning-email').classList.remove("d-none");
+    resetForm();
+}
+
+async function handleRegistration() {
+    registerBtn.disabled = true;
+    user.push({
+        name: userName.value,
+        email: email.value,
+        password: password.value,
+    });
+    await setItem('userGroup698', JSON.stringify(user));
+    changesSaved('You Signed Up successfully');
+    setTimeout(() => {
         resetForm();
-        changesSaved('You Signed Up successfully');
-        setTimeout(function () {
-            window.location = 'index.html';
-        }, 4000);
-
-    }
+        window.location = 'index.html';
+    }, 3000);
 }
 
 
 function loadRedBorderPassword() {
     let inputIds = ["inputPassword", "inputConfirmPassword"];
     for (let id of inputIds) {
-        setTimeout(function () {
-            document.getElementById(id).classList.add("red-border");
-        }, 5000);
+        document.getElementById(id).classList.add("red-border");
     }
 }
 
 function loadWarningTextTamplate() {
     let warningIds = ["warning-password", "warning-confirmPassword"];
     for (let id of warningIds) {
-        setTimeout(function () {
-            document.getElementById(id).classList.remove("d-none");
-        }, 5000);
+        document.getElementById(id).classList.remove("d-none");
     }
 }
-
 
 function arePasswordsMatching() {
     const password = document.getElementById('password').value;
@@ -76,6 +79,7 @@ async function loadUserGroup698() {
 function resetForm() {
     email.value = '';
     password.value = '';
+    confirmPassword.value = '';
     registerBtn.disabled = false;
 }
 

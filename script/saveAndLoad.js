@@ -129,7 +129,7 @@ async function currentUserCategorysLoad() {
         try {
             allCategorys = JSON.parse(await getItem('allCategorys'));
         } catch (e) {
-            console.info('Could not load categorys');
+            console.info('Could not load created categorys. created categorys are empty');
         }
     }
 }
@@ -195,4 +195,14 @@ async function getItem(key) {
         }
         throw `Could not find data with key "${key}".`;
     });
+}
+
+function makeNameAbbreviation(name) {
+    // split first and last name
+    let nameParts = name.split(' ');
+    let firstName = nameParts[0];
+    let lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
+    // first letter of first and last name combined
+    let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+    return nameAbbreviation;
 }
