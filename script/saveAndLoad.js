@@ -1,4 +1,4 @@
-const STORAGE_TOKEN = 'GQ72CY9S0MUL857S6X46MRMYNF6M3D8WG3CS1YQT';
+const STORAGE_TOKEN = 'ZAVHTP92CL5GF889UFX5E28M830OR5YMQSFGHRNB';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 let tasks = [];
