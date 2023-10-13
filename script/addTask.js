@@ -71,12 +71,18 @@ function renderAddTaskContent() {
     setInnerHTML("categoryAreaV2", returnCategoryBox2);
     setInnerHTML("prioBox", returnPrioBox);
     setInnerHTML("buttonAreaAddTask", returnButtonAreaAddTask);
-
+    addInputFieldAndListener();
     borderColorCheck();
     renderAllSelectedContacts();
     renderAllContactsForSearch();
     renderSubTaskCollection();
 }
+
+function addInputFieldAndListener() {
+    let inputField = document.getElementById('assignedToInput');
+    inputField.addEventListener('input', handleInputChange);
+}
+
 //---------------------------------------------------------------------------------//
 
 //SubTaskFunctions//
@@ -325,7 +331,7 @@ async function renderAllContactsForSearch(filterText = '') {
         contactNamesAbbreviation = contactsArray[index].nameAbbreviation;
         contactNames = contactsArray[index].name;
 
-        if (filterText && !contacts.name.toLowerCase().includes(filterText)) {
+        if (filterText && !contactNames.toLowerCase().includes(filterText.toLowerCase())) {
             continue;
         }
         contactZone.innerHTML += returnRenderAllContactsForSearch(contactColors, contactNamesAbbreviation, contactNames, index);

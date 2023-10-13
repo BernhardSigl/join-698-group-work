@@ -229,3 +229,8 @@ document.getElementById('assignTo').addEventListener('click', function (event) {
     event.stopPropagation();
 });
 //---------------------------------------------------------------------------------//
+
+function handleInputChange() {
+    let filterText = document.getElementById('assignedToInput').value;
+    renderAllContactsForSearch(filterText);
+}
