@@ -1,17 +1,13 @@
 function editTaskWindow() {
     loadTaskElements();
-    let assignTo1 = document.getElementById('assignedToInputContainer');
-    let assignTo2 = document.getElementById('assignedToContactsInputContainer');
-    let categoryBox1 = document.getElementById('categoryAreaV1');
-    let categoryBox2 = document.getElementById('categoryAreaV2');
-    let prioBox = document.getElementById('prioBox');
-    let buttonArea = document.getElementById('buttonAreaAddTask');
-    buttonArea.innerHTML = returnButtonAreaEditTask();
-    assignTo1.innerHTML = returnAssignToBox1();
-    assignTo2.innerHTML = returnAssignToBox2();
-    categoryBox1.innerHTML = returnCategoryBox1();
-    categoryBox2.innerHTML = returnCategoryBox2();
-    prioBox.innerHTML = returnPrioBox();
+
+    setInnerHTML("buttonAreaAddTask", returnButtonAreaEditTask);
+    setInnerHTML("assignedToInputContainer", returnAssignToBox1);
+    setInnerHTML("assignedToContactsInputContainer", returnAssignToBox2);
+    setInnerHTML("categoryAreaV1", returnCategoryBox1);
+    setInnerHTML("categoryAreaV2", returnCategoryBox2);
+    setInnerHTML("prioBox", returnPrioBox);
+
     borderColorCheck();
     renderCategorys();
     renderAllSelectedContacts();
@@ -53,27 +49,18 @@ async function editTaskNew(i) {
 
 
 async function addEditTask() {
-    contactNames = contactCollection.map(contact => contact.name);
-    contactColors = contactCollection.map(contact => contact.color);
-    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
-    let taskEdit = {
-        'id': taskIdForEdit,
-        'status': statusEdit,
-        'category': currentCategorySelected[0].name,
-        'categoryColor': currentCategorySelected[0].color,
-        'title': document.getElementById("addTitel").value,
-        'description': document.getElementById("addDescription").value,
-        'dueDate': document.getElementById("datepicker").value,
-        'priority': currentPrioSelected,
-        'contactName': contactNames,
-        'contactColor': contactColors,
-        'contactAbbreviation': contactNamesAbbreviation,
-        'subtasksInProgress': subTaskCollection,
-        'subtasksFinish': subtasksFinish,
-    }
-    let index = tasks.findIndex(task => task.id === taskIdForEdit);
+    const getValue = id => document.getElementById(id).value;
+    const getContactInfo = prop => contactCollection.map(contact => contact[prop]);
 
-    tasks[index] = taskEdit;
+    let taskEdit = {
+        'id': taskIdForEdit, 'status': statusEdit,
+        'category': currentCategorySelected[0].name, 'categoryColor': currentCategorySelected[0].color,
+        'title': getValue("addTitel"), 'description': getValue("addDescription"), 'dueDate': getValue("datepicker"),
+        'priority': currentPrioSelected, 'contactName': getContactInfo('name'), 'contactColor': getContactInfo('color'),
+        'contactAbbreviation': getContactInfo('nameAbbreviation'), 'subtasksInProgress': subTaskCollection, 'subtasksFinish': subtasksFinish
+    };
+
+    tasks[tasks.findIndex(task => task.id === taskIdForEdit)] = taskEdit;
     await currentUserTaskSave();
     resetAllAddTaskElementsBoard();
     updateBoardHTML();

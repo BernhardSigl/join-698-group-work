@@ -58,21 +58,20 @@ async function initAddTask() {
     renderAddTaskContent();
 }
 
+function setInnerHTML(elementId, contentFunction) {
+    document.getElementById(elementId).innerHTML = contentFunction();
+}
+
 function renderAddTaskContent() {
     loadTaskElements();
-    document.getElementById("addTaskHeadline").innerHTML = 'Add Task';
-    let assignTo1 = document.getElementById('assignedToInputContainer');
-    let assignTo2 = document.getElementById('assignedToContactsInputContainer');
-    let categoryBox1 = document.getElementById('categoryAreaV1');
-    let categoryBox2 = document.getElementById('categoryAreaV2');
-    let prioBox = document.getElementById('prioBox');
-    let buttonArea = document.getElementById('buttonAreaAddTask');
-    buttonArea.innerHTML = returnButtonAreaAddTask();
-    assignTo1.innerHTML = returnAssignToBox1();
-    assignTo2.innerHTML = returnAssignToBox2();
-    categoryBox1.innerHTML = returnCategoryBox1();
-    categoryBox2.innerHTML = returnCategoryBox2();
-    prioBox.innerHTML = returnPrioBox();
+    setInnerHTML("addTaskHeadline", () => 'Add Task');
+    setInnerHTML("assignedToInputContainer", returnAssignToBox1);
+    setInnerHTML("assignedToContactsInputContainer", returnAssignToBox2);
+    setInnerHTML("categoryAreaV1", returnCategoryBox1);
+    setInnerHTML("categoryAreaV2", returnCategoryBox2);
+    setInnerHTML("prioBox", returnPrioBox);
+    setInnerHTML("buttonAreaAddTask", returnButtonAreaAddTask);
+
     borderColorCheck();
     renderAllSelectedContacts();
     renderAllContactsForSearch();
@@ -203,10 +202,15 @@ function createTask() {
  */
 async function addTask() {
     let currentPage = window.location.pathname;
-    contactNames = contactCollection.map(contact => contact.name);
-    contactColors = contactCollection.map(contact => contact.color);
-    contactNamesAbbreviation = contactCollection.map(contact => contact.nameAbbreviation);
-    let task = {
+    let task = collectTaskData();
+    tasks.push(task);
+    currentId++;
+    await saveTaskData();
+    handleTaskCompletion(currentPage);
+}
+
+function collectTaskData() {
+    return {
         'id': currentId,
         'status': statusGroup,
         'category': currentCategorySelected[0].name,
@@ -215,25 +219,27 @@ async function addTask() {
         'description': document.getElementById("addDescription").value,
         'dueDate': document.getElementById("datepicker").value,
         'priority': currentPrioSelected,
-        'contactName': contactNames,
-        'contactColor': contactColors,
-        'contactAbbreviation': contactNamesAbbreviation,
+        'contactName': contactCollection.map(contact => contact.name),
+        'contactColor': contactCollection.map(contact => contact.color),
+        'contactAbbreviation': contactCollection.map(contact => contact.nameAbbreviation),
         'subtasksInProgress': subTaskCollection,
         'subtasksFinish': subtasksFinish,
     }
-    tasks.push(task);
-    currentId++;
+}
+
+async function saveTaskData() {
     await currentUserTaskSave();
     await currentUserIdSave();
     resetAllAddTaskElements();
     changesSaved('Task added to board');
+}
+
+function handleTaskCompletion(currentPage) {
     if (currentPage === '/board.html') {
         document.getElementById('addTaskPop').classList.add('d-none');
         updateBoardHTML();
     } else {
-        setTimeout(function () {
-            window.location.href = './board.html';
-        }, 3000);
+        setTimeout(() => { window.location.href = './board.html'; }, 3000);
     }
 }
 
@@ -282,23 +288,16 @@ function clearAddTaskInputs() {
 function toggleVisibilityAddTask(id, id2) {
     const elementOne = document.getElementById(id);
     const elementTwo = document.getElementById(id2);
-    if (id === '') {
-        elementTwo.classList.remove('d-none');
-    } else {
-        if (id2 === '') {
-            elementOne.classList.add('d-none');
-        } else {
 
-            elementOne.classList.add('d-none');
-            elementTwo.classList.remove('d-none');
-        }
-    }
+    if (id) elementOne.classList.add('d-none');
+    if (id2) elementTwo.classList.remove('d-none');
+
     renderAllSelectedContacts();
     renderCategorys();
     createCategoryWindow();
     borderColorCheck();
-    let editWindow = document.getElementById('selectedContactsDeselect');
-    editWindow.classList.add('d-none');
+
+    document.getElementById('selectedContactsDeselect').classList.add('d-none');
 }
 //---------------------------------------------------------------------------------//
 
@@ -342,17 +341,14 @@ async function toggleContactSelection(i) {
     await currentUserContactsLoad();
     const contact = contactsArray[i];
     const el = (suffix) => document.getElementById(`${suffix}${i}`);
-    const mainElement = el('assignedContactsBox'),
-        firstSecondary = el('assignedBox'),
-        secondSecondary = el('assignedBoxChecked');
+    const [mainElement, firstSecondary, secondSecondary] = [el('assignedContactsBox'), el('assignedBox'), el('assignedBoxChecked')];
 
     if (mainElement.classList.contains('assignedContactsBox')) {
         selectContact(mainElement, firstSecondary, secondSecondary);
-        if (!contactCollection.some(c => c.name === contact.name && c.color === contact.color)) contactCollection.push(contact);
+        if (!contactCollection.some(c => c.name === contact.name)) contactCollection.push(contact);
     } else {
         deselectContact(mainElement, firstSecondary, secondSecondary);
-        const index = contactCollection.findIndex(c => c.name === contact.name && c.color === contact.color);
-        if (index > -1) contactCollection.splice(index, 1);
+        contactCollection = contactCollection.filter(c => c.name !== contact.name || c.color !== contact.color);
     }
     saveTaskElements();
 }
@@ -502,11 +498,6 @@ function resetInputValueAndColor(inputElem) {
 //Prio Buttons class-change//
 /**
  * Updates visual representation of priority buttons.
- * @param {string} btnId - ID of the priority button.
- * @param {string} iconId - ID of the inactive icon.
- * @param {string} activeIconId - ID of the active icon.
- * @param {string} activeClass - CSS class to apply when active.
- * @param {boolean} resetOther - Determines if other buttons should be reset.
  */
 function activateButton(btnId, iconId, activeIconId, activeClass, iconSrc) {
     document.getElementById(btnId).classList.add(activeClass);
