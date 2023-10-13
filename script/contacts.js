@@ -24,7 +24,6 @@ async function initContacts() {
     markCategory();
 }
 
-
 /** * This function us used to render the contact informations and sort it */
 function renderContacts() {
     let userContent = document.getElementById('contactsId');
@@ -50,19 +49,24 @@ function pullNameAbbreviation(userContent, previousFirstLetter) {
         nameAbbreviationArray.push(nameAbbreviation);
 
         if (firstLetter !== previousFirstLetter) {
-            userContent.innerHTML += /* html */
-                `<div class="firstLetterOverContact horicontal fontSize20">
-                    ${firstLetter}
-                </div>
-                <div class="partingLine">
-                </div>
-            `;
+            userContent.innerHTML += contatcsCategory(firstLetter);
             previousFirstLetter = firstLetter;
         }
 
         userContent.innerHTML += loadContactInfos(contact, nameAbbreviation, i);
         addNameAbbreviationInContactsArray();
     }
+}
+
+/** This function is used to create the first letter of a name for the category */
+function contatcsCategory(firstLetter) {
+    return /* html */ `
+    <div class="firstLetterOverContact horicontal fontSize20">
+        ${firstLetter}
+    </div>
+    <div class="partingLine">
+    </div>
+    `
 }
 
 /** * This function is used to save the name abbreviation in the contacts array */
@@ -102,12 +106,8 @@ function maxLetters(text, maxLength) {
 /** * This function is used to display the adding screen for new contacts */
 function addContact() {
     resetFunctionImageText();
-
     showNotOnMobileView('cancelBtnMobileId');
-    document.getElementById('inputNameId').value = '';
-    document.getElementById('inputEmailId').value = '';
-    document.getElementById('inputPhoneId').value = '';
-
+    clearInputFields();
     toggleVisibility('addContactId', true);
 }
 
@@ -122,12 +122,8 @@ async function createContact() {
     }
     contactsArray.push(newContact);
     await currentUserContactsSave();
-
-    document.getElementById('inputNameId').value = '';
-    document.getElementById('inputEmailId').value = '';
-    document.getElementById('inputPhoneId').value = '';
-
-    closePopup();
+    clearInputFields();
+    slideOut('swipeContactPopupId', 'addContactId', 200);
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('mobileVisibilityId', true);
     renderContacts();
@@ -135,6 +131,14 @@ async function createContact() {
     hoverNewContact(newContact);
 }
 
+/** This function is to clear the input fields in a popup */
+function clearInputFields() {
+    document.getElementById('inputNameId').value = '';
+    document.getElementById('inputEmailId').value = '';
+    document.getElementById('inputPhoneId').value = '';
+}
+
+/** This function is to hover the contact after the contact is created */
 function hoverNewContact(newContact) {
     const newIndex = contactsArray.findIndex(contact => contact.name === newContact.name);
     openContactBigInfo(newContact, newIndex, newContact['nameAbbreviation']);
@@ -145,7 +149,6 @@ function getColor() {
     if (nextColorIndex >= colorArray.length) {
         nextColorIndex = 0;
     }
-
     let color = colorArray[nextColorIndex];
     nextColorIndex++;
     setItem('nextColorIndex', JSON.stringify(nextColorIndex));
@@ -157,11 +160,7 @@ function openContactBigInfo(contact, i, nameAbbreviation) {
     slideOneObject('contactInfoBigId');
     showOnMobileView('mobileDotsSymbol');
     toggleVisibility('mobileAddContactId', false);
-    document.getElementById('mobileDotsSymbol').innerHTML = /*html*/`
-    <div class="mobileAddContact horicontalAndVertical pointer" onclick="slideOneObject('mobileEditDeleteBoxId'), openMobileEditMenu(${i})">
-    <img src="./img/more_vert.svg">
-    </div>
-    `
+    document.getElementById('mobileDotsSymbol').innerHTML = mobileEditMenu(i);
     showArrowMobileView();
     changeFunction(i);
     highlightContact(i);
@@ -173,6 +172,15 @@ function openContactBigInfo(contact, i, nameAbbreviation) {
     deleteEditContactAtIndex(i);
     document.getElementById('deleteMobileButtonId').innerHTML = deleteContactMobile(i);
     deleteEditContactAtIndex(i);
+}
+
+/** This function is used to create the button for the mobile view edit contact menu */
+function mobileEditMenu(i) {
+    return /*html*/`
+    <div class="mobileAddContact horicontalAndVertical pointer" onclick="slideOneObject('mobileEditDeleteBoxId'), openMobileEditMenu(${i})">
+    <img src="./img/more_vert.svg">
+    </div>
+    `
 }
 
 /** * This function is used to show the back button on the mobile view */
@@ -203,37 +211,18 @@ function editContactMobile(i) {
     showOnMobileView('cancelBtnMobileId');
     return /* html */ `
     <div class="mobileEdit gap8 d-flex padding8 pointer colorOnHover" onclick="editContact(${i})">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <mask id="mask0_89141_3992" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
-                width="24" height="24">
-                <rect width="24" height="24" fill="#D9D9D9" />
-            </mask>
-            <g mask="url(#mask0_89141_3992)">
-                <path
-                d="M5 19H6.4L15.025 10.375L13.625 8.975L5 17.6V19ZM19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z"
-                fill="#2A3647" />
-            </g>
-        </svg>
+    ${getPencilSVG()}
         <span class="fontSize16 mobileEditText">Edit</span>
     </div>
 `
 }
 
+/** This function is to delete a contact on mobile view */
 function deleteContactMobile(i) {
     showOnMobileView('deleteMobileButtonId');
     return /* html */ `
     <div class="mobileDelete gap8 d-flex padding8 pointer colorOnHover" onclick="deleteContact(${i}), closePopupMobile()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-            <mask id="mask0_89141_3997" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
-                width="25" height="24">
-                <rect x="0.5" width="24" height="24" fill="#D9D9D9" />
-            </mask>
-            <g mask="url(#mask0_89141_3997)">
-                <path
-                    d="M7.5 21C6.95 21 6.47917 20.8042 6.0875 20.4125C5.69583 20.0208 5.5 19.55 5.5 19V6C5.21667 6 4.97917 5.90417 4.7875 5.7125C4.59583 5.52083 4.5 5.28333 4.5 5C4.5 4.71667 4.59583 4.47917 4.7875 4.2875C4.97917 4.09583 5.21667 4 5.5 4H9.5C9.5 3.71667 9.59583 3.47917 9.7875 3.2875C9.97917 3.09583 10.2167 3 10.5 3H14.5C14.7833 3 15.0208 3.09583 15.2125 3.2875C15.4042 3.47917 15.5 3.71667 15.5 4H19.5C19.7833 4 20.0208 4.09583 20.2125 4.2875C20.4042 4.47917 20.5 4.71667 20.5 5C20.5 5.28333 20.4042 5.52083 20.2125 5.7125C20.0208 5.90417 19.7833 6 19.5 6V19C19.5 19.55 19.3042 20.0208 18.9125 20.4125C18.5208 20.8042 18.05 21 17.5 21H7.5ZM7.5 6V19H17.5V6H7.5ZM9.5 16C9.5 16.2833 9.59583 16.5208 9.7875 16.7125C9.97917 16.9042 10.2167 17 10.5 17C10.7833 17 11.0208 16.9042 11.2125 16.7125C11.4042 16.5208 11.5 16.2833 11.5 16V9C11.5 8.71667 11.4042 8.47917 11.2125 8.2875C11.0208 8.09583 10.7833 8 10.5 8C10.2167 8 9.97917 8.09583 9.7875 8.2875C9.59583 8.47917 9.5 8.71667 9.5 9V16ZM13.5 16C13.5 16.2833 13.5958 16.5208 13.7875 16.7125C13.9792 16.9042 14.2167 17 14.5 17C14.7833 17 15.0208 16.9042 15.2125 16.7125C15.4042 16.5208 15.5 16.2833 15.5 16V9C15.5 8.71667 15.4042 8.47917 15.2125 8.2875C15.0208 8.09583 14.7833 8 14.5 8C14.2167 8 13.9792 8.09583 13.7875 8.2875C13.5958 8.47917 13.5 8.71667 13.5 9V16Z"
-                    fill="#2A3647" />
-            </g>
-        </svg>
+    ${getDeleteSVG()}
         <span class="fontSize16 mobileDeleteText">Delete</span>
     </div>
     `
@@ -257,19 +246,16 @@ function closePopupMobile() {
     toggleVisibility('mobileDotsSymbol', false);
     toggleVisibility('mobileAddContactId', true);
     resetFunctionImageText();
+    highlightContactMobile();
+}
+
+/** * This function is used to reset the highlight of the contact which is onclicked on mobile view*/
+function highlightContactMobile() {
     let highlightContact = document.querySelectorAll('.contactsInfo');
     highlightContact.forEach((highlightContactElement) => {
         highlightContactElement.style.backgroundColor = '';
         highlightContactElement.style.color = '';
     });
-}
-
-/** * This function is used to make div-container unvisible or visible after a specific time*/
-function toggleVisibilityAfterXseconds(id, show, time) {
-    setTimeout(function () {
-        const showHide = document.getElementById(id);
-        showHide.classList.toggle('d-none', !show);
-    }, time);
 }
 
 /** * This function is used to pull the index from the contact and give it to the onclicked person */
@@ -278,28 +264,12 @@ function deleteEditContactAtIndex(i) {
     deleteContact.innerHTML = /* html */ `
     <div class="colorOnHover">
         <div class="editDeleteContact pointer horicontal" onclick="editContact(${i})">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <mask id="mask0_87783_3876" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-                    <rect width="24" height="24" fill="#D9D9D9"/>
-                </mask>
-                <g mask="url(#mask0_87783_3876)">
-                    <path d="M5 19H6.4L15.025 10.375L13.625 8.975L5 17.6V19ZM19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z" fill="#2A3647"/>
-                </g>
-            </svg>
-            Edit
+            ${getPencilSVG()}Edit
         </div>
     </div>
     <div class="colorOnHover">
         <div class="editDeleteContact pointer horicontal" onclick="deleteContact(${i})">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <mask id="mask0_87783_4140" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-                    <rect width="24" height="24" fill="#D9D9D9"/>
-                </mask>
-                <g mask="url(#mask0_87783_4140)">
-                    <path d="M7 21C6.45 21 5.97917 20.8042 5.5875 20.4125C5.19583 20.0208 5 19.55 5 19V6C4.71667 6 4.47917 5.90417 4.2875 5.7125C4.09583 5.52083 4 5.28333 4 5C4 4.71667 4.09583 4.47917 4.2875 4.2875C4.47917 4.09583 4.71667 4 5 4H9C9 3.71667 9.09583 3.47917 9.2875 3.2875C9.47917 3.09583 9.71667 3 10 3H14C14.2833 3 14.5208 3.09583 14.7125 3.2875C14.9042 3.47917 15 3.71667 15 4H19C19.2833 4 19.5208 4.09583 19.7125 4.2875C19.9042 4.47917 20 4.71667 20 5C20 5.28333 19.9042 5.52083 19.7125 5.7125C19.5208 5.90417 19.2833 6 19 6V19C19 19.55 18.8042 20.0208 18.4125 20.4125C18.0208 20.8042 17.55 21 17 21H7ZM7 6V19H17V6H7ZM9 16C9 16.2833 9.09583 16.5208 9.2875 16.7125C9.47917 16.9042 9.71667 17 10 17C10.2833 17 10.5208 16.9042 10.7125 16.7125C10.9042 16.5208 11 16.2833 11 16V9C11 8.71667 10.9042 8.47917 10.7125 8.2875C10.5208 8.09583 10.2833 8 10 8C9.71667 8 9.47917 8.09583 9.2875 8.2875C9.09583 8.47917 9 8.71667 9 9V16ZM13 16C13 16.2833 13.0958 16.5208 13.2875 16.7125C13.4792 16.9042 13.7167 17 14 17C14.2833 17 14.5208 16.9042 14.7125 16.7125C14.9042 16.5208 15 16.2833 15 16V9C15 8.71667 14.9042 8.47917 14.7125 8.2875C14.5208 8.09583 14.2833 8 14 8C13.7167 8 13.4792 8.09583 13.2875 8.2875C13.0958 8.47917 13 8.71667 13 9V16Z" fill="#2A3647"/>
-                </g>
-            </svg>
-            Delete
+            ${getDeleteSVG()}Delete
         </div>
     </div>
     `
@@ -311,6 +281,13 @@ async function deleteContact(i) {
     resetFunctionImageText();
     contactsArray.splice(i, 1);
     await currentUserContactsSave();
+    showHideAfterDeleteContact();
+    changeButtonTextToDeleted();
+    renderContacts();
+}
+
+/** This function is to show or hide objects after deleting a contact */
+function showHideAfterDeleteContact() {
     toggleVisibility('mobileEditDeleteBoxId', false);
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
@@ -318,8 +295,6 @@ async function deleteContact(i) {
     toggleVisibility('mobileDotsSymbol', false);
     toggleVisibility('mobileAddContactId', true);
     showNotOnMobileView('mobileVisibilityId');
-    changeButtonTextToDeleted();
-    renderContacts();
 }
 
 /** * This function is used to edit a contact */
@@ -335,7 +310,6 @@ async function editContact(i) {
 
     changeText();
     changeFunction(i);
-
     await currentUserContactsSave();
     renderContacts();
     highlightContact(i);
@@ -355,17 +329,22 @@ async function saveContact(i) {
     document.getElementById('phoneId').innerHTML = contactsArray[i].phone;
 
     changesSaved('Contact successfully saved');
-    toggleVisibility('mobileDotsSymbol', false);
-    toggleVisibility('mobileAddContactId', true);
     resetFunctionImageText();
     changeText();
-    closePopup();
+    slideOut('swipeContactPopupId', 'addContactId', 200);
+    showHideAfterSaveContact();
+    highlightContact(i);
+    renderContacts();
+}
+
+/** This function is to show or hide objects after saving a contact */
+function showHideAfterSaveContact() {
+    toggleVisibility('mobileDotsSymbol', false);
+    toggleVisibility('mobileAddContactId', true);
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
     showNotOnMobileView('mobileVisibilityId');
-    highlightContact(i);
-    renderContacts();
 }
 
 /** * This function is used to change the text in a container */
@@ -409,16 +388,12 @@ function originalFunction() {
     };
     const editCancelButton = document.getElementById('editCancelButtonId');
     editCancelButton.onclick = function () {
-        closePopup();
+        slideOut('swipeContactPopupId', 'addContactId', 200);
     };
     const editAddContactButton = document.getElementById('mobileAddContactId');
     editAddContactButton.onclick = function () {
         addContact();
     };
-}
-
-function closePopup() {
-    slideOut('swipeContactPopupId', 'addContactId', 200);
 }
 
 /** * This function is to reset the changeImage() */

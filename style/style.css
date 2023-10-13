@@ -211,7 +211,11 @@
     .leftContainer {
         margin-left: 0;
     }
+}
 
+/* hover fot svg images */
+.colorOnHover:hover path {
+    fill: #29ABE2 !important;
 }
 
 @media (max-width: 768px) {

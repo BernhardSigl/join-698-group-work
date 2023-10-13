@@ -321,6 +321,8 @@ input {
     position: absolute;
     top: 48px;
     right: 48px;
+    width: 32px;
+    height: 32px;
 }
 
 .closePopupCross:hover {
@@ -389,7 +391,7 @@ input {
     color: #29ABE2;
 }
 
-.editDeleteContact img {
+.editDeleteContact svg {
     width: 24px;
     height: 24px;
     margin-right: 8px;
@@ -543,10 +545,6 @@ section {
     100% {
         transform: translateX(400%);
     }
-}
-
-.colorOnHover:hover path {
-    fill: #29ABE2 !important;
 }
 
 .contacts-container::-webkit-scrollbar-button:start:decrement {
