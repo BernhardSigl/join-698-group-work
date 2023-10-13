@@ -175,7 +175,7 @@ function updateBoardHTML() {
 function renderToDo() {
     let todo = tasks.filter(t => t['status'] == 'toDo');
     if (todo.length === 0) {
-        document.getElementById('toDo').innerHTML = /*html*/` 
+        document.getElementById('toDo').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks To do</div>
         `;
     } else {
@@ -194,7 +194,7 @@ function renderToDo() {
 function renderInProgress() {
     let inProgress = tasks.filter(t => t['status'] == 'in-progress');
     if (inProgress.length === 0) {
-        document.getElementById('in-progress').innerHTML = /*html*/` 
+        document.getElementById('in-progress').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks In progress</div>
         `;
     } else {
@@ -213,7 +213,7 @@ function renderInProgress() {
 function renderAwaitingFeedback() {
     let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
     if (awaitingFeedback.length === 0) {
-        document.getElementById('awaiting-feedback').innerHTML = /*html*/` 
+        document.getElementById('awaiting-feedback').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks Await Feedback</div>
         `;
     } else {
@@ -232,7 +232,7 @@ function renderAwaitingFeedback() {
 function renderDone() {
     let done = tasks.filter(t => t['status'] == 'done');
     if (done.length === 0) {
-        document.getElementById('done').innerHTML = /*html*/` 
+        document.getElementById('done').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks Done</div>
         `;
     } else {
@@ -262,9 +262,11 @@ function generateTaskHTML(element) {
         assignedUser += /*html*/ ` 
        <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
     }
-
-    return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTask(${i})" class="task">
-            <div class="task-top fontSize16">
+    let switcher = /*html*/ `  
+    <div><button onclick="switchStatusToDo(${i})">todo</button></div>
+    `;
+    return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
+            <div class="task-top fontSize16" onclick="openTask(${i})">
                 <div class="task-category" style="${element['categoryColor']}">${element['category']}</div>
                 <span class="task-title fontSize16">${element['title']}</span>
                 <div class="task-description show-scrollbar"> ${element['description']}</div>
@@ -276,8 +278,19 @@ function generateTaskHTML(element) {
                 </div>
                 <img src="${element['priority']}">
             </div>
+           ${switcher}
         </div>
     `;
+}
+
+async function switchStatusToDo(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "toDo";
+    console.log(tasks)
+    await currentUserTaskSave();
+    updateBoardHTML();
+   
 }
 
 /**
