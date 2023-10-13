@@ -167,40 +167,61 @@ function updateBoardHTML() {
     renderAwaitingFeedback();
     renderDone();
 }
+
 /**
  * This function renders tasks with the status todo
  * 
  */
-function renderToDo(){
+function renderToDo() {
     let todo = tasks.filter(t => t['status'] == 'toDo');
-    document.getElementById('toDo').innerHTML = '';
-    for (let index = 0; index < todo.length; index++) {
-        const element = todo[index];
-        document.getElementById('toDo').innerHTML += generateTaskHTML(element);
+    if (todo.length === 0) {
+        document.getElementById('toDo').innerHTML = /*html*/` 
+        <div class="status-empty">No tasks To do</div>
+        `;
+    } else {
+        document.getElementById('toDo').innerHTML = '';
+        for (let index = 0; index < todo.length; index++) {
+            const element = todo[index];
+            document.getElementById('toDo').innerHTML += generateTaskHTML(element);
+        }
     }
 }
+
 /**
  * This function renders tasks with the status in progress
  * 
  */
-function renderInProgress(){
+function renderInProgress() {
     let inProgress = tasks.filter(t => t['status'] == 'in-progress');
-    document.getElementById('in-progress').innerHTML = '';
-    for (let index = 0; index < inProgress.length; index++) {
-        const element = inProgress[index];
-        document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
+    if (inProgress.length === 0) {
+        document.getElementById('in-progress').innerHTML = /*html*/` 
+        <div class="status-empty">No tasks In progress</div>
+        `;
+    } else {
+        document.getElementById('in-progress').innerHTML = '';
+        for (let index = 0; index < inProgress.length; index++) {
+            const element = inProgress[index];
+            document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
+        }
     }
 }
+
 /**
  * This function renders tasks with the status awaiting feedback
  * 
  */
-function renderAwaitingFeedback(){
+function renderAwaitingFeedback() {
     let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
-    document.getElementById('awaiting-feedback').innerHTML = '';
-    for (let index = 0; index < awaitingFeedback.length; index++) {
-        const element = awaitingFeedback[index];
-        document.getElementById('awaiting-feedback').innerHTML += generateTaskHTML(element);
+    if (awaitingFeedback.length === 0) {
+        document.getElementById('awaiting-feedback').innerHTML = /*html*/` 
+        <div class="status-empty">No tasks Await Feedback</div>
+        `;
+    } else {
+        document.getElementById('awaiting-feedback').innerHTML = '';
+        for (let index = 0; index < awaitingFeedback.length; index++) {
+            const element = awaitingFeedback[index];
+            document.getElementById('awaiting-feedback').innerHTML += generateTaskHTML(element);
+        }
     }
 }
 
@@ -208,12 +229,18 @@ function renderAwaitingFeedback(){
  * This function renders tasks with the status done
  * 
  */
-function renderDone(){
+function renderDone() {
     let done = tasks.filter(t => t['status'] == 'done');
-    document.getElementById('done').innerHTML = '';
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('done').innerHTML += generateTaskHTML(element);
+    if (done.length === 0) {
+        document.getElementById('done').innerHTML = /*html*/` 
+        <div class="status-empty">No tasks Done</div>
+        `;
+    } else {
+        document.getElementById('done').innerHTML = '';
+        for (let index = 0; index < done.length; index++) {
+            const element = done[index];
+            document.getElementById('done').innerHTML += generateTaskHTML(element);
+        }
     }
 }
 
