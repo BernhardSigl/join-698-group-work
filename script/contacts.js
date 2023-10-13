@@ -127,6 +127,7 @@ async function createContact() {
     document.getElementById('inputEmailId').value = '';
     document.getElementById('inputPhoneId').value = '';
 
+    closePopup();
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('mobileVisibilityId', true);
     renderContacts();
@@ -354,6 +355,7 @@ async function saveContact(i) {
     changesSaved('Contact successfully saved');
     resetFunctionImageText();
     changeText();
+    closePopup();
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
@@ -409,6 +411,10 @@ function originalFunction() {
     editAddContactButton.onclick = function () {
         addContact();
     };
+}
+
+function closePopup() {
+    slideOut('swipeContactPopupId', 'addContactId', 200);
 }
 
 /** * This function is to reset the changeImage() */
