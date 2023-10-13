@@ -309,12 +309,14 @@ function deleteEditContactAtIndex(i) {
 async function deleteContact(i) {
     changesSaved('Contact successfully deleted');
     resetFunctionImageText();
-    toggleVisibility('mobileEditDeleteBoxId', false);
     contactsArray.splice(i, 1);
     await currentUserContactsSave();
+    toggleVisibility('mobileEditDeleteBoxId', false);
     toggleVisibility('mobileBackArrowId', false);
-    toggleVisibility('contactInfoBigId', false); //
-    toggleVisibility('contactsTitleId', true); //
+    toggleVisibility('contactInfoBigId', false);
+    toggleVisibility('contactsTitleId', true);
+    toggleVisibility('mobileDotsSymbol', false);
+    toggleVisibility('mobileAddContactId', true);
     showNotOnMobileView('mobileVisibilityId');
     changeButtonTextToDeleted();
     renderContacts();
@@ -353,6 +355,8 @@ async function saveContact(i) {
     document.getElementById('phoneId').innerHTML = contactsArray[i].phone;
 
     changesSaved('Contact successfully saved');
+    toggleVisibility('mobileDotsSymbol', false);
+    toggleVisibility('mobileAddContactId', true);
     resetFunctionImageText();
     changeText();
     closePopup();
