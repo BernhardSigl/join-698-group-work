@@ -331,7 +331,6 @@ async function saveContact(i) {
     changesSaved('Contact successfully saved');
     resetFunctionImageText();
     changeText();
-    slideOut('swipeContactPopupId', 'addContactId', 200);
     showHideAfterSaveContact();
     highlightContact(i);
     renderContacts();
@@ -344,6 +343,7 @@ function showHideAfterSaveContact() {
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
+    slideOut('swipeContactPopupId', 'addContactId', 200);
     showNotOnMobileView('mobileVisibilityId');
 }
 
