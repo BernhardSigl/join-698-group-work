@@ -157,41 +157,65 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
 
+/**
+ * This function updates the board
+ * 
+ */
 function updateBoardHTML() {
-
+    renderToDo();
+    renderInProgress();
+    renderAwaitingFeedback();
+    renderDone();
+}
+/**
+ * This function renders tasks with the status todo
+ * 
+ */
+function renderToDo(){
     let todo = tasks.filter(t => t['status'] == 'toDo');
     document.getElementById('toDo').innerHTML = '';
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
         document.getElementById('toDo').innerHTML += generateTaskHTML(element);
-        // searchUsers(element);
     }
-
+}
+/**
+ * This function renders tasks with the status in progress
+ * 
+ */
+function renderInProgress(){
     let inProgress = tasks.filter(t => t['status'] == 'in-progress');
     document.getElementById('in-progress').innerHTML = '';
     for (let index = 0; index < inProgress.length; index++) {
         const element = inProgress[index];
         document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
-        // searchUsers(element);
     }
-
+}
+/**
+ * This function renders tasks with the status awaiting feedback
+ * 
+ */
+function renderAwaitingFeedback(){
     let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
     document.getElementById('awaiting-feedback').innerHTML = '';
     for (let index = 0; index < awaitingFeedback.length; index++) {
         const element = awaitingFeedback[index];
         document.getElementById('awaiting-feedback').innerHTML += generateTaskHTML(element);
-        // searchUsers(element);
     }
+}
 
+/**
+ * This function renders tasks with the status done
+ * 
+ */
+function renderDone(){
     let done = tasks.filter(t => t['status'] == 'done');
     document.getElementById('done').innerHTML = '';
     for (let index = 0; index < done.length; index++) {
         const element = done[index];
         document.getElementById('done').innerHTML += generateTaskHTML(element);
-        // searchUsers(element);
     }
 }
-
 
 /**
  * This function generates a small task card based on the given element
