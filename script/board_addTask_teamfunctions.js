@@ -229,8 +229,3 @@ document.getElementById('assignTo').addEventListener('click', function (event) {
     event.stopPropagation();
 });
 //---------------------------------------------------------------------------------//
-document.addEventListener("keyup", function (event) {
-    if (event.keyCode === 13 && document.activeElement.id === "eingabefeld") {
-        meineFunktion();
-    }
-});
