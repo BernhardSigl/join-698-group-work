@@ -85,7 +85,7 @@ function returnRenderSidebar() {
     <img src="img/join.logo-white.svg" alt="">
 </div>
 
-<div class="sidebar-text-area">
+<div id="sidebarLinks" class="sidebar-text-area">
     <div class="sideBarCategory">
         <a class="sidebar-text" href="./summary.html">
             <div class="sidebar-text-sub">
@@ -214,4 +214,10 @@ function changesSaved(inputText) {
 function toggleVisibility(id, show) {
     const showHide = document.getElementById(id);
     showHide.classList.toggle('d-none', !show);
+}
+
+function hideSidebarLinks() {
+    if (activUser.name === '') {
+        document.getElementById('sidebarLinks').classList.add('d-none');
+    }
 }
