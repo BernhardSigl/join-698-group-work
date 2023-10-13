@@ -69,9 +69,27 @@ function guestLogin() {
 
 function fillTestArray() {
     contactsArray = [
-        { name: 'adfs243243', nameAbbreviation: 'A', email: 'asdf@rf', phone: '234', color: '#FFA500' },
-        { name: 'Gast', nameAbbreviation: 'G', email: 'test@web.de', phone: '123456', color: '#00008B' }
-    ];
+        {
+            "name": "Bernhard Sigl",
+            "nameAbbreviation": "BS",
+            "email": "B-Test@web.de",
+            "phone": "01631234567",
+            "color": "#006400"
+        },
+        {
+            "name": "David Peterka",
+            "nameAbbreviation": "DP",
+            "email": "test@web.de",
+            "phone": "123456",
+            "color": "#00008B"
+        },
+        {
+            "name": "Lina Wionsek",
+            "nameAbbreviation": "LW",
+            "email": "test2@web.de",
+            "phone": "123456",
+            "color": "#8B0000"
+        }];
 
     tasks = [{
         "id": 26,
