@@ -212,8 +212,8 @@ body {
     padding: 4px;
     font-size: 16px;
     white-space: nowrap;   
+    width: 200px;
 }
-
 
 .drag-area {
     height: 100%;
@@ -250,7 +250,6 @@ body {
     cursor: pointer;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
-
 
 .task-category {
     border-radius: 8px;
@@ -304,7 +303,6 @@ body {
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
     border: 1px solid #D1D1D1;
     padding: 20px;
-    /* overflow: auto; */
 }
 
 .close-hover:hover {
@@ -407,7 +405,6 @@ body {
     background-color: #EEE;
     border-radius: 10px;
 }
-
 
 .profile-picture {
     height: 32px;
