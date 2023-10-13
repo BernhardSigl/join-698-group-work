@@ -1,5 +1,5 @@
 let currentDraggedElement;
-let assignedUser;
+let assignedUserDetail;
 let taskPriority;
 let subtaskHeadline;
 let inProgress;
@@ -192,29 +192,6 @@ function updateBoardHTML() {
     }
 }
 
-/**
- *This function updates the progress bar based on the finished subtasks 
- *  
- * @param {Object} - The task element 
- * @returns {string} The generated HTML string representing the progress bar
- */
-function updateProgressbar(element) {
-    let openSubasks = element['subtasksInProgress'].length
-    let finishedSubasks = element['subtasksFinish'].length
-    let allSubtasks = openSubasks + finishedSubasks
-    let percent = finishedSubasks / allSubtasks;
-    percent = Math.round(percent * 100);
-
-    return /*html*/ `  
-    <div class="task-progress">
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
-            <div class="progress-bar" style="background-color: #4589FF; width:${percent}%">
-            </div> 
-        </div>
-        <span class="fontSize12">${finishedSubasks}/${allSubtasks} Subtasks
-        </span>
-    </div> `
-}
 
 /**
  * This function generates a small task card based on the given element
@@ -253,6 +230,31 @@ function generateTaskHTML(element) {
 }
 
 /**
+ *This function updates the progress bar based on the finished subtasks 
+ *  
+ * @param {Object} - The task element 
+ * @returns {string} The generated HTML string representing the progress bar
+ */
+function updateProgressbar(element) {
+    let openSubasks = element['subtasksInProgress'].length
+    let finishedSubasks = element['subtasksFinish'].length
+    let allSubtasks = openSubasks + finishedSubasks
+    let percent = finishedSubasks / allSubtasks;
+    percent = Math.round(percent * 100);
+
+    return /*html*/ `  
+    <div class="task-progress">
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
+            <div class="progress-bar" style="background-color: #4589FF; width:${percent}%">
+            </div> 
+        </div>
+        <span class="fontSize12">${finishedSubasks}/${allSubtasks} Subtasks
+        </span>
+    </div> `
+}
+
+
+/**
  * This function sets the global variable 'currentDraggedElement' with the index of the task having the specified ID
  * 
  * @param {number} id - The id of the task to find
@@ -261,6 +263,7 @@ function startDragging(id) {
     let index = tasks.findIndex(task => task.id === id);
     currentDraggedElement = index;
 }
+
 
 /**
  * This function finds the task by its ID and triggers rendering its detailed view
@@ -271,6 +274,7 @@ async function openTask(i) {
     let index = tasks.findIndex(task => task.id === i);
     renderTaskdetailHTML(index)
 }
+
 
 /**
  * This function renders the detail view of the task
@@ -285,6 +289,7 @@ function renderTaskdetailHTML(i) {
     createHTML(i)
 }
 
+
 /**
  * This function renders the subtask headline 
  * 
@@ -296,6 +301,7 @@ function renderSubtaskHeadline() {
      Subtasks
     </div>`
 }
+
 
 /**
  * This function shows the subtasks in progress, if available
@@ -320,6 +326,7 @@ function showSubtasksInProgress(i) {
     updateBoardHTML();
 }
 
+
 /**
  * This function shows the finished subtasks, if available
  * 
@@ -339,6 +346,7 @@ function showSubtasksFinished(i) {
     }
     updateBoardHTML();
 }
+
 
 /**
  * This function renders the priority
@@ -360,6 +368,7 @@ function renderPriorityText(i) {
         taskPriority = "Urgent"
     }
 }
+
 
 /**
  * This function renders the detailed task
@@ -396,7 +405,7 @@ function createHTML(i) {
                     <div>
                         <div class="margin-bottom10 task-detail-font-color">Assigned To:</div>
                         <div class="task-detail-users">                            
-                        ${assignedUser}
+                        ${assignedUserDetail}
                         </div>
                     </div>
                     <div class="task-detail-subtasks">                        
@@ -419,6 +428,7 @@ function createHTML(i) {
     `;
 }
 
+
 /**
  * This function shows the assigned user on the detailed task
  * 
@@ -429,12 +439,13 @@ function findAssignedUnser(i) {
     let userNames = tasks[i]['contactName'];
     let users = tasks[i]['contactAbbreviation'];
     let colors = tasks[i]['contactColor'];
-    assignedUser = '';
+    assignedUserDetail = '';
     for (let j = 0; j < users.length; j++) {
+
         let user = users[j];
         let userName = userNames[j]
         let color = colors[j]
-        return assignedUser += /*html*/ ` 
+        assignedUserDetail += /*html*/ ` 
         <div class="user-details">
             <div class="profile-picture horicontal-and-vertical" style="background-color:${color}">
                 ${user}
@@ -445,7 +456,10 @@ function findAssignedUnser(i) {
         </div>
         `;
     }
+    return assignedUserDetail
+
 }
+
 
 /**
  * This function switches the status ob a subtask to finished
