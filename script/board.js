@@ -244,6 +244,7 @@ function renderDone() {
     }
 }
 
+
 /**
  * This function generates a small task card based on the given element
  * 
@@ -262,36 +263,74 @@ function generateTaskHTML(element) {
         assignedUser += /*html*/ ` 
        <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
     }
-    let switcher = /*html*/ `  
-    <div><button onclick="switchStatusToDo(${i})">todo</button></div>
+    let mover = /*html*/ `  
+    <div class="move">
+        <div class="dropup">
+            <button class="dropbtn">Move</button>
+            <div class="dropup-content">
+                <a href="#" onclick="switchStatusToDo(${i})">To Do</a>
+                <a href="#" onclick="switchStatusToInProgress(${i})">In Progress</a>
+                <a href="#" onclick="switchStatusToAwaitFeedback(${i})">Await Feedback</a>
+                <a href="#" onclick="switchStatusToDone(${i})">Done</a>
+            </div>
+        </div>
+    </div>
     `;
-    return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
-            <div class="task-top fontSize16" onclick="openTask(${i})">
-                <div class="task-category" style="${element['categoryColor']}">${element['category']}</div>
-                <span class="task-title fontSize16">${element['title']}</span>
-                <div class="task-description show-scrollbar"> ${element['description']}</div>
-            </div>
-            ${updateProgressbar(element)}
-            <div class="task-users-prio">
-                <div class="task-users">
-                   ${assignedUser}
+    return /*html*/ `
+        <div draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
+            <div onclick="openTask(${i})"> 
+                <div class="task-top fontSize16">
+                    <div class="task-category" style="${element['categoryColor']}">${element['category']}</div>
+                    <div id="move-container">  </div>
+                    <span class="task-title fontSize16">${element['title']}</span>
+                    <div class="task-description show-scrollbar"> ${element['description']}</div>
                 </div>
-                <img src="${element['priority']}">
+                ${updateProgressbar(element)}
+                <div class="task-users-prio">
+                    <div class="task-users">
+                    ${assignedUser}
+                    </div>
+                    <img src="${element['priority']}">
+                </div>
             </div>
-           ${switcher}
+            ${mover}
         </div>
     `;
 }
+
+
 
 async function switchStatusToDo(i) {
     let index = tasks.findIndex(task => task.id === i);
     currentDraggedElement = index;
     tasks[currentDraggedElement]['status'] = "toDo";
-    console.log(tasks)
     await currentUserTaskSave();
     updateBoardHTML();
-   
 }
+
+async function switchStatusToInProgress(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "in-progress";
+    await currentUserTaskSave();
+    updateBoardHTML();
+}
+ 
+async function switchStatusToAwaitFeedback(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "awaiting-feedback";
+    await currentUserTaskSave();
+    updateBoardHTML();
+}
+
+async function switchStatusToDone(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "done";
+    await currentUserTaskSave();
+    updateBoardHTML();
+} 
 
 /**
  *This function updates the progress bar based on the finished subtasks 
