@@ -232,7 +232,7 @@ function generateTaskHTML(element) {
         let user = users[j];
         let color = colors[j]
         assignedUser += /*html*/ ` 
-       <div class="profile-picture horicontal-and-vertical" style="background-color:${color} ">${user}</div>`;
+       <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
     }
 
     return /*html*/ `<div draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTask(${i})" class="task">

@@ -420,11 +420,10 @@ body {
 .profile-picture {
     height: 32px;
     width: 32px;
-    border: 1px solid white;
+    border: 1.5px solid white;
     border-radius: 100%;
     color: white;
     margin-right: -10px;
-
 }
 
 .horicontal-and-vertical {
