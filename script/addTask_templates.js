@@ -172,7 +172,7 @@ function returnEditContainer(i) {
  */
 function returnSubTaskCollection(subCollection, i) {
     return /*html*/ `
-    <ul class="dFlex spaceBtw">
+    <ul ondblclick="editSubtask(${i})" class="dFlex spaceBtw">
         <li>${subCollection}</li>
         <div>
             <img onclick="editSubtask(${i})" src="img/PenAddTask 1=edit.svg">
