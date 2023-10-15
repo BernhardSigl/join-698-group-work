@@ -1,5 +1,8 @@
 let dialog = document.getElementById('dialog');
 
+/**
+ * Initializes the login sequence by setting the active user, starting animations,
+ */
 async function initLogin() {
     activUser = {
         'name': '',
@@ -10,7 +13,9 @@ async function initLogin() {
     await loadUserGroup698();
 }
 
-
+/**
+ * Populates the login dialog with the login template.
+ */
 function loadLogIn() {
     dialog.innerHTML = loadTempleteLogIn();
     let rememberedEmail = localStorage.getItem('rememberMe');
@@ -20,26 +25,41 @@ function loadLogIn() {
     }
 }
 
+/**
+ * Starts the join-logo animation if the document referrer is empty.
+ */
 function startAnimation() {
     if (!document.referrer) { // Wenn referrer leer ist
         document.querySelector('.join-logo-contain').classList.add('animated');
         document.querySelector('.join-logo-contain').classList.remove('d-none');
         document.querySelector('.join-logo').classList.add('animated');
     }
-};
+}
 
+/**
+ * Redirects the user to the registration page.
+ */
 function loadRegister() {
     window.location.href = "./register.html";
 }
 
+/**
+ * Populates the dialog with the password reset template.
+ */
 function resetPasswort() {
     dialog.innerHTML = loadTemplateResetPasswort();
 }
 
+/**
+ * Reverts the dialog back to the login interface.
+ */
 function closeDialog() {
     loadLogIn();
 }
 
+/**
+ * Validates user credentials and logs them in if valid.
+ */
 function login() {
     let email = document.getElementById('email');
     let passwort = document.getElementById('passwort');
@@ -60,6 +80,9 @@ function login() {
     }
 }
 
+/**
+ * Logs in a user as a guest and fills default data arrays.
+ */
 function guestLogin() {
     activUser.name = 'Guest698';
     saveActivUser();
@@ -67,6 +90,9 @@ function guestLogin() {
     window.location.href = "./summary.html";
 }
 
+/**
+ * Fills default test data for the guest login. This data includes sample contacts, tasks, and categories.
+ */
 function fillTestArray() {
     contactsArray = [
         {
@@ -199,6 +225,9 @@ function fillTestArray() {
     currentUserContactsSave();
 }
 
+/**
+ * Adds a red border to specified input elements indicating an error.
+ */
 function loadRedBorderInput() {
     let inputIds = ["input-email", "input-passwort"];
     for (let id of inputIds) {
@@ -206,6 +235,9 @@ function loadRedBorderInput() {
     }
 }
 
+/**
+ * Displays warning text templates for specified elements.
+ */
 function loadWarningTextTamplate() {
     let warningIds = ["warning-text-passwort", "warning-text-email"];
     for (let id of warningIds) {
@@ -213,6 +245,9 @@ function loadWarningTextTamplate() {
     }
 }
 
+/**
+ * Returns the HTML template for the login form.
+ */
 function loadTempleteLogIn() {
     return /*html*/ `
             <form onsubmit="login(); return false;">
