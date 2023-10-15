@@ -50,11 +50,11 @@ loadTaskElements();
 async function initAddTask() {
     loadActivUser();
     userCircle();
-    statusSelected('toDo')
+    markCategory();
     await currentUserTaskLoad();
     await currentUserIdLoad();
     await currentUserCategorysLoad();
-    markCategory();
+    statusSelected('toDo');
     renderAddTaskContent();
 }
 

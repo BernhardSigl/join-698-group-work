@@ -175,8 +175,8 @@ function returnSubTaskCollection(subCollection, i) {
     <ul ondblclick="editSubtask(${i})" class="dFlex spaceBtw">
         <li>${subCollection}</li>
         <div>
-            <img onclick="editSubtask(${i})" src="img/PenAddTask 1=edit.svg">
-            <img onclick="deleteSubtaskCollection(${i})" src="img/subTaskDelete.svg">
+            <img class="close-hover" onclick="editSubtask(${i})" src="img/PenAddTask 1=edit.svg">
+            <img class="close-hover" onclick="deleteSubtaskCollection(${i})" src="img/subTaskDelete.svg">
         </div>
     </ul>
     `;
