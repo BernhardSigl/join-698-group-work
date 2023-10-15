@@ -407,7 +407,9 @@ body {
 .task-detail-flex {
     display: flex;
 }
-
+.task-detail-flex img{
+    cursor: pointer;
+}
 .priority-container {
     display: flex;
     gap: 8px;
