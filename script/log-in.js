@@ -1,5 +1,6 @@
 let dialog = document.getElementById('dialog');
 
+
 /**
  * Initializes the login sequence by setting the active user, starting animations,
  */
@@ -13,6 +14,7 @@ async function initLogin() {
     await loadUserGroup698();
 }
 
+
 /**
  * Populates the login dialog with the login template.
  */
@@ -25,6 +27,7 @@ function loadLogIn() {
     }
 }
 
+
 /**
  * Starts the join-logo animation if the document referrer is empty.
  */
@@ -36,12 +39,14 @@ function startAnimation() {
     }
 }
 
+
 /**
  * Redirects the user to the registration page.
  */
 function loadRegister() {
     window.location.href = "./register.html";
 }
+
 
 /**
  * Populates the dialog with the password reset template.
@@ -50,12 +55,14 @@ function resetPasswort() {
     dialog.innerHTML = loadTemplateResetPasswort();
 }
 
+
 /**
  * Reverts the dialog back to the login interface.
  */
 function closeDialog() {
     loadLogIn();
 }
+
 
 /**
  * Validates user credentials and logs them in if valid.
@@ -80,6 +87,7 @@ function login() {
     }
 }
 
+
 /**
  * Logs in a user as a guest and fills default data arrays.
  */
@@ -89,6 +97,7 @@ function guestLogin() {
     fillTestArray();
     window.location.href = "./summary.html";
 }
+
 
 /**
  * Fills default test data for the guest login. This data includes sample contacts, tasks, and categories.
@@ -225,6 +234,7 @@ function fillTestArray() {
     currentUserContactsSave();
 }
 
+
 /**
  * Adds a red border to specified input elements indicating an error.
  */
@@ -234,6 +244,7 @@ function loadRedBorderInput() {
         document.getElementById(id).classList.add("red-border");
     }
 }
+
 
 /**
  * Displays warning text templates for specified elements.
@@ -245,48 +256,48 @@ function loadWarningTextTamplate() {
     }
 }
 
+
 /**
  * Returns the HTML template for the login form.
  */
 function loadTempleteLogIn() {
     return /*html*/ `
-            <form onsubmit="login(); return false;">
-                <div class="logInTitle">
-                    <div class="fontSize61"><b>Log in</b></div>
-                    <div class="underline"></div>
-                </div>
-                <div  class="input-fields fontSize20">
-                    <div id="input-email" class="input-field ">
-                        <input required id="email" type="text" placeholder="Email">
-                        <img src="./img/letter.svg" alt="Bild hinten" class="input-suffix">
-                    </div>
-                    <div class="warning-field">
-                    <span id="warning-text-email" class="d-none">
-                    Please enter the appropriate email address.
-                    </span>
-                    </div>
-                    <div id="input-passwort" class="input-field">
-                        <input required id="passwort" type="password" placeholder="Password">
-                        <img src="./img/lock.svg" alt="Bild hinten" class="input-suffix">
-                    </div>
-                    <div class="warning-field">
-                    <span id="warning-text-passwort" class="d-none">
-                    Please enter the appropriate password.
-                    </span>
-                    </div>
-                </div>
+    <form onsubmit="login(); return false;">
+        <div class="logInTitle">
+            <div class="fontSize61"><b>Log in</b></div>
+            <div class="underline"></div>
+        </div>
+        <div  class="input-fields fontSize20">
+            <div id="input-email" class="input-field ">
+                <input required id="email" type="text" placeholder="Email">
+                <img src="./img/letter.svg" alt="Bild hinten" class="input-suffix">
+            </div>
+            <div class="warning-field">
+            <span id="warning-text-email" class="d-none">
+            Please enter the appropriate email address.
+            </span>
+            </div>
+            <div id="input-passwort" class="input-field">
+                <input required id="passwort" type="password" placeholder="Password">
+                <img src="./img/lock.svg" alt="Bild hinten" class="input-suffix">
+            </div>
+            <div class="warning-field">
+            <span id="warning-text-passwort" class="d-none">
+            Please enter the appropriate password.
+            </span>
+            </div>
+        </div>
 
-                <div class="rememberMeForgetMyPasswordContainer">
-                    <div class="checkboxRememberMeContainer">
-                        <input type="checkbox" name="myCheckbox" id="myCheckbox">
-                        <label for=" fontSize16">Remember me</label>
-                    </div>
+        <div class="rememberMeForgetMyPasswordContainer">
+            <div class="checkboxRememberMeContainer">
+                <input type="checkbox" name="myCheckbox" id="myCheckbox">
+                <label for=" fontSize16">Remember me</label>
+            </div>
 
-                </div>
-                <div class="buttonsUnderLogin">
-                    <button type="submit" class="button-log-in fontSize21">Log in</button>
-                    <button onclick='guestLogin()' type="button" class="button-guest-login fontSize21">Guest log in</button>
-                </div>
-</form>
-    `
+        </div>
+        <div class="buttonsUnderLogin">
+            <button type="submit" class="button-log-in fontSize21">Log in</button>
+            <button onclick='guestLogin()' type="button" class="button-guest-login fontSize21">Guest log in</button>
+        </div>
+    </form>`;
 }
