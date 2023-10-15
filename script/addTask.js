@@ -383,40 +383,6 @@ async function toggleContactSelection(i, event) {
 }
 
 /**
- * Checks if a contact is in the `contactCollection`.
- * @param {Object} contact - The contact object to check.
- * @returns {boolean} - True if contact is in the collection, false otherwise.
- */
-function isContactInCollection(contact) {
-    return contactCollection.includes(contact);
-}
-
-/**
- * Sets styles to visually select a contact.
- * @param {HTMLElement} mainElement - Main contact DOM element.
- * @param {HTMLElement} firstSecondary - First secondary DOM element.
- * @param {HTMLElement} secondSecondary - Second secondary DOM element.
- */
-function selectContact(mainElement, firstSecondary, secondSecondary) {
-    mainElement.classList.remove('assignedContactsBox');
-    mainElement.classList.add('assignedContactsBoxSelected');
-    firstSecondary.classList.add('d-none');
-    secondSecondary.classList.remove('d-none');
-    return;
-}
-
-/**
- * Sets styles to visually deselect a contact.
- */
-function deselectContact(mainElement, firstSecondary, secondSecondary) {
-    mainElement.classList.remove('assignedContactsBoxSelected');
-    mainElement.classList.add('assignedContactsBox');
-    firstSecondary.classList.remove('d-none');
-    secondSecondary.classList.add('d-none');
-    return;
-}
-
-/**
  * Edits a selected contact by displaying an edit window and populating the input field with the contact's name.
  */
 function editSelectedContact(i) {
@@ -596,7 +562,7 @@ function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, r
  * This function determines which button to activate based on the value of currentPrioSelected.
  */
 function initializePrioButtons() {
-    if (!currentPrioSelected) return; // Wenn nichts ausgewählt ist, tue nichts.
+    if (!currentPrioSelected) return;
     let btnId, iconId, activeIconId, activeClass;
     switch (currentPrioSelected) {
         case './img/prioUrgent.svg':

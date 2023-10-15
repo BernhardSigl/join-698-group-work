@@ -1,4 +1,5 @@
 //categoryReturn//
+
 function returnCreateCategoryColors(color, index) {
     if (color === selectedColorIndex) {
         return /*html*/ `
@@ -55,6 +56,7 @@ function returnRenderAllCategorys(name, color, i) {
 }
 //---------------------------------------------------------------------------------//
 
+//contact return//
 
 //return render Contacts(all and selected)//
 /**
@@ -140,27 +142,61 @@ function returnSettingsSecond(secondSecondary) {
     return
 }
 
-function returnEditContact(i) {
-    return /*html*/`
-    <input id="editSelectedContact" readonly type="text">
-    <img onclick="stopEditContact()" class="editAbsolutCrossContact" src="img/close.svg">
-    <img onclick="clearSelectedContact(${i})" class="editAbsolutDelete" src="img/subTaskDelete.svg">
-    `;
+/**
+ * Checks if a contact is in the `contactCollection`.
+ * @param {Object} contact - The contact object to check.
+ * @returns {boolean} - True if contact is in the collection, false otherwise.
+ */
+function isContactInCollection(contact) {
+    return contactCollection.includes(contact);
+}
+
+/**
+ * Sets styles to visually select a contact.
+ * @param {HTMLElement} mainElement - Main contact DOM element.
+ * @param {HTMLElement} firstSecondary - First secondary DOM element.
+ * @param {HTMLElement} secondSecondary - Second secondary DOM element.
+ */
+function selectContact(mainElement, firstSecondary, secondSecondary) {
+    mainElement.classList.remove('assignedContactsBox');
+    mainElement.classList.add('assignedContactsBoxSelected');
+    firstSecondary.classList.add('d-none');
+    secondSecondary.classList.remove('d-none');
+    return;
+}
+
+/**
+ * Sets styles to visually deselect a contact.
+ */
+function deselectContact(mainElement, firstSecondary, secondSecondary) {
+    mainElement.classList.remove('assignedContactsBoxSelected');
+    mainElement.classList.add('assignedContactsBox');
+    firstSecondary.classList.remove('d-none');
+    secondSecondary.classList.add('d-none');
+    return;
 }
 //---------------------------------------------------------------------------------//
 
-
 //return Subtask//
+
 /**
  * Returns an HTML string representing the subtask editing container.
  * @param {number} i - Index of the subtask.
  * @returns {string} - HTML string for the subtask edit container.
- */
+*/
 function returnEditContainer(i) {
     return /*html*/ `
     <input id="editInput" type="text">
     <img onclick="stopSubEdit()" class="editAbsolutCross" src="img/close.svg">
     <img onclick="confirmSubEdit(${i})" class="editAbsolutCheck" src="img/SubtasksCheck.svg">
+    `;
+}
+
+function returnEditContact(i) {
+    return /*html*/`
+    <input id="editSelectedContact" readonly type="text">
+    <img onclick="stopEditContact()" class="editAbsolutCrossContact" src="img/close.svg">
+    <img onclick="clearSelectedContact(${i})" class="editAbsolutDelete" src="img/subTaskDelete.svg">
     `;
 }
 
@@ -183,8 +219,8 @@ function returnSubTaskCollection(subCollection, i) {
 }
 //---------------------------------------------------------------------------------//
 
-
 //return render functions//
+
 function returnButtonAreaAddTask() {
     return /*html*/ `
 <div class="addTaskBottomArea">
