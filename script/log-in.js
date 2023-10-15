@@ -92,29 +92,99 @@ function fillTestArray() {
         }];
 
     tasks = [{
-        "id": 26,
+        "id": 3,
         "status": "toDo",
         "category": "Technical Task",
         "categoryColor": "background: #1FD7C1",
-        "title": "Guest",
-        "description": "test text",
-        "dueDate": "11/10/2023",
+        "title": "first guest task",
+        "description": "text for task",
+        "dueDate": "22/10/2023",
         "priority": "./img/prioUrgent.svg",
         "contactName": [
-            "Gast"
+            "Bernhard Sigl",
+            "David Peterka",
+            "Lina Wionsek"
         ],
         "contactColor": [
-            "#00008B"
+            "#006400",
+            "#00008B",
+            "#8B0000"
         ],
         "contactAbbreviation": [
-            "G"
+            "BS",
+            "DP",
+            "LW"
         ],
         "subtasksInProgress": [
-            "test",
-            "test2"
+            "first subtask",
+            "second subtask",
+            "third subtask"
         ],
         "subtasksFinish": []
-    }];
+    },
+    {
+        "id": 4,
+        "status": "toDo",
+        "category": "New Category",
+        "categoryColor": "background: #FF6347",
+        "title": "second guest task",
+        "description": "text for task",
+        "dueDate": "24/10/2023",
+        "priority": "./img/prioMedium.svg",
+        "contactName": [
+            "Bernhard Sigl",
+            "David Peterka",
+            "Lina Wionsek"
+        ],
+        "contactColor": [
+            "#006400",
+            "#00008B",
+            "#8B0000"
+        ],
+        "contactAbbreviation": [
+            "BS",
+            "DP",
+            "LW"
+        ],
+        "subtasksInProgress": [
+            "first subtask",
+            "second subtask",
+            "third subtask"
+        ],
+        "subtasksFinish": []
+    },
+    {
+        "id": 5,
+        "status": "awaiting-feedback",
+        "category": "User Story",
+        "categoryColor": "background: #0038FF",
+        "title": "third guest task",
+        "description": "text for task",
+        "dueDate": "21/10/2023",
+        "priority": "./img/prioUrgent.svg",
+        "contactName": [
+            "Bernhard Sigl",
+            "David Peterka",
+            "Lina Wionsek"
+        ],
+        "contactColor": [
+            "#006400",
+            "#00008B",
+            "#8B0000"
+        ],
+        "contactAbbreviation": [
+            "BS",
+            "DP",
+            "LW"
+        ],
+        "subtasksInProgress": [
+            "first subtask",
+            "second subtask",
+            "third subtask"
+        ],
+        "subtasksFinish": []
+    }
+    ];
 
     allCategorys[0] = {
         "name": [
