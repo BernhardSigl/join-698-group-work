@@ -224,7 +224,20 @@ header {
     font-size: 20px;
 }
 
-@media (max-width: 768px) {
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    width: 100.034px;
+    height: 121.966px;
+    flex-shrink: 0;
+}
+
+
+@media (max-width: 700px) {
     header {
         display: flex;
         justify-content: space-between;
@@ -314,6 +327,13 @@ header {
     .input-fields {
         width: 100%;
     }
+
+    .logo-container img {
+        width: 40px;
+        height: 60px;
+        flex-shrink: 0;
+    }
+
 }
 
 @media (max-width: 375px) {
@@ -367,20 +387,9 @@ header {
     }
 }
 
-.logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.logo-container img {
-    width: 100.034px;
-    height: 121.966px;
-    flex-shrink: 0;
-}
 
 
-@media (max-height: 700px) {
+@media (max-height: 768px) {
     .fontSize61 {
         font-size: 34px !important;
     }
@@ -405,4 +414,5 @@ header {
     .rememberMeForgetMyPasswordContainer {
         margin: 8px 0 8px;
     }
+
 }
