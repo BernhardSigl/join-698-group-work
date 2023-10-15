@@ -6,6 +6,7 @@ isPolice = false;
 isNotice = false;
 openMenu = false;
 
+
 /**
  * Sets the active state for the provided sidebar item and resets other states.
  */
@@ -13,6 +14,7 @@ function loadHeaderSidebar(boolian) {
     resetBoolians();
     switchColorSidebar(boolian);
 }
+
 
 /**
  * Resets all the active states of the sidebar items.
@@ -26,6 +28,7 @@ function resetBoolians() {
     isNotice = false;
 }
 
+
 /**
  * Updates the active state for the specified sidebar item.
  */
@@ -36,16 +39,17 @@ function switchColorSidebar(boolian) {
     }
 }
 
+
 /**
  * Toggles the visibility of the header menu.
  */
 function openHeaderMenu(event) {
     event.stopPropagation();
     openMenu = !openMenu;
-
     let headerMenu = document.getElementById('menu-header-container');
     openMenu ? headerMenu.classList.remove('d-none') : headerMenu.classList.add('d-none');
 }
+
 
 /**
  * This function is used to mark the active .html page
@@ -67,6 +71,7 @@ function markCategory() {
     });
 }
 
+
 /**
  * Displays the user's initials within the specified HTML container.
  * Extracts the initials from the active user's name and populates them inside the designated container.
@@ -80,12 +85,14 @@ function userCircle() {
     container.innerHTML = nameAbbreviation
 }
 
+
 /**
  * Triggers the browser's back functionality.
  */
 function goBack() {
     window.history.back();
 }
+
 
 /**
  * Renders the header and sidebar UI elements.
@@ -94,6 +101,7 @@ function renderSidebarHeader() {
     renderHeader();
     renderSidebar();
 }
+
 
 /**
  * Populates the sidebar with content.
@@ -104,56 +112,58 @@ function renderSidebar() {
     container.innerHTML = returnRenderSidebar();
 }
 
+
 function returnRenderSidebar() {
     return /*html*/`
-    <div class="sidebar">
+<div class="sidebar">
 
-<div class="logo-container">
-    <img src="img/join.logo-white.svg" alt="">
-</div>
+    <div class="logo-container">
+        <img src="img/join.logo-white.svg" alt="">
+    </div>
 
-<div id="sidebarLinks" class="sidebar-text-area">
-    <div class="sideBarCategory">
-        <a class="sidebar-text" href="./summary.html">
-            <div class="sidebar-text-sub">
-                <img src="img/SummaryIcon.svg">
-                <div class="fontSize16 fontAtMobile">Summary</div>
-            </div>
-        </a>
+    <div id="sidebarLinks" class="sidebar-text-area">
+        <div class="sideBarCategory">
+            <a class="sidebar-text" href="./summary.html">
+                <div class="sidebar-text-sub">
+                    <img src="img/SummaryIcon.svg">
+                    <div class="fontSize16 fontAtMobile">Summary</div>
+                </div>
+            </a>
+        </div>
+        <div class="sideBarCategory">
+            <a class="sidebar-text" href="./addTask.html">
+                <div class="sidebar-text-sub">
+                    <img src="img/add.task.icons.svg">
+                    <div class="fontSize16 fontAtMobile">Add Task</div>
+                </div>
+            </a>
+        </div>
+        <div class="sideBarCategory">
+            <a class="sidebar-text" href="./board.html">
+                <div class="sidebar-text-sub">
+                    <img src="img/board-icon.svg">
+                    <div class="fontSize16 fontAtMobile">Board</div>
+                </div>
+            </a>
+        </div>
+        <div class="sideBarCategory">
+            <a class="sidebar-text" href="./contacts.html">
+                <div class="sidebar-text-sub">
+                    <img src="img/contacts-icon.svg">
+                    <div class="fontSize16 fontAtMobile">Contacts</div>
+                </div>
+            </a>
+        </div>
     </div>
-    <div class="sideBarCategory">
-        <a class="sidebar-text" href="./addTask.html">
-            <div class="sidebar-text-sub">
-                <img src="img/add.task.icons.svg">
-                <div class="fontSize16 fontAtMobile">Add Task</div>
-            </div>
-        </a>
+    <div class="quickLinksSidebar fontSize16">
+        <a href="./privacy-police.html" class="sidebar-bottom">Privacy Policy</a>
+        <a href="./legalNotice.html" class="sidebar-bottom">Legal notice</a>
     </div>
-    <div class="sideBarCategory">
-        <a class="sidebar-text" href="./board.html">
-            <div class="sidebar-text-sub">
-                <img src="img/board-icon.svg">
-                <div class="fontSize16 fontAtMobile">Board</div>
-            </div>
-        </a>
-    </div>
-    <div class="sideBarCategory">
-        <a class="sidebar-text" href="./contacts.html">
-            <div class="sidebar-text-sub">
-                <img src="img/contacts-icon.svg">
-                <div class="fontSize16 fontAtMobile">Contacts</div>
-            </div>
-        </a>
-    </div>
-</div>
-<div class="quickLinksSidebar fontSize16">
-    <a href="./privacy-police.html" class="sidebar-bottom">Privacy Policy</a>
-    <a href="./legalNotice.html" class="sidebar-bottom">Legal notice</a>
-</div>
 
 </div>
-    `;
+`;
 }
+
 
 /**
  * Renders content within the header designated container.
@@ -162,6 +172,7 @@ function renderHeader() {
     let container = document.getElementById('headerArea');
     container.innerHTML = returnRenderHeader();
 }
+
 
 function returnRenderHeader() {
     return /*html*/`
@@ -176,9 +187,11 @@ function returnRenderHeader() {
     `;
 }
 
+
 function closeDialog() {
     document.getElementById('dialog-full').classList.add('d-none');
 }
+
 
 /** * This function is used to create a slide in animation */
 function slide(frontId, backgroundId) {
@@ -189,6 +202,7 @@ function slide(frontId, backgroundId) {
     slideInAnimation.offsetHeight;
     slideInAnimation.classList.add('slide-in');
 }
+
 
 /** * This function is used to create a slide out animation */
 function slideOut(frontId, backgroundId, time) {
@@ -203,6 +217,7 @@ function slideOut(frontId, backgroundId, time) {
     slideInAnimation.classList.add('slide-out');
 }
 
+
 /** * This function is used to create a slide in animation */
 function slideOneObject(frontId) {
     toggleVisibility(frontId, true);
@@ -211,6 +226,7 @@ function slideOneObject(frontId) {
     slideInAnimation.offsetHeight;
     slideInAnimation.classList.add('slide-in');
 }
+
 
 /** * This function is used to create a slide out animation */
 function slideOutOneObject(frontId) {
@@ -221,16 +237,17 @@ function slideOutOneObject(frontId) {
     slideInAnimation.classList.add('slide-out');
 }
 
+
 /** * This function is used to prevent the popup from closing when clicked. */
 function doNotClose(event) {
     event.stopPropagation();
 }
 
+
 /** * This function is used to the edit and delete menu on the mobile view */
 function changesSaved(inputText) {
     document.getElementById('successfullyCreatedId').innerHTML = /* html */ `
-    ${inputText}
-    `
+    ${inputText}`;
     toggleVisibility('successfullyCreatedId', true);
     slideOneObject('successfullyCreatedId');
     setTimeout(function () {
@@ -241,11 +258,13 @@ function changesSaved(inputText) {
     }, 2900);
 }
 
+
 /** * This function is used to make div-container unvisible or visible */
 function toggleVisibility(id, show) {
     const showHide = document.getElementById(id);
     showHide.classList.toggle('d-none', !show);
 }
+
 
 /**
  * Toggles the visibility of sidebar links based on the active user's name.
@@ -259,6 +278,7 @@ function hideSidebarLinks() {
     }
 }
 
+
 /**
  * Hides the header menu if it is currently displayed.
  */
@@ -271,6 +291,7 @@ function hideMenuHeader() {
         element.classList.add('d-none');
     }
 }
+
 
 /**
  * Validates the input value of a form's phone field.
@@ -293,6 +314,7 @@ function validateForm() {
     }
 }
 
+
 /**
  * Creates a 2-letter abbreviation from a given name (e.g. "John Doe" -> "JD").
  */
@@ -305,6 +327,7 @@ function makeNameAbbreviation(name) {
     let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
     return nameAbbreviation;
 }
+
 
 /** This function is to display the delete svg image */
 function getDeleteSVG() {
@@ -322,6 +345,7 @@ function getDeleteSVG() {
 </svg>
     `
 }
+
 
 /** This function is to display the pencil svg image */
 function getPencilSVG() {
