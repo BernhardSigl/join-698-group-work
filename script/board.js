@@ -71,11 +71,26 @@ function renderSearchResults() {
     let results = searchTasks();
     let resultsContainer = document.getElementById('searchResults');
     resultsContainer.innerHTML = '';
-    resultsContainer.innerHTML = /*html*/`
-    <div id='searchedTodo'><span class="fontSize20"><b>To do</b></span></div>
-    <div id='searchedInProgress'><span class="fontSize20"><b>In progress</b></span></div>
-    <div id='searchedAwaitFeedback'> <span class="fontSize20"><b>Await Feedback</b></span></div>
-    <div id='searchedDone'><span class="fontSize20"><b>Done</b></span></div>
+    resultsContainer.innerHTML = /*html*/ `
+    <div class=search-category-container>
+        <section>
+            <span class="fontSize20"><b>To do</b></span>
+            <div id='searchedTodo' class="drag-area show-scrollbar"></div>
+        </section>
+        <section>
+            <span class="fontSize20"><b>In progress</b></span>
+            <div id='searchedInProgress' class="drag-area show-scrollbar"></div>
+        </section>
+        <section>
+            <span class="fontSize20"><b>Await Feedback</b></span>
+            <div id='searchedAwaitFeedback' class="drag-area show-scrollbar"></div>
+        </section>
+        <section>
+            <span class="fontSize20"><b>Done</b></span>
+            <div id='searchedDone' class="drag-area show-scrollbar"></div>
+        </section>
+    </div>
+   
     `;
     renderSearchedToDo(results);
     renderSearchedInProgress(results);
@@ -88,11 +103,9 @@ function renderSearchedToDo(results) {
     console.log(searchResult)
     if (searchResult.length === 0) {
         document.getElementById('searchedTodo').innerHTML = /*html*/ ` 
-        <span class="fontSize20"><b>To do</b></span>
         <div class="status-empty">No tasks To do</div>
         `;
     } else {
-        // document.getElementById('searchedTodo').innerHTML = '';
         for (let index = 0; index < searchResult.length; index++) {
             const element = searchResult[index];
             document.getElementById('searchedTodo').innerHTML += generateTaskHTML(element);
@@ -105,7 +118,6 @@ function renderSearchedInProgress(results) {
     console.log(searchResult)
     if (searchResult.length === 0) {
         document.getElementById('searchedInProgress').innerHTML = /*html*/ ` 
-        <span class="fontSize20"><b>In progress</b></span>
         <div class="status-empty">No tasks In progress</div>
         `;
     } else {
@@ -122,7 +134,6 @@ function renderSearchedAwaitFeedback(results) {
     console.log(searchResult)
     if (searchResult.length === 0) {
         document.getElementById('searchedAwaitFeedback').innerHTML = /*html*/ ` 
-        <span class="fontSize20"><b>Await Feedback</b></span>
         <div class="status-empty">No tasks Await Feedback</div>
         `;
     } else {
@@ -139,7 +150,6 @@ function renderSearchedDone(results) {
     console.log(searchResult)
     if (searchResult.length === 0) {
         document.getElementById('searchedDone').innerHTML = /*html*/ ` 
-        <span class="fontSize20"><b>Done</b></span>
         <div class="status-empty">No tasks Done</div>
         `;
     } else {
@@ -388,7 +398,7 @@ async function switchStatusToInProgress(i) {
     await currentUserTaskSave();
     updateBoardHTML();
 }
- 
+
 async function switchStatusToAwaitFeedback(i) {
     let index = tasks.findIndex(task => task.id === i);
     currentDraggedElement = index;
@@ -403,7 +413,7 @@ async function switchStatusToDone(i) {
     tasks[currentDraggedElement]['status'] = "done";
     await currentUserTaskSave();
     updateBoardHTML();
-} 
+}
 
 /**
  *This function updates the progress bar based on the finished subtasks 

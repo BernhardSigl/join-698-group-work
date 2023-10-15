@@ -173,6 +173,10 @@ body {
     gap: 8px;
     flex-wrap: wrap;
 }
+.search-category-container{
+    display: flex;
+}
+
 
 #button-add-task {
     white-space: nowrap;
@@ -649,7 +653,9 @@ body {
         overflow-y: auto;
         overflow-x: hidden;
     }
-
+    .search-category-container{
+      flex-direction: column;
+    }
     .task {
         min-height: auto;
         min-width: 252px;
