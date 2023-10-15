@@ -6,11 +6,17 @@ isPolice = false;
 isNotice = false;
 openMenu = false;
 
+/**
+ * Sets the active state for the provided sidebar item and resets other states.
+ */
 function loadHeaderSidebar(boolian) {
     resetBoolians();
     switchColorSidebar(boolian);
 }
 
+/**
+ * Resets all the active states of the sidebar items.
+ */
 function resetBoolians() {
     issummary = false;
     isAddTask = false;
@@ -20,6 +26,9 @@ function resetBoolians() {
     isNotice = false;
 }
 
+/**
+ * Updates the active state for the specified sidebar item.
+ */
 function switchColorSidebar(boolian) {
     boolian = true;
     for (let i = 0; i < classCSS.length; i++) {
@@ -27,9 +36,12 @@ function switchColorSidebar(boolian) {
     }
 }
 
+/**
+ * Toggles the visibility of the header menu.
+ */
 function openHeaderMenu(event) {
     event.stopPropagation();
-    openMenu = !openMenu; // Das Umschalten des Wertes von openMenu
+    openMenu = !openMenu;
 
     let headerMenu = document.getElementById('menu-header-container');
     openMenu ? headerMenu.classList.remove('d-none') : headerMenu.classList.add('d-none');
@@ -55,6 +67,10 @@ function markCategory() {
     });
 }
 
+/**
+ * Displays the user's initials within the specified HTML container.
+ * Extracts the initials from the active user's name and populates them inside the designated container.
+ */
 function userCircle() {
     let container = document.getElementById('header-user-img');
     let nameParts = activUser.name.split(' ');
@@ -64,15 +80,25 @@ function userCircle() {
     container.innerHTML = nameAbbreviation
 }
 
+/**
+ * Triggers the browser's back functionality.
+ */
 function goBack() {
     window.history.back();
 }
 
+/**
+ * Renders the header and sidebar UI elements.
+ */
 function renderSidebarHeader() {
     renderHeader();
     renderSidebar();
 }
 
+/**
+ * Populates the sidebar with content.
+ * Renders content within the sidebar's designated container.
+ */
 function renderSidebar() {
     let container = document.getElementById('sidebarArea');
     container.innerHTML = returnRenderSidebar();
@@ -129,6 +155,9 @@ function returnRenderSidebar() {
     `;
 }
 
+/**
+ * Renders content within the header designated container.
+ */
 function renderHeader() {
     let container = document.getElementById('headerArea');
     container.innerHTML = returnRenderHeader();
@@ -146,6 +175,7 @@ function returnRenderHeader() {
 </div>
     `;
 }
+
 function closeDialog() {
     document.getElementById('dialog-full').classList.add('d-none');
 }
@@ -217,6 +247,10 @@ function toggleVisibility(id, show) {
     showHide.classList.toggle('d-none', !show);
 }
 
+/**
+ * Toggles the visibility of sidebar links based on the active user's name.
+ * If the active user's name is an empty string, it hides the sidebar links. Otherwise, it hides the empty container.
+ */
 function hideSidebarLinks() {
     if (activUser.name === '') {
         document.getElementById('sidebarLinks').classList.add('d-none');
@@ -225,6 +259,9 @@ function hideSidebarLinks() {
     }
 }
 
+/**
+ * Hides the header menu if it is currently displayed.
+ */
 function hideMenuHeader() {
     let element = document.getElementById('menu-header-container');
 
@@ -235,10 +272,15 @@ function hideMenuHeader() {
     }
 }
 
+/**
+ * Validates the input value of a form's phone field.
+ * Checks whether the entered phone number only contains the plus symbol and digits 0-9. 
+ * If the validation fails, it displays an error message and prevents form submission. 
+ * Otherwise, it allows form submission.
+ */
 function validateForm() {
     var input = document.getElementById('inputPhoneId');
 
-    // Der reguläre Ausdruck überprüft, ob der Eingabewert nur das Plus-Zeichen und Zahlen von 1-9 enthält.
     var regex = /^[+0-9]+$/;
 
     if (!regex.test(input.value)) {
