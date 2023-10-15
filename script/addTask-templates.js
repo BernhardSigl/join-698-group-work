@@ -86,7 +86,7 @@ function returnRenderAllContactsForSearch(contactColor, contactNamesAbbreviation
     let firstSecondaryClass = isSelected ? 'd-none' : '';
     let secondSecondaryClass = isSelected ? '' : 'd-none';
     return /*html*/ `
-    <div class="${mainClass}" id="assignedContactsBox${index}" onclick="toggleContactSelection(${index}, '${contactNames}')">
+    <div class="${mainClass}" id="assignedContactsBox${index}" onclick="toggleContactSelection(${index}, event)">
         <div class="contactBoxLeft">
             <div style="background-color:${contactColor}" class="assignedToContactImg">
                 ${contactNamesAbbreviation}
@@ -277,9 +277,9 @@ function returnPrioBox() {
 function returnAssignToBox1() {
     return /*html*/ `
         <input class="click" id="assignedToInputCover"
-            onclick="toggleVisibilityAddTask('assignedToInputContainer', 'assignedToContactsInputContainer')"
+            onclick="toggleVisibilityAddTask('assignedToInputContainer', 'assignedToContactsInputContainer', event)"
             type="text" readonly value="Select contacts to assign">
-        <img onclick="toggleVisibilityAddTask('assignedToInputContainer', 'assignedToContactsInputContainer')"
+        <img onclick="toggleVisibilityAddTask('assignedToInputContainer', 'assignedToContactsInputContainer', event)"
             class="inputAbsolut" src="img/arrow_drop_downaa.svg">
         <div id="selectedContactsContainer">
         </div>
@@ -298,7 +298,7 @@ function returnAssignToBox2() {
         <div class="ContactsRenderContainer show-scrollbar"
             id="contactsRenderContainer">
         </div>
-        <div onclick="toggleVisibilityAddTask('', 'contactPopupByAddTask')" class="addNewContactBtn blueBtn">
+        <div onclick="toggleVisibilityAddTask('', 'contactPopupByAddTask', event)" class="addNewContactBtn blueBtn">
             <span>Add new contact</span>
             <img class="addNewContactBtnIcon" src="img/addTaskperson_add.svg">
         </div>

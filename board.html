@@ -133,7 +133,8 @@
     </div>
     <section id="addTaskPop" class="popupContainer d-none"
         onclick="slideOut('addTaskPopupPositionFront', 'addTaskPop', 200), resetAllAddTaskElementsBoard()">
-        <div class="addTaskPopupPosition" id="addTaskPopupPositionFront" onclick="doNotClose(event)">
+        <div class="addTaskPopupPosition" id="addTaskPopupPositionFront"
+            onclick="doNotClose(event), hideAddTaskDropDowns()">
             <div class="contentPositionAddTaskPopup show-scrollbarTaskWindow">
                 <div class="addTaskPopupHeadlineContainer">
                     <span id="addTaskHeadline" class="fw-bold fontSize61">Add Task</span>

@@ -291,18 +291,16 @@ function clearAddTaskInputs() {
  * @param {string} id - ID of the first DOM element.
  * @param {string} id2 - ID of the second DOM element.
  */
-function toggleVisibilityAddTask(id, id2) {
+function toggleVisibilityAddTask(id, id2, event) {
     const elementOne = document.getElementById(id);
     const elementTwo = document.getElementById(id2);
-
+    if (event) event.stopPropagation();
     if (id) elementOne.classList.add('d-none');
     if (id2) elementTwo.classList.remove('d-none');
 
     renderAllSelectedContacts();
     renderCategorys();
     createCategoryWindow();
-    borderColorCheck();
-
     document.getElementById('selectedContactsDeselect').classList.add('d-none');
 }
 //---------------------------------------------------------------------------------//
@@ -343,7 +341,8 @@ async function renderAllContactsForSearch(filterText = '') {
  * @param {number} i - Index of the contact.
  * @param {string} key - Key of the contact in the `allContacts` collection.
  */
-async function toggleContactSelection(i) {
+async function toggleContactSelection(i, event) {
+    event.stopPropagation();
     await currentUserContactsLoad();
     const contact = contactsArray[i];
     const el = (suffix) => document.getElementById(`${suffix}${i}`);
@@ -471,6 +470,7 @@ function selectCategory(type, index) {
 function borderColorCheck() {
     loadTaskElements();
     if (currentCategorySelected[0].name) {
+        toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1');
         updateInputs();
     } else {
         resetInputs();

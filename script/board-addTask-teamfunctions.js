@@ -47,6 +47,11 @@ async function editTaskNew(i) {
     editTaskWindow();
 }
 
+function hideAddTaskDropDowns() {
+    toggleVisibilityAddTask('assignedToContactsInputContainer', 'assignedToInputContainer');
+    toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1');
+
+}
 
 async function addEditTask() {
     const getValue = id => document.getElementById(id).value;
