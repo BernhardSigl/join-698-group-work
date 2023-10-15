@@ -1,6 +1,7 @@
 let registerBtn = document.getElementById('registerBtn');
 let checkbox = document.getElementById("myCheckbox");
 
+
 /**
  * Initializes the registration functionality by loading existing user data.
  */
@@ -8,12 +9,14 @@ async function initRegister() {
     await loadUserGroup698()
 }
 
+
 /**
  * Initiates the sign-up process by loading the respective template into the dialog.
  */
 function signUp() {
     dialog.innerHTML = loadTemplateSignUp();
 }
+
 
 /**
  * Validates user inputs, checks for email duplicates, and proceeds with the registration process.
@@ -25,6 +28,7 @@ async function registUser() {
     if (checkbox.checked) await handleRegistration();
 }
 
+
 /**
  * Handles a scenario when entered passwords don't match.
  */
@@ -32,6 +36,7 @@ function handlePasswordMismatch() {
     loadRedBorderPassword();
     loadWarningTextTamplate();
 }
+
 
 /**
  * Handles a scenario when the entered email already exists in the system.
@@ -41,6 +46,7 @@ function handleEmailExists() {
     document.getElementById('warning-email').classList.remove("d-none");
     resetForm();
 }
+
 
 /**
  * Registers a new user, saves the user's data, and redirects to the homepage after successful registration.
@@ -60,6 +66,7 @@ async function handleRegistration() {
     }, 3000);
 }
 
+
 /**
  * Highlights password fields in red.
  */
@@ -69,6 +76,7 @@ function loadRedBorderPassword() {
         document.getElementById(id).classList.add("red-border");
     }
 }
+
 
 /**
  * Displays warning messages for password fields.
@@ -80,6 +88,7 @@ function loadWarningTextTamplate() {
     }
 }
 
+
 /**
  * Checks if the entered password and confirmation password are matching.
  */
@@ -88,6 +97,7 @@ function arePasswordsMatching() {
     const confirmPassword = document.getElementById('confirmPassword').value;
     return password === confirmPassword;
 }
+
 
 /**
  * Loads existing users from the storage.
@@ -100,6 +110,7 @@ async function loadUserGroup698() {
     }
 }
 
+
 /**
  * Resets the registration form by clearing inputs and enabling the register button.
  */
@@ -109,6 +120,7 @@ function resetForm() {
     confirmPassword.value = '';
     registerBtn.disabled = false;
 }
+
 
 /**
  * Resets all users in the backend storage.
