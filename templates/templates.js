@@ -27,7 +27,8 @@ function switchColorSidebar(boolian) {
     }
 }
 
-function openHeaderMenu() {
+function openHeaderMenu(event) {
+    event.stopPropagation();
     openMenu = !openMenu; // Das Umschalten des Wertes von openMenu
 
     let headerMenu = document.getElementById('menu-header-container');
@@ -138,9 +139,9 @@ function returnRenderHeader() {
     <div class="header">
     <img class="headImgLeft" src="./img/headIconLeft.svg">
     <div class="headerHeadlineBox fontSize20">Kanban Projekt Managment Tool</div>
-    <div id="userCircleHeader" class="headBoxRight">
+    <div onclick="openHeaderMenu(event)" id="userCircleHeader" class="headBoxRight">
         <a href="help.html"> <img class="headBoxRightImg" src="./img/helpIcon.svg" alt=""></a>
-        <div onclick="openHeaderMenu()" id="header-user-img" class="headBoxRightUserCircle fontSize16"></div>
+        <div  id="header-user-img" class="headBoxRightUserCircle fontSize16"></div>
     </div>
 </div>
     `;
@@ -219,6 +220,16 @@ function toggleVisibility(id, show) {
 function hideSidebarLinks() {
     if (activUser.name === '') {
         document.getElementById('sidebarLinks').classList.add('d-none');
+    }
+}
+
+function hideMenuHeader() {
+    let element = document.getElementById('menu-header-container');
+
+    if (element.classList.contains('d-none')) {
+        return;
+    } else {
+        element.classList.add('d-none');
     }
 }
 
