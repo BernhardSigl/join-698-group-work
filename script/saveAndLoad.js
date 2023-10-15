@@ -9,6 +9,9 @@ let activUser = {
 
 //save and load task elements
 
+/**
+ * Saves various task-related elements to local storage.
+ */
 function saveTaskElements() {
     localStorage.setItem('categoryCollectionAsText', JSON.stringify(currentCategorySelected));
     localStorage.setItem('currentPrioAsText', JSON.stringify(currentPrioSelected));
@@ -21,6 +24,9 @@ function saveTaskElements() {
     localStorage.setItem('statusAsText', JSON.stringify(statusEdit));
 }
 
+/**
+ * Loads various task-related elements from local storage and applies them.
+ */
 function loadTaskElements() {
     let currentCategoryLoad = localStorage.getItem('categoryCollectionAsText');
     let currentPrioLoad = localStorage.getItem('currentPrioAsText');
@@ -34,6 +40,9 @@ function loadTaskElements() {
     returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, subTaskFinishLoad, taskIdLoad, statusLoad);
 }
 
+/**
+ * Applies loaded task elements values to respective global variables.
+ */
 function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad, contactCollectionLoad, selectedIndexLoad, selectedColorLoad, subTaskFinishLoad, taskIdLoad, statusLoad) {
     if (currentCategoryLoad && currentPrioLoad && subTaskCollectionLoad && contactCollectionLoad && selectedIndexLoad && selectedColorLoad && subTaskFinishLoad && taskIdLoad && statusLoad) {
         currentCategorySelected = JSON.parse(currentCategoryLoad);
@@ -48,8 +57,14 @@ function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad,
     }
 }
 
+//------------tasks----------------------//
 
-//------------tasks----------------------
+/**
+ * Checks if a certain key exists in storage, if not, sets a default value.
+ * @param {string} key - Key to check in storage.
+ * @param {*} initialValue - The initial value to set if key is not found.
+ * @returns {Promise<void>}
+ */
 async function initializeStorage(key, initialValue) {
     try {
         await getItem(key);
@@ -59,6 +74,11 @@ async function initializeStorage(key, initialValue) {
     }
 }
 
+/**
+ * Asynchronously saves the current user's tasks. 
+ * If the active user is 'Guest698', the tasks are saved to local storage. 
+ * Otherwise, they are saved to remote storage.
+ */
 async function currentUserTaskSave() {
     if (activUser.name === 'Guest698') {
         localStorage.setItem('tasksAsText', JSON.stringify(tasks));
@@ -67,6 +87,11 @@ async function currentUserTaskSave() {
     }
 }
 
+/**
+ * Asynchronously loads the current user's tasks. 
+ * If the active user is 'Guest698', the tasks are loaded from local storage. 
+ * Otherwise, they are fetched from remote storage.
+ */
 async function currentUserTaskLoad() {
     if (activUser.name === 'Guest698') {
         let tasksLoad = localStorage.getItem('tasksAsText');
@@ -82,9 +107,13 @@ async function currentUserTaskLoad() {
     }
 }
 
-
 //current id
 
+/**
+ * Asynchronously saves the current user's ID. 
+ * If the active user is 'Guest698', the ID is saved to local storage. 
+ * Otherwise, it is saved to remote storage.
+ */
 async function currentUserIdSave() {
     if (activUser.name === 'Guest698') {
         localStorage.setItem('currentIdAsText', JSON.stringify(currentId));
@@ -93,6 +122,11 @@ async function currentUserIdSave() {
     }
 }
 
+/**
+ * Asynchronously loads the current user's ID. 
+ * If the active user is 'Guest698', the ID is loaded from local storage. 
+ * Otherwise, it is fetched from remote storage.
+ */
 async function currentUserIdLoad() {
     if (activUser.name === 'Guest698') {
         let currentIdLoad = localStorage.getItem('currentIdAsText');
@@ -108,9 +142,13 @@ async function currentUserIdLoad() {
     }
 }
 
-
 //Categorys
 
+/**
+ * Asynchronously saves the current user's categories. 
+ * If the active user is 'Guest698', the categories are saved to local storage. 
+ * Otherwise, they are saved to remote storage.
+ */
 async function currentUserCategorysSave() {
     if (activUser.name === 'Guest698') {
         localStorage.setItem('categorysAsText', JSON.stringify(allCategorys));
@@ -119,6 +157,11 @@ async function currentUserCategorysSave() {
     }
 }
 
+/**
+ * Asynchronously loads the current user's categories. 
+ * If the active user is 'Guest698', the categories are loaded from local storage. 
+ * Otherwise, they are fetched from remote storage.
+ */
 async function currentUserCategorysLoad() {
     if (activUser.name === 'Guest698') {
         let categorysLoad = localStorage.getItem('categorysAsText');
@@ -134,9 +177,13 @@ async function currentUserCategorysLoad() {
     }
 }
 
-
 //Contacts
 
+/**
+ * Asynchronously saves the current user's contacts. 
+ * If the active user is 'Guest698', the contacts are saved to local storage. 
+ * Otherwise, they are saved to remote storage.
+ */
 async function currentUserContactsSave() {
     if (activUser.name === 'Guest698') {
         localStorage.setItem('contactsAsText', JSON.stringify(contactsArray));
@@ -169,10 +216,16 @@ async function currentUserContactsLoad() {
 
 //Activ user
 
+/**
+ * Saves the current active user to local storage.
+ */
 function saveActivUser() {
     localStorage.setItem('activUserAsText', JSON.stringify(activUser));
 }
 
+/**
+ * Loads the current active user from local storage.
+ */
 function loadActivUser() {
     let activUserLoad = localStorage.getItem('activUserAsText');
     if (activUserLoad) {
@@ -181,12 +234,19 @@ function loadActivUser() {
 }
 
 //save and load remote
+
+/**
+ * Sets a key-value pair in the remote storage.
+ */
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN };
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
         .then(res => res.json());
 }
 
+/**
+ * Retrieves a value from the remote storage by its key.
+ */
 async function getItem(key) {
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
     return fetch(url).then(res => res.json()).then(res => {
@@ -197,12 +257,3 @@ async function getItem(key) {
     });
 }
 
-function makeNameAbbreviation(name) {
-    // split first and last name
-    let nameParts = name.split(' ');
-    let firstName = nameParts[0];
-    let lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
-    // first letter of first and last name combined
-    let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
-    return nameAbbreviation;
-}

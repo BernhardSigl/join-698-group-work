@@ -251,6 +251,18 @@ function validateForm() {
     }
 }
 
+/**
+ * Creates a 2-letter abbreviation from a given name (e.g. "John Doe" -> "JD").
+ */
+function makeNameAbbreviation(name) {
+    // split first and last name
+    let nameParts = name.split(' ');
+    let firstName = nameParts[0];
+    let lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
+    // first letter of first and last name combined
+    let nameAbbreviation = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+    return nameAbbreviation;
+}
 
 /** This function is to display the delete svg image */
 function getDeleteSVG() {
