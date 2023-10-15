@@ -1,21 +1,30 @@
 <!-- login -->
 **JS:**
-
+David Peterka
 **CSS:**
-
+Bernhard Sigl
 **HTML:**
 
 **Mobile View:**
+Bernhard Sigl
+<!-- Register -->
+**JS:**
+David Peterka
+**CSS:**
+Bernhard Sigl
+**HTML:**
 
+**Mobile View:**
+Bernhard Sigl
 <!-- summary -->
 **JS:**
-
+David Peterka
 **CSS:**
-
+Bernhard Sigl
 **HTML:**
 Spell Correction (Lina)
 **Mobile View:**
-
+Bernhard Sigl
 <!-- addTask -->
 **JS:**
 David Peterka
@@ -48,23 +57,22 @@ Bernhard Sigl
 <!-- sidebar -->
 **JS:**
 Bernhard Sigl ("marcCategory()" function)
-
+David Peterka
 **CSS:**
 Bernhard Sigl (Design Optimization)
 **HTML:**
-
 
 **Mobile View:**
 Bernhard Sigl (Design Optimization)
 <!-- header -->
 **JS:**
-
+David Peterka
 **CSS:**
 David Peterka
 **HTML:**
 
 **Mobile View:**
-
+David Peterka
 <!-- fonts -->
 **CSS:**
 Bernhard Sigl
