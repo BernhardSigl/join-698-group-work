@@ -69,13 +69,86 @@ function renderSearchResults() {
     document.getElementById('searchClose').classList.remove('d-none')
     // x d-none weg lupe d-none hin x onclick = reset function to normal board view
     let results = searchTasks();
-    console.log(results)
     let resultsContainer = document.getElementById('searchResults');
     resultsContainer.innerHTML = '';
+    resultsContainer.innerHTML = /*html*/`
+    <div id='searchedTodo'><span class="fontSize20"><b>To do</b></span></div>
+    <div id='searchedInProgress'><span class="fontSize20"><b>In progress</b></span></div>
+    <div id='searchedAwaitFeedback'> <span class="fontSize20"><b>Await Feedback</b></span></div>
+    <div id='searchedDone'><span class="fontSize20"><b>Done</b></span></div>
+    `;
+    renderSearchedToDo(results);
+    renderSearchedInProgress(results);
+    renderSearchedAwaitFeedback(results);
+    renderSearchedDone(results);
+}
 
-    results.forEach(task => {
-        resultsContainer.innerHTML += generateTaskHTML(task)
-    })
+function renderSearchedToDo(results) {
+    let searchResult = results.filter(t => t['status'] == 'toDo');
+    console.log(searchResult)
+    if (searchResult.length === 0) {
+        document.getElementById('searchedTodo').innerHTML = /*html*/ ` 
+        <span class="fontSize20"><b>To do</b></span>
+        <div class="status-empty">No tasks To do</div>
+        `;
+    } else {
+        // document.getElementById('searchedTodo').innerHTML = '';
+        for (let index = 0; index < searchResult.length; index++) {
+            const element = searchResult[index];
+            document.getElementById('searchedTodo').innerHTML += generateTaskHTML(element);
+        }
+    }
+}
+
+function renderSearchedInProgress(results) {
+    let searchResult = results.filter(t => t['status'] == 'in-progress');
+    console.log(searchResult)
+    if (searchResult.length === 0) {
+        document.getElementById('searchedInProgress').innerHTML = /*html*/ ` 
+        <span class="fontSize20"><b>In progress</b></span>
+        <div class="status-empty">No tasks In progress</div>
+        `;
+    } else {
+        // document.getElementById('searchedTodo').innerHTML = '';
+        for (let index = 0; index < searchResult.length; index++) {
+            const element = searchResult[index];
+            document.getElementById('searchedInProgress').innerHTML += generateTaskHTML(element);
+        }
+    }
+}
+
+function renderSearchedAwaitFeedback(results) {
+    let searchResult = results.filter(t => t['status'] == 'awaiting-feedback');
+    console.log(searchResult)
+    if (searchResult.length === 0) {
+        document.getElementById('searchedAwaitFeedback').innerHTML = /*html*/ ` 
+        <span class="fontSize20"><b>Await Feedback</b></span>
+        <div class="status-empty">No tasks Await Feedback</div>
+        `;
+    } else {
+        // document.getElementById('searchedTodo').innerHTML = '';
+        for (let index = 0; index < searchResult.length; index++) {
+            const element = searchResult[index];
+            document.getElementById('searchedAwaitFeedback').innerHTML += generateTaskHTML(element);
+        }
+    }
+}
+
+function renderSearchedDone(results) {
+    let searchResult = results.filter(t => t['status'] == 'done');
+    console.log(searchResult)
+    if (searchResult.length === 0) {
+        document.getElementById('searchedDone').innerHTML = /*html*/ ` 
+        <span class="fontSize20"><b>Done</b></span>
+        <div class="status-empty">No tasks Done</div>
+        `;
+    } else {
+        // document.getElementById('searchedTodo').innerHTML = '';
+        for (let index = 0; index < searchResult.length; index++) {
+            const element = searchResult[index];
+            document.getElementById('searchedDone').innerHTML += generateTaskHTML(element);
+        }
+    }
 }
 
 /**
