@@ -186,21 +186,6 @@ function stopCreateCategory() {
     toggleVisibilityAddTask('createCategoryPopupByAddTask', '')
 }
 
-function validateForm() {
-    var input = document.getElementById('inputPhoneId');
-
-    // Der reguläre Ausdruck überprüft, ob der Eingabewert nur das Plus-Zeichen und Zahlen von 1-9 enthält.
-    var regex = /^[+0-9]+$/;
-
-    if (!regex.test(input.value)) {
-        input.style.borderColor = 'red';
-        document.getElementById('errorMessage').innerText = "Ungültige Eingabe! Nur + und Zahlen von 1-9 sind erlaubt.";
-        return false; // Verhindert das Absenden des Formulars
-    } else {
-        document.getElementById('errorMessage').innerText = "";
-        return true; // Ermöglicht das Absenden des Formulars
-    }
-}
 
 //---------------------------------------------------------------------------------//
 //only for date-input by addTask.html/ Due date//
