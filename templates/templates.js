@@ -220,6 +220,8 @@ function toggleVisibility(id, show) {
 function hideSidebarLinks() {
     if (activUser.name === '') {
         document.getElementById('sidebarLinks').classList.add('d-none');
+    } else {
+        document.getElementById('emptyContainer').classList.add('d-none');
     }
 }
 
