@@ -1,5 +1,6 @@
-
-
+/**
+ * Asynchronously initializes the summary section.
+ */
 async function initSummary() {
     loadActivUser();
     userCircle();
@@ -11,6 +12,10 @@ async function initSummary() {
     animationAdded = false;
 }
 
+/**
+ * Loads and sets specific texts for the summary section.
+ * and loads the date for urgent priorities.
+ */
 function loadText() {
     loadUserName();
     searchNumbers();
@@ -18,7 +23,13 @@ function loadText() {
 }
 
 //----------------------search function------------------------------
+
 //---Search User name----------------------------
+
+/**
+ * Loads the active user's name and sets it to the corresponding HTML element.
+ * It fetches the DOM element with the ID 'name' and updates its inner text with the name of the active user.
+ */
 function loadUserName() {
     userName = document.getElementById('name')
     userName.innerText = activUser.name;
@@ -80,6 +91,7 @@ function displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urge
     document.getElementById('board').innerHTML = allTasks;
     document.getElementById('urgent').innerHTML = urgent;
 }
+
 /**
  * This function loads the next urgent due date
  * 
@@ -96,9 +108,8 @@ function loadUrgentPrioDate() {
     }
 }
 
-
-
 //----------------- load Time of Day------------------
+
 /**
  * This function shows the greeting for the user
  * 
@@ -139,27 +150,28 @@ function getNextUrgentDueDate(tasks) {
     const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
 
     if (urgentTasks.length === 0) return null;
-
     urgentTasks.sort((a, b) => {
         const dateA = new Date(a.dueDate.split("/").reverse().join("-"));
         const dateB = new Date(b.dueDate.split("/").reverse().join("-"));
         return dateA - dateB;
     });
-
     return urgentTasks[0].dueDate;
 }
 
+/**
+ * Converts a date string in the format "DD/MM/YYYY" to a more human-readable format "MonthName DD, YYYY".
+ * @param {string} inputDate - The date string to be converted, in the format "DD/MM/YYYY".
+ * @example
+ * // returns "January 01, 2021"
+ * convertDateFormat("01/01/2021");
+ */
 function convertDateFormat(inputDate) {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     const parts = inputDate.split("/");
     const day = parts[0];
-    const monthIndex = parseInt(parts[1], 10) - 1;  // Da Monate in JavaScript von 0 bis 11 indexiert sind
+    const monthIndex = parseInt(parts[1], 10) - 1;
     const year = parts[2];
-
     return `${months[monthIndex]} ${day}, ${year}`;
 }
 
-const input = "16/10/2023";
-const convertedDate = convertDateFormat(input);
-console.log(convertedDate);  // Gibt "October 16, 2023" aus
