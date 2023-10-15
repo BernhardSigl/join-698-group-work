@@ -33,6 +33,7 @@ let statusGroup = '';
 loadTaskElements();
 //---------------------------------------------------------------------------------//
 
+
 //Init functions//
 
 /**
@@ -49,12 +50,14 @@ async function initAddTask() {
     renderAddTaskContent();
 }
 
+
 /**
  * Sets the innerHTML of a specified DOM element using the content provided by a function.
  */
 function setInnerHTML(elementId, contentFunction) {
     document.getElementById(elementId).innerHTML = contentFunction();
 }
+
 
 /**
  * This involves loading task elements, setting content for various sections of the add task view, and 
@@ -75,6 +78,7 @@ function renderAddTaskContent() {
     renderSubTaskCollection();
 }
 
+
 /**
  * Adds an input field and an event listener to handle input changes.
  */
@@ -83,6 +87,7 @@ function addInputFieldAndListener() {
     inputField.addEventListener('input', handleInputChange);
 }
 //---------------------------------------------------------------------------------//
+
 
 //SubTaskFunctions//
 
@@ -101,6 +106,7 @@ function addSubTaskToCollection() {
     }
 }
 
+
 /**
  * Renders the sub-task collection to the DOM.
  */
@@ -114,6 +120,7 @@ function renderSubTaskCollection() {
     }
 }
 
+
 /**
  * Deletes a sub-task from the collection.
  * @param {number} i - Index of the sub-task.
@@ -123,6 +130,7 @@ function deleteSubtaskCollection(i) {
     saveTaskElements();
     renderSubTaskCollection();
 }
+
 
 /**
  * Edits a sub-task.
@@ -137,6 +145,7 @@ function editSubtask(i) {
     let input = document.getElementById('editInput');
     input.value = editSub;
 }
+
 
 /**
  * Confirms the editing of a sub-task.
@@ -153,6 +162,7 @@ function confirmSubEdit(i) {
     renderSubTaskCollection();
 }
 
+
 /**
  * cancel the editing of a sub-task.
  */
@@ -162,6 +172,7 @@ function stopSubEdit() {
     hideEditContainer();
 }
 
+
 /**
  * show edit window.
  */
@@ -169,6 +180,7 @@ function showEditContainer() {
     let inputContainer = document.getElementById('editContainer');
     inputContainer.classList.remove('d-none');
 }
+
 
 /**
  * hide edit window.
@@ -178,6 +190,7 @@ function hideEditContainer() {
     inputContainer.classList.add('d-none');
 }
 //---------------------------------------------------------------------------------//
+
 
 //AddTask//
 
@@ -203,6 +216,7 @@ function createTask() {
     }
 }
 
+
 /**
  * Retrieves data from form elements and adds a new task.
  */
@@ -214,6 +228,7 @@ async function addTask() {
     await saveTaskData();
     handleTaskCompletion(currentPage);
 }
+
 
 function collectTaskData() {
     return {
@@ -233,6 +248,7 @@ function collectTaskData() {
     }
 }
 
+
 /**
  * Saves task-related data.
  */
@@ -242,6 +258,7 @@ async function saveTaskData() {
     resetAllAddTaskElements();
     changesSaved('Task added to board');
 }
+
 
 /**
  * Handles the completion of a task based on the current page.
@@ -257,6 +274,7 @@ function handleTaskCompletion(currentPage) {
     }
 }
 
+
 /**
  * Sets the status group to the provided status.
  */
@@ -264,12 +282,14 @@ function statusSelected(status) {
     statusGroup = status;
 }
 
+
 /**
  * Clears all the add task elements, effectively resetting the task addition view.
  */
 function clearButton() {
     resetAllAddTaskElements();
 }
+
 
 /**
  * Resets all elements and data structures related to adding a task.
@@ -293,6 +313,7 @@ function resetAllAddTaskElements() {
     renderAddTaskContent();
 }
 
+
 /**
  * Clears the values in the input fields used for adding tasks.
  */
@@ -305,6 +326,8 @@ function clearAddTaskInputs() {
     dueDateAddTask.value = '';
 }
 //---------------------------------------------------------------------------------//
+
+
 //Hide and Show functions//
 
 /**
@@ -326,6 +349,7 @@ function toggleVisibilityAddTask(id, id2, event) {
 }
 //---------------------------------------------------------------------------------//
 
+
 //Contact functions//
 
 /**
@@ -340,6 +364,7 @@ function renderAllSelectedContacts() {
         contactZone.innerHTML += returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation, index);
     }
 }
+
 
 /**
  * Renders all contacts for search, optionally filtered by a text.
@@ -359,6 +384,7 @@ async function renderAllContactsForSearch(filterText = '') {
         contactZone.innerHTML += returnRenderAllContactsForSearch(contactColors, contactNamesAbbreviation, contactNames, index);
     }
 }
+
 
 /**
  * Selects or deselects a contact based on its current state.
@@ -382,6 +408,7 @@ async function toggleContactSelection(i, event) {
     saveTaskElements();
 }
 
+
 /**
  * Edits a selected contact by displaying an edit window and populating the input field with the contact's name.
  */
@@ -392,6 +419,7 @@ function editSelectedContact(i) {
     let input = document.getElementById('editSelectedContact');
     input.value = contactCollection[i].name;
 }
+
 
 /**
  * Clears or removes a selected contact from the contactCollection and updates the rendered views.
@@ -407,6 +435,7 @@ function clearSelectedContact(index) {
     input.value = '';
 }
 
+
 /**
  * Stops the contact editing process by hiding the edit window and clearing the input field.
  */
@@ -417,6 +446,7 @@ function stopEditContact() {
     input.value = '';
 }
 //---------------------------------------------------------------------------------//
+
 
 //Category functions//
 
@@ -440,6 +470,7 @@ function renderCategorys() {
     }
 }
 
+
 /**
  * Deletes a specific category and saves the updated categories.
  */
@@ -450,6 +481,7 @@ async function deleteCategory(i) {
     await currentUserCategorysSave();
     saveTaskElements();
 }
+
 
 /**
  * This function updates the current selected category, re-renders the categories, saves the task elements,
@@ -471,6 +503,7 @@ function selectCategory(type, index) {
     borderColorCheck();
 }
 
+
 /**
  * Checks the border color based on the current category selection.
  * If a category is selected, it toggles the visibility of category input areas and updates the inputs.
@@ -485,6 +518,7 @@ function borderColorCheck() {
     }
 }
 
+
 /**
  * Updates the values of input elements based on the current category selection.
  */
@@ -495,12 +529,14 @@ function updateInputs() {
     setInputValueAndColor(inputV2);
 }
 
+
 /**
  * Sets the value of a specified input element based on the current category selection.
  */
 function setInputValueAndColor(inputElem) {
     inputElem.value = currentCategorySelected[0].name;
 }
+
 
 /**
  * Resets the values and styles of input elements.
@@ -512,6 +548,7 @@ function resetInputs() {
     resetInputValueAndColor(inputV2);
 }
 
+
 /**
  * Resets the value and border color of a specified input element.
  */
@@ -520,6 +557,7 @@ function resetInputValueAndColor(inputElem) {
     inputElem.style.borderColor = '#D1D1D1';
 }
 //---------------------------------------------------------------------------------//
+
 
 //Prio Buttons class-change//
 
@@ -534,6 +572,7 @@ function activateButton(btnId, iconId, activeIconId, activeClass, iconSrc) {
     saveTaskElements();
 }
 
+
 /**
  * Updates visual representation of priority buttons (deactiv).
  */
@@ -544,6 +583,7 @@ function deactivateButton(btnId, iconId, activeIconId, activeClass) {
     currentPrioSelected = "";
     saveTaskElements();
 }
+
 
 /**
  * switch visual representation of priority buttons.
@@ -556,6 +596,7 @@ function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, r
         activateButton(btnId, iconId, activeIconId, activeClass, iconSrc);
     }
 }
+
 
 /**
  * Initializes the priority buttons based on the current selected priority.
@@ -589,6 +630,7 @@ function initializePrioButtons() {
     }
     activateButton(btnId, iconId, activeIconId, activeClass, currentPrioSelected);
 }
+
 
 /**
  * Resets all priority buttons to their default states.

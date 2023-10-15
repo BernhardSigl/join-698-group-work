@@ -12,6 +12,7 @@ function returnCreateCategoryColors(color, index) {
     }
 }
 
+
 function returnRenderMainCategorys(name, color, i) {
     if (currentCategorySelected[0].name === name &&
         currentCategorySelected[0].color === color) {
@@ -30,6 +31,7 @@ function returnRenderMainCategorys(name, color, i) {
         `;
     }
 }
+
 
 function returnRenderAllCategorys(name, color, i) {
     if (currentCategorySelected[0].name === name &&
@@ -56,6 +58,7 @@ function returnRenderAllCategorys(name, color, i) {
 }
 //---------------------------------------------------------------------------------//
 
+
 //contact return//
 
 //return render Contacts(all and selected)//
@@ -69,6 +72,7 @@ function returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation
     <div onclick="editSelectedContact(${index})" style="background-color:${contactColors}" class="assignedToContactImg">${contactNamesAbbreviation}</div>
     `;
 }
+
 
 /**
  * Returns an HTML string for the contact search functionality.
@@ -101,6 +105,7 @@ function returnRenderAllContactsForSearch(contactColor, contactNamesAbbreviation
     `;
 }
 
+
 /**
  * Toggles classes for the main settings element.
  * @param {HTMLElement} mainElement - Main settings DOM element.
@@ -116,6 +121,7 @@ function returnSettingsMain(mainElement) {
     return
 }
 
+
 /**
  * Toggles visibility for the first settings element.
  * @param {HTMLElement} firstSecondary - First settings DOM element.
@@ -128,6 +134,7 @@ function returnSettingsFirst(firstSecondary) {
     }
     return
 }
+
 
 /**
  * Toggles visibility for the second settings element.
@@ -142,6 +149,7 @@ function returnSettingsSecond(secondSecondary) {
     return
 }
 
+
 /**
  * Checks if a contact is in the `contactCollection`.
  * @param {Object} contact - The contact object to check.
@@ -150,6 +158,7 @@ function returnSettingsSecond(secondSecondary) {
 function isContactInCollection(contact) {
     return contactCollection.includes(contact);
 }
+
 
 /**
  * Sets styles to visually select a contact.
@@ -165,6 +174,7 @@ function selectContact(mainElement, firstSecondary, secondSecondary) {
     return;
 }
 
+
 /**
  * Sets styles to visually deselect a contact.
  */
@@ -176,6 +186,7 @@ function deselectContact(mainElement, firstSecondary, secondSecondary) {
     return;
 }
 //---------------------------------------------------------------------------------//
+
 
 //return Subtask//
 
@@ -192,6 +203,7 @@ function returnEditContainer(i) {
     `;
 }
 
+
 function returnEditContact(i) {
     return /*html*/`
     <input id="editSelectedContact" readonly type="text">
@@ -199,6 +211,7 @@ function returnEditContact(i) {
     <img onclick="clearSelectedContact(${i})" class="editAbsolutDelete" src="img/subTaskDelete.svg">
     `;
 }
+
 
 /**
  * Returns an HTML string representing a collection of subtasks.
@@ -218,6 +231,7 @@ function returnSubTaskCollection(subCollection, i) {
     `;
 }
 //---------------------------------------------------------------------------------//
+
 
 //return render functions//
 
@@ -241,6 +255,7 @@ function returnButtonAreaAddTask() {
     `;
 }
 
+
 function returnButtonAreaEditTask() {
     return /*html*/`
     <div class="addTaskBottomArea">
@@ -255,6 +270,7 @@ function returnButtonAreaEditTask() {
     `;
 }
 
+
 function returnCategoryBox1() {
     return /*html*/ `
     <input onclick="toggleVisibilityAddTask('categoryAreaV1', 'categoryAreaV2')"
@@ -264,6 +280,7 @@ function returnCategoryBox1() {
         class="inputAbsolut" src="img/arrow_drop_downaa.svg">
     `;
 }
+
 
 function returnCategoryBox2() {
     return /*html*/ `
@@ -286,6 +303,7 @@ function returnCategoryBox2() {
     </div>
     `;
 }
+
 
 function returnPrioBox() {
     return /*html*/ `
@@ -310,6 +328,7 @@ function returnPrioBox() {
     `;
 }
 
+
 function returnAssignToBox1() {
     return /*html*/ `
         <input class="click" id="assignedToInputCover"
@@ -323,6 +342,7 @@ function returnAssignToBox1() {
         </div>
         `;
 }
+
 
 function returnAssignToBox2() {
     return /*html*/ `
