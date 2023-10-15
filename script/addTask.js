@@ -1,6 +1,4 @@
-
 let selectedIndex = null;
-
 let selectedColorIndex = null;
 
 let colorCollection = [
@@ -9,44 +7,37 @@ let colorCollection = [
     'background: #DC143C', 'background: #228B22', 'background: #20B2AA', 'background: #FF1493', 'background: #D2691E', 'background: #00CED1',
     'background: #008080', 'background: #FF6347'
 ];
-
 let mainCategorys = [{
     'name': ['Technical Task', 'User Story',],
     'color': ['background: #1FD7C1', 'background: #0038FF',],
 }];
-
 let allCategorys = [{
     'name': [],
     'color': [],
 }];
 
 let subTaskCollection = [];
-
 let subtasksFinish = [];
-
 let contactCollection = [];
-
 let currentCategorySelected = [{
     'name': '',
     'color': '',
 }];
-
 let currentPrioSelected = "";
-
 let currentId = 0;
-
 let taskIdForEdit = '';
-
 let statusEdit = '';
-
 let editTask = '';
-
 let statusGroup = '';
 
 loadTaskElements();
 //---------------------------------------------------------------------------------//
 
 //Init functions//
+
+/**
+ * Initializes the task addition process.
+ */
 async function initAddTask() {
     loadActivUser();
     userCircle();
@@ -58,10 +49,16 @@ async function initAddTask() {
     renderAddTaskContent();
 }
 
+/**
+ * Sets the innerHTML of a specified DOM element using the content provided by a function.
+ */
 function setInnerHTML(elementId, contentFunction) {
     document.getElementById(elementId).innerHTML = contentFunction();
 }
 
+/**
+ * This involves loading task elements, setting content for various sections of the add task view, and 
+ */
 function renderAddTaskContent() {
     loadTaskElements();
     setInnerHTML("addTaskHeadline", () => 'Add Task');
@@ -78,14 +75,17 @@ function renderAddTaskContent() {
     renderSubTaskCollection();
 }
 
+/**
+ * Adds an input field and an event listener to handle input changes.
+ */
 function addInputFieldAndListener() {
     let inputField = document.getElementById('assignedToInput');
     inputField.addEventListener('input', handleInputChange);
 }
-
 //---------------------------------------------------------------------------------//
 
 //SubTaskFunctions//
+
 /**
  * Adds a sub-task to the collection.
  */
@@ -179,8 +179,8 @@ function hideEditContainer() {
 }
 //---------------------------------------------------------------------------------//
 
-
 //AddTask//
+
 /**
  * Validates the form and adds a task if the form is valid.
  */
@@ -233,6 +233,9 @@ function collectTaskData() {
     }
 }
 
+/**
+ * Saves task-related data.
+ */
 async function saveTaskData() {
     await currentUserTaskSave();
     await currentUserIdSave();
@@ -240,6 +243,11 @@ async function saveTaskData() {
     changesSaved('Task added to board');
 }
 
+/**
+ * Handles the completion of a task based on the current page.
+ * If the current page is the board, it hides the add task popup and updates the board HTML.
+ * Otherwise, it redirects to the board page after a short delay.
+ */
 function handleTaskCompletion(currentPage) {
     if (currentPage === '/board.html') {
         document.getElementById('addTaskPop').classList.add('d-none');
@@ -249,14 +257,23 @@ function handleTaskCompletion(currentPage) {
     }
 }
 
+/**
+ * Sets the status group to the provided status.
+ */
 function statusSelected(status) {
     statusGroup = status;
 }
 
+/**
+ * Clears all the add task elements, effectively resetting the task addition view.
+ */
 function clearButton() {
     resetAllAddTaskElements();
 }
 
+/**
+ * Resets all elements and data structures related to adding a task.
+ */
 function resetAllAddTaskElements() {
     currentCategorySelected = [{
         'name': '',
@@ -276,6 +293,9 @@ function resetAllAddTaskElements() {
     renderAddTaskContent();
 }
 
+/**
+ * Clears the values in the input fields used for adding tasks.
+ */
 function clearAddTaskInputs() {
     let titleAddTask = document.getElementById('addTitel');
     let descriptionAddTask = document.getElementById('addDescription');
@@ -286,6 +306,7 @@ function clearAddTaskInputs() {
 }
 //---------------------------------------------------------------------------------//
 //Hide and Show functions//
+
 /**
  * Toggles the visibility of two DOM elements.
  * @param {string} id - ID of the first DOM element.
@@ -305,8 +326,8 @@ function toggleVisibilityAddTask(id, id2, event) {
 }
 //---------------------------------------------------------------------------------//
 
-
 //Contact functions//
+
 /**
  * Renders all selected contacts to the DOM.
  */
@@ -320,6 +341,9 @@ function renderAllSelectedContacts() {
     }
 }
 
+/**
+ * Renders all contacts for search, optionally filtered by a text.
+ */
 async function renderAllContactsForSearch(filterText = '') {
     await currentUserContactsLoad();
     let contactZone = document.getElementById('contactsRenderContainer');
@@ -383,9 +407,6 @@ function selectContact(mainElement, firstSecondary, secondSecondary) {
 
 /**
  * Sets styles to visually deselect a contact.
- * @param {HTMLElement} mainElement - Main contact DOM element.
- * @param {HTMLElement} firstSecondary - First secondary DOM element.
- * @param {HTMLElement} secondSecondary - Second secondary DOM element.
  */
 function deselectContact(mainElement, firstSecondary, secondSecondary) {
     mainElement.classList.remove('assignedContactsBoxSelected');
@@ -395,6 +416,9 @@ function deselectContact(mainElement, firstSecondary, secondSecondary) {
     return;
 }
 
+/**
+ * Edits a selected contact by displaying an edit window and populating the input field with the contact's name.
+ */
 function editSelectedContact(i) {
     let editWindow = document.getElementById('selectedContactsDeselect');
     editWindow.classList.remove('d-none');
@@ -403,6 +427,9 @@ function editSelectedContact(i) {
     input.value = contactCollection[i].name;
 }
 
+/**
+ * Clears or removes a selected contact from the contactCollection and updates the rendered views.
+ */
 function clearSelectedContact(index) {
     contactCollection.splice(index, 1);
     renderAllSelectedContacts();
@@ -414,18 +441,22 @@ function clearSelectedContact(index) {
     input.value = '';
 }
 
+/**
+ * Stops the contact editing process by hiding the edit window and clearing the input field.
+ */
 function stopEditContact() {
     let editWindow = document.getElementById('selectedContactsDeselect');
     editWindow.classList.add('d-none');
     let input = document.getElementById('editSelectedContact');
     input.value = '';
-
-
 }
 //---------------------------------------------------------------------------------//
 
-
 //Category functions//
+
+/**
+ * Renders the categories into the specified container.
+ */
 function renderCategorys() {
     let container = document.getElementById('categoryRenderContainer');
     container.innerHTML = ''; // Leert den Container bevor er neu gerendert wird
@@ -443,6 +474,9 @@ function renderCategorys() {
     }
 }
 
+/**
+ * Deletes a specific category and saves the updated categories.
+ */
 async function deleteCategory(i) {
     let allCategory = allCategorys[0];
     allCategory.name.splice(i, 1);
@@ -451,6 +485,10 @@ async function deleteCategory(i) {
     saveTaskElements();
 }
 
+/**
+ * This function updates the current selected category, re-renders the categories, saves the task elements,
+ * and checks the border color.
+ */
 function selectCategory(type, index) {
     let mainCategory = mainCategorys[0];
     let allCategory = allCategorys[0];
@@ -467,6 +505,10 @@ function selectCategory(type, index) {
     borderColorCheck();
 }
 
+/**
+ * Checks the border color based on the current category selection.
+ * If a category is selected, it toggles the visibility of category input areas and updates the inputs.
+ */
 function borderColorCheck() {
     loadTaskElements();
     if (currentCategorySelected[0].name) {
@@ -477,6 +519,9 @@ function borderColorCheck() {
     }
 }
 
+/**
+ * Updates the values of input elements based on the current category selection.
+ */
 function updateInputs() {
     let inputV1 = document.getElementById('categoryInputV1');
     let inputV2 = document.getElementById('categoryInputV2');
@@ -484,10 +529,16 @@ function updateInputs() {
     setInputValueAndColor(inputV2);
 }
 
+/**
+ * Sets the value of a specified input element based on the current category selection.
+ */
 function setInputValueAndColor(inputElem) {
     inputElem.value = currentCategorySelected[0].name;
 }
 
+/**
+ * Resets the values and styles of input elements.
+ */
 function resetInputs() {
     let inputV1 = document.getElementById('categoryInputV1');
     let inputV2 = document.getElementById('categoryInputV2');
@@ -495,6 +546,9 @@ function resetInputs() {
     resetInputValueAndColor(inputV2);
 }
 
+/**
+ * Resets the value and border color of a specified input element.
+ */
 function resetInputValueAndColor(inputElem) {
     inputElem.value = 'Select task category';
     inputElem.style.borderColor = '#D1D1D1';
@@ -502,8 +556,9 @@ function resetInputValueAndColor(inputElem) {
 //---------------------------------------------------------------------------------//
 
 //Prio Buttons class-change//
+
 /**
- * Updates visual representation of priority buttons.
+ * Updates visual representation of priority buttons (activ).
  */
 function activateButton(btnId, iconId, activeIconId, activeClass, iconSrc) {
     document.getElementById(btnId).classList.add(activeClass);
@@ -513,6 +568,9 @@ function activateButton(btnId, iconId, activeIconId, activeClass, iconSrc) {
     saveTaskElements();
 }
 
+/**
+ * Updates visual representation of priority buttons (deactiv).
+ */
 function deactivateButton(btnId, iconId, activeIconId, activeClass) {
     document.getElementById(btnId).classList.remove(activeClass);
     document.getElementById(iconId).classList.remove('d-none');
@@ -521,6 +579,9 @@ function deactivateButton(btnId, iconId, activeIconId, activeClass) {
     saveTaskElements();
 }
 
+/**
+ * switch visual representation of priority buttons.
+ */
 function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, resetOther) {
     if (currentPrioSelected === iconSrc) {
         deactivateButton(btnId, iconId, activeIconId, activeClass);
@@ -530,6 +591,10 @@ function prioSelectedToggle(btnId, iconId, activeIconId, activeClass, iconSrc, r
     }
 }
 
+/**
+ * Initializes the priority buttons based on the current selected priority.
+ * This function determines which button to activate based on the value of currentPrioSelected.
+ */
 function initializePrioButtons() {
     if (!currentPrioSelected) return; // Wenn nichts ausgewählt ist, tue nichts.
     let btnId, iconId, activeIconId, activeClass;
