@@ -213,7 +213,6 @@ async function currentUserContactsLoad() {
     }
 }
 
-
 //Activ user
 
 /**

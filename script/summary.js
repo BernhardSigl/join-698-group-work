@@ -174,4 +174,3 @@ function convertDateFormat(inputDate) {
     const year = parts[2];
     return `${months[monthIndex]} ${day}, ${year}`;
 }
-

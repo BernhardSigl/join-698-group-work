@@ -134,6 +134,14 @@ function clearContactPopup() {
     document.getElementById('inputPhoneId').value = '';
     toggleVisibilityAddTask('contactPopupByAddTask', '')
 }
+
+/**
+ * Re-renders the contacts list based on a filter text from an input field.
+ */
+function handleInputChange() {
+    let filterText = document.getElementById('assignedToInput').value;
+    renderAllContactsForSearch(filterText);
+}
 //---------------------------------------------------------------------------------//
 
 //create category//
@@ -296,11 +304,3 @@ document.getElementById('assignTo').addEventListener('click', function (event) {
     event.stopPropagation();
 });
 //---------------------------------------------------------------------------------//
-
-/**
- * Re-renders the contacts list based on a filter text from an input field.
- */
-function handleInputChange() {
-    let filterText = document.getElementById('assignedToInput').value;
-    renderAllContactsForSearch(filterText);
-}

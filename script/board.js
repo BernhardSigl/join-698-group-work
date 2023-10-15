@@ -90,7 +90,6 @@ function renderSearchResults() {
             <div id='searchedDone' class="drag-area show-scrollbar"></div>
         </section>
     </div>
-   
     `;
     renderSearchedToDo(results);
     renderSearchedInProgress(results);
