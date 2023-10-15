@@ -113,23 +113,29 @@ function addContact() {
 
 /** * This function is to save the input in the contact array */
 async function createContact() {
-    let newContact = {
-        "name": document.getElementById('inputNameId').value,
-        "nameAbbreviation": makeNameAbbreviation(document.getElementById('inputNameId').value),
-        "email": document.getElementById('inputEmailId').value,
-        "phone": document.getElementById('inputPhoneId').value,
-        "color": getColor()
+    if (validateForm()) {
+
+
+        let newContact = {
+            "name": document.getElementById('inputNameId').value,
+            "nameAbbreviation": makeNameAbbreviation(document.getElementById('inputNameId').value),
+            "email": document.getElementById('inputEmailId').value,
+            "phone": document.getElementById('inputPhoneId').value,
+            "color": getColor()
+        }
+        contactsArray.push(newContact);
+        await currentUserContactsSave();
+        clearInputFields();
+        slideOut('swipeContactPopupId', 'addContactId', 200);
+        toggleVisibility('mobileBackArrowId', false);
+        toggleVisibility('mobileVisibilityId', true);
+        renderContacts();
+        changesSaved('Contact successfully created');
+        hoverNewContact(newContact);
     }
-    contactsArray.push(newContact);
-    await currentUserContactsSave();
-    clearInputFields();
-    slideOut('swipeContactPopupId', 'addContactId', 200);
-    toggleVisibility('mobileBackArrowId', false);
-    toggleVisibility('mobileVisibilityId', true);
-    renderContacts();
-    changesSaved('Contact successfully created');
-    hoverNewContact(newContact);
 }
+
+
 
 /** This function is to clear the input fields in a popup */
 function clearInputFields() {
