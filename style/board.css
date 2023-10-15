@@ -659,7 +659,10 @@ body {
     }
 
     .task-detail {
-        width: 80vw;
+        width: 100vw;
+        height: 100vh;
+        max-height: none;
+        padding: 32px;
     }
 
     .search-board-container {
