@@ -43,36 +43,9 @@ document.addEventListener('dragend', function (e) {
  */
 async function clearArray() {
     tasks.splice(0, tasks.length);
-    currentId = ""
+    currentId = "";
     await currentUserTaskSave();
     await currentUserIdSave();
-}
-
-/**
- * This function filters the tasks array for title and description  
- * @returns new arrays for every element of the content who matches with the value of the searchInput 
- */
-function searchTasks() {
-    // document.getElementById('contentposition').classList.add('d-none');
-    searching = true;
-    const searchValue = document.getElementById('searchInput').value.toLowerCase();
-    console.log("searching")
-    return tasks.filter(task =>
-        task.title.toLowerCase().includes(searchValue) ||
-        task.description.toLowerCase().includes(searchValue)
-    );
-}
-
-/**
- * This function displays the results of the search
- * 
- */
-function renderSearchResults() {
-    document.getElementById('searchLogo').classList.add('d-none');
-    document.getElementById('searchClose').classList.remove('d-none')
-    // x d-none weg lupe d-none hin x onclick = reset function to normal board view
-    let results = searchTasks();
-   
 }
 
 
@@ -169,21 +142,67 @@ function updateBoardHTML() {
     renderDone();
 }
 
+
+
 /**
- * This function renders tasks with the status todo
+ * This function filters the tasks array for title and description  
+ * This function displays the results of the search
  * 
  */
-function renderToDo() {
+function renderSearchResults() {
+    console.log('searching')
+    document.getElementById('searchLogo').classList.add('d-none');
+    document.getElementById('searchClose').classList.remove('d-none')
+    // x d-none weg lupe d-none hin x onclick = reset function to normal board view
+    let text = document.getElementById('searchInput').value;
+    renderToDo(text);
+    renderInProgress(text);
+    renderAwaitingFeedback(text);
+    renderDone(text);
+}
+
+
+
+/**
+ * This function renders tasks with the status todo
+ * text = '' bedeutet dass das text array leer gemacht wird (das is nur für die funktion)
+ * 1 es werden alle tasks mit dem status todo gesucht und dem array todo zugewiesen
+ * 2 es alle todos mit titeln die dem Wert des Inputfelds entsprechen werden beibehalten 
+ *  und dem searchResult array hinzugefügt
+ * 3 Wenn es keine todos gibt (das array todo Länge 0 hat) schreibt er keine todos
+ *                 oder die Suche keine Ergebnisse ergibt
+ * ansonsten 
+ *      wenn text leer 
+ *          --> render alle Todos
+ *      wenn text nicht leer
+ *          --> render alle searchresults
+ * 
+ *  --> beim normalen rendern so als ob da nur renderToDo() stehen würde
+ * 
+ * 
+ * 
+ * //includes = ob wert enthalten ist
+ */
+function renderToDo(text = '') {
     let todo = tasks.filter(t => t['status'] == 'toDo');
-    if (todo.length === 0) {
+    let searchedResult = todo.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
+    if (todo.length === 0 || searchedResult.length === 0) {
         document.getElementById('toDo').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks To do</div>
         `;
     } else {
-        document.getElementById('toDo').innerHTML = '';
-        for (let index = 0; index < todo.length; index++) {
-            const element = todo[index];
-            document.getElementById('toDo').innerHTML += generateTaskHTML(element);
+        if (text === '') {
+            document.getElementById('toDo').innerHTML = '';
+            for (let index = 0; index < todo.length; index++) {
+                const element = todo[index];
+                document.getElementById('toDo').innerHTML += generateTaskHTML(element);
+            }
+        } else {
+            document.getElementById('toDo').innerHTML = '';
+            for (let index = 0; index < searchedResult.length; index++) {
+                const element = searchedResult[index];
+                document.getElementById('toDo').innerHTML += generateTaskHTML(element);
+            }
         }
     }
 }
@@ -192,79 +211,106 @@ function renderToDo() {
  * This function renders tasks with the status in progress
  * 
  */
-function renderInProgress() {
+function renderInProgress(text = '') {
     let inProgress = tasks.filter(t => t['status'] == 'in-progress');
-    if (inProgress.length === 0) {
+    let searchedResult = inProgress.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
+    if (inProgress.length === 0 || searchedResult.length === 0) {
         document.getElementById('in-progress').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks In progress</div>
         `;
     } else {
-        document.getElementById('in-progress').innerHTML = '';
-        for (let index = 0; index < inProgress.length; index++) {
-            const element = inProgress[index];
-            document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
+        if (text === '') {
+            document.getElementById('in-progress').innerHTML = '';
+            for (let index = 0; index < inProgress.length; index++) {
+                const element = inProgress[index];
+                document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
+            }
+        } else {
+            document.getElementById('in-progress').innerHTML = '';
+            for (let index = 0; index < searchedResult.length; index++) {
+                const element = searchedResult[index];
+                document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
+            }
         }
     }
 }
 
-/**
- * This function renders tasks with the status awaiting feedback
- * 
- */
-function renderAwaitingFeedback() {
-    let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
-    if (awaitingFeedback.length === 0) {
-        document.getElementById('awaiting-feedback').innerHTML = /*html*/ ` 
+    /**
+     * This function renders tasks with the status awaiting feedback
+     * 
+     */
+    function renderAwaitingFeedback(text = '') {
+        let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
+        let searchedResult = awaitingFeedback.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
+        if (awaitingFeedback.length === 0 || searchedResult.length === 0) {
+            document.getElementById('awaiting-feedback').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks Await Feedback</div>
         `;
-    } else {
-        document.getElementById('awaiting-feedback').innerHTML = '';
-        for (let index = 0; index < awaitingFeedback.length; index++) {
-            const element = awaitingFeedback[index];
-            document.getElementById('awaiting-feedback').innerHTML += generateTaskHTML(element);
+        } else {
+            if (text === '') {
+            document.getElementById('awaiting-feedback').innerHTML = '';
+            for (let index = 0; index < awaitingFeedback.length; index++) {
+                const element = awaitingFeedback[index];
+                document.getElementById('awaiting-feedback').innerHTML += generateTaskHTML(element);
+            }
+        } else {
+            document.getElementById('awaiting-feedback').innerHTML = '';
+            for (let index = 0; index < searchedResult.length; index++) {
+                const element = searchedResult[index];
+                document.getElementById('awaiting-feedback').innerHTML += generateTaskHTML(element);
+            }
         }
     }
 }
 
-/**
- * This function renders tasks with the status done
- * 
- */
-function renderDone() {
-    let done = tasks.filter(t => t['status'] == 'done');
-    if (done.length === 0) {
-        document.getElementById('done').innerHTML = /*html*/ ` 
+    /**
+     * This function renders tasks with the status done
+     * 
+     */
+    function renderDone(text = '') {
+        let done = tasks.filter(t => t['status'] == 'done');
+        let searchedResult = done.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
+        if (done.length === 0 || searchedResult.length === 0) {
+            document.getElementById('done').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks Done</div>
         `;
-    } else {
-        document.getElementById('done').innerHTML = '';
-        for (let index = 0; index < done.length; index++) {
-            const element = done[index];
-            document.getElementById('done').innerHTML += generateTaskHTML(element);
+        } else {
+            if (text === '') {
+            document.getElementById('done').innerHTML = '';
+            for (let index = 0; index < done.length; index++) {
+                const element = done[index];
+                document.getElementById('done').innerHTML += generateTaskHTML(element);
+            }
+        } else {
+            document.getElementById('done').innerHTML = '';
+            for (let index = 0; index < searchedResult.length; index++) {
+                const element = searchedResult[index];
+                document.getElementById('done').innerHTML += generateTaskHTML(element);
+            }
         }
     }
 }
 
 
-/**
- * This function generates a small task card based on the given element
- * 
- * @param {Object} - The task element 
- * @returns {string} - The generated HTML string representing the task
- */
-function generateTaskHTML(element) {
-    let i = element['id']
-    let users = element['contactAbbreviation']
-    let colors = element['contactColor']
-    let assignedUser = '';
+    /**
+     * This function generates a small task card based on the given element
+     * 
+     * @param {Object} - The task element 
+     * @returns {string} - The generated HTML string representing the task
+     */
+    function generateTaskHTML(element) {
+        let i = element['id']
+        let users = element['contactAbbreviation']
+        let colors = element['contactColor']
+        let assignedUser = '';
 
-    for (let j = 0; j < users.length; j++) {
-        let user = users[j];
-        let color = colors[j]
-        assignedUser += /*html*/ ` 
+        for (let j = 0; j < users.length; j++) {
+            let user = users[j];
+            let color = colors[j]
+            assignedUser += /*html*/ ` 
        <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
-    }
-    let mover = /*html*/ `  
+        }
+        let mover = /*html*/ `  
     <div id="move-dropup">
         <div class="dropup">
             <button class="dropbtn">Move</button>
@@ -277,7 +323,7 @@ function generateTaskHTML(element) {
         </div>
     </div>
     `;
-    return /*html*/ `
+        return /*html*/ `
         <div id="dragStatus" draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
             <div onclick="openTask(${i})"> 
                 <div class="task-top fontSize16">
@@ -297,56 +343,56 @@ function generateTaskHTML(element) {
             ${mover}
         </div>
     `;
-}
+    }
 
 
 
-async function switchStatusToDo(i) {
-    let index = tasks.findIndex(task => task.id === i);
-    currentDraggedElement = index;
-    tasks[currentDraggedElement]['status'] = "toDo";
-    await currentUserTaskSave();
-    updateBoardHTML();
-}
+    async function switchStatusToDo(i) {
+        let index = tasks.findIndex(task => task.id === i);
+        currentDraggedElement = index;
+        tasks[currentDraggedElement]['status'] = "toDo";
+        await currentUserTaskSave();
+        updateBoardHTML();
+    }
 
-async function switchStatusToInProgress(i) {
-    let index = tasks.findIndex(task => task.id === i);
-    currentDraggedElement = index;
-    tasks[currentDraggedElement]['status'] = "in-progress";
-    await currentUserTaskSave();
-    updateBoardHTML();
-}
+    async function switchStatusToInProgress(i) {
+        let index = tasks.findIndex(task => task.id === i);
+        currentDraggedElement = index;
+        tasks[currentDraggedElement]['status'] = "in-progress";
+        await currentUserTaskSave();
+        updateBoardHTML();
+    }
 
-async function switchStatusToAwaitFeedback(i) {
-    let index = tasks.findIndex(task => task.id === i);
-    currentDraggedElement = index;
-    tasks[currentDraggedElement]['status'] = "awaiting-feedback";
-    await currentUserTaskSave();
-    updateBoardHTML();
-}
+    async function switchStatusToAwaitFeedback(i) {
+        let index = tasks.findIndex(task => task.id === i);
+        currentDraggedElement = index;
+        tasks[currentDraggedElement]['status'] = "awaiting-feedback";
+        await currentUserTaskSave();
+        updateBoardHTML();
+    }
 
-async function switchStatusToDone(i) {
-    let index = tasks.findIndex(task => task.id === i);
-    currentDraggedElement = index;
-    tasks[currentDraggedElement]['status'] = "done";
-    await currentUserTaskSave();
-    updateBoardHTML();
-}
+    async function switchStatusToDone(i) {
+        let index = tasks.findIndex(task => task.id === i);
+        currentDraggedElement = index;
+        tasks[currentDraggedElement]['status'] = "done";
+        await currentUserTaskSave();
+        updateBoardHTML();
+    }
 
-/**
- *This function updates the progress bar based on the finished subtasks 
- *  
- * @param {Object} - The task element 
- * @returns {string} The generated HTML string representing the progress bar
- */
-function updateProgressbar(element) {
-    let openSubasks = element['subtasksInProgress'].length
-    let finishedSubasks = element['subtasksFinish'].length
-    let allSubtasks = openSubasks + finishedSubasks
-    let percent = finishedSubasks / allSubtasks;
-    percent = Math.round(percent * 100);
+    /**
+     *This function updates the progress bar based on the finished subtasks 
+     *  
+     * @param {Object} - The task element 
+     * @returns {string} The generated HTML string representing the progress bar
+     */
+    function updateProgressbar(element) {
+        let openSubasks = element['subtasksInProgress'].length
+        let finishedSubasks = element['subtasksFinish'].length
+        let allSubtasks = openSubasks + finishedSubasks
+        let percent = finishedSubasks / allSubtasks;
+        percent = Math.round(percent * 100);
 
-    return /*html*/ `  
+        return /*html*/ `  
     <div class="task-progress">
         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
             <div class="progress-bar" style="background-color: #4589FF; width:${percent}%">
@@ -355,27 +401,27 @@ function updateProgressbar(element) {
         <span class="fontSize12">${finishedSubasks}/${allSubtasks} Subtasks
         </span>
     </div> `
-}
+    }
 
 
-/**
- * This function sets the global variable 'currentDraggedElement' with the index of the task having the specified ID
- * 
- * @param {number} id - The id of the task to find
- */
-async function startDragging(id) {
-    let index = tasks.findIndex(task => task.id === id);
-    currentDraggedElement = index;
-}
+    /**
+     * This function sets the global variable 'currentDraggedElement' with the index of the task having the specified ID
+     * 
+     * @param {number} id - The id of the task to find
+     */
+    async function startDragging(id) {
+        let index = tasks.findIndex(task => task.id === id);
+        currentDraggedElement = index;
+    }
 
 
-/**
- * This function finds the task by its ID and triggers rendering its detailed view
- * 
- * @param {number} i - The id of the task to open
- */
-async function openTask(i) {
-    let index = tasks.findIndex(task => task.id === i);
-    renderTaskdetailHTML(index)
-    clearSearchInput();
-}
+    /**
+     * This function finds the task by its ID and triggers rendering its detailed view
+     * 
+     * @param {number} i - The id of the task to open
+     */
+    async function openTask(i) {
+        let index = tasks.findIndex(task => task.id === i);
+        renderTaskdetailHTML(index)
+        clearSearchInput();
+    }
