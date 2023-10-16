@@ -14,6 +14,7 @@ async function initBoard() {
     loadActivUser();
     await currentUserTaskLoad();
     updateBoardHTML();
+    document.getElementById('dragStatus').setAttribute('draggable', true);
     console.log('taskorg', tasks)
 }
 
@@ -371,7 +372,7 @@ function updateProgressbar(element) {
 async function startDragging(id) {
     let index = tasks.findIndex(task => task.id === id);
     currentDraggedElement = index;
-    initBoard();
+    
 }
 
 
