@@ -24,7 +24,7 @@ function editTaskWindow() {
  * @param {number} i - The index of the task to be edited from the `tasks` array.
  */
 async function editTaskNew(i) {
-    document.getElementById('addTaskPop').classList.remove('d-none');
+    slide('addTaskPopupPositionFront', 'addTaskPop');
     closeTask();
     let taskToEdit = tasks[i];
     document.getElementById("addTaskHeadline").innerHTML = 'Edit Task';

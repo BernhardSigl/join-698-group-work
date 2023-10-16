@@ -324,7 +324,7 @@ function renderInProgress(text = '') {
     `;
         return /*html*/ `
         <div id="dragStatus" draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
-            <div onclick="openTask(${i})"> 
+            <div onclick="openTask(${i}, event), slide('task-card', 'addTaskPopupPositionFront');"> 
                 <div class="task-top fontSize16">
                     <div class="task-category" style="${element['categoryColor']}">${element['category']}</div>
                     <div id="move-container">  </div>
@@ -419,7 +419,10 @@ function renderInProgress(text = '') {
      * 
      * @param {number} i - The id of the task to open
      */
-    async function openTask(i) {
+    async function openTask(i, event) {
+        event.stopPropagation();
         let index = tasks.findIndex(task => task.id === i);
         renderTaskdetailHTML(index)
     }
+
+   

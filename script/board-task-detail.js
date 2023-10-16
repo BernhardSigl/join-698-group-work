@@ -92,6 +92,11 @@ function renderPriorityText(i) {
 }
 
 
+function stopBody(event){
+    event.stopPropagation()
+}
+
+
 /**
  * This function renders the detailed task
  * 
@@ -100,7 +105,7 @@ function renderPriorityText(i) {
 function createHTML(i) {
     document.getElementById('popup-container').classList.remove('d-none');
     document.getElementById('popup-container').innerHTML = /*html*/ `
-    <div class="task-detail">
+    <div onclick="stopBody(event)" class="task-detail" id="task-card">
             <div class="task-detail-content-container">
                 <div class="task-detail-top">
                     <div class="task-detail-category" style="${tasks[i]['categoryColor']}"> ${tasks[i]['category']}</div>
