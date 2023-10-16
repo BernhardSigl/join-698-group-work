@@ -14,7 +14,6 @@ async function initBoard() {
     loadActivUser();
     await currentUserTaskLoad();
     updateBoardHTML();
-    console.log('taskorg', tasks)
 }
 
 /**
@@ -57,10 +56,8 @@ async function clearArray() {
  */
 function clearSearchInput() {
     document.getElementById('searchInput').value = '';
-    document.getElementById('searchResults').innerHTML = '';
     document.getElementById('searchLogo').classList.remove('d-none');
-    document.getElementById('searchClose').classList.add('d-none')
-    document.getElementById('contentposition').classList.remove('d-none');
+    document.getElementById('searchClose').classList.add('d-none');
     initBoard();
 }
 
@@ -192,6 +189,8 @@ function renderToDo(text = '') {
         `;
     } else {
         if (text === '') {
+            document.getElementById('searchLogo').classList.remove('d-none');
+            document.getElementById('searchClose').classList.add('d-none');
             document.getElementById('toDo').innerHTML = '';
             for (let index = 0; index < todo.length; index++) {
                 const element = todo[index];
@@ -423,5 +422,4 @@ function renderInProgress(text = '') {
     async function openTask(i) {
         let index = tasks.findIndex(task => task.id === i);
         renderTaskdetailHTML(index)
-        clearSearchInput();
     }
