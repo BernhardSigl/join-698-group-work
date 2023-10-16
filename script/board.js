@@ -4,6 +4,7 @@ let taskPriority;
 let subtaskHeadline;
 let inProgress;
 let finished;
+let searching = false;
 
 /**
  * This function to initializes the active user on the board, the shown tasks for the user and the html for board 
@@ -13,6 +14,7 @@ async function initBoard() {
     loadActivUser();
     await currentUserTaskLoad();
     updateBoardHTML();
+    console.log('taskorg', tasks)
 }
 
 /**
@@ -51,7 +53,8 @@ async function clearArray() {
  * @returns new arrays for every element of the content who matches with the value of the searchInput 
  */
 function searchTasks() {
-    document.getElementById('contentposition').classList.add('d-none');
+    // document.getElementById('contentposition').classList.add('d-none');
+    searching = true;
     const searchValue = document.getElementById('searchInput').value.toLowerCase();
     console.log("searching")
     return tasks.filter(task =>
@@ -69,107 +72,27 @@ function renderSearchResults() {
     document.getElementById('searchClose').classList.remove('d-none')
     // x d-none weg lupe d-none hin x onclick = reset function to normal board view
     let results = searchTasks();
-    let resultsContainer = document.getElementById('searchResults');
-    resultsContainer.innerHTML = '';
-    resultsContainer.innerHTML = /*html*/ `
-    <div class=search-category-container>
-        <section>
-            <span class="fontSize20"><b>To do</b></span>
-            <div id='searchedTodo' class="drag-area show-scrollbar"></div>
-        </section>
-        <section>
-            <span class="fontSize20"><b>In progress</b></span>
-            <div id='searchedInProgress' class="drag-area show-scrollbar"></div>
-        </section>
-        <section>
-            <span class="fontSize20"><b>Await Feedback</b></span>
-            <div id='searchedAwaitFeedback' class="drag-area show-scrollbar"></div>
-        </section>
-        <section>
-            <span class="fontSize20"><b>Done</b></span>
-            <div id='searchedDone' class="drag-area show-scrollbar"></div>
-        </section>
-    </div>
-    `;
-    renderSearchedToDo(results);
-    renderSearchedInProgress(results);
-    renderSearchedAwaitFeedback(results);
-    renderSearchedDone(results);
+    console.log(results)
+    tasks = results
+    console.log('tasks',tasks)
+    updateBoardHTML();
+    document.getElementById('dragStatus').setAttribute('draggable', false);
 }
 
-function renderSearchedToDo(results) {
-    let searchResult = results.filter(t => t['status'] == 'toDo');
-    console.log(searchResult)
-    if (searchResult.length === 0) {
-        document.getElementById('searchedTodo').innerHTML = /*html*/ ` 
-        <div class="status-empty">No tasks To do</div>
-        `;
-    } else {
-        for (let index = 0; index < searchResult.length; index++) {
-            const element = searchResult[index];
-            document.getElementById('searchedTodo').innerHTML += generateTaskHTML(element);
-        }
-    }
-}
 
-function renderSearchedInProgress(results) {
-    let searchResult = results.filter(t => t['status'] == 'in-progress');
-    console.log(searchResult)
-    if (searchResult.length === 0) {
-        document.getElementById('searchedInProgress').innerHTML = /*html*/ ` 
-        <div class="status-empty">No tasks In progress</div>
-        `;
-    } else {
-        // document.getElementById('searchedTodo').innerHTML = '';
-        for (let index = 0; index < searchResult.length; index++) {
-            const element = searchResult[index];
-            document.getElementById('searchedInProgress').innerHTML += generateTaskHTML(element);
-        }
-    }
-}
 
-function renderSearchedAwaitFeedback(results) {
-    let searchResult = results.filter(t => t['status'] == 'awaiting-feedback');
-    console.log(searchResult)
-    if (searchResult.length === 0) {
-        document.getElementById('searchedAwaitFeedback').innerHTML = /*html*/ ` 
-        <div class="status-empty">No tasks Await Feedback</div>
-        `;
-    } else {
-        // document.getElementById('searchedTodo').innerHTML = '';
-        for (let index = 0; index < searchResult.length; index++) {
-            const element = searchResult[index];
-            document.getElementById('searchedAwaitFeedback').innerHTML += generateTaskHTML(element);
-        }
-    }
-}
-
-function renderSearchedDone(results) {
-    let searchResult = results.filter(t => t['status'] == 'done');
-    console.log(searchResult)
-    if (searchResult.length === 0) {
-        document.getElementById('searchedDone').innerHTML = /*html*/ ` 
-        <div class="status-empty">No tasks Done</div>
-        `;
-    } else {
-        // document.getElementById('searchedTodo').innerHTML = '';
-        for (let index = 0; index < searchResult.length; index++) {
-            const element = searchResult[index];
-            document.getElementById('searchedDone').innerHTML += generateTaskHTML(element);
-        }
-    }
-}
 
 /**
  * This functions clears the searchinput and switchs the x symbol of it back to searchsymbol
  * 
  */
-function clearInput() {
+function clearSearchInput() {
     document.getElementById('searchInput').value = '';
     document.getElementById('searchResults').innerHTML = '';
     document.getElementById('searchLogo').classList.remove('d-none');
     document.getElementById('searchClose').classList.add('d-none')
     document.getElementById('contentposition').classList.remove('d-none');
+    initBoard();
 }
 
 /** 
@@ -219,6 +142,7 @@ async function moveTo(status) {
     await currentUserTaskSave();
     updateBoardHTML();
     removeHighlight(status);
+   initBoard();
 }
 
 /**
@@ -346,7 +270,7 @@ function generateTaskHTML(element) {
        <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
     }
     let mover = /*html*/ `  
-    <div class="move">
+    <div id="move-dropup">
         <div class="dropup">
             <button class="dropbtn">Move</button>
             <div class="dropup-content">
@@ -359,7 +283,7 @@ function generateTaskHTML(element) {
     </div>
     `;
     return /*html*/ `
-        <div draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
+        <div id="dragStatus" draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
             <div onclick="openTask(${i})"> 
                 <div class="task-top fontSize16">
                     <div class="task-category" style="${element['categoryColor']}">${element['category']}</div>
@@ -444,9 +368,10 @@ function updateProgressbar(element) {
  * 
  * @param {number} id - The id of the task to find
  */
-function startDragging(id) {
+async function startDragging(id) {
     let index = tasks.findIndex(task => task.id === id);
     currentDraggedElement = index;
+    initBoard();
 }
 
 
@@ -458,6 +383,7 @@ function startDragging(id) {
 async function openTask(i) {
     let index = tasks.findIndex(task => task.id === i);
     renderTaskdetailHTML(index)
+    clearSearchInput();
 }
 
 

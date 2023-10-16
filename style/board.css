@@ -4,7 +4,7 @@ body {
     width: 100vw;
 }
 
-.move {
+#move-dropup {
     display: none;
 }
 
@@ -764,7 +764,7 @@ body {
         background-color: white;
     }
 
-    .move {
+    #move-dropup {
         display: block;
     }
 
