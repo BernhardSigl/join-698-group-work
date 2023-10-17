@@ -306,7 +306,7 @@ function validateForm() {
 
     if (!regex.test(input.value)) {
         input.style.borderColor = 'red';
-        document.getElementById('errorMessage').innerText = "Ungültige Eingabe! Nur + und Zahlen von 0-9 sind erlaubt.";
+        document.getElementById('errorMessage').innerText = "Invalid input! Only + and numbers from 0-9 are allowed.";
         return false; // Verhindert das Absenden des Formulars
     } else {
         document.getElementById('errorMessage').innerText = "";
