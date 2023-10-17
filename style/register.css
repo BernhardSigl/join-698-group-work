@@ -99,6 +99,9 @@ input {
     margin-left: 4px;
     color: var(--headline);
 }
+.checkboxSignUp a:hover {
+    text-decoration: underline !important;
+}
 
 .checkboxSignUp {
     display: flex !important;
