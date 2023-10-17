@@ -361,3 +361,9 @@
         padding: 17px 36px 17px 24px !important;
     }
 }
+
+@media (max-height: 1150px) {
+    #joinLogoAddContactId {
+        display: none;
+    }
+}
