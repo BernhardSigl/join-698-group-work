@@ -11,7 +11,6 @@ function renderTaskdetailHTML(i) {
     createHTML(i)
 }
 
-
 /**
  * This function renders the subtask headline 
  * 
@@ -23,7 +22,6 @@ function renderSubtaskHeadline() {
      Subtasks
     </div>`
 }
-
 
 /**
  * This function shows the subtasks in progress, if available
@@ -48,7 +46,6 @@ function showSubtasksInProgress(i) {
     updateBoardHTML();
 }
 
-
 /**
  * This function shows the finished subtasks, if available
  * 
@@ -68,7 +65,6 @@ function showSubtasksFinished(i) {
     }
     updateBoardHTML();
 }
-
 
 /**
  * This function renders the priority
@@ -91,11 +87,10 @@ function renderPriorityText(i) {
     }
 }
 
-
-function stopBody(event){
+/** * This function is used to impede the closing of a container */
+function stopBody(event) {
     event.stopPropagation()
 }
-
 
 /**
  * This function renders the detailed task
@@ -155,7 +150,6 @@ function createHTML(i) {
     `;
 }
 
-
 /**
  * This function shows the assigned user on the detailed task
  * 
@@ -184,9 +178,7 @@ function findAssignedUnser(i) {
         `;
     }
     return assignedUserDetail
-
 }
-
 
 /**
  * This function switches the status ob a subtask to finished

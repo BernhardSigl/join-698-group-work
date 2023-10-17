@@ -1,6 +1,5 @@
 let dialog = document.getElementById('dialog');
 
-
 /**
  * Initializes the login sequence by setting the active user, starting animations,
  */
@@ -14,7 +13,6 @@ async function initLogin() {
     await loadUserGroup698();
 }
 
-
 /**
  * Populates the login dialog with the login template.
  */
@@ -27,7 +25,6 @@ function loadLogIn() {
     }
 }
 
-
 /**
  * Starts the join-logo animation if the document referrer is empty.
  */
@@ -39,14 +36,12 @@ function startAnimation() {
     }
 }
 
-
 /**
  * Redirects the user to the registration page.
  */
 function loadRegister() {
     window.location.href = "./register.html";
 }
-
 
 /**
  * Populates the dialog with the password reset template.
@@ -55,14 +50,12 @@ function resetPasswort() {
     dialog.innerHTML = loadTemplateResetPasswort();
 }
 
-
 /**
  * Reverts the dialog back to the login interface.
  */
 function closeDialog() {
     loadLogIn();
 }
-
 
 /**
  * Validates user credentials and logs them in if valid.
@@ -87,7 +80,6 @@ function login() {
     }
 }
 
-
 /**
  * Logs in a user as a guest and fills default data arrays.
  */
@@ -97,7 +89,6 @@ function guestLogin() {
     fillTestArray();
     window.location.href = "./summary.html";
 }
-
 
 /**
  * Fills default test data for the guest login. This data includes sample contacts, tasks, and categories.
@@ -234,7 +225,6 @@ function fillTestArray() {
     currentUserContactsSave();
 }
 
-
 /**
  * Adds a red border to specified input elements indicating an error.
  */
@@ -245,7 +235,6 @@ function loadRedBorderInput() {
     }
 }
 
-
 /**
  * Displays warning text templates for specified elements.
  */
@@ -255,7 +244,6 @@ function loadWarningTextTamplate() {
         document.getElementById(id).classList.remove("d-none");
     }
 }
-
 
 /**
  * Returns the HTML template for the login form.

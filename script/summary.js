@@ -23,9 +23,7 @@ function loadText() {
 }
 
 //----------------------search function------------------------------
-
 //---Search User name----------------------------
-
 /**
  * Loads the active user's name and sets it to the corresponding HTML element.
  * It fetches the DOM element with the ID 'name' and updates its inner text with the name of the active user.
@@ -109,7 +107,6 @@ function loadUrgentPrioDate() {
 }
 
 //----------------- load Time of Day------------------
-
 /**
  * This function shows the greeting for the user
  * 

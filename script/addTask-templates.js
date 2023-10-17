@@ -1,5 +1,7 @@
 //categoryReturn//
-
+/**
+ * Returns an HTML string representing a color circle, with optional selection.
+ */
 function returnCreateCategoryColors(color, index) {
     if (color === selectedColorIndex) {
         return /*html*/ `
@@ -12,7 +14,9 @@ function returnCreateCategoryColors(color, index) {
     }
 }
 
-
+/**
+ * Returns an HTML string representing a main category row, with optional selection.
+ */
 function returnRenderMainCategorys(name, color, i) {
     if (currentCategorySelected[0].name === name &&
         currentCategorySelected[0].color === color) {
@@ -32,7 +36,9 @@ function returnRenderMainCategorys(name, color, i) {
     }
 }
 
-
+/**
+ * Returns an HTML string representing a category row, with optional elements for deletion.
+ */
 function returnRenderAllCategorys(name, color, i) {
     if (currentCategorySelected[0].name === name &&
         currentCategorySelected[0].color === color) {
@@ -56,11 +62,8 @@ function returnRenderAllCategorys(name, color, i) {
         `;
     }
 }
-//---------------------------------------------------------------------------------//
-
 
 //contact return//
-
 //return render Contacts(all and selected)//
 /**
  * Returns an HTML string representing a selected contact.
@@ -72,7 +75,6 @@ function returnRenderAllSelectedContacts(contactColors, contactNamesAbbreviation
     <div onclick="editSelectedContact(${index})" style="background-color:${contactColors}" class="assignedToContactImg">${contactNamesAbbreviation}</div>
     `;
 }
-
 
 /**
  * Returns an HTML string for the contact search functionality.
@@ -105,7 +107,6 @@ function returnRenderAllContactsForSearch(contactColor, contactNamesAbbreviation
     `;
 }
 
-
 /**
  * Toggles classes for the main settings element.
  * @param {HTMLElement} mainElement - Main settings DOM element.
@@ -121,7 +122,6 @@ function returnSettingsMain(mainElement) {
     return
 }
 
-
 /**
  * Toggles visibility for the first settings element.
  * @param {HTMLElement} firstSecondary - First settings DOM element.
@@ -134,7 +134,6 @@ function returnSettingsFirst(firstSecondary) {
     }
     return
 }
-
 
 /**
  * Toggles visibility for the second settings element.
@@ -149,7 +148,6 @@ function returnSettingsSecond(secondSecondary) {
     return
 }
 
-
 /**
  * Checks if a contact is in the `contactCollection`.
  * @param {Object} contact - The contact object to check.
@@ -158,7 +156,6 @@ function returnSettingsSecond(secondSecondary) {
 function isContactInCollection(contact) {
     return contactCollection.includes(contact);
 }
-
 
 /**
  * Sets styles to visually select a contact.
@@ -174,7 +171,6 @@ function selectContact(mainElement, firstSecondary, secondSecondary) {
     return;
 }
 
-
 /**
  * Sets styles to visually deselect a contact.
  */
@@ -185,11 +181,8 @@ function deselectContact(mainElement, firstSecondary, secondSecondary) {
     secondSecondary.classList.add('d-none');
     return;
 }
-//---------------------------------------------------------------------------------//
-
 
 //return Subtask//
-
 /**
  * Returns an HTML string representing the subtask editing container.
  * @param {number} i - Index of the subtask.
@@ -203,7 +196,9 @@ function returnEditContainer(i) {
     `;
 }
 
-
+/**
+ * Returns an HTML string representing an input for editing contacts.
+ */
 function returnEditContact(i) {
     return /*html*/`
     <input id="editSelectedContact" readonly type="text">
@@ -211,7 +206,6 @@ function returnEditContact(i) {
     <img onclick="clearSelectedContact(${i})" class="editAbsolutDelete" src="img/subTaskDelete.svg">
     `;
 }
-
 
 /**
  * Returns an HTML string representing a collection of subtasks.
@@ -230,11 +224,11 @@ function returnSubTaskCollection(subCollection, i) {
     </ul>
     `;
 }
-//---------------------------------------------------------------------------------//
-
 
 //return render functions//
-
+/**
+ * Returns an HTML string representing the button area for adding a task.
+ */
 function returnButtonAreaAddTask() {
     return /*html*/ `
 <div class="addTaskBottomArea">
@@ -255,7 +249,9 @@ function returnButtonAreaAddTask() {
     `;
 }
 
-
+/**
+ * Returns an HTML string representing the button area for editing a task.
+ */
 function returnButtonAreaEditTask() {
     return /*html*/`
     <div class="addTaskBottomArea">
@@ -270,7 +266,9 @@ function returnButtonAreaEditTask() {
     `;
 }
 
-
+/**
+ * Returns an HTML string representing the first category input box.
+ */
 function returnCategoryBox1() {
     return /*html*/ `
     <input onclick="toggleVisibilityAddTask('categoryAreaV1', 'categoryAreaV2')"
@@ -281,7 +279,9 @@ function returnCategoryBox1() {
     `;
 }
 
-
+/**
+ * Returns an HTML string representing the second category input box.
+ */
 function returnCategoryBox2() {
     return /*html*/ `
     <input onclick="toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1')"
@@ -304,7 +304,9 @@ function returnCategoryBox2() {
     `;
 }
 
-
+/**
+ * Returns an HTML string representing the priority selection box.
+ */
 function returnPrioBox() {
     return /*html*/ `
     <div onclick="prioSelectedToggle('prioUrgentBtn', 'prioUrgentIcon', 'prioUrgentIconActiv', 'prioBtnActivUrgent', './img/prioUrgent.svg', true)"
@@ -328,7 +330,9 @@ function returnPrioBox() {
     `;
 }
 
-
+/**
+ * Returns an HTML string representing the first "Assign to" input box.
+ */
 function returnAssignToBox1() {
     return /*html*/ `
         <input class="click" id="assignedToInputCover"
@@ -343,7 +347,9 @@ function returnAssignToBox1() {
         `;
 }
 
-
+/**
+ * Returns an HTML string representing the second "Assign to" input box.
+ */
 function returnAssignToBox2() {
     return /*html*/ `
     <input class="click" id="assignedToInput" type="text" placeholder="An:">
@@ -361,4 +367,3 @@ function returnAssignToBox2() {
     </div>
     `;
 }
-//---------------------------------------------------------------------------------//

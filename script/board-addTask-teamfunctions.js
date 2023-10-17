@@ -18,7 +18,6 @@ function editTaskWindow() {
     initializePrioButtons();
 }
 
-
 /**
  * Prepares the task editing popup by loading details of a specified task.
  * @param {number} i - The index of the task to be edited from the `tasks` array.
@@ -52,7 +51,6 @@ async function editTaskNew(i) {
     editTaskWindow();
 }
 
-
 /**
  * Hides dropdown UI components related to the task addition form.
  */
@@ -61,7 +59,6 @@ function hideAddTaskDropDowns() {
     toggleVisibilityAddTask('categoryAreaV2', 'categoryAreaV1');
 
 }
-
 
 /**
  * Gathers data from the editing form, updates the tasks array, and saves the updated task.
@@ -81,7 +78,6 @@ async function addEditTask() {
     resetAllAddTaskElementsBoard();
     updateBoardHTML();
 }
-
 
 /**
  * Resets the task editing board by clearing various elements and resetting data.
@@ -103,9 +99,6 @@ function resetAllAddTaskElementsBoard() {
     resetInputs();
     saveTaskElements();
 }
-//---------------------------------------------------------------------------------//
-
-
 //Contact popup//
 
 /**
@@ -130,7 +123,6 @@ async function createContactByPopup() {
     }
 }
 
-
 /**
  * Clears input fields of the contact creation popup and hides it.
  */
@@ -141,7 +133,6 @@ function clearContactPopup() {
     toggleVisibilityAddTask('contactPopupByAddTask', '')
 }
 
-
 /**
  * Re-renders the contacts list based on a filter text from an input field.
  */
@@ -149,11 +140,8 @@ function handleInputChange() {
     let filterText = document.getElementById('assignedToInput').value;
     renderAllContactsForSearch(filterText);
 }
-//---------------------------------------------------------------------------------//
-
 
 //create category//
-
 /**
  * Initializes the category creation window.
  */
@@ -161,7 +149,6 @@ function createCategoryWindow() {
     loadTaskElements();
     createCategoryColors();
 }
-
 
 /**
  * Renders available color options for categories.
@@ -175,7 +162,6 @@ function createCategoryColors() {
     }
 }
 
-
 /**
  * Updates the selected color for category creation.
  * @param {string} color - The color to be selected.
@@ -184,7 +170,6 @@ function selectColor(color) {
     updateSelectedColorIndex(color);
     createCategoryColors();
 }
-
 
 /**
  * Creates and adds a new category to the `allCategorys` array.
@@ -201,12 +186,11 @@ async function addCategory() {
     changesSaved('Category successfully created')
 }
 
-
+/** Updates the selected color index based on the provided index. */
 function updateSelectedColorIndex(index) {
     selectedColorIndex = selectedColorIndex === index ? null : index;
     saveTaskElements();
 }
-
 
 /**
  * Checks if category input is valid, and if so, creates a new category.
@@ -221,7 +205,6 @@ function confirmCreateCategory() {
     clearCreateWindow();
 }
 
-
 /**
  * Clears the category creation window.
  */
@@ -232,14 +215,12 @@ function clearCreateWindow() {
     saveTaskElements();
 }
 
-
 /**
  * Alerts the user in case of invalid category input.
  */
 function alertInvalidInput() {
     alert("Bitte geben Sie einen Kategorienamen mit mindestens 2 Buchstaben ein und wählen Sie eine Farbe aus.");
 }
-
 
 /**
  * Validates the input for category creation.
@@ -249,7 +230,6 @@ function isValidCategoryInput() {
     return inputElem.value.length >= 2 && selectedColorIndex !== null;
 }
 
-
 /**
  * Clears the category creation window and hides the category creation popup.
  */
@@ -257,11 +237,8 @@ function stopCreateCategory() {
     clearCreateWindow();
     toggleVisibilityAddTask('createCategoryPopupByAddTask', '')
 }
-//---------------------------------------------------------------------------------//
-
 
 //only for date-input by addTask.html/ Due date//
-
 /**
  * Event listener to initialize a date picker for task due date input.
  */
@@ -295,11 +272,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-//---------------------------------------------------------------------------------//
-
 
 //category container add d-none by body-click//
-
 /**
  * Event listener to hide the category dropdown upon a click outside the dropdown area.
  */
@@ -309,11 +283,8 @@ document.body.addEventListener('click', function () {
 document.getElementById('categorySection').addEventListener('click', function (event) {
     event.stopPropagation();
 });
-//---------------------------------------------------------------------------------//
-
 
 //contact container add d-none by body-click//
-
 /**
  * Event listener to hide the contacts dropdown upon a click outside the dropdown area.
  */
@@ -323,4 +294,3 @@ document.body.addEventListener('click', function () {
 document.getElementById('assignTo').addEventListener('click', function (event) {
     event.stopPropagation();
 });
-//---------------------------------------------------------------------------------//

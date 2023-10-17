@@ -47,9 +47,6 @@ async function clearArray() {
     await currentUserIdSave();
 }
 
-
-
-
 /**
  * This functions clears the searchinput and switchs the x symbol of it back to searchsymbol
  * 
@@ -139,8 +136,6 @@ function updateBoardHTML() {
     renderDone();
 }
 
-
-
 /**
  * This function filters the tasks array for title and description  
  * This function displays the results of the search
@@ -158,27 +153,25 @@ function renderSearchResults() {
     renderDone(text);
 }
 
-
-
 /**
- * This function renders tasks with the status todo
- * text = '' bedeutet dass das text array leer gemacht wird (das is nur für die funktion)
- * 1 es werden alle tasks mit dem status todo gesucht und dem array todo zugewiesen
- * 2 es alle todos mit titeln die dem Wert des Inputfelds entsprechen werden beibehalten 
- *  und dem searchResult array hinzugefügt
- * 3 Wenn es keine todos gibt (das array todo Länge 0 hat) schreibt er keine todos
- *                 oder die Suche keine Ergebnisse ergibt
- * ansonsten 
- *      wenn text leer 
- *          --> render alle Todos
- *      wenn text nicht leer
- *          --> render alle searchresults
+ * This function renders tasks with the status "todo".
+ * Setting text = '' means that the text array is cleared (this is only for the function).
  * 
- *  --> beim normalen rendern so als ob da nur renderToDo() stehen würde
+ * 1. All tasks with the status "todo" are retrieved and assigned to the todo array.
+ * 2. All todos with titles matching the value of the input field are retained
+ *    and added to the searchResult array.
+ * 3. If there are no todos (the todo array has a length of 0), it writes "No todos" 
+ *    or if the search yields no results.
+ *    Otherwise,
+ *    - If text is empty,
+ *        --> Render all todos.
+ *    - If text is not empty,
+ *        --> Render all search results.
+ * 
+ * --> In normal rendering, it is as if only renderToDo() were there.
  * 
  * 
- * 
- * //includes = ob wert enthalten ist
+ * // includes = whether a value is included
  */
 function renderToDo(text = '') {
     let todo = tasks.filter(t => t['status'] == 'toDo');
@@ -234,19 +227,19 @@ function renderInProgress(text = '') {
     }
 }
 
-    /**
-     * This function renders tasks with the status awaiting feedback
-     * 
-     */
-    function renderAwaitingFeedback(text = '') {
-        let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
-        let searchedResult = awaitingFeedback.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
-        if (awaitingFeedback.length === 0 || searchedResult.length === 0) {
-            document.getElementById('awaiting-feedback').innerHTML = /*html*/ ` 
+/**
+ * This function renders tasks with the status awaiting feedback
+ * 
+ */
+function renderAwaitingFeedback(text = '') {
+    let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
+    let searchedResult = awaitingFeedback.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
+    if (awaitingFeedback.length === 0 || searchedResult.length === 0) {
+        document.getElementById('awaiting-feedback').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks Await Feedback</div>
         `;
-        } else {
-            if (text === '') {
+    } else {
+        if (text === '') {
             document.getElementById('awaiting-feedback').innerHTML = '';
             for (let index = 0; index < awaitingFeedback.length; index++) {
                 const element = awaitingFeedback[index];
@@ -262,19 +255,19 @@ function renderInProgress(text = '') {
     }
 }
 
-    /**
-     * This function renders tasks with the status done
-     * 
-     */
-    function renderDone(text = '') {
-        let done = tasks.filter(t => t['status'] == 'done');
-        let searchedResult = done.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
-        if (done.length === 0 || searchedResult.length === 0) {
-            document.getElementById('done').innerHTML = /*html*/ ` 
+/**
+ * This function renders tasks with the status done
+ * 
+ */
+function renderDone(text = '') {
+    let done = tasks.filter(t => t['status'] == 'done');
+    let searchedResult = done.filter(t => t['title'].toLowerCase().includes(text.toLowerCase()));
+    if (done.length === 0 || searchedResult.length === 0) {
+        document.getElementById('done').innerHTML = /*html*/ ` 
         <div class="status-empty">No tasks Done</div>
         `;
-        } else {
-            if (text === '') {
+    } else {
+        if (text === '') {
             document.getElementById('done').innerHTML = '';
             for (let index = 0; index < done.length; index++) {
                 const element = done[index];
@@ -290,26 +283,25 @@ function renderInProgress(text = '') {
     }
 }
 
+/**
+ * This function generates a small task card based on the given element
+ * 
+ * @param {Object} - The task element 
+ * @returns {string} - The generated HTML string representing the task
+ */
+function generateTaskHTML(element) {
+    let i = element['id']
+    let users = element['contactAbbreviation']
+    let colors = element['contactColor']
+    let assignedUser = '';
 
-    /**
-     * This function generates a small task card based on the given element
-     * 
-     * @param {Object} - The task element 
-     * @returns {string} - The generated HTML string representing the task
-     */
-    function generateTaskHTML(element) {
-        let i = element['id']
-        let users = element['contactAbbreviation']
-        let colors = element['contactColor']
-        let assignedUser = '';
-
-        for (let j = 0; j < users.length; j++) {
-            let user = users[j];
-            let color = colors[j]
-            assignedUser += /*html*/ ` 
+    for (let j = 0; j < users.length; j++) {
+        let user = users[j];
+        let color = colors[j]
+        assignedUser += /*html*/ ` 
        <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
-        }
-        let mover = /*html*/ `  
+    }
+    let mover = /*html*/ `  
     <div id="move-dropup">
         <div class="dropup">
             <button class="dropbtn">Move</button>
@@ -322,7 +314,7 @@ function renderInProgress(text = '') {
         </div>
     </div>
     `;
-        return /*html*/ `
+    return /*html*/ `
         <div id="dragStatus" draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
             <div onclick="openTask(${i}, event), slide('task-card', 'addTaskPopupPositionFront');"> 
                 <div class="task-top fontSize16">
@@ -342,56 +334,70 @@ function renderInProgress(text = '') {
             ${mover}
         </div>
     `;
-    }
+}
 
+/**
+ * Changes the status of a task with the specified ID to "toDo".
+ * 
+ */
+async function switchStatusToDo(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "toDo";
+    await currentUserTaskSave();
+    updateBoardHTML();
+}
 
+/**
+ * Changes the status of a task with the specified ID to "in-progress".
+ * 
+ */
+async function switchStatusToInProgress(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "in-progress";
+    await currentUserTaskSave();
+    updateBoardHTML();
+}
 
-    async function switchStatusToDo(i) {
-        let index = tasks.findIndex(task => task.id === i);
-        currentDraggedElement = index;
-        tasks[currentDraggedElement]['status'] = "toDo";
-        await currentUserTaskSave();
-        updateBoardHTML();
-    }
+/**
+ * Changes the status of a task with the specified ID to "awaiting-feedback".
+ * 
+ */
+async function switchStatusToAwaitFeedback(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "awaiting-feedback";
+    await currentUserTaskSave();
+    updateBoardHTML();
+}
 
-    async function switchStatusToInProgress(i) {
-        let index = tasks.findIndex(task => task.id === i);
-        currentDraggedElement = index;
-        tasks[currentDraggedElement]['status'] = "in-progress";
-        await currentUserTaskSave();
-        updateBoardHTML();
-    }
+/**
+ * Changes the status of a task with the specified ID to "done".
+ * 
+ */
+async function switchStatusToDone(i) {
+    let index = tasks.findIndex(task => task.id === i);
+    currentDraggedElement = index;
+    tasks[currentDraggedElement]['status'] = "done";
+    await currentUserTaskSave();
+    updateBoardHTML();
+}
 
-    async function switchStatusToAwaitFeedback(i) {
-        let index = tasks.findIndex(task => task.id === i);
-        currentDraggedElement = index;
-        tasks[currentDraggedElement]['status'] = "awaiting-feedback";
-        await currentUserTaskSave();
-        updateBoardHTML();
-    }
+/**
+ *This function updates the progress bar based on the finished subtasks 
+ *  
+ * @param {Object} - The task element 
+ * @returns {string} The generated HTML string representing the progress bar
+ */
+function updateProgressbar(element) {
+    let openSubasks = element['subtasksInProgress'].length
+    let finishedSubasks = element['subtasksFinish'].length
+    let allSubtasks = openSubasks + finishedSubasks
+    let percent = finishedSubasks / allSubtasks;
+    percent = Math.round(percent * 100);
 
-    async function switchStatusToDone(i) {
-        let index = tasks.findIndex(task => task.id === i);
-        currentDraggedElement = index;
-        tasks[currentDraggedElement]['status'] = "done";
-        await currentUserTaskSave();
-        updateBoardHTML();
-    }
-
-    /**
-     *This function updates the progress bar based on the finished subtasks 
-     *  
-     * @param {Object} - The task element 
-     * @returns {string} The generated HTML string representing the progress bar
-     */
-    function updateProgressbar(element) {
-        let openSubasks = element['subtasksInProgress'].length
-        let finishedSubasks = element['subtasksFinish'].length
-        let allSubtasks = openSubasks + finishedSubasks
-        let percent = finishedSubasks / allSubtasks;
-        percent = Math.round(percent * 100);
-
-        return /*html*/ `  
+    return /*html*/ `  
     <div class="task-progress">
         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
             <div class="progress-bar" style="background-color: #4589FF; width:${percent}%">
@@ -400,29 +406,25 @@ function renderInProgress(text = '') {
         <span class="fontSize12">${finishedSubasks}/${allSubtasks} Subtasks
         </span>
     </div> `
-    }
+}
 
+/**
+ * This function sets the global variable 'currentDraggedElement' with the index of the task having the specified ID
+ * 
+ * @param {number} id - The id of the task to find
+ */
+async function startDragging(id) {
+    let index = tasks.findIndex(task => task.id === id);
+    currentDraggedElement = index;
+}
 
-    /**
-     * This function sets the global variable 'currentDraggedElement' with the index of the task having the specified ID
-     * 
-     * @param {number} id - The id of the task to find
-     */
-    async function startDragging(id) {
-        let index = tasks.findIndex(task => task.id === id);
-        currentDraggedElement = index;
-    }
-
-
-    /**
-     * This function finds the task by its ID and triggers rendering its detailed view
-     * 
-     * @param {number} i - The id of the task to open
-     */
-    async function openTask(i, event) {
-        event.stopPropagation();
-        let index = tasks.findIndex(task => task.id === i);
-        renderTaskdetailHTML(index)
-    }
-
-   
+/**
+ * This function finds the task by its ID and triggers rendering its detailed view
+ * 
+ * @param {number} i - The id of the task to open
+ */
+async function openTask(i, event) {
+    event.stopPropagation();
+    let index = tasks.findIndex(task => task.id === i);
+    renderTaskdetailHTML(index)
+}

@@ -114,8 +114,6 @@ function addContact() {
 /** * This function is to save the input in the contact array */
 async function createContact() {
     if (validateForm()) {
-
-
         let newContact = {
             "name": document.getElementById('inputNameId').value,
             "nameAbbreviation": makeNameAbbreviation(document.getElementById('inputNameId').value),
@@ -135,16 +133,14 @@ async function createContact() {
     }
 }
 
-
-
-/** This function is to clear the input fields in a popup */
+/** * This function is to clear the input fields in a popup */
 function clearInputFields() {
     document.getElementById('inputNameId').value = '';
     document.getElementById('inputEmailId').value = '';
     document.getElementById('inputPhoneId').value = '';
 }
 
-/** This function is to hover the contact after the contact is created */
+/** * This function is to hover the contact after the contact is created */
 function hoverNewContact(newContact) {
     const newIndex = contactsArray.findIndex(contact => contact.name === newContact.name);
     openContactBigInfo(newContact, newIndex, newContact['nameAbbreviation']);
@@ -180,7 +176,7 @@ function openContactBigInfo(contact, i, nameAbbreviation) {
     deleteEditContactAtIndex(i);
 }
 
-/** This function is used to create the button for the mobile view edit contact menu */
+/** * This function is used to create the button for the mobile view edit contact menu */
 function mobileEditMenu(i) {
     return /*html*/`
     <div class="mobileAddContact horicontalAndVertical pointer" onclick="slideOneObject('mobileEditDeleteBoxId'), openMobileEditMenu(${i})">
@@ -223,7 +219,7 @@ function editContactMobile(i) {
 `
 }
 
-/** This function is to delete a contact on mobile view */
+/** * This function is to delete a contact on mobile view */
 function deleteContactMobile(i) {
     showOnMobileView('deleteMobileButtonId');
     return /* html */ `
@@ -244,7 +240,7 @@ function highlightContact(i) {
     highlightContact[i].style.backgroundColor = '#2A3647';
     highlightContact[i].style.color = 'white';
 }
-
+/** * This function is used to close the popup window on mobile view */
 function closePopupMobile() {
     toggleVisibility('mobileEditDeleteBoxId', false);
     toggleVisibility('mobileBackArrowId', false);
@@ -342,7 +338,7 @@ async function saveContact(i) {
     renderContacts();
 }
 
-/** This function is to show or hide objects after saving a contact */
+/** * This function is to show or hide objects after saving a contact */
 function showHideAfterSaveContact() {
     toggleVisibility('mobileDotsSymbol', false);
     toggleVisibility('mobileAddContactId', true);

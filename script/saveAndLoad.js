@@ -58,7 +58,6 @@ function returnLoad(currentCategoryLoad, currentPrioLoad, subTaskCollectionLoad,
 }
 
 //------------tasks----------------------//
-
 /**
  * Checks if a certain key exists in storage, if not, sets a default value.
  * @param {string} key - Key to check in storage.
@@ -108,7 +107,6 @@ async function currentUserTaskLoad() {
 }
 
 //current id
-
 /**
  * Asynchronously saves the current user's ID. 
  * If the active user is 'Guest698', the ID is saved to local storage. 
@@ -143,7 +141,6 @@ async function currentUserIdLoad() {
 }
 
 //Categorys
-
 /**
  * Asynchronously saves the current user's categories. 
  * If the active user is 'Guest698', the categories are saved to local storage. 
@@ -178,7 +175,6 @@ async function currentUserCategorysLoad() {
 }
 
 //Contacts
-
 /**
  * Asynchronously saves the current user's contacts. 
  * If the active user is 'Guest698', the contacts are saved to local storage. 
@@ -214,7 +210,6 @@ async function currentUserContactsLoad() {
 }
 
 //Activ user
-
 /**
  * Saves the current active user to local storage.
  */
@@ -233,7 +228,6 @@ function loadActivUser() {
 }
 
 //save and load remote
-
 /**
  * Sets a key-value pair in the remote storage.
  */
