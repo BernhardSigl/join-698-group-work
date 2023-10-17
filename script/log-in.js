@@ -285,7 +285,7 @@ function loadTempleteLogIn() {
         </div>
         <div class="buttonsUnderLogin">
             <button type="submit" class="button-log-in fontSize21">Log in</button>
-            <button onclick='guestLogin()' type="button" class="button-guest-login fontSize21">Guest log in</button>
+            <button onclick='guestLogin()' type="button" class="button-guest-login fontSize21">Guest Log in</button>
         </div>
     </form>`;
 }
