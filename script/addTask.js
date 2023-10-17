@@ -260,7 +260,7 @@ async function saveTaskData() {
  * Otherwise, it redirects to the board page after a short delay.
  */
 function handleTaskCompletion(currentPage) {
-    if (currentPage === '/board.html') {
+    if (currentPage === '/join_698/board.html') {
         document.getElementById('addTaskPop').classList.add('d-none');
         updateBoardHTML();
     } else {
