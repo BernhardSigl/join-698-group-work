@@ -4,47 +4,56 @@ David Peterka
 **CSS:**
 Bernhard Sigl
 **HTML:**
-
+Bernhard Sigl (Korrekturen)
 **Mobile View:**
-Bernhard Sigl
+Bernhard Sigl (CSS)
+
 <!-- Register -->
 **JS:**
 David Peterka
 **CSS:**
-Bernhard Sigl
+Bernhard Sigl (CSS)
 **HTML:**
-
+Bernhard Sigl (Korrekturen)
 **Mobile View:**
-Bernhard Sigl
+Bernhard Sigl (CSS)
+
 <!-- summary -->
 **JS:**
 David Peterka
+Bernhard Sigl (Greeting Animation)
 **CSS:**
 Bernhard Sigl
 **HTML:**
 Spell Correction (Lina)
 **Mobile View:**
-Bernhard Sigl
+Bernhard Sigl (CSS)
+
 <!-- addTask -->
 **JS:**
 David Peterka
+Bernhard Sigl (slide() Animationen)
 **CSS:**
 David Peterka
-Bernhard Sigl (adding fonts; required text*)
+Bernhard Sigl (CSS Mithilfe; adding fonts; adding "required text*")
 **HTML:**
 David Peterka
 **Mobile View:**
 Bernhard Sigl (Button Layout bottom)
 David Peterka
+
 <!-- board -->
 **JS:**
 Lina Wionsek
+Bernhard Sigl (slide() Animationen)
 **CSS:**
 Lina Wionsek
+Bernhard Sigl (CSS Mithilfe, Fonts)
 **HTML:**
 Lina Wionsek
 **Mobile View:**
 Lina Wionsek
+
 <!-- contacts -->
 **JS:**
 Bernhard Sigl
@@ -54,6 +63,7 @@ Bernhard Sigl
 Bernhard Sigl
 **Mobile View:**
 Bernhard Sigl
+
 <!-- sidebar -->
 **JS:**
 Bernhard Sigl ("marcCategory()" function)
@@ -64,6 +74,7 @@ Bernhard Sigl (Design Optimization)
 
 **Mobile View:**
 Bernhard Sigl (Design Optimization)
+
 <!-- header -->
 **JS:**
 David Peterka
@@ -73,6 +84,17 @@ David Peterka
 
 **Mobile View:**
 David Peterka
+
+<!-- privacy police; legal notice, help -->
+**JS:**
+Bernhard Sigl
+**CSS:**
+Bernhard Sigl
+**HTML:**
+Bernhard Sigl
+**Mobile View:**
+Bernhard Sigl
+
 <!-- fonts -->
 **CSS:**
 Bernhard Sigl
