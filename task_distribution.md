@@ -22,6 +22,7 @@ Bernhard Sigl (CSS)
 **JS:**
 David Peterka
 Bernhard Sigl (Greeting Animation)
+Lina Wionsek (Task Counter)
 **CSS:**
 Bernhard Sigl
 **HTML:**
