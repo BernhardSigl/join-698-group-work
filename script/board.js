@@ -5,6 +5,7 @@ let subtaskHeadline;
 let inProgress;
 let finished;
 let searching = false;
+let progressbar;
 
 /**
  * This function to initializes the active user on the board, the shown tasks for the user and the html for board 
@@ -290,11 +291,11 @@ function renderDone(text = '') {
  * @returns {string} - The generated HTML string representing the task
  */
 function generateTaskHTML(element) {
+    updateProgressbar(element);
     let i = element['id']
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
     let assignedUser = '';
-
     for (let j = 0; j < users.length; j++) {
         let user = users[j];
         let color = colors[j]
@@ -316,14 +317,14 @@ function generateTaskHTML(element) {
     `;
     return /*html*/ `
         <div id="dragStatus" draggable="true" ondragstart="startDragging(${element['id']})"  class="task">
-            <div onclick="openTask(${i}, event), slide('task-card', 'addTaskPopupPositionFront');"> 
+            <div class="min-height160" onclick="openTask(${i}, event), slide('task-card', 'addTaskPopupPositionFront');"> 
                 <div class="task-top fontSize16">
                     <div class="task-category" style="${element['categoryColor']}">${element['category']}</div>
                     <div id="move-container">  </div>
                     <span class="task-title fontSize16">${element['title']}</span>
                     <div class="task-description show-scrollbar"> ${element['description']}</div>
                 </div>
-                ${updateProgressbar(element)}
+                ${progressbar}
                 <div class="task-users-prio">
                     <div class="task-users">
                     ${assignedUser}
@@ -396,16 +397,22 @@ function updateProgressbar(element) {
     let allSubtasks = openSubasks + finishedSubasks
     let percent = finishedSubasks / allSubtasks;
     percent = Math.round(percent * 100);
-
-    return /*html*/ `  
-    <div class="task-progress">
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
-            <div class="progress-bar" style="background-color: #4589FF; width:${percent}%">
-            </div> 
-        </div>
-        <span class="fontSize12">${finishedSubasks}/${allSubtasks} Subtasks
-        </span>
-    </div> `
+    console.log(openSubasks)
+    if (openSubasks === 0 && finishedSubasks === 0) {
+        progressbar = '';
+    } else {
+        progressbar = /*html*/ `  
+        <div class="task-progress">
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 8px; width: 50%; background-color: #F4F4F4">
+                <div class="progress-bar" style="background-color: #4589FF; width:${percent}%">
+                </div> 
+            </div>
+            <span class="fontSize12">${finishedSubasks}/${allSubtasks} Subtasks
+            </span>
+        </div> `
+    }
+    
+   
 }
 
 /**

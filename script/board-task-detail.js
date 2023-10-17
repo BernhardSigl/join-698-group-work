@@ -31,7 +31,6 @@ function renderSubtaskHeadline() {
 function showSubtasksInProgress(i) {
     inProgress = '';
     let subtasksProgress = tasks[i]['subtasksInProgress'];
-
     subtaskHeadline = '';
     for (let k = 0; k < subtasksProgress.length; k++) {
         let subtaskProgress = subtasksProgress[k];
