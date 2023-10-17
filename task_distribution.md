@@ -86,7 +86,7 @@ David Peterka
 **Mobile View:**
 David Peterka
 
-<!-- privacy police; Legal Notice, help -->
+<!-- Privacy Policy; Legal Notice, help -->
 **JS:**
 Bernhard Sigl
 **CSS:**
