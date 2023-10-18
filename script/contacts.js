@@ -108,7 +108,6 @@ function addContact() {
     resetFunctionImageText();
     showNotOnMobileView('cancelBtnMobileId');
     clearInputFields();
-    toggleVisibility('addContactId', true);
 }
 
 /** * This function is to save the input in the contact array */
@@ -177,7 +176,7 @@ function openContactBigInfo(contact, i, nameAbbreviation) {
 /** * This function is used to create the button for the mobile view edit contact menu */
 function mobileEditMenu(i) {
     return /*html*/`
-    <div class="mobileAddContact horicontalAndVertical pointer" onclick="slideOneObject('mobileEditDeleteBoxId'), openMobileEditMenu(${i})">
+    <div class="mobileAddContact horicontalAndVertical pointer" onclick="slideOneObject('mobileEditDeleteBoxId')">
     <img src="./img/more_vert.svg">
     </div>
     `
@@ -389,10 +388,6 @@ function originalFunction() {
     const editCancelButton = document.getElementById('editCancelButtonId');
     editCancelButton.onclick = function () {
         slideOut('swipeContactPopupId', 'addContactId', 200);
-    };
-    const editAddContactButton = document.getElementById('mobileAddContactId');
-    editAddContactButton.onclick = function () {
-        addContact();
     };
 }
 

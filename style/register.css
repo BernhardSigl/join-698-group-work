@@ -99,6 +99,7 @@ input {
     margin-left: 4px;
     color: var(--headline);
 }
+
 .checkboxSignUp a:hover {
     text-decoration: underline !important;
 }
@@ -181,7 +182,7 @@ header {
     .dialogSignUp {
         padding: 32px 0;
         margin: 30px 16px 0;
-        width: calc(100vw * 0.9);
+        width: auto;
     }
 
     .fontSize61 {
@@ -247,7 +248,7 @@ header {
     .dialogSignUp {
         margin-top: 5px !important;
         padding: 32px 16px;
-        width: calc(100vw * 0.9);
+        width: auto;
     }
 
     .logo-container img {

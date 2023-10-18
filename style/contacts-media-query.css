@@ -367,3 +367,22 @@
         display: none;
     }
 }
+
+@media (max-height: 860px) {
+    #joinLogoAddContactId {
+        display: none;
+    }
+
+    .contactInfoTextBlock {
+        height: auto;
+    }
+
+    .profilePictureBig {
+        width: 80px;
+        height: 80px;
+    }
+
+    .mobileContactOverview {
+        margin-top: -125px;
+    }
+}
