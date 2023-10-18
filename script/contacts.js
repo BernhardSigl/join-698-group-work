@@ -329,22 +329,22 @@ async function saveContact(i) {
     document.getElementById('phoneId').innerHTML = contactsArray[i].phone;
 
     changesSaved('Contact successfully saved');
+    showHideAfterSaveContact();
     resetFunctionImageText();
     changeText();
-    showHideAfterSaveContact();
     highlightContact(i);
     renderContacts();
 }
 
 /** * This function is to show or hide objects after saving a contact */
 function showHideAfterSaveContact() {
+    showNotOnMobileView('mobileVisibilityId');
     toggleVisibility('mobileDotsSymbol', false);
     toggleVisibility('mobileAddContactId', true);
     toggleVisibility('mobileBackArrowId', false);
     toggleVisibility('contactInfoBigId', false);
     toggleVisibility('contactsTitleId', true);
     slideOut('swipeContactPopupId', 'addContactId', 200);
-    showNotOnMobileView('mobileVisibilityId');
 }
 
 /** * This function is used to change the text in a container */
