@@ -290,8 +290,7 @@
     }
 
     .successfullyBtn {
-        bottom: 120px !important;
-        left: 12px !important;
+        bottom: 195px !important;
     }
 
     .profilePictureBig {
@@ -368,7 +367,7 @@
     }
 }
 
-@media (max-height: 860px) {
+@media (max-height: 860px) and (min-width: 769px) {
     #joinLogoAddContactId {
         display: none;
     }
@@ -383,6 +382,6 @@
     }
 
     .mobileContactOverview {
-        margin-top: -125px;
+        margin-top: -100px;
     }
 }

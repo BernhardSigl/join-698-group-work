@@ -227,7 +227,6 @@ function slideOneObject(frontId) {
     slideInAnimation.classList.add('slide-in');
 }
 
-
 /** * This function is used to create a slide out animation */
 function slideOutOneObject(frontId) {
     toggleVisibility(frontId, true);
@@ -237,12 +236,10 @@ function slideOutOneObject(frontId) {
     slideInAnimation.classList.add('slide-out');
 }
 
-
 /** * This function is used to prevent the popup from closing when clicked. */
 function doNotClose(event) {
     event.stopPropagation();
 }
-
 
 /** * This function is used to the edit and delete menu on the mobile view */
 function changesSaved(inputText) {
@@ -258,13 +255,11 @@ function changesSaved(inputText) {
     }, 2900);
 }
 
-
 /** * This function is used to make div-container unvisible or visible */
 function toggleVisibility(id, show) {
     const showHide = document.getElementById(id);
     showHide.classList.toggle('d-none', !show);
 }
-
 
 /**
  * Toggles the visibility of sidebar links based on the active user's name.

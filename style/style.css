@@ -216,11 +216,8 @@ section {
 
 .successfullyBtn {
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 70%;
-    left: 50%;
+    bottom: 100px;
+    left: calc(50% - 326px / 2);
     background: #2A3647;
     color: white;
     border: none;
