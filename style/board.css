@@ -462,7 +462,10 @@ body {
 .task-detail-assignment {
     margin-bottom: 10px;
 }
-
+.task-detail-subtasks {
+    max-height: 200px;
+    overflow-y: auto;
+}
 .task-detail-bottom {
     display: flex;
     justify-content: flex-end;

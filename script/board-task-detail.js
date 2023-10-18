@@ -129,7 +129,7 @@ function createHTML(i) {
                         ${assignedUserDetail}
                         </div>
                     </div>
-                    <div class="task-detail-subtasks">                        
+                    <div class="task-detail-subtasks show-scrollbar">                        
                         ${subtaskHeadline}
                         ${inProgress}
                         ${finished}
