@@ -1,3 +1,8 @@
+const msgTodo = 'To Do';
+const msgProgress = 'In Progress';
+const msgFeedback = 'Await Feedback';
+const msgDone =  'Done';
+
 let currentDraggedElement;
 let taskPriority;
 let subtaskHeadline;
@@ -6,10 +11,6 @@ let finished;
 let searching = false;
 let progressbar;
 let showUserDiff;
-let msgTodo = 'To Do';
-let msgProgress = 'In Progress';
-let msgFeedback = 'Await Feedback';
-let msgDone =  'Done';
 
 /**
  * This function to initializes the active user on the board, the shown tasks for the user and the html for board 
@@ -356,8 +357,6 @@ function updateProgressbar(element) {
             </span>
         </div> `
     }
-
-
 }
 
 /**
