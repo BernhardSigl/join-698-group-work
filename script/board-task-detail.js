@@ -4,7 +4,7 @@
  * @param {number} i - The id of the task to render
  */
 function renderTaskdetailHTML(i) {
-    findAssignedUnser(i);
+    findAssignedUser(i);
     showSubtasksInProgress(i);
     showSubtasksFinished(i);
     renderPriorityText(i)
@@ -155,7 +155,7 @@ function createHTML(i) {
  * @param {number} i - The id of the task
  * @returns - The generated HTML string representing the assigned User
  */
-function findAssignedUnser(i) {
+function findAssignedUser(i) {
     let userNames = tasks[i]['contactName'];
     let users = tasks[i]['contactAbbreviation'];
     let colors = tasks[i]['contactColor'];
