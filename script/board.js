@@ -283,7 +283,33 @@ function renderDone(text = '') {
         }
     }
 }
-
+function renderSamllUser(element){
+    let users = element['contactAbbreviation']
+    let colors = element['contactColor']
+    assignedUser = '';
+    if (users.length > 5) {
+        for (let j = 0; j < 5; j++) {
+            let user = users[j];
+            let color = colors[j]
+            assignedUser += /*html*/ ` 
+           <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
+        }
+        diff = users.length - 5;
+        showDiff = /*html*/ ` 
+        <div class="diff-counter">+${diff}</div>
+        `;
+    } else {
+        for (let j = 0; j < users.length; j++) {
+            let user = users[j];
+            let color = colors[j]
+            assignedUser += /*html*/ ` 
+           <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
+        }
+        diff = '';
+        showDiff = '';
+    }
+   
+}
 /**
  * This function generates a small task card based on the given element
  * 
@@ -295,13 +321,14 @@ function generateTaskHTML(element) {
     let i = element['id']
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
-    let assignedUser = '';
-    for (let j = 0; j < users.length; j++) {
-        let user = users[j];
-        let color = colors[j]
-        assignedUser += /*html*/ ` 
-       <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
-    }
+    // assignedUser = '';
+    renderSamllUser(element)
+    // for (let j = 0; j < users.length; j++) {
+    //     let user = users[j];
+    //     let color = colors[j]
+    //     assignedUser += /*html*/ ` 
+    //    <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
+    // }
     let mover = /*html*/ `  
     <div id="move-dropup">
         <div class="dropup">
@@ -329,6 +356,7 @@ function generateTaskHTML(element) {
                     <div class="task-users">
                     ${assignedUser}
                     </div>
+                    ${showDiff}
                     <img src="${element['priority']}">
                 </div>
             </div>
