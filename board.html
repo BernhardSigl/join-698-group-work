@@ -23,15 +23,10 @@
     <script defer src="script/board-addTask-teamfunctions.js"></script>
     <script defer src="./script/board.js"></script>
     <script defer src="./script/board-task-detail.js"></script>
-
 </head>
 
 
 <body onclick="hideMenuHeader(), closeTask()" onload="renderSidebarHeader(), initBoard(), initAddTask()">
-    <!-- aria-label="Search" -->
-
-    <!-- <div w3-include-html="summary.html"></div>  -->
-
 
     <div id="sidebarArea"></div>
     <div id="headerArea"></div>
@@ -131,7 +126,6 @@
                 </section>
             </div>
         </div>
-        <!-- </div> -->
     </div>
     <section id="addTaskPop" class="popupContainer d-none"
         onclick="slideOut('addTaskPopupPositionFront', 'addTaskPop', 200), resetAllAddTaskElementsBoard()">

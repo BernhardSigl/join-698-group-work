@@ -3,10 +3,7 @@ body {
     height: 100vh;
     width: 100vw;
 }
-.diff-counter{
-    font-size: 14px;
-    margin-left: 2px;
-}
+
 #move-dropup {
     display: none;
 }
@@ -366,6 +363,16 @@ body {
     align-items: center;
 }
 
+.task-users {
+    display: flex;
+    align-items: center;
+}
+
+.diff-counter{
+    font-size: 14px;
+    margin-left: 2px;
+}
+
 .task-detail {
     height: fit-content;
     max-height: 90vh;
@@ -433,6 +440,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 120px;
+    overflow-y: auto;
 }
 
 .user-details {
@@ -451,11 +460,6 @@ body {
 
 .margin-bottom10 {
     margin-bottom: 10px;
-}
-
-.task-users {
-    display: flex;
-    align-items: center;
 }
 
 .task-box {

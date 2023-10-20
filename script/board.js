@@ -1,11 +1,11 @@
 let currentDraggedElement;
-let assignedUserDetail;
 let taskPriority;
 let subtaskHeadline;
 let inProgress;
 let finished;
 let searching = false;
 let progressbar;
+let showUserDiff;
 
 /**
  * This function to initializes the active user on the board, the shown tasks for the user and the html for board 
@@ -283,10 +283,12 @@ function renderDone(text = '') {
         }
     }
 }
-function renderSamllUser(element){
+
+function renderSmallUserIcons(element){
     let users = element['contactAbbreviation']
     let colors = element['contactColor']
-    assignedUser = '';
+    let assignedUser = '';
+   
     if (users.length > 5) {
         for (let j = 0; j < 5; j++) {
             let user = users[j];
@@ -295,7 +297,7 @@ function renderSamllUser(element){
            <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
         }
         diff = users.length - 5;
-        showDiff = /*html*/ ` 
+        showUserDiff = /*html*/ ` 
         <div class="diff-counter">+${diff}</div>
         `;
     } else {
@@ -306,9 +308,9 @@ function renderSamllUser(element){
            <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
         }
         diff = '';
-        showDiff = '';
+        showUserDiff = '';
     }
-   
+   return assignedUser
 }
 /**
  * This function generates a small task card based on the given element
@@ -319,16 +321,7 @@ function renderSamllUser(element){
 function generateTaskHTML(element) {
     updateProgressbar(element);
     let i = element['id']
-    let users = element['contactAbbreviation']
-    let colors = element['contactColor']
-    // assignedUser = '';
-    renderSamllUser(element)
-    // for (let j = 0; j < users.length; j++) {
-    //     let user = users[j];
-    //     let color = colors[j]
-    //     assignedUser += /*html*/ ` 
-    //    <div class="profile-picture horicontal-and-vertical fontSize12" style="background-color:${color}">${user}</div>`;
-    // }
+    let assignedUser = renderSmallUserIcons(element)
     let mover = /*html*/ `  
     <div id="move-dropup">
         <div class="dropup">
@@ -356,7 +349,7 @@ function generateTaskHTML(element) {
                     <div class="task-users">
                     ${assignedUser}
                     </div>
-                    ${showDiff}
+                    ${showUserDiff}
                     <img src="${element['priority']}">
                 </div>
             </div>

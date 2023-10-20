@@ -125,7 +125,7 @@ function createHTML(i) {
                     </div>
                     <div>
                         <div class="margin-bottom10 task-detail-font-color">Assigned To:</div>
-                        <div class="task-detail-users">                            
+                        <div class="task-detail-users show-scrollbar">                            
                         ${assignedUserDetail}
                         </div>
                     </div>
