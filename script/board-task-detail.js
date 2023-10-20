@@ -39,10 +39,34 @@ function showSubtasksInProgress(i) {
         <div class="task-detail-flex margin-bottom10">
             <img onclick="switchSubtaskStatusToFinished(${i}, ${k})" class="task-box" src="img/addTaskBox.svg" alt="">
             ${subtaskProgress}
+            <img onclick="deleteSubtaskInProgress(${i}, ${k})" class="subtask-delete" src="img/iconoir_cancel.svg" alt="">
         </div>
         `;
     }
     updateBoardHTML();
+}
+
+/**
+ * This function switches the status ob a subtask to finished
+ * @param {number} i - The id of the task
+ * @param {number} k - The id of the undone subtask
+ */
+async function switchSubtaskStatusToFinished(i, k) {
+    let splicedSubtask = tasks[i]['subtasksInProgress'].splice(k, 1)
+    tasks[i]['subtasksFinish'].push(splicedSubtask)
+    await currentUserTaskSave();
+    renderTaskdetailHTML(i);
+}
+
+/**
+ * This function deletes an undone subtask
+ * @param {number} i - The id of the task
+ * @param {number} k - The id of the undone subtask to delete
+ */
+async function deleteSubtaskInProgress(i, k){
+    tasks[i]['subtasksInProgress'].splice(k, 1)
+    await currentUserTaskSave();
+    renderTaskdetailHTML(i);
 }
 
 /**
@@ -60,9 +84,34 @@ function showSubtasksFinished(i) {
        <div class="task-detail-flex margin-bottom10 text-line-through">
            <img onclick="switchSubtaskStatusToUndone(${i},${l})" class="task-box" src="img/done.svg" alt="">
            ${subtaskDone}
+           <img onclick="deleteSubtaskFinished(${i},${l})" class="subtask-delete"  src="img/iconoir_cancel.svg" alt="">
        </div>`
     }
     updateBoardHTML();
+}
+
+/**
+ * This function switches the status of a subtask to undone
+ * @param {number} i - The id of the task 
+ * @param {number} k - The id of the done subtask
+ */
+async function switchSubtaskStatusToUndone(i, l) {
+    let splicedSubtask = tasks[i]['subtasksFinish'].splice(l, 1)
+    tasks[i]['subtasksInProgress'].push(splicedSubtask)
+    await currentUserTaskSave();
+    renderTaskdetailHTML(i);
+}
+
+/**
+ * This function deletes a done subtask
+ * @param {number} i - The id of the task
+ * @param {number} k - The id of the done subtask to delete
+ */
+async function deleteSubtaskFinished(i, l){
+    tasks[i]['subtasksFinish'].splice(l, 1)
+    await currentUserTaskSave();
+    renderTaskdetailHTML(i);
+    
 }
 
 /**
@@ -177,30 +226,6 @@ function findAssignedUser(i) {
         `;
     }
     return assignedUserDetail
-}
-
-/**
- * This function switches the status ob a subtask to finished
- * @param {number} i - The id of the task
- * @param {number} k - The id of the undone subtask
- */
-async function switchSubtaskStatusToFinished(i, k) {
-    let splicedSubtask = tasks[i]['subtasksInProgress'].splice(k, 1)
-    tasks[i]['subtasksFinish'].push(splicedSubtask)
-    await currentUserTaskSave();
-    renderTaskdetailHTML(i);
-}
-
-/**
- * This function switches the status ob a subtask to undone
- * @param {number} i - The id of the task 
- * @param {number} k - The id of the done subtask
- */
-async function switchSubtaskStatusToUndone(i, l) {
-    let splicedSubtask = tasks[i]['subtasksFinish'].splice(l, 1)
-    tasks[i]['subtasksInProgress'].push(splicedSubtask)
-    await currentUserTaskSave();
-    renderTaskdetailHTML(i);
 }
 
 /**
