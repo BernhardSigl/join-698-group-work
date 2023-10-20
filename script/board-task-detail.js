@@ -7,8 +7,8 @@ function renderTaskdetailHTML(i) {
     findAssignedUser(i);
     showSubtasksInProgress(i);
     showSubtasksFinished(i);
-    renderPriorityText(i)
-    createHTML(i)
+    renderPriorityText(i);
+    createHTML(i);
 }
 
 /**
