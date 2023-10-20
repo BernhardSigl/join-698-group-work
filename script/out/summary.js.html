@@ -26,8 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
-
+            <pre class="prettyprint source linenums"><code>/**
+ * Asynchronously initializes the summary section.
+ */
 async function initSummary() {
     loadActivUser();
     userCircle();
@@ -39,6 +40,10 @@ async function initSummary() {
     animationAdded = false;
 }
 
+/**
+ * Loads and sets specific texts for the summary section.
+ * and loads the date for urgent priorities.
+ */
 function loadText() {
     loadUserName();
     searchNumbers();
@@ -47,6 +52,10 @@ function loadText() {
 
 //----------------------search function------------------------------
 //---Search User name----------------------------
+/**
+ * Loads the active user's name and sets it to the corresponding HTML element.
+ * It fetches the DOM element with the ID 'name' and updates its inner text with the name of the active user.
+ */
 function loadUserName() {
     userName = document.getElementById('name')
     userName.innerText = activUser.name;
@@ -57,10 +66,10 @@ function loadUserName() {
  * 
  */
 function addAnimationOnResize() {
-    if (window.innerWidth &lt;= 1070) {
+    if (window.innerWidth &lt;= 1200) {
         addAnimation();
         animationAdded = true;
-    } else if (window.innerWidth > 1070) {
+    } else if (window.innerWidth > 1200) {
         const greetingText = document.querySelector('.greeting-text');
         greetingText.classList.remove('fade-out');
         greetingText.classList.remove('hidden');
@@ -79,7 +88,7 @@ function addAnimation() {
     setTimeout(function () {
         greetingText.classList.add('hidden');
         document.body.style.overflow = 'auto';
-    }, 3000);
+    }, 2000);
 }
 
 /**
@@ -108,17 +117,22 @@ function displayNumbers(todo, inProgress, awaitingFeedback, done, allTasks, urge
     document.getElementById('board').innerHTML = allTasks;
     document.getElementById('urgent').innerHTML = urgent;
 }
+
 /**
  * This function loads the next urgent due date
  * 
  */
 function loadUrgentPrioDate() {
     let container = document.getElementById('date');
-    container.innerHTML = getNextUrgentDueDate(tasks);
-    ;
+    const nextUrgentDate = getNextUrgentDueDate(tasks);
+
+    if (nextUrgentDate) {
+        const convertedDate = convertDateFormat(nextUrgentDate);
+        container.innerHTML = convertedDate;
+    } else {
+        container.innerHTML = "No urgent due dates";
+    }
 }
-
-
 
 //----------------- load Time of Day------------------
 /**
@@ -139,14 +153,17 @@ function getTimeOfDay() {
     const currentHour = new Date().getHours();
 
     if (currentHour >= 0 &amp;&amp; currentHour &lt; 6) {
-        return `&lt;span class="time-of-day">Schöne &lt;/span>&lt;span class="time-of-day">Nacht&lt;/span>`;
+        return `&lt;span class="time-of-day">Good&amp;nbsp&lt;/span>
+        &lt;span>&lt;/span>
+        &lt;span class="time-of-day">night&lt;/span>`;
     } else if (currentHour >= 6 &amp;&amp; currentHour &lt; 12) {
-        return `&lt;span class="time-of-day">Guten &lt;/span> &lt;span class="time-of-day"> Morgen&lt;/span>`;
+        return `&lt;span class="time-of-day">Good&amp;nbsp&lt;/span>&lt;span class="time-of-day">morning&lt;/span>`;
 
     } else if (currentHour >= 12 &amp;&amp; currentHour &lt; 18) {
-        return `&lt;span class="time-of-day">Guten&lt;/span> &lt;span class="time-of-day">Nachmittag&lt;/span>`;
+        return `&lt;span class="time-of-day">Good&amp;nbsp&lt;/span>
+        &lt;span class="time-of-day" >afternoon&lt;/span>`;
     } else {
-        return `&lt;span class="time-of-day">Guten  &lt;/span class="time-of-day">&lt;span>Abend&lt;/span>`;
+        return `&lt;span class="time-of-day">Good&amp;nbsp&lt;/span>&lt;span class="time-of-day">evening&lt;/span>`;
     }
 }
 
@@ -158,17 +175,30 @@ function getNextUrgentDueDate(tasks) {
     const urgentTasks = tasks.filter(task => task.priority === "./img/prioUrgent.svg");
 
     if (urgentTasks.length === 0) return null;
-
     urgentTasks.sort((a, b) => {
         const dateA = new Date(a.dueDate.split("/").reverse().join("-"));
         const dateB = new Date(b.dueDate.split("/").reverse().join("-"));
         return dateA - dateB;
     });
-
     return urgentTasks[0].dueDate;
 }
 
-</code></pre>
+/**
+ * Converts a date string in the format "DD/MM/YYYY" to a more human-readable format "MonthName DD, YYYY".
+ * @param {string} inputDate - The date string to be converted, in the format "DD/MM/YYYY".
+ * @example
+ * // returns "January 01, 2021"
+ * convertDateFormat("01/01/2021");
+ */
+function convertDateFormat(inputDate) {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    const parts = inputDate.split("/");
+    const day = parts[0];
+    const monthIndex = parseInt(parts[1], 10) - 1;
+    const year = parts[2];
+    return `${months[monthIndex]} ${day}, ${year}`;
+}</code></pre>
         </article>
     </section>
 
@@ -178,13 +208,13 @@ function getNextUrgentDueDate(tasks) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#changeButtonTextToDeleted">changeButtonTextToDeleted</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#closeTask">closeTask</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#currentUserContactsLoad">currentUserContactsLoad</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#displayNumbers">displayNumbers</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#findAssignedUnser">findAssignedUnser</a></li><li><a href="global.html#generateTaskHTML">generateTaskHTML</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getNextUrgentDueDate">getNextUrgentDueDate</a></li><li><a href="global.html#getTimeOfDay">getTimeOfDay</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#loadTimeOfDay">loadTimeOfDay</a></li><li><a href="global.html#loadUrgentPrioDate">loadUrgentPrioDate</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderPriorityText">renderPriorityText</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#renderSubtaskHeadline">renderSubtaskHeadline</a></li><li><a href="global.html#renderTaskdetailHTML">renderTaskdetailHTML</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#resetFunctionImageText">resetFunctionImageText</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#searchNumbers">searchNumbers</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#showSubtasksFinished">showSubtasksFinished</a></li><li><a href="global.html#showSubtasksInProgress">showSubtasksInProgress</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#switchSubtaskStatusToFinished">switchSubtaskStatusToFinished</a></li><li><a href="global.html#switchSubtaskStatusToUndone">switchSubtaskStatusToUndone</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li><li><a href="global.html#toggleVisibilityAfterXseconds">toggleVisibilityAfterXseconds</a></li><li><a href="global.html#updateProgressbar">updateProgressbar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButton">activateButton</a></li><li><a href="global.html#addAnimation">addAnimation</a></li><li><a href="global.html#addAnimationOnResize">addAnimationOnResize</a></li><li><a href="global.html#addCategory">addCategory</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addEditTask">addEditTask</a></li><li><a href="global.html#addInputFieldAndListener">addInputFieldAndListener</a></li><li><a href="global.html#addNameAbbreviationInContactsArray">addNameAbbreviationInContactsArray</a></li><li><a href="global.html#addSubTaskToCollection">addSubTaskToCollection</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#alertInvalidInput">alertInvalidInput</a></li><li><a href="global.html#allCategorys">allCategorys</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#arePasswordsMatching">arePasswordsMatching</a></li><li><a href="global.html#borderColorCheck">borderColorCheck</a></li><li><a href="global.html#changeButtonTextToDeleted">changeButtonTextToDeleted</a></li><li><a href="global.html#changeDivColor">changeDivColor</a></li><li><a href="global.html#changeFunction">changeFunction</a></li><li><a href="global.html#changeText">changeText</a></li><li><a href="global.html#clearAddTaskInputs">clearAddTaskInputs</a></li><li><a href="global.html#clearArray">clearArray</a></li><li><a href="global.html#clearButton">clearButton</a></li><li><a href="global.html#clearContactPopup">clearContactPopup</a></li><li><a href="global.html#clearCreateWindow">clearCreateWindow</a></li><li><a href="global.html#clearInputFields">clearInputFields</a></li><li><a href="global.html#clearSearchInput">clearSearchInput</a></li><li><a href="global.html#clearSelectedContact">clearSelectedContact</a></li><li><a href="global.html#closeDialog">closeDialog</a></li><li><a href="global.html#closePopupMobile">closePopupMobile</a></li><li><a href="global.html#closeTask">closeTask</a></li><li><a href="global.html#collectTaskData">collectTaskData</a></li><li><a href="global.html#colorArray">colorArray</a></li><li><a href="global.html#colorCollection">colorCollection</a></li><li><a href="global.html#confirmCreateCategory">confirmCreateCategory</a></li><li><a href="global.html#confirmSubEdit">confirmSubEdit</a></li><li><a href="global.html#contactCollection">contactCollection</a></li><li><a href="global.html#contactDescription">contactDescription</a></li><li><a href="global.html#contactImage">contactImage</a></li><li><a href="global.html#contactsArray">contactsArray</a></li><li><a href="global.html#contatcsCategory">contatcsCategory</a></li><li><a href="global.html#convertDateFormat">convertDateFormat</a></li><li><a href="global.html#createCategoryColors">createCategoryColors</a></li><li><a href="global.html#createCategoryWindow">createCategoryWindow</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactByPopup">createContactByPopup</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#currentCategorySelected">currentCategorySelected</a></li><li><a href="global.html#currentId">currentId</a></li><li><a href="global.html#currentPrioSelected">currentPrioSelected</a></li><li><a href="global.html#currentUserCategorysLoad">currentUserCategorysLoad</a></li><li><a href="global.html#currentUserCategorysSave">currentUserCategorysSave</a></li><li><a href="global.html#currentUserContactsLoad">currentUserContactsLoad</a></li><li><a href="global.html#currentUserContactsSave">currentUserContactsSave</a></li><li><a href="global.html#currentUserIdLoad">currentUserIdLoad</a></li><li><a href="global.html#currentUserIdSave">currentUserIdSave</a></li><li><a href="global.html#currentUserTaskLoad">currentUserTaskLoad</a></li><li><a href="global.html#currentUserTaskSave">currentUserTaskSave</a></li><li><a href="global.html#deactivateButton">deactivateButton</a></li><li><a href="global.html#deleteCategory">deleteCategory</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteContactMobile">deleteContactMobile</a></li><li><a href="global.html#deleteEditContactAtIndex">deleteEditContactAtIndex</a></li><li><a href="global.html#deleteSubtaskCollection">deleteSubtaskCollection</a></li><li><a href="global.html#deleteSubtaskFinished">deleteSubtaskFinished</a></li><li><a href="global.html#deleteSubtaskInProgress">deleteSubtaskInProgress</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#desktopViewSmall">desktopViewSmall</a></li><li><a href="global.html#displayNumbers">displayNumbers</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editContactMobile">editContactMobile</a></li><li><a href="global.html#editSelectedContact">editSelectedContact</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTask">editTask</a></li><li><a href="global.html#editTaskNew">editTaskNew</a></li><li><a href="global.html#editTaskWindow">editTaskWindow</a></li><li><a href="global.html#fillTestArray">fillTestArray</a></li><li><a href="global.html#findAssignedUser">findAssignedUser</a></li><li><a href="global.html#generateTaskHTML">generateTaskHTML</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getNextUrgentDueDate">getNextUrgentDueDate</a></li><li><a href="global.html#getTimeOfDay">getTimeOfDay</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#handleEmailExists">handleEmailExists</a></li><li><a href="global.html#handleInputChange">handleInputChange</a></li><li><a href="global.html#handlePasswordMismatch">handlePasswordMismatch</a></li><li><a href="global.html#handleRegistration">handleRegistration</a></li><li><a href="global.html#handleTaskCompletion">handleTaskCompletion</a></li><li><a href="global.html#hideAddTaskDropDowns">hideAddTaskDropDowns</a></li><li><a href="global.html#hideEditContainer">hideEditContainer</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#highlightContactMobile">highlightContactMobile</a></li><li><a href="global.html#hoverNewContact">hoverNewContact</a></li><li><a href="global.html#initAddTask">initAddTask</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#initLogin">initLogin</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#initSummary">initSummary</a></li><li><a href="global.html#initializePrioButtons">initializePrioButtons</a></li><li><a href="global.html#initializeStorage">initializeStorage</a></li><li><a href="global.html#isContactInCollection">isContactInCollection</a></li><li><a href="global.html#isValidCategoryInput">isValidCategoryInput</a></li><li><a href="global.html#loadActivUser">loadActivUser</a></li><li><a href="global.html#loadContactInfos">loadContactInfos</a></li><li><a href="global.html#loadLogIn">loadLogIn</a></li><li><a href="global.html#loadRedBorderInput">loadRedBorderInput</a></li><li><a href="global.html#loadRedBorderPassword">loadRedBorderPassword</a></li><li><a href="global.html#loadRegister">loadRegister</a></li><li><a href="global.html#loadTaskElements">loadTaskElements</a></li><li><a href="global.html#loadTempleteLogIn">loadTempleteLogIn</a></li><li><a href="global.html#loadText">loadText</a></li><li><a href="global.html#loadTimeOfDay">loadTimeOfDay</a></li><li><a href="global.html#loadUrgentPrioDate">loadUrgentPrioDate</a></li><li><a href="global.html#loadUserGroup698">loadUserGroup698</a></li><li><a href="global.html#loadUserName">loadUserName</a></li><li><a href="global.html#loadWarningTextTamplate">loadWarningTextTamplate</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#mainCategorys">mainCategorys</a></li><li><a href="global.html#maxLetters">maxLetters</a></li><li><a href="global.html#mobileEditMenu">mobileEditMenu</a></li><li><a href="global.html#mobileView">mobileView</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openContactBigInfo">openContactBigInfo</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#originalFunction">originalFunction</a></li><li><a href="global.html#originalImage">originalImage</a></li><li><a href="global.html#originalText">originalText</a></li><li><a href="global.html#prioSelectedToggle">prioSelectedToggle</a></li><li><a href="global.html#pullNameAbbreviation">pullNameAbbreviation</a></li><li><a href="global.html#registUser">registUser</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAddTaskContent">renderAddTaskContent</a></li><li><a href="global.html#renderAllContactsForSearch">renderAllContactsForSearch</a></li><li><a href="global.html#renderAllSelectedContacts">renderAllSelectedContacts</a></li><li><a href="global.html#renderBoard">renderBoard</a></li><li><a href="global.html#renderCategorys">renderCategorys</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderPriorityText">renderPriorityText</a></li><li><a href="global.html#renderSearchResults">renderSearchResults</a></li><li><a href="global.html#renderSmallUserIcons">renderSmallUserIcons</a></li><li><a href="global.html#renderSubTaskCollection">renderSubTaskCollection</a></li><li><a href="global.html#renderSubtaskHeadline">renderSubtaskHeadline</a></li><li><a href="global.html#renderTaskdetailHTML">renderTaskdetailHTML</a></li><li><a href="global.html#resetAll">resetAll</a></li><li><a href="global.html#resetAllAddTaskElements">resetAllAddTaskElements</a></li><li><a href="global.html#resetAllAddTaskElementsBoard">resetAllAddTaskElementsBoard</a></li><li><a href="global.html#resetAllBackendUser">resetAllBackendUser</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetFunctionImageText">resetFunctionImageText</a></li><li><a href="global.html#resetInputValueAndColor">resetInputValueAndColor</a></li><li><a href="global.html#resetInputs">resetInputs</a></li><li><a href="global.html#resetPasswort">resetPasswort</a></li><li><a href="global.html#returnAssignToBox1">returnAssignToBox1</a></li><li><a href="global.html#returnAssignToBox2">returnAssignToBox2</a></li><li><a href="global.html#returnButtonAreaAddTask">returnButtonAreaAddTask</a></li><li><a href="global.html#returnButtonAreaEditTask">returnButtonAreaEditTask</a></li><li><a href="global.html#returnCategoryBox1">returnCategoryBox1</a></li><li><a href="global.html#returnCategoryBox2">returnCategoryBox2</a></li><li><a href="global.html#returnCreateCategoryColors">returnCreateCategoryColors</a></li><li><a href="global.html#returnEditContact">returnEditContact</a></li><li><a href="global.html#returnEditContainer">returnEditContainer</a></li><li><a href="global.html#returnLoad">returnLoad</a></li><li><a href="global.html#returnPrioBox">returnPrioBox</a></li><li><a href="global.html#returnRenderAllCategorys">returnRenderAllCategorys</a></li><li><a href="global.html#returnRenderAllContactsForSearch">returnRenderAllContactsForSearch</a></li><li><a href="global.html#returnRenderAllSelectedContacts">returnRenderAllSelectedContacts</a></li><li><a href="global.html#returnRenderMainCategorys">returnRenderMainCategorys</a></li><li><a href="global.html#returnSettingsFirst">returnSettingsFirst</a></li><li><a href="global.html#returnSettingsMain">returnSettingsMain</a></li><li><a href="global.html#returnSettingsSecond">returnSettingsSecond</a></li><li><a href="global.html#returnSubTaskCollection">returnSubTaskCollection</a></li><li><a href="global.html#revertDivColor">revertDivColor</a></li><li><a href="global.html#saveActivUser">saveActivUser</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveTaskData">saveTaskData</a></li><li><a href="global.html#saveTaskElements">saveTaskElements</a></li><li><a href="global.html#searchNumbers">searchNumbers</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectColor">selectColor</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#selectedIndex">selectedIndex</a></li><li><a href="global.html#setInnerHTML">setInnerHTML</a></li><li><a href="global.html#setInputValueAndColor">setInputValueAndColor</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#showArrowMobileView">showArrowMobileView</a></li><li><a href="global.html#showEditContainer">showEditContainer</a></li><li><a href="global.html#showHideAfterDeleteContact">showHideAfterDeleteContact</a></li><li><a href="global.html#showHideAfterSaveContact">showHideAfterSaveContact</a></li><li><a href="global.html#showNotOnMobileView">showNotOnMobileView</a></li><li><a href="global.html#showOnMobileView">showOnMobileView</a></li><li><a href="global.html#showSubtasksFinished">showSubtasksFinished</a></li><li><a href="global.html#showSubtasksInProgress">showSubtasksInProgress</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#statusEdit">statusEdit</a></li><li><a href="global.html#statusGroup">statusGroup</a></li><li><a href="global.html#statusSelected">statusSelected</a></li><li><a href="global.html#stopBody">stopBody</a></li><li><a href="global.html#stopCreateCategory">stopCreateCategory</a></li><li><a href="global.html#stopEditContact">stopEditContact</a></li><li><a href="global.html#stopSubEdit">stopSubEdit</a></li><li><a href="global.html#subTaskCollection">subTaskCollection</a></li><li><a href="global.html#subtasksFinish">subtasksFinish</a></li><li><a href="global.html#switchStatusToAwaitFeedback">switchStatusToAwaitFeedback</a></li><li><a href="global.html#switchStatusToDo">switchStatusToDo</a></li><li><a href="global.html#switchStatusToDone">switchStatusToDone</a></li><li><a href="global.html#switchStatusToInProgress">switchStatusToInProgress</a></li><li><a href="global.html#switchSubtaskStatusToFinished">switchSubtaskStatusToFinished</a></li><li><a href="global.html#switchSubtaskStatusToUndone">switchSubtaskStatusToUndone</a></li><li><a href="global.html#taskIdForEdit">taskIdForEdit</a></li><li><a href="global.html#toggleContactSelection">toggleContactSelection</a></li><li><a href="global.html#toggleVisibilityAddTask">toggleVisibilityAddTask</a></li><li><a href="global.html#updateBoardHTML">updateBoardHTML</a></li><li><a href="global.html#updateInputs">updateInputs</a></li><li><a href="global.html#updateProgressbar">updateProgressbar</a></li><li><a href="global.html#updateSelectedColorIndex">updateSelectedColorIndex</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Oct 11 2023 22:08:35 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Oct 20 2023 16:28:09 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
