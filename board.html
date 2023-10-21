@@ -47,13 +47,13 @@
             <span class="fontSize61"><b>Board</b></span>
             <form class="searchbox" role="search">
                 <div id="fake-searchbar">
-                    <input id="searchInput" onkeyup="renderSearchResults()" aria-label="Search"
-                        placeholder="Find Task" class="fontSize20">
+                    <input id="searchInput" onkeyup="renderSearchResults()" aria-label="Search" placeholder="Find Task"
+                        class="fontSize20">
                     <div class="vectorAndSearchIcon">
                         <img class="search-vector" src="img/VectorSearchbar.svg">
                         <img class="searchbar-symbol" id="searchLogo" src="img/search.svg">
-                        <img onclick="clearSearchInput(), updateBoardHTML();" src="img/close.svg" class="searchbar-symbol d-none"
-                            id="searchClose">
+                        <img onclick="clearSearchInput(), updateBoardHTML();" src="img/close.svg"
+                            class="searchbar-symbol d-none" id="searchClose">
                     </div>
                 </div>
                 <button
@@ -64,9 +64,9 @@
                 </button>
             </form>
         </div>
-       
 
-       
+
+
         <div id="contentposition" class="contentposition">
 
             <div class="board-main-section">
@@ -74,7 +74,7 @@
                 <section>
                     <div class="statusheadline">
                         <span class="fontSize20"><b>To do</b></span>
-                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('toDo')"
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('toDo'), slide('addTaskPopupPositionFront', 'addTaskPop')"
                             src="img/Property 1=Default.svg" alt="Not found">
                     </div>
 
@@ -86,7 +86,7 @@
                 <section>
                     <div class="statusheadline">
                         <span class="fontSize20"><b>In progress</b></span>
-                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('in-progress')"
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('in-progress'), slide('addTaskPopupPositionFront', 'addTaskPop')"
                             src="img/Property 1=Default.svg" alt="Not found">
                     </div>
 
@@ -102,7 +102,7 @@
                         <div>
                             <span class="fontSize20"><b>Await Feedback</b></span>
                         </div>
-                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('awaiting-feedback')"
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('awaiting-feedback'), slide('addTaskPopupPositionFront', 'addTaskPop')"
                             src="img/Property 1=Default.svg" alt="Not found ">
                     </div>
 
@@ -116,7 +116,7 @@
                 <section>
                     <div class="statusheadline">
                         <span class="fontSize20"><b>Done</b></span>
-                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('done')"
+                        <img onclick="toggleVisibilityAddTask('', 'addTaskPop'), renderAddTaskContent(), statusSelected('done'), slide('addTaskPopupPositionFront', 'addTaskPop')"
                             src="img/Property 1=Default.svg" alt="Not found ">
                     </div>
 
