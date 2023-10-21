@@ -7,6 +7,55 @@ let activUser = {
     'name': '',
 }
 
+
+/** Represents the currently selected index in the task list. */
+let selectedIndex = null;
+let selectedColorIndex = null;
+
+/** Collection of background colors used for task categories. */
+let colorCollection = [
+    'background: #006400', 'background: #00008B', 'background: #8B0000', 'background: #800080', 'background: #808080', 'background: #0000CD',
+    'background: #008000', 'background: #FF0000', 'background: #8A2BE2', 'background: #FFA500', 'background: #2E8B57', 'background: #9932CC',
+    'background: #DC143C', 'background: #228B22', 'background: #20B2AA', 'background: #FF1493', 'background: #D2691E', 'background: #00CED1',
+    'background: #008080', 'background: #FF6347'
+];
+
+/** Main categories for tasks, each with a name and associated colors. */
+let mainCategorys = [{
+    'name': ['Technical Task', 'User Story',],
+    'color': ['background: #1FD7C1', 'background: #0038FF',],
+}];
+
+/** All task categories, initially empty. */
+let allCategorys = [{
+    'name': [],
+    'color': [],
+}];
+
+/** * Collection of subtasks associated with tasks. */
+let subTaskCollection = [];
+/** Collection of finished subtasks. */
+let subtasksFinish = [];
+/** Collection of contacts associated with tasks. */
+let contactCollection = [];
+/** Represents the currently selected category with its name and color. */
+let currentCategorySelected = [{
+    'name': '',
+    'color': '',
+}];
+/** Represents the currently selected priority. */
+let currentPrioSelected = "";
+/** Represents the current ID for tasks. */
+let currentId = 0;
+/** Task ID for editing tasks. */
+let taskIdForEdit = '';
+/** Represents the status for editing tasks. */
+let statusEdit = '';
+/** Represents the task being edited. */
+let editTask = '';
+/** Represents the status group for tasks. */
+let statusGroup = '';
+
 //save and load task elements
 
 /**
