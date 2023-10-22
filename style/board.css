@@ -733,7 +733,7 @@ body {
     }
 
     .search-vector {
-        margin-right: 0px;
+        margin-right: 8px;
     }
 
     #fake-searchbar input {
