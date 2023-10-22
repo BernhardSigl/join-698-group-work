@@ -144,14 +144,14 @@
 @media (max-width: 768px) {
 
     .contentAddTask {
-        top: 190px;
-        bottom: 165px;
+        top: 160px;
+        bottom: 160px;
         left: 0px;
         right: 0;
         padding-left: 12px;
         padding-top: 12px;
         max-width: unset;
-        max-height: calc(100vh - 255px);
+        max-height: calc(100vh - 220px);
     }
 
     ::-webkit-scrollbar {
@@ -192,11 +192,11 @@
     }
 
     .addTaskHeadlineContainer {
-        top: 20px;
+        top: 0px;
         left: 20px;
         height: 87px;
         padding-bottom: 10px;
-        max-width: calc(100vw - 20px);
+        max-width: calc(100vw - 0px);
         margin-top: 80px;
     }
 
@@ -222,6 +222,10 @@
         padding-right: 18px;
         padding-left: 18px;
         align-items: center;
+    }
+
+    .selectBtnAreaPopup {
+        bottom: 20px !important;
     }
 
     .selectedSubTask {
