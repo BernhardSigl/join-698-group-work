@@ -237,6 +237,7 @@ function highlightContact(i) {
     highlightContact[i].style.backgroundColor = '#2A3647';
     highlightContact[i].style.color = 'white';
 }
+
 /** * This function is used to close the popup window on mobile view */
 function closePopupMobile() {
     toggleVisibility('mobileEditDeleteBoxId', false);
@@ -263,7 +264,7 @@ function deleteEditContactAtIndex(i) {
     deleteContact.innerHTML = /* html */ `
     <div class="colorOnHover">
         <div class="editDeleteContact pointer horicontal" onclick="editContact(${i})">
-            ${getPencilSVG()}Edit
+            ${getPencilSVG()}<span class="pencilBigView">Edit</span>
         </div>
     </div>
     <div class="colorOnHover">

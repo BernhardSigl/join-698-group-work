@@ -234,15 +234,22 @@ body {
     margin: 22px 0 15px !important;
 }
 
+.pencilBigView {
+    width: 30px;
+}
+
+.editDeleteContact {
+    gap: 8px;
+}
+
 .editDeleteContact:hover {
-    font-weight: bold;
     color: #29ABE2;
+    font-weight: bold !important;
 }
 
 .editDeleteContact svg {
     width: 24px;
     height: 24px;
-    margin-right: 8px;
 }
 
 .mobileEditDeleteBox {

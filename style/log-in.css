@@ -236,6 +236,13 @@ header {
     flex-shrink: 0;
 }
 
+@media (max-width: 900px) {
+    .dialog {
+        padding: 32px 0;
+        margin: 30px 16px 0;
+        width: auto;
+    }
+}
 
 @media (max-width: 700px) {
     header {

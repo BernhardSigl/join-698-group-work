@@ -151,6 +151,11 @@
         display: none !important;
     }
 
+    .mobileDelete,
+    .mobileEdit {
+        align-items: center;
+    }
+
     .scrollingContainer {
         margin-top: 0 !important;
     }
