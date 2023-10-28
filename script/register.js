@@ -117,6 +117,5 @@ function resetForm() {
 async function resetAllBackendUser() {
     await loadUsers();
     users.splice(0, users.length);
-    console.log(users);
     await setItem('users', JSON.stringify(users));
 }

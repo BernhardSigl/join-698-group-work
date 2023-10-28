@@ -1,7 +1,7 @@
 const msgTodo = 'To Do';
 const msgProgress = 'In Progress';
 const msgFeedback = 'Await Feedback';
-const msgDone =  'Done';
+const msgDone = 'Done';
 
 let currentDraggedElement;
 let taskPriority;
@@ -137,7 +137,6 @@ function removeHighlight(id) {
  * 
  */
 function renderSearchResults() {
-    console.log('searching')
     document.getElementById('searchLogo').classList.add('d-none');
     document.getElementById('searchClose').classList.remove('d-none')
     // x d-none weg lupe d-none hin x onclick = reset function to normal board view
@@ -343,7 +342,6 @@ function updateProgressbar(element) {
     let allSubtasks = openSubasks + finishedSubasks
     let percent = finishedSubasks / allSubtasks;
     percent = Math.round(percent * 100);
-    console.log(openSubasks)
     if (openSubasks === 0 && finishedSubasks === 0) {
         progressbar = '';
     } else {
